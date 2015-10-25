@@ -17,7 +17,7 @@ Para contribuir, siga as instruções contidas no [guia][how-to-contribute].
 # Contributors
 As seguintes pessoas contribuiram para o projeto:
 
-- Tomáz Martins (@TomazMartins)(tomaz.r.martins@gmail.com)
-- Thaiane Braga (@ThaianeBraga)(thaianefbraga@gmail.com)
+- @TomazMartins (tomaz.r.martins@gmail.com)
+- @ThaianeBraga (thaianefbraga@gmail.com)
 
 [how-to-contribute]: https://bitbucket.org/ThaianeBraga/scarefault/wiki/Como%20Contribuir
