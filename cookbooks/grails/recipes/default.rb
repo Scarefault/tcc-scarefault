@@ -6,8 +6,18 @@ end
 
 # Install the package of the gvm
 #
-#execute "gvm" do
-#  command "curl -s get.gvmtool.net | bash"
+execute "gvm" do
+   command "curl -s get.sdkman.io | bash"
+end
+
+#bash "source gvm-init" do
+#  cwd "/home/vagrant/.gvm/bin"
+#  code "source gvm-init.sh"
+#  action :run
+#end
+
+#execute "update for grails" do
+#  command "apt-get update"
 #end
 
 # Install the package of the grails

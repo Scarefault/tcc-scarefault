@@ -1,11 +1,12 @@
-execute "sudo add-apt-repository ppa:webupd8team/java -y"
+execute "add java repository" do
+  command "add-apt-repository ppa:webupd8team/java -y"
+end
 
-# could be improved to run only on update
 execute "accept-license" do
   command "echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections"
 end
 
-execute "update" do
+execute "update for java" do
   command "apt-get update"
 end
 
