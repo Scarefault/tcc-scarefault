@@ -7,12 +7,10 @@ extensibilidade com Grails.
 A intenção é que no futuro ele possa ser extensível para mais linguagens
 de programação.
 
----
 
 # How to Contribute
 Para contribuir, siga as instruções contidas no [guia][how-to-contribute].
 
----
 
 # Contributors
 As seguintes pessoas contribuiram para o projeto:
