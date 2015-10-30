@@ -18,4 +18,4 @@ As seguintes pessoas contribuiram para o projeto:
 - @TomazMartins (tomaz.r.martins@gmail.com)
 - @ThaianeBraga (thaianefbraga@gmail.com)
 
-[how-to-contribute]: https://bitbucket.org/ThaianeBraga/scarefault/wiki/Como%20Contribuir
+[how-to-contribute]: https://gitlab.com/ThaianeBraga/scarefault/wikis/como-contribuir
