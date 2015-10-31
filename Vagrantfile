@@ -1,6 +1,14 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
+  config.vm.network :forwarded_port, guest: 8080, host: 2323
+  config.vm.network :private_network, ip: "192.168.222.222"
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1536
+    v.cpus = 2
+  end
+
   # Fix error stdin no tty
   #
   config.vm.provision "fix-no-tty", type: "shell" do |shell|
@@ -18,9 +26,4 @@ Vagrant.configure(2) do |config|
     shell.privileged = false
     shell.inline = "curl -s get.sdkman.io | bash"
   end
-
-  #config.vm.provision "load sdkman-init", type: "shell" do |shell|
-  #  shell.privileged = false
-  #  shell.inline = "sudo source '/home/vagrant/.sdkman/bin/sdkman-init.sh'"
-  #end
 end
