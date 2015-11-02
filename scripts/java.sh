@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Installing: ( 1 ) java 8"
+echo "Installing: ( 1 ) java 7"
 
 # Add repository:
 #   It's add the repository of packages related of Java
