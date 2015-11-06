@@ -1,0 +1,15 @@
+DIGIT [0-9]
+INTEGER {DIGIT+}
+REAL -?{INTEGER}("."{INTEGER})?
+
+CHARACTER [a-z-A-Z]
+LITERAL \"[a-zA-Z0-9][a-zA-Z0-9].*\"
+
+IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]*
+WHITESPACE []+
+
+TRUE "true"
+FALSE "false"
+BOOLEAN {TRUE}|{FALSE}
+
+%%
