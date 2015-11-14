@@ -7,6 +7,11 @@ LITERAL \".*\"
 
 WHITESPACE [[:blank:]]+
 
+WORD       [_0-9a-zA-Z]
+NOT_DIGIT  [^?0-9]
+NOT_DOLLAR [^?"$"]
+IDENTIFIER {WHITESPACE}+("$"{WORD}+|{NOT_DIGIT}{WORD}+{NOT_DOLLAR})
+
 TRUE "true"
 FALSE "false"
 BOOLEAN {TRUE}|{FALSE}
@@ -19,3 +24,4 @@ BOOLEAN {TRUE}|{FALSE}
 {LITERAL}     return 1;
 {WHITESPACE}  return 1;
 {BOOLEAN}     return 1;
+{IDENTIFIER}  return 1;
