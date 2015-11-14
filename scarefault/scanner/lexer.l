@@ -1,9 +1,9 @@
-DIGIT [[:digit:]]
+DIGIT   [[:digit:]]
 INTEGER {DIGIT}+
-REAL -?{INTEGER}+("."{INTEGER}+)?
+REAL    -?{INTEGER}+("."{INTEGER}+)?
 
 CHARACTER .
-LITERAL \".*\"
+LITERAL   \".*\"
 
 WHITESPACE [[:blank:]]+
 
@@ -12,8 +12,8 @@ NOT_DIGIT  [^?0-9]
 NOT_DOLLAR [^?"$"]
 IDENTIFIER {WHITESPACE}+("$"{WORD}+|{NOT_DIGIT}{WORD}+{NOT_DOLLAR})
 
-TRUE "true"
-FALSE "false"
+TRUE    "true"
+FALSE   "false"
 BOOLEAN {TRUE}|{FALSE}
 %%
 
