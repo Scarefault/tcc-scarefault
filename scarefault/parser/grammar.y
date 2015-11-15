@@ -35,6 +35,7 @@
 %token<text> LEFT_CURLY_BRACKETS
 %token<text> RIGHT_CURLY_BRACKETS
 %token<text> SEMICOLON
+%token<text> COLON
 %token<text> DOT
 
 
@@ -54,6 +55,61 @@
 %token<text> NUMBER;
 %token<text> STRING;
 %token<text> IDENTIFIER;
-%token<text> BOOL;
-%token<text> CHAR;
 %%
+
+startrule:
+  startrule tokenshow
+|
+  tokenshow
+;
+
+tokenshow:
+  token
+  {
+    std::cout << "Matched: " << d_scanner.matched() << "\n";
+  }
+;
+
+token:
+  IMPORT
+|
+  PACKAGE
+|
+  DEF
+|
+  TYPE_INTEGER
+|
+  LEFT_PARENTHESES
+|
+  RIGHT_PARENTHESES
+|
+  LEFT_BRACKETS
+|
+  RIGHT_BRACKETS
+|
+  LEFT_CURLY_BRACKETS
+|
+  RIGHT_CURLY_BRACKETS
+|
+  SEMICOLON
+|
+  COLON
+|
+  DOT
+|
+  SCAREFAULT
+|
+  TEST
+|
+  SCENARIO
+|
+  ENTRIES
+|
+  OUT
+|
+  NUMBER
+|
+  STRING
+|
+  IDENTIFIER
+;

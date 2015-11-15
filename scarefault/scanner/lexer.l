@@ -19,43 +19,41 @@ BOOLEAN {TRUE}|{FALSE}
 
 //--------------------- Importation -----------------------//
 //
-"import"      return PARSER::IMPORT;
-"package"     return PARSER::PACKAGE;
+"import"      return Parser::IMPORT;
+"package"     return Parser::PACKAGE;
 
 //----------------------- classes -------------------------//
 //
-"def"         return PARSER::DEF;
+"def"         return Parser::DEF;
 
 //--------------------- Type of Data ----------------------//
 //
-"Integer"     return PARSER::TYPE_INTEGER;
+"Integer"     return Parser::TYPE_INTEGER;
 
 //------------------- Punctuation Marks -------------------//
 //
-"("           return PARSER::LEFT_PARENTHESES;
-")"           return PARSER::RIGHT_PARENTHESES;
-"["           return PARSER::LEFT_BRACKETS;
-"]"           return PARSER::RIGHT_BRACKETS;
-"{"           return PARSER::LEFT_CURLY_BRACKETS;
-"}"           return PARSER::RIGHT_CURLY_BRACKETS;
-";"           return PARSER::SEMICOLON;
-":"           return PARSER::COLON;
-"."           return PARSER::DOT;
+"("           return Parser::LEFT_PARENTHESES;
+")"           return Parser::RIGHT_PARENTHESES;
+"["           return Parser::LEFT_BRACKETS;
+"]"           return Parser::RIGHT_BRACKETS;
+"{"           return Parser::LEFT_CURLY_BRACKETS;
+"}"           return Parser::RIGHT_CURLY_BRACKETS;
+";"           return Parser::SEMICOLON;
+":"           return Parser::COLON;
+"."           return Parser::DOT;
 
 //------------------- Scarefault Marks -------------------//
 //
-"scarefault"  return PARSER::SCAREFAULT;
-"test"        return PARSER::TEST;
-"scenario"    return PARSER::SCENARIO;
-"entries"     return PARSER::ENTRIES;
-"out"         return PARSER::OUT;
+"scarefault"  return Parser::SCAREFAULT;
+"test"        return Parser::TEST;
+"scenario"    return Parser::SCENARIO;
+"entries"     return Parser::ENTRIES;
+"out"         return Parser::OUT;
 
 //------------------- Data Values ------------------------//
 //
 {DIGIT}       |
 {INTEGER}     |
-{REAL}        return PARSER::NUMBER;
-{CHARACTER}   return PARSER::CHAR;
-{LITERAL}     return PARSER::STRING;
-{BOOLEAN}     return PARSER::BOOL;
-{IDENTIFIER}  return IDENTIFIER;
+{REAL}        return Parser::NUMBER;
+{LITERAL}     return Parser::STRING;
+{IDENTIFIER}  return Parser::IDENTIFIER;
