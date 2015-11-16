@@ -2,6 +2,16 @@
 %scanner-token-function   d_scanner.lex()
 %baseclass-preinclude     ParserPreinclude.h
 
+
+/*
+ * Section of Directives:
+ *   In this section are specified some options for the parser. In addition,
+ *   this section is it necessary to determine the names of all the tokens,
+ *   except those with the name consisting of a single character. The inclusion
+ *   of external libraries is also made to this section.
+ */
+
+
 %union {
   char *text;
 }
@@ -58,20 +68,37 @@
 %token<text> NUMBER;
 %token<text> STRING;
 %token<text> IDENTIFIER;
+
+
 %%
 
+
+/*
+ * It is the initial rule. Formed essentially by the rules establishing the
+ *   content of the test file.
+ */
 startrule:
   // Empty Rule.
 |
   startrule content
 ;
 
+/*
+ * This rule represents the content of the test file.
+ */
 content:
   type
-|
-  text
+| text
+| method_declaration
 ;
 
+
+/******************* Rules for Groovy Programming Language *****************/
+
+/*
+ * Represents the various possible types of data. Currently, there are only
+ *   one of type: INTEGER.
+ */
 type:
   TYPE_INTEGER {
     char none[10] = "NONE";
@@ -84,6 +111,9 @@ type:
   }
 ;
 
+/*
+ * Represents every type of text catched. Currently, there are only STRING.
+ */
 text:
   STRING {
     char none[100] = "NONE";
@@ -92,5 +122,28 @@ text:
     string const matched_string( d_scanner.matched() );
     strcpy( $<text>$, matched_string.c_str() );
     cout << $<text>$ << endl;
+  }
+;
+
+
+/*
+ * Represents the declaration of the method in Groovy programming language.
+ */
+method_declaration:
+  DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
+    cout << "method_declaration" << endl;
+  }
+;
+
+/*
+ * Represents the declaration of the parameters in declaration of a method.
+ */
+params_declaration:
+  type IDENTIFIER {
+    cout << "params_declaration, first version" << endl;
+  }
+|
+  params_declaration COMMA params_declaration {
+    cout << "params_declaration, second version" << endl;
   }
 ;
