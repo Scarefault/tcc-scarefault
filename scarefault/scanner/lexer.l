@@ -7,10 +7,10 @@ LITERAL   \".*\"
 
 WHITESPACE [[:blank:]]+
 
-WORD       [_0-9a-zA-Z]
+WORD       [_0-9a-zA-Z]+
 NOT_DIGIT  [^?0-9]
 NOT_DOLLAR [^?"$"]
-IDENTIFIER {WHITESPACE}+("$"{WORD}+|{NOT_DIGIT}{WORD}+{NOT_DOLLAR})
+IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]* 
 
 TRUE    "true"
 FALSE   "false"
@@ -25,6 +25,7 @@ BOOLEAN {TRUE}|{FALSE}
 //----------------------- classes -------------------------//
 //
 "def"         return Parser::DEF;
+"return"      return Parser::RETURN;
 
 //--------------------- Type of Data ----------------------//
 //
@@ -41,6 +42,7 @@ BOOLEAN {TRUE}|{FALSE}
 ";"           return Parser::SEMICOLON;
 ":"           return Parser::COLON;
 "."           return Parser::DOT;
+","           return Parser::COMMA;
 
 //------------------- Scarefault Marks -------------------//
 //
