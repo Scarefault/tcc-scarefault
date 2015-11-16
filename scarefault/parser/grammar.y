@@ -73,6 +73,8 @@
 %%
 
 
+/******************************* General Rules *****************************/
+
 /*
  * It is the initial rule. Formed essentially by the rules establishing the
  *   content of the test file.
@@ -90,7 +92,12 @@ content:
   type
 | text
 | method_declaration
+| scenario_declaration
+| entries_declaration
+| out_declaration
 ;
+
+/************************* End of General Rules ****************************/
 
 
 /******************* Rules for Groovy Programming Language *****************/
@@ -130,8 +137,12 @@ text:
  * Represents the declaration of the method in Groovy programming language.
  */
 method_declaration:
+  DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
+    cout << "method_declaration, without params" << endl;
+  }
+|
   DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
-    cout << "method_declaration" << endl;
+    cout << "method_declaration, with params" << endl;
   }
 ;
 
@@ -140,10 +151,67 @@ method_declaration:
  */
 params_declaration:
   type IDENTIFIER {
-    cout << "params_declaration, first version" << endl;
+    cout << "params_declaration, one param" << endl;
   }
 |
   params_declaration COMMA params_declaration {
-    cout << "params_declaration, second version" << endl;
+    cout << "params_declaration, more than one param" << endl;
   }
 ;
+
+/*************** End of Rules for Groovy Programming Language **************/
+
+
+/************************* Rules for Scarefault ****************************/
+
+/*
+ * Represents the description of the scenario of the test to implement by
+ *   the Scarefault.
+ */
+scenario_declaration:
+  SCENARIO COLON text {
+    cout << "scenario_declaration" << endl;
+  }
+;
+
+/*
+ * Represents the description of the entries of test scenario.
+ */
+entries_declaration:
+  SCAREFAULT DOT ENTRIES COLON test_input {
+    cout << "entries_declaration" << endl;
+  }
+;
+
+/*
+ * Represents the data of input. 
+ */
+test_input:
+  NUMBER {
+    cout << "test_input, one input" << endl;
+  }
+|
+  test_input COMMA test_input {
+    cout << "test_input, more than one input" << endl;
+  }
+;
+
+/*
+ * Represents the description of the output of the test scenario.
+ */
+out_declaration:
+  SCAREFAULT DOT OUT COLON test_output {
+    cout << "out_declaration" << endl;
+  }
+;
+
+/*
+ * Represents the data of output.
+ */
+test_output:
+  NUMBER {
+    cout << "test_output" << endl;
+  }
+;
+
+/********************** End of Rules for Scarefault ************************/
