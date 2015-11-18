@@ -2,6 +2,9 @@
 %scanner-token-function   d_scanner.lex()
 %baseclass-preinclude     ParserPreinclude.h
 
+%polymorphic
+  text: std::string;
+
 
 /*
  * Section of Directives:
@@ -12,62 +15,57 @@
  */
 
 
-%union {
-  char *text;
-}
-
-
 /*
  * ************ Importation **************
  */
-%token<text> IMPORT
-%token<text> PACKAGE
+%token <text> IMPORT
+%token <text> PACKAGE
 
 
 /*
  * ********* Classes *********************
  */
-%token<text> DEF
-%token<text> RETURN
+%token <text> DEF
+%token <text> RETURN
 
 
 /*
  * ********* Type of Data ****************
  */
-%token<text> TYPE_INTEGER
+%token <text> TYPE_INTEGER
 
 
 /*
  * ********** Punctuation Marks **********
  */
-%token<text> LEFT_PARENTHESES
-%token<text> RIGHT_PARENTHESES
-%token<text> LEFT_BRACKETS
-%token<text> RIGHT_BRACKETS
-%token<text> LEFT_CURLY_BRACKETS
-%token<text> RIGHT_CURLY_BRACKETS
-%token<text> SEMICOLON
-%token<text> COLON
-%token<text> DOT
-%token<text> COMMA
+%token <text> LEFT_PARENTHESES
+%token <text> RIGHT_PARENTHESES
+%token <text> LEFT_BRACKETS
+%token <text> RIGHT_BRACKETS
+%token <text> LEFT_CURLY_BRACKETS
+%token <text> RIGHT_CURLY_BRACKETS
+%token <text> SEMICOLON
+%token <text> COLON
+%token <text> DOT
+%token <text> COMMA
 
 
 /*
  * ********** Scarefault Marks ***********
  */
-%token<text> SCAREFAULT
-%token<text> TEST
-%token<text> SCENARIO
-%token<text> ENTRIES
-%token<text> OUT
+%token <text> SCAREFAULT
+%token <text> TEST
+%token <text> SCENARIO
+%token <text> ENTRIES
+%token <text> OUT
 
 
 /*
  * ********** Data Values ****************
  */
-%token<text> NUMBER;
-%token<text> STRING;
-%token<text> IDENTIFIER;
+%token <text> NUMBER;
+%token <text> STRING;
+%token <text> IDENTIFIER;
 
 
 %%
@@ -108,12 +106,12 @@ content:
  */
 type:
   TYPE_INTEGER {
-    char none[10] = "NONE";
+    string none( "NONE" );
     $<text>$ = none;
 
     string const Integer( d_scanner.matched() );
 
-    strcpy( $<text>$, Integer.c_str() );
+    $<text>$ = Integer;
     cout << $<text>$ << endl;
   }
 ;
@@ -123,11 +121,11 @@ type:
  */
 text:
   STRING {
-    char none[100] = "NONE";
+    string none( "NONE" );
     $<text>$ = none;
 
     string const matched_string( d_scanner.matched() );
-    strcpy( $<text>$, matched_string.c_str() );
+    $<text>$ = matched_string;
     cout << $<text>$ << endl;
   }
 ;
@@ -178,7 +176,7 @@ scenario_declaration:
  * Represents the description of the entries of test scenario.
  */
 entries_declaration:
-  SCAREFAULT DOT ENTRIES COLON test_input {
+  SCAREFAULT DOT ENTRIES COLON test_input SEMICOLON {
     cout << "entries_declaration" << endl;
   }
 ;
@@ -187,20 +185,20 @@ entries_declaration:
  * Represents the data of input. 
  */
 test_input:
-  NUMBER {
-    cout << "test_input, one input" << endl;
-  }
-|
   test_input COMMA test_input {
     cout << "test_input, more than one input" << endl;
   }
+|
+  NUMBER {
+    cout << "test_input, one input" << endl;
+  }  
 ;
 
 /*
  * Represents the description of the output of the test scenario.
  */
 out_declaration:
-  SCAREFAULT DOT OUT COLON test_output {
+  SCAREFAULT DOT OUT COLON test_output SEMICOLON {
     cout << "out_declaration" << endl;
   }
 ;

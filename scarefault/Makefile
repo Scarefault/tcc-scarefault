@@ -2,12 +2,12 @@ CC = g++
 CFLAGS = --std=c++0x -o
 OBJS = */*.cc
 
-all: parser.cc lexer.cc scarefault
-	
-parser.cc:
+all: parse.cc lex.cc scarefault
+
+parse.cc:
 	cd parser && $(MAKE)
 
-lexer.cc:
+lex.cc:
 	cd scanner && $(MAKE)
 
 scarefault: scarefault.cpp
