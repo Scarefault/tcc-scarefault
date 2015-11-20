@@ -15,47 +15,136 @@ IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]*
 TRUE    "true"
 FALSE   "false"
 BOOLEAN {TRUE}|{FALSE}
+
+
 %%
 
-//--------------------- Importation -----------------------//
-//
-"import"      return Parser::IMPORT;
-"package"     return Parser::PACKAGE;
 
-//----------------------- classes -------------------------//
+//---------------------------- Importation --------------------------------- //
 //
-"def"         return Parser::DEF;
-"return"      return Parser::RETURN;
+"import" {
+  *d_val = matched();
+  return Parser::IMPORT;
+}
 
-//--------------------- Type of Data ----------------------//
+"package" {
+  *d_val = matched();
+  return Parser::PACKAGE;
+}
+
+//-------------------------------- classes --------------------------------- //
 //
-"Integer"     return Parser::TYPE_INTEGER;
+"def" {
+  *d_val = matched();
+  return Parser::DEF;
+}
 
-//------------------- Punctuation Marks -------------------//
+"return" {
+  *d_val = matched();
+  return Parser::RETURN;
+}
+
+// --------------------------- Type of Data -------------------------------- //
 //
-"("           return Parser::LEFT_PARENTHESES;
-")"           return Parser::RIGHT_PARENTHESES;
-"["           return Parser::LEFT_BRACKETS;
-"]"           return Parser::RIGHT_BRACKETS;
-"{"           return Parser::LEFT_CURLY_BRACKETS;
-"}"           return Parser::RIGHT_CURLY_BRACKETS;
-";"           return Parser::SEMICOLON;
-":"           return Parser::COLON;
-"."           return Parser::DOT;
-","           return Parser::COMMA;
+"Integer" {
+  *d_val = matched();
+  return Parser::TYPE_INTEGER;
+}
 
-//------------------- Scarefault Marks -------------------//
+//-------------------------- Punctuation Marks ----------------------------- //
 //
-"scarefault"  return Parser::SCAREFAULT;
-"test"        return Parser::TEST;
-"scenario"    return Parser::SCENARIO;
-"entries"     return Parser::ENTRIES;
-"out"         return Parser::OUT;
+"(" {
+  *d_val = matched();
+  return Parser::LEFT_PARENTHESES;
+}
 
-//------------------- Data Values ------------------------//
+")" {
+  *d_val = matched();
+  return Parser::RIGHT_PARENTHESES;
+}
+
+"[" {
+  *d_val = matched();
+  return Parser::LEFT_BRACKETS;
+}
+
+"]" {
+  *d_val = matched();
+  return Parser::RIGHT_BRACKETS;
+}
+
+"{" {
+  *d_val = matched();
+  return Parser::LEFT_CURLY_BRACKETS;
+}
+
+"}" {
+  *d_val = matched();
+  return Parser::RIGHT_CURLY_BRACKETS;
+}
+
+";" {
+  *d_val = matched();
+  return Parser::SEMICOLON;
+}
+
+":" {
+  *d_val = matched();
+  return Parser::COLON;
+}
+
+"." {
+  *d_val = matched();
+  return Parser::DOT;
+}
+
+"," {
+  *d_val = matched();
+  return Parser::COMMA;
+}
+
+//----------------------------- Scarefault Marks --------------------------- //
+//
+"scarefault" {
+  *d_val = matched();
+  return Parser::SCAREFAULT;
+}
+
+"test" {
+  *d_val = matched();
+  return Parser::TEST;
+}
+
+"scenario" {
+  *d_val = matched();
+  return Parser::SCENARIO;
+}
+
+"entries" {
+  *d_val = matched();
+  return Parser::ENTRIES;
+}
+
+"out" {
+  *d_val = matched();
+  return Parser::OUT;
+}
+
+//------------------------------- Data Values ------------------------------ //
 //
 {DIGIT}       |
 {INTEGER}     |
-{REAL}        return Parser::NUMBER;
-{LITERAL}     return Parser::STRING;
-{IDENTIFIER}  return Parser::IDENTIFIER;
+{REAL} {
+  *d_val = matched();
+  return Parser::NUMBER;
+}
+
+{LITERAL} {
+  *d_val = matched();
+  return Parser::STRING;
+}
+
+{IDENTIFIER} {
+  *d_val = matched();
+  return Parser::IDENTIFIER;
+}
