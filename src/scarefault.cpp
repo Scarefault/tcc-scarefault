@@ -1,4 +1,4 @@
-#include "parser/Parser.h"
+#include "analizer/parser/Parser.h"
 
 int main( int argc, char **argv )
 {

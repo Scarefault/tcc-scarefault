@@ -1,14 +1,14 @@
 CC = g++
 CFLAGS = --std=c++0x -o
-OBJS = */*.cc
+OBJS = */*/*.cc
 
 all: parse.cc lex.cc scarefault.out
 
 parse.cc:
-	cd parser && $(MAKE)
+	cd analizer/parser && $(MAKE)
 
 lex.cc:
-	cd scanner && $(MAKE)
+	cd analizer/scanner && $(MAKE)
 
 scarefault.out: scarefault.cpp
 	$(CC) $(CFLAGS) scarefault.out scarefault.cpp $(OBJS)
@@ -16,10 +16,10 @@ scarefault.out: scarefault.cpp
 clean: parser_clean scanner_clean scarefault_clean
 
 parser_clean:
-	cd parser && $(MAKE) clean
+	cd analizer/parser && $(MAKE) clean
 
 scanner_clean:
-	cd scanner && $(MAKE) clean
+	cd analizer/scanner && $(MAKE) clean
 
 scarefault_clean:
 	rm scarefault.out
