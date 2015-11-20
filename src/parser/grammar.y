@@ -2,8 +2,9 @@
 %scanner-token-function   d_scanner.lex()
 %baseclass-preinclude     ParserPreinclude.h
 
-%polymorphic
-  text: std::string;
+//%polymorphic
+//  text: std::string;
+%stype std::string
 
 
 /*
@@ -18,54 +19,54 @@
 /*
  * ************ Importation **************
  */
-%token <text> IMPORT
-%token <text> PACKAGE
+%token IMPORT
+%token PACKAGE
 
 
 /*
  * ********* Classes *********************
  */
-%token <text> DEF
-%token <text> RETURN
+%token DEF
+%token RETURN
 
 
 /*
  * ********* Type of Data ****************
  */
-%token <text> TYPE_INTEGER
+%token TYPE_INTEGER
 
 
 /*
  * ********** Punctuation Marks **********
  */
-%token <text> LEFT_PARENTHESES
-%token <text> RIGHT_PARENTHESES
-%token <text> LEFT_BRACKETS
-%token <text> RIGHT_BRACKETS
-%token <text> LEFT_CURLY_BRACKETS
-%token <text> RIGHT_CURLY_BRACKETS
-%token <text> SEMICOLON
-%token <text> COLON
-%token <text> DOT
-%token <text> COMMA
+%token LEFT_PARENTHESES
+%token RIGHT_PARENTHESES
+%token LEFT_BRACKETS
+%token RIGHT_BRACKETS
+%token LEFT_CURLY_BRACKETS
+%token RIGHT_CURLY_BRACKETS
+%token SEMICOLON
+%token COLON
+%token DOT
+%token COMMA
 
 
 /*
  * ********** Scarefault Marks ***********
  */
-%token <text> SCAREFAULT
-%token <text> TEST
-%token <text> SCENARIO
-%token <text> ENTRIES
-%token <text> OUT
+%token SCAREFAULT
+%token TEST
+%token SCENARIO
+%token ENTRIES
+%token OUT
 
 
 /*
  * ********** Data Values ****************
  */
-%token <text> NUMBER;
-%token <text> STRING;
-%token <text> IDENTIFIER;
+%token NUMBER;
+%token STRING;
+%token IDENTIFIER;
 
 
 %%
@@ -106,13 +107,8 @@ content:
  */
 type:
   TYPE_INTEGER {
-    string none( "NONE" );
-    $<text>$ = none;
-
-    string const Integer( d_scanner.matched() );
-
-    $<text>$ = Integer;
-    cout << $<text>$ << endl;
+    $$ = $1;
+    cout << $$ << endl;
   }
 ;
 
@@ -121,12 +117,15 @@ type:
  */
 text:
   STRING {
-    string none( "NONE" );
-    $<text>$ = none;
+//    string none( "NONE" );
+//    $$ = none;
 
-    string const matched_string( d_scanner.matched() );
-    $<text>$ = matched_string;
-    cout << $<text>$ << endl;
+//    string const matched_string( d_scanner.matched() );
+//    $$ = matched_string;
+    $$ = $1;
+    cout << "$1: " << $1 << endl;
+    cout << "$$: " << $$ << endl;
+    cout << $$ << endl;
   }
 ;
 
