@@ -1,5 +1,5 @@
-#ifndef GENERATORTEST_HPP_
-#define GENERATORTEST_HPP_
+#ifndef TESTGENERATOR_HPP_
+#define TESTGENERATOR_HPP_
 
 
 #include <string>
@@ -11,26 +11,38 @@
  */
 namespace Generator
 {
+  class TestGenerator;
+
+
+  /*
+   * Define a new type to keep a reference to the address of the
+   *   TestGenerator.
+   */
+  typedef TestGenerator* ADDRESS;
+
+  /*
+   * It's a global variable. Currently, it's necessary to allow access the
+   *   references of all Test Generators. With this, Is possible access a
+   *   Test Generator, created in grammar file, in other files.
+   */
+  extern vecto<ADDRESS> addresses_test_generators;
+
+
   /*
    * Class that define mechanisms to generate tests, starting to the source
    *   file.
    */
-  class GeneratorTest
+  class TestGenerator
   {
     public:
-      GeneratorTest( std::string name = "without name",
+      TestGenerator( std::string name = "without name",
                      std::vector<int> input, int output );
-      GeneratorTest( std::string name = "without name" );
+      TestGenerator( std::string name = "without name" );
 
       std::string generate_method_header();
       std::string generate_expectations();
       std::string generate_call_method();
       std::string generate_assertation();
-
-      int              get_scenario_out();
-      std::string      get_method_name()
-      std::string      get_scenario_name();
-      std::vector<int> get_scenario_entries();
 
       void set_method_name( std::string name );
       void set_scenario_out( int output );
@@ -43,7 +55,13 @@ namespace Generator
       std::vector<int> scenario_entries;
 
       std::string      method_name;
+
+
+      int              get_scenario_out();
+      std::string      get_method_name()
+      std::string      get_scenario_name();
+      std::vector<int> get_scenario_entries();
   };
 }
 
-#endif // GENERATORTEST_HPP_
+#endif // TESTGENERATOR_HPP_
