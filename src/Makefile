@@ -1,6 +1,8 @@
 CC = g++
 CFLAGS = --std=c++0x -o
-OBJS = */*/*.cc
+OBJS = */*/*.cc # analizer/parser | scanner/*.cc
+HEADERS = */*.hpp # generator/*.hpp
+IMPS = */*.cpp # generator/*.cpp
 
 all: parse.cc lex.cc scarefault.out
 
@@ -11,7 +13,7 @@ lex.cc:
 	cd analizer/scanner && $(MAKE)
 
 scarefault.out: scarefault.cpp
-	$(CC) $(CFLAGS) scarefault.out scarefault.cpp $(OBJS)
+	$(CC) $(CFLAGS) scarefault.out scarefault.cpp $(HEADERS) $(IMPS) $(OBJS)
 
 clean: parser_clean scanner_clean scarefault_clean
 

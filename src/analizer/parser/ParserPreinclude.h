@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstring>
+#include "../../generator/TestGenerator.hpp"
 
 using namespace std;
 

@@ -25,7 +25,7 @@ namespace Generator
    *   references of all Test Generators. With this, Is possible access a
    *   Test Generator, created in grammar file, in other files.
    */
-  extern vecto<ADDRESS> addresses_test_generators;
+  extern std::vector<ADDRESS> addresses_test_generators;
 
 
   /*
@@ -35,8 +35,8 @@ namespace Generator
   class TestGenerator
   {
     public:
-      TestGenerator( std::string name = "without name",
-                     std::vector<int> input, int output );
+      TestGenerator( std::vector<int> input, int output,
+                     std::string name = "without name" );
       TestGenerator( std::string name = "without name" );
 
       std::string generate_method_header();
@@ -56,9 +56,9 @@ namespace Generator
 
       std::string      method_name;
 
-
+      public:
       int              get_scenario_out();
-      std::string      get_method_name()
+      std::string      get_method_name();
       std::string      get_scenario_name();
       std::vector<int> get_scenario_entries();
   };
