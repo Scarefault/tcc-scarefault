@@ -72,9 +72,9 @@ namespace Generator
   {
     std::string scenario( this->get_scenario_name() );
 
-    while( check_whitespaces() || check_quotes() )
+    while( check_whitespaces( scenario ) || check_quotes( scenario ) )
     {
-      if( check_whitespaces() )
+      if( check_whitespaces( scenario ) )
       {
         remove_character( " " );
       } else
@@ -82,7 +82,7 @@ namespace Generator
         /* Nothing to do. */
       }
 
-      if( check_quotes() )
+      if( check_quotes( scenario ) )
       {
         remove_character( "\"" );
       } else
@@ -90,6 +90,44 @@ namespace Generator
         /* Nothing to do. */
       }
     }
+  }
+
+  bool TestGenerator::check_whitespaces( std::string text )
+  {
+    bool is_exist = EXIST;
+    char whitespace = ' ';
+
+    for( unsigned position = 0; position < text.length(); position++ )
+    {
+      if( text.at( position ) == whitespace )
+      {
+        is_exist = EXIST;
+      } else
+      {
+        is_exist = NOT_EXIST;
+      }
+    }
+
+    return is_exist;
+  }
+
+  bool TestGenerator::check_quotes( std::string text )
+  {
+    bool is_exist = EXIST;
+    char quote = '\"';
+
+    for( unsigned position = 0; position < text.length(); position++ )
+    {
+      if( text.at( position ) == quote )
+      {
+        is_exist = EXIST;
+      } else
+      {
+        is_exist = NOT_EXIST;
+      }
+    }
+
+    return is_exist;
   }
 
   /**************** End of Private Member Functions **************************/

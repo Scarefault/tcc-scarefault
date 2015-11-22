@@ -45,15 +45,18 @@ namespace Generator
       std::string generate_call_method();
       std::string generate_assertation();
 
-      void add_scenario_entry( int input );
+      void add_scenario_entry( int );
 
 
-      void set_method_name( std::string name );
-      void set_scenario_out( int output );
-      void set_scenario_name( std::string name );
-      void set_scenario_entries( std::vector<int> input );
+      void set_method_name( std::string );
+      void set_scenario_out( int );
+      void set_scenario_name( std::string );
+      void set_scenario_entries( std::vector<int> );
 
     private:
+      const bool       EXIST = true;
+      const bool       NOT_EXIST = false;
+
       int              scenario_out;
       std::string      scenario_name;
       std::vector<int> scenario_entries;
@@ -67,6 +70,8 @@ namespace Generator
       std::vector<int> get_scenario_entries();
 
       std::string prepare_scenario_name();
+      bool        check_whitespaces( std::string );
+      bool        check_quotes( std::string );
   };
 }
 
