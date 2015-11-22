@@ -2,8 +2,6 @@
 %scanner-token-function   d_scanner.lex()
 %baseclass-preinclude     ParserPreinclude.h
 
-//%polymorphic
-//  text: std::string;
 %stype std::string
 
 
@@ -79,7 +77,7 @@
  *   content of the test file.
  */
 startrule:
-  // Empty Rule.
+  /* Empty Rule */
 |
   startrule content
 ;
@@ -108,7 +106,6 @@ content:
 type:
   TYPE_INTEGER {
     $$ = $1;
-    cout << $$ << endl;
   }
 ;
 
@@ -117,15 +114,7 @@ type:
  */
 text:
   STRING {
-//    string none( "NONE" );
-//    $$ = none;
-
-//    string const matched_string( d_scanner.matched() );
-//    $$ = matched_string;
     $$ = $1;
-    cout << "$1: " << $1 << endl;
-    cout << "$$: " << $$ << endl;
-    cout << $$ << endl;
   }
 ;
 
@@ -135,11 +124,13 @@ text:
  */
 method_declaration:
   DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    cout << "method_declaration, without params" << endl;
+    const string identifier_token( $2 );
+    test_generator.set_method_name( identifier_token );
   }
 |
   DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
-    cout << "method_declaration, with params" << endl;
+    const string identifier_token( $2 );
+    test_generator.set_method_name( identifier_token );
   }
 ;
 
@@ -148,11 +139,11 @@ method_declaration:
  */
 params_declaration:
   type IDENTIFIER {
-    cout << "params_declaration, one param" << endl;
+    /* Empty Rule */
   }
 |
   params_declaration COMMA params_declaration {
-    cout << "params_declaration, more than one param" << endl;
+    /* Empty Rule */
   }
 ;
 
@@ -167,7 +158,9 @@ params_declaration:
  */
 scenario_declaration:
   SCENARIO COLON text {
-    cout << "scenario_declaration" << endl;
+    const string text_token( $3 );
+  
+    test_generator.set_scenario_name( text_token );
   }
 ;
 
@@ -176,7 +169,7 @@ scenario_declaration:
  */
 entries_declaration:
   SCAREFAULT DOT ENTRIES COLON test_input SEMICOLON {
-    cout << "entries_declaration" << endl;
+    /* Empty Rule */
   }
 ;
 
@@ -185,11 +178,14 @@ entries_declaration:
  */
 test_input:
   test_input COMMA test_input {
-    cout << "test_input, more than one input" << endl;
+    /* Empty Rule */
   }
 |
   NUMBER {
-    cout << "test_input, one input" << endl;
+    const string input_token( $1 );
+    int input = stoi( input_token );
+
+    test_generator.add_scenario_entry( input );
   }  
 ;
 
@@ -198,7 +194,7 @@ test_input:
  */
 out_declaration:
   SCAREFAULT DOT OUT COLON test_output SEMICOLON {
-    cout << "out_declaration" << endl;
+    /* Empty Rule */
   }
 ;
 
@@ -207,7 +203,10 @@ out_declaration:
  */
 test_output:
   NUMBER {
-    cout << "test_output" << endl;
+    const string output_token( $1 );
+    int output = stoi( output_token );
+
+    test_generator.set_scenario_out( output );
   }
 ;
 

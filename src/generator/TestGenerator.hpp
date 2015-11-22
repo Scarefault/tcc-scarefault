@@ -44,6 +44,8 @@ namespace Generator
       std::string generate_call_method();
       std::string generate_assertation();
 
+      void add_scenario_entry( int input );
+
       void set_method_name( std::string name );
       void set_scenario_out( int output );
       void set_scenario_name( std::string name );

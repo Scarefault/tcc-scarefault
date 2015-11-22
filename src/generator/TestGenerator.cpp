@@ -19,6 +19,11 @@ namespace Generator
     this->set_scenario_name( name );
   }
 
+  void TestGenerator::add_scenario_entry( int input )
+  {
+    this->scenario_entries.push_back( input );
+  }
+
   void TestGenerator::set_scenario_out( int output )
   {
     this->scenario_out = output;
