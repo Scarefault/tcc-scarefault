@@ -23,7 +23,7 @@ namespace Generator
   /*
    * It's a global variable. Currently, it's necessary to allow access the
    *   references of all Test Generators. With this, Is possible access a
-   *   Test Generator, created in grammar file, in other files.
+   *   Test Generator, created in parser file, in other files.
    */
   extern std::vector<ADDRESS> addresses_test_generators;
 
@@ -39,12 +39,14 @@ namespace Generator
                      std::string name = "without name" );
       TestGenerator( std::string name = "without name" );
 
+
       std::string generate_method_header();
       std::string generate_expectations();
       std::string generate_call_method();
       std::string generate_assertation();
 
       void add_scenario_entry( int input );
+
 
       void set_method_name( std::string name );
       void set_scenario_out( int output );
@@ -58,11 +60,13 @@ namespace Generator
 
       std::string      method_name;
 
-      public:
+
       int              get_scenario_out();
       std::string      get_method_name();
       std::string      get_scenario_name();
       std::vector<int> get_scenario_entries();
+
+      std::string prepare_scenario_name();
   };
 }
 

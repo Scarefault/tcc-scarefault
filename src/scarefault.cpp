@@ -9,5 +9,7 @@ int main( int argc, char **argv )
   Generator::TestGenerator* test_generator_ptr;
   test_generator_ptr = Generator::addresses_test_generators.at( 0 );
 
-  cout << test_generator_ptr->get_scenario_name() << endl;
+  std::string method_header( test_generator_ptr->generate_method_header() );
+
+  cout << method_header;
 }

@@ -8,6 +8,9 @@ namespace Generator
 {
   std::vector<ADDRESS> addresses_test_generators;
 
+
+  /************************** Constructors ***********************************/
+
   TestGenerator::TestGenerator( std::vector<int> input, int output,
                                 std::string name )
   {
@@ -21,10 +24,78 @@ namespace Generator
     this->set_scenario_name( name );
   }
 
+  /********************** End of Constructors ********************************/
+
+
+  /******************** Public Member Functions ******************************/
+
+  std::string TestGenerator::generate_method_header()
+  {
+    std::string scenario( this->prepare_scenario_name() );
+
+    std::string method_header( "def" );
+    method_header.append( " " );
+    method_header.append( "test" );
+    method_header.append( scenario );
+    method_header.append( "(" );
+    method_header.append( ")" );
+    method_header.append( " " );
+    method_header.append( "{" );
+    method_header.append( "\n" );
+
+    return method_header;
+  }
+
+  std::string TestGenerator::generate_expectations()
+  {
+  }
+
+  std::string TestGenerator::generate_call_method()
+  {
+  }
+
+  std::string TestGenerator::generate_assertation()
+  {
+  }
+
   void TestGenerator::add_scenario_entry( int input )
   {
     this->scenario_entries.push_back( input );
   }
+
+  /**************** End of Public Member Functions ***************************/
+
+
+  /******************* Private Member Functions ******************************/
+
+  std::string TestGenerator::prepare_scenario_name()
+  {
+    std::string scenario( this->get_scenario_name() );
+
+    while( check_whitespaces() || check_quotes() )
+    {
+      if( check_whitespaces() )
+      {
+        remove_character( " " );
+      } else
+      {
+        /* Nothing to do. */
+      }
+
+      if( check_quotes() )
+      {
+        remove_character( "\"" );
+      } else
+      {
+        /* Nothing to do. */
+      }
+    }
+  }
+
+  /**************** End of Private Member Functions **************************/
+
+
+  /********************** Setters and Getters ********************************/
 
   void TestGenerator::set_scenario_out( int output )
   {
@@ -66,3 +137,5 @@ namespace Generator
     return this->scenario_entries;
   }
 }
+
+/********************* End of Setters and Getters ****************************/
