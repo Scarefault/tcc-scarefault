@@ -35,7 +35,7 @@ namespace Generator
   {
     std::string scenario( this->get_scenario_name() );
 
-    std::string method_header( "def" );
+    std::string method_header( "void" );
     method_header.append( " " );
     method_header.append( "test" );
     method_header.append( scenario );
@@ -50,14 +50,57 @@ namespace Generator
 
   std::string TestGenerator::generate_expectations()
   {
+    std::string output( std::to_string( this->get_scenario_out() ) );
+
+    std::string expectation( "\tresult = " );
+    expectation.append( output );
+    expectation.append( "\n" );
+
+    return expectation;
   }
 
   std::string TestGenerator::generate_call_method()
   {
+    std::string input( "" );
+
+    std::vector<int> entries = this->get_scenario_entries();
+
+    for( unsigned index = 0; index < entries.size(); index++ )
+    {
+      input.append( std::to_string( entries.at( index ) ) );
+
+      if( index != ( entries.size() - 1 ) )
+      {
+        input.append( ", " );
+      } else
+      {
+        /* Nothing to do. */
+      }
+    }
+
+    std::string call_method;
+
+    call_method.append( "\texpectedResult = " );
+    call_method.append( method_name );
+    call_method.append( "( " );
+    call_method.append( input );
+    call_method.append( " )" );
+    call_method.append( "\n" );
+
+    return call_method;
   }
 
   std::string TestGenerator::generate_assertation()
   {
+    std::string assertation( "\tassert" );
+    assertation.append( "Equals " );
+    assertation.append( "expectedResult, " );
+    assertation.append( "result" );
+    assertation.append( "\n" );
+    assertation.append( "}" );
+    assertation.append( "\n" );
+
+    return assertation;
   }
 
   void TestGenerator::add_scenario_entry( int input )
@@ -133,7 +176,6 @@ namespace Generator
     int position = text->find_first_of( character );
     text->erase( text->begin() + position );
   }
-
   /**************** End of Private Member Functions **************************/
 
 
