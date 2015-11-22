@@ -6,6 +6,8 @@
 
 namespace Generator
 {
+  std::vector<ADDRESS> addresses_test_generators;
+
   TestGenerator::TestGenerator( std::vector<int> input, int output,
                                 std::string name )
   {
@@ -27,6 +29,11 @@ namespace Generator
   void TestGenerator::set_scenario_out( int output )
   {
     this->scenario_out = output;
+  }
+
+  void TestGenerator::set_method_name( std::string name )
+  {
+    this->method_name = name;
   }
 
   void TestGenerator::set_scenario_name( std::string name )
