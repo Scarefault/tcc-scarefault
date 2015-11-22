@@ -36,8 +36,8 @@ namespace Generator
   {
     public:
       TestGenerator( std::vector<int> input, int output,
-                     std::string name = "without name" );
-      TestGenerator( std::string name = "without name" );
+                     std::string name = "\"without name\"" );
+      TestGenerator( std::string name = "\"without name\"" );
 
 
       std::string generate_method_header();
@@ -54,8 +54,8 @@ namespace Generator
       void set_scenario_entries( std::vector<int> );
 
     private:
-      const bool       EXIST = true;
-      const bool       NOT_EXIST = false;
+      const static bool       EXIST = true;
+      const static bool       NOT_EXIST = false;
 
       int              scenario_out;
       std::string      scenario_name;
@@ -69,9 +69,10 @@ namespace Generator
       std::string      get_scenario_name();
       std::vector<int> get_scenario_entries();
 
-      std::string prepare_scenario_name();
+      void        remove_character( std::string*, char );
       bool        check_whitespaces( std::string );
       bool        check_quotes( std::string );
+      std::string prepare_scenario_name();
   };
 }
 
