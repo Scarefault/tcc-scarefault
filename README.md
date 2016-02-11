@@ -9,13 +9,13 @@ de programação.
 
 
 # Como Contribuir
-Para contribuir, siga as instruções contidas no [guia][how-to-contribute].
+Para contribuir, siga as instruções contidas no [guia][how-contribute].
 
 
 # Contribuidores
 As seguintes pessoas contribuiram para o projeto:
 
-- @TomazMartins (tomaz.r.martins@gmail.com)
-- @ThaianeBraga (thaianefbraga@gmail.com)
+- TomazMartins (tomaz.r.martins@gmail.com)
+- ThaianeBraga (thaianefbraga@gmail.com)
 
-[how-to-contribute]: https://gitlab.com/ThaianeBraga/scarefault/wikis/como-contribuir
+[how-contribute]: https://github.com/Scarefault/scarefault/wiki/Como-Contribuir
