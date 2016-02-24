@@ -219,6 +219,11 @@ namespace Generator
   {
     this->scenario_entries = input;
   }
+
+  void TestGenerator::set_package_name( std::string name )
+  {
+    this->package_name = name;
+  }
  
   int TestGenerator::get_scenario_out()
   {
@@ -238,6 +243,11 @@ namespace Generator
   std::vector<int> TestGenerator::get_scenario_entries()
   {
     return this->scenario_entries;
+  }
+
+  std::string TestGenerator::get_package_name()
+  {
+    return this->package_name;
   }
 }
 

@@ -88,6 +88,7 @@ startrule:
 content:
   type
 | text
+| declaration_package
 | method_declaration
 | scenario_declaration
 | entries_declaration
@@ -118,6 +119,15 @@ text:
   }
 ;
 
+/*
+ * Represents the declaration of package associate with source file.
+ */
+declaration_package:
+  PACKAGE IDENTIFIER {
+    const string identifier_token( $2 );
+    test_generator.set_package_name( identifier_token );
+  }
+;
 
 /*
  * Represents the declaration of the method in Groovy programming language.

@@ -121,3 +121,5 @@ parse.cc
 Parser.h
 Parser.ih
 Parserbase.h
+
+scarefault

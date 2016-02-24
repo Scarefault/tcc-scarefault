@@ -13,7 +13,7 @@ lex.cc:
 	cd analizer/scanner && $(MAKE)
 
 scarefault.out: scarefault.cpp
-	$(CC) $(CFLAGS) scarefault.out scarefault.cpp $(HEADERS) $(IMPS) $(OBJS)
+	$(CC) $(CFLAGS) scarefault scarefault.cpp $(HEADERS) $(IMPS) $(OBJS)
 
 clean: parser_clean scanner_clean scarefault_clean
 
@@ -24,4 +24,4 @@ scanner_clean:
 	cd analizer/scanner && $(MAKE) clean
 
 scarefault_clean:
-	rm scarefault.out
+	rm scarefault
