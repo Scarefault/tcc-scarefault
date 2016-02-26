@@ -24,7 +24,8 @@ namespace Generator
   TestGenerator::TestGenerator( std::string name )
   {
     this->set_scenario_name( name );
-  }
+    addresses_test_generators.push_back( this );
+}
 
   /********************** End of Constructors ********************************/
 

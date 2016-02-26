@@ -88,7 +88,7 @@ startrule:
 content:
   type
 | text
-| declaration_package
+| package_declaration
 | method_declaration
 | scenario_declaration
 | entries_declaration
@@ -122,10 +122,22 @@ text:
 /*
  * Represents the declaration of package associate with source file.
  */
-declaration_package:
-  PACKAGE IDENTIFIER {
-    const string identifier_token( $2 );
-    test_generator.set_package_name( identifier_token );
+package_declaration:
+  PACKAGE parcel_initial_declaration {
+    /* TODO: create way to collect the package name. */
+  }
+;
+
+parcel_initial_declaration:
+  IDENTIFIER {
+    /* Empty Rule. */
+  }
+|
+  parcel_initial_declaration DOT parcel_initial_declaration {
+    /* 
+     * TODO: Create function in TestGenerator class that mount the name of
+     *   parcel initial declaration correctly.
+     */
   }
 ;
 
