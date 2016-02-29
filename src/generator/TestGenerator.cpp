@@ -226,11 +226,6 @@ namespace Generator
     this->package_name = name;
   }
 
-  void TestGenerator::set_import_name( std::string name )
-  {
-    this->import_name = name;
-  }
- 
   int TestGenerator::get_scenario_out()
   {
     return this->scenario_out;
@@ -254,11 +249,6 @@ namespace Generator
   std::string TestGenerator::get_package_name()
   {
     return this->package_name;
-  }
-
-  std::string TestGenerator::get_import_name()
-  {
-    return this->import_name;
   }
 }
 

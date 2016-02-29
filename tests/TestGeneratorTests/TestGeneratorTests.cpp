@@ -5,20 +5,35 @@ TEST_CASE( "Infomations can be captured", "[TestGenerator]" )
 {
   Generator::TestGenerator test_generator;
 
-  std::string package_name = "br.com.xcompany.domain";
-  std::string import_name = "br.com.xcompany.controller";
+  std::string first_package = "br.com.xcompany.domain";
+  std::string second_package = "br.com.xcompany.controller";
  
   SECTION( "Captured package name and show it" )
   {
-      test_generator.set_package_name( package_name );
+    test_generator.set_package_name( first_package );
 
-      CHECK( test_generator.get_package_name() == package_name );
-   }
+    CHECK( test_generator.get_package_name() == first_package );
+  }
 
   SECTION( "Captured importation and show it" )
   {
-    test_generator.set_import_name( import_name );
+    SECTION( "When there is only one importation" )
+    {
+      test_generator.add_import_name( second_package );
+      
+      CHECK( test_generator.get_import_names().at( 0 ) == second_package );
+    }
 
-    CHECK( test_generator.get_import_name() == import_name );
+    SECTION( "When there are many importations" )
+    {
+      test_generator.add_import_name( first_package );
+      test_generator.add_import_name( second_package );
+
+      std::vector<std::string> importations;
+      importations.push_back( first_package );
+      importations.push_back( second_package );
+
+      CHECK( test_generator.get_import_names() == importations );
+    }
   }
 }

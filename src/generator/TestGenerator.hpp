@@ -47,12 +47,13 @@ namespace Generator
 
 
       void add_scenario_entry( int );
+      void add_import_name( std::string );
       void set_method_name( std::string );
       void set_scenario_out( int );
       void set_scenario_name( std::string );
       void set_scenario_entries( std::vector<int> );
       void set_package_name( std::string );
-      void set_import_name( std::string );
+      void set_import_names( std::vector<std::string> );
 
     private:
       const static bool EXIST = true;
@@ -61,18 +62,18 @@ namespace Generator
 
       int scenario_out;
       std::vector<int> scenario_entries;
+      std::vector<std::string> import_names;
       std::string scenario_name;
       std::string method_name;
       std::string package_name;
-      std::string import_name;
 
 
       int get_scenario_out();
       std::vector<int> get_scenario_entries();
+      std::vector<std::string> get_import_names();
       std::string get_scenario_name();
       std::string get_method_name();
       std::string get_package_name();
-      std::string get_import_name();
 
       void remove_character( std::string*, char );
       bool check_whitespaces( std::string );

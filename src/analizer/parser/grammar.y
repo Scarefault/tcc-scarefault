@@ -127,7 +127,7 @@ initial_declaration:
 import_declaration:
   IMPORT parcel_initial_declaration {
     const string identifier_token( $2 );
-    test_generator.set_import_name( identifier_token );
+    test_generator.add_import_name( identifier_token );
   }
 ;
 
