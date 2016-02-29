@@ -88,7 +88,7 @@ startrule:
 content:
   type
 | text
-| package_declaration
+| initial_declaration
 | method_declaration
 | scenario_declaration
 | entries_declaration
@@ -119,25 +119,39 @@ text:
   }
 ;
 
+initial_declaration:
+  package_declaration
+| import_declaration
+;
+
+import_declaration:
+  IMPORT parcel_initial_declaration {
+    const string identifier_token( $2 );
+    test_generator.set_import_name( identifier_token );
+  }
+;
+
 /*
  * Represents the declaration of package associate with source file.
  */
 package_declaration:
   PACKAGE parcel_initial_declaration {
-    /* TODO: create way to collect the package name. */
+    const string identifier_token( $2 );
+    test_generator.set_package_name( identifier_token );
   }
 ;
 
+/*
+ * Represents the structure of the name of a package or file that we need
+ *   import.
+ */
 parcel_initial_declaration:
   IDENTIFIER {
     /* Empty Rule. */
   }
 |
   parcel_initial_declaration DOT parcel_initial_declaration {
-    /* 
-     * TODO: Create function in TestGenerator class that mount the name of
-     *   parcel initial declaration correctly.
-     */
+    /* Empty Rule. */
   }
 ;
 
