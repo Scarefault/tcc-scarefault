@@ -109,6 +109,11 @@ namespace Generator
     this->scenario_entries.push_back( input );
   }
 
+  void TestGenerator::add_import_name( std::string package )
+  {
+    this->import_names.push_back( package );
+  }
+
   /**************** End of Public Member Functions ***************************/
 
 
@@ -216,6 +221,11 @@ namespace Generator
     this->scenario_name = name; 
   }
 
+  void TestGenerator::set_import_names( std::vector<std::string> imports )
+  {
+    this->import_names = imports;
+  }
+
   void TestGenerator::set_scenario_entries( std::vector<int> input )
   {
     this->scenario_entries = input;
@@ -249,6 +259,11 @@ namespace Generator
   std::string TestGenerator::get_package_name()
   {
     return this->package_name;
+  }
+
+  std::vector<std::string> TestGenerator::get_import_names()
+  {
+    return this->import_names;
   }
 }
 
