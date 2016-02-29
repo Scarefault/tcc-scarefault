@@ -1,0 +1,7 @@
+IMPORTANT:
+  For run all tests you need add the follow line to all header files with a
+  definition of class.
+
+#define private public
+
+  When the executable is compiled, remember to take this line.

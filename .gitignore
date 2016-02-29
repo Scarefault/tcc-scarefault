@@ -110,6 +110,8 @@ hs_err_pid*
 # ---------------------------------- GENERAL ---------------------------------#
 guestbook/
 *.swp
+/tests/runAllTest
+/tests/*/runSuiteTest
 
 # --------------------------------SCAREFAULT ---------------------------------#
 lex.cc
