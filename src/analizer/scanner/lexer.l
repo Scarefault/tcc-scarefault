@@ -32,7 +32,7 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::PACKAGE;
 }
 
-//-------------------------------- classes --------------------------------- //
+//-------------------------------- Classes --------------------------------- //
 //
 "def" {
   *d_val = matched();
@@ -49,6 +49,47 @@ BOOLEAN {TRUE}|{FALSE}
 "Integer" {
   *d_val = matched();
   return Parser::TYPE_INTEGER;
+}
+
+"Long" {
+  *d_val = matched();
+  return Parser::TYPE_LONG;
+}
+
+"Short" {
+  *d_val = matched();
+  return Parser::TYPE_SHORT;
+}
+
+"Double" {
+
+  *d_val = matched();
+  return Parser::TYPE_DOUBLE;
+}
+
+"Float" {
+  *d_val = matched();
+  return Parser::TYPE_FLOAT;
+}
+
+"String" {
+  *d_val = matched();
+  return Parser::TYPE_STRING;
+}
+
+"Boolean" {
+  *d_val = matched();
+  return Parser::TYPE_BOOLEAN;
+}
+
+"List" {
+  *d_val = matched();
+  return Parser::TYPE_LIST;
+}
+
+"Date" {
+  *d_val = matched();
+  return Parser:: TYPE_DATE;
 }
 
 //-------------------------- Punctuation Marks ----------------------------- //

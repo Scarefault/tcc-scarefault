@@ -32,6 +32,17 @@
  * ********* Type of Data ****************
  */
 %token TYPE_INTEGER
+%token TYPE_LONG
+%token TYPE_SHORT
+
+%token TYPE_DOUBLE
+%token TYPE_FLOAT
+
+%token TYPE_STRING
+
+%token TYPE_BOOLEAN
+%token TYPE_LIST
+%token TYPE_DATE
 
 
 /*
