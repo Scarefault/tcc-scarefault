@@ -97,9 +97,8 @@ startrule:
  * This rule represents the content of the test file.
  */
 content:
-  type
-| text
-| initial_declaration
+  initial_declaration
+| variable_declaration
 | method_declaration
 | scenario_declaration
 | entries_declaration
@@ -110,16 +109,6 @@ content:
 
 
 /******************* Rules for Groovy Programming Language *****************/
-
-/*
- * Represents the various possible types of data. Currently, there are only
- *   one of type: INTEGER.
- */
-type:
-  TYPE_INTEGER {
-    $$ = $1;
-  }
-;
 
 /*
  * Represents every type of text catched. Currently, there are only STRING.
@@ -164,6 +153,35 @@ parcel_initial_declaration:
   parcel_initial_declaration DOT parcel_initial_declaration {
     /* Empty Rule. */
   }
+;
+
+/*
+ * Represents the declaration of variables in source file.
+ */
+variable_declaration:
+  type IDENTIFIER {
+    /* Empty Rule. */
+  }
+|
+  type LEFT_BRACKETS RIGHT_BRACKETS IDENTIFIER {
+    /* Empty Rule. */
+  }
+;
+
+/*
+ * Represents the various possible types of data. Currently, there are only
+ *   one of type: INTEGER.
+ */
+type:
+  TYPE_INTEGER { $$ = $1; }
+| TYPE_LONG { $$ = $1; }
+| TYPE_SHORT { $$ = $1; }
+| TYPE_DOUBLE { $$ = $1; }
+| TYPE_FLOAT { $$ = $1; }
+| TYPE_STRING { $$ = $1; }
+| TYPE_BOOLEAN { $$ = $1; }
+| TYPE_LIST { $$ = $1; }
+| TYPE_DATE { $$ = $1; }
 ;
 
 /*

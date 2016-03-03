@@ -62,7 +62,6 @@ BOOLEAN {TRUE}|{FALSE}
 }
 
 "Double" {
-
   *d_val = matched();
   return Parser::TYPE_DOUBLE;
 }
