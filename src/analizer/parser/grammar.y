@@ -34,12 +34,9 @@
 %token TYPE_INTEGER
 %token TYPE_LONG
 %token TYPE_SHORT
-
 %token TYPE_DOUBLE
 %token TYPE_FLOAT
-
 %token TYPE_STRING
-
 %token TYPE_BOOLEAN
 %token TYPE_LIST
 %token TYPE_DATE
@@ -58,6 +55,7 @@
 %token COLON
 %token DOT
 %token COMMA
+%token EQUAL
 
 
 /*
@@ -76,6 +74,7 @@
 %token NUMBER;
 %token STRING;
 %token IDENTIFIER;
+%token BOOL;
 
 
 %%
@@ -99,6 +98,7 @@ startrule:
 content:
   initial_declaration
 | variable_declaration
+| assignment_declaration
 | method_declaration
 | scenario_declaration
 | entries_declaration
@@ -182,6 +182,19 @@ type:
 | TYPE_BOOLEAN { $$ = $1; }
 | TYPE_LIST { $$ = $1; }
 | TYPE_DATE { $$ = $1; }
+;
+
+assignment_declaration:
+  IDENTIFIER EQUAL value {
+    /* Empty Rule. */
+    std::cout << "assignment_declaration passed" << std::endl;
+  }
+;
+
+value:
+  NUMBER { std::cout << "number passed" << std::endl; }
+| STRING { std::cout << "string passed" << std::endl; }
+| BOOL { std::cout << "bool passed" << std::endl; }
 ;
 
 /*

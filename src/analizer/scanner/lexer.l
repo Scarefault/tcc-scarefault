@@ -12,8 +12,8 @@ NOT_DIGIT  [^?0-9]
 NOT_DOLLAR [^?"$"]
 IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]* 
 
-TRUE    "true"
-FALSE   "false"
+TRUE    true
+FALSE   false
 BOOLEAN {TRUE}|{FALSE}
 
 
@@ -143,6 +143,11 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::COMMA;
 }
 
+"=" {
+  *d_val = matched();
+  return Parser::EQUAL;
+}
+
 //----------------------------- Scarefault Marks --------------------------- //
 //
 "scarefault" {
@@ -187,4 +192,9 @@ BOOLEAN {TRUE}|{FALSE}
 {IDENTIFIER} {
   *d_val = matched();
   return Parser::IDENTIFIER;
+}
+
+{BOOLEAN} {
+  *d_val = matched();
+  return Parser::BOOL;
 }
