@@ -4,7 +4,7 @@ OBJS = src/*/*/*.cc # analizer/parser | scanner/*.cc
 HEADERS = src/*/*.hpp # generator/*.hpp
 IMPS = src/*/*.cpp # generator/*.cpp
 
-all: parse.cc lex.cc scarefault.out
+all: parse.cc lex.cc scarefault
 
 parse.cc:
 	cd src/analizer/parser && $(MAKE)
@@ -12,7 +12,7 @@ parse.cc:
 lex.cc:
 	cd src/analizer/scanner && $(MAKE)
 
-scarefault.out: src/scarefault.cpp
+scarefault: src/scarefault.cpp
 	$(CC) $(CFLAGS) scarefault src/scarefault.cpp $(HEADERS) $(IMPS) $(OBJS)
 
 clean: parser_clean scanner_clean scarefault_clean
