@@ -44,6 +44,11 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::RETURN;
 }
 
+"new" {
+  *d_val = matched();
+  return Parser::NEW;
+}
+
 // --------------------------- Type of Data -------------------------------- //
 //
 "Integer" {
