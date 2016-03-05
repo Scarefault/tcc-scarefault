@@ -129,6 +129,8 @@ import_declaration:
   IMPORT parcel_initial_declaration {
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
+
+    std::cout << "import_declaration passed" << std::endl;
   }
 ;
 
@@ -139,6 +141,8 @@ package_declaration:
   PACKAGE parcel_initial_declaration {
     const string identifier_token( $2 );
     test_generator.set_package_name( identifier_token );
+
+    std::cout << "package_declaration passed" << std::endl;
   }
 ;
 
@@ -149,10 +153,12 @@ package_declaration:
 parcel_initial_declaration:
   IDENTIFIER {
     /* Empty Rule. */
+    std::cout << "parcel_initial_declaration passed, simple" << std::endl;
   }
 |
   parcel_initial_declaration DOT parcel_initial_declaration {
     /* Empty Rule. */
+    std::cout << "parcel_initial_delcaration passed, composed" < std::endl;
   }
 ;
 
