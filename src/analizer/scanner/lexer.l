@@ -34,6 +34,61 @@ BOOLEAN {TRUE}|{FALSE}
 
 //-------------------------------- Classes --------------------------------- //
 //
+"class" {
+  *d_val = matched();
+  return Parser::CLASS;
+}
+
+"interface" {
+  *d_val = matched();
+  return Parser::INTERFACE;
+}
+
+"implements" {
+  *d_val = matched();
+  return Parser::IMPLEMENTS;
+}
+
+"extends" {
+  *d_val = matched();
+  return Parser::EXTENDS;
+}
+
+"abstract" {
+  *d_val = matched();
+  return Parser::ABSTRACT;
+}
+
+"new" {
+  *d_val = matched();
+  return Parser::NEW;
+}
+
+"public" {
+  *d_val = matched();
+  return Parser::PUBLIC;
+}
+
+"protected" {
+  *d_val = matched();
+  return Parser::PROTECTED;
+}
+
+"private" {
+  *d_val = matched();
+  return Parser::PRIVATE;
+}
+
+"static" {
+  *d_val = matched();
+  return Parser::STATIC;
+}
+
+"final" {
+  *d_val = matched();
+  return Parser::FINAL;
+}
+
 "def" {
   *d_val = matched();
   return Parser::DEF;
@@ -42,11 +97,6 @@ BOOLEAN {TRUE}|{FALSE}
 "return" {
   *d_val = matched();
   return Parser::RETURN;
-}
-
-"new" {
-  *d_val = matched();
-  return Parser::NEW;
 }
 
 // --------------------------- Type of Data -------------------------------- //

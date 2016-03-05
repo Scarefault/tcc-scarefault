@@ -24,9 +24,19 @@
 /*
  * ********* Classes *********************
  */
+%token CLASS
+%token INTERFACE
+%token IMPLEMENTS
+%token EXTENDS
+%token ABSTRACT
+%token NEW
+%token PUBLIC
+%token PROTECTED
+%token PRIVATE
+%token STATIC
+%token FINAL
 %token DEF
 %token RETURN
-%token NEW
 
 
 /*
@@ -100,6 +110,7 @@ content:
   initial_declaration
 | variable_declaration
 | assignment_declaration
+| main_body_code_declaration
 | method_declaration
 | scenario_declaration
 | entries_declaration
@@ -120,6 +131,8 @@ text:
   }
 ;
 
+
+
 initial_declaration:
   package_declaration
 | import_declaration
@@ -134,9 +147,6 @@ import_declaration:
   }
 ;
 
-/*
- * Represents the declaration of package associate with source file.
- */
 package_declaration:
   PACKAGE parcel_initial_declaration {
     const string identifier_token( $2 );
@@ -158,13 +168,12 @@ parcel_initial_declaration:
 |
   parcel_initial_declaration DOT parcel_initial_declaration {
     /* Empty Rule. */
-    std::cout << "parcel_initial_delcaration passed, composed" < std::endl;
+    std::cout << "parcel_initial_declaration passed, composed" << std::endl;
   }
 ;
 
-/*
- * Represents the declaration of variables in source file.
- */
+
+
 variable_declaration:
   type IDENTIFIER {
     /* Empty Rule. */
@@ -175,12 +184,11 @@ variable_declaration:
     /* Empty Rule. */
     std::cout << "variable_declaration passed, Array" << std::endl;
   }
+| modifier variable_declaration {
+    std::cout << "variable_declaration passed, with modifier" << std::endl;
+  }
 ;
 
-/*
- * Represents the various possible types of data. Currently, there are only
- *   one of type: INTEGER.
- */
 type:
   TYPE_INTEGER { $$ = $1; std::cout << "integer passed" << std::endl; }
 | TYPE_LONG { $$ = $1; std::cout << "long passed" << std::endl; }
@@ -193,6 +201,8 @@ type:
 | TYPE_DATE { $$ = $1; std::cout << "date passed" << std::endl; }
 | IDENTIFIER { $$ = $1; std::cout << "user-type passed" << std::endl; }
 ;
+
+
 
 assignment_declaration:
   IDENTIFIER EQUAL value {
@@ -212,9 +222,46 @@ value:
 | BOOL { std::cout << "bool passed" << std::endl; }
 ;
 
-/*
- * Represents the declaration of the method in Groovy programming language.
- */
+
+main_body_code_declaration:
+  class_declaration
+| interface_declaration
+;
+
+class_declaration:
+  CLASS IDENTIFIER {
+    std::cout << "class_declaration passed" << std::endl;
+  }
+|
+  CLASS IDENTIFIER IMPLEMENTS IDENTIFIER {
+    std::cout << "class_declaration passed, with implements" << std::endl;
+  }
+|
+  CLASS IDENTIFIER EXTENDS IDENTIFIER {
+    std::cout << "class_declaration passed, with extends" << std::endl;
+  }
+|
+  ABSTRACT class_declaration {
+    std::cout << "class_declaration passed, with abstract" << std::endl;
+  }
+;
+
+interface_declaration:
+  INTERFACE IDENTIFIER {
+    std::cout << "interface_declaration passed" << std::endl;
+  }
+;
+
+modifier:
+  PUBLIC { std::cout << "modifier public passed" << std::endl; }
+| PROTECTED { std::cout << "modifier protected passed" << std::endl; }
+| PRIVATE { std::cout << "modifier private passed" << std::endl; }
+| STATIC { std::cout << "modifier static passed" << std::endl; }
+| FINAL { std::cout << "modifier final passed" << std::endl; }
+;
+
+
+
 method_declaration:
   DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
     const string identifier_token( $2 );
