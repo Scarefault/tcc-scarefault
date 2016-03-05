@@ -174,6 +174,45 @@ parcel_initial_declaration:
 
 
 
+main_body_code_declaration:
+  class_declaration
+| interface_declaration
+;
+
+class_declaration:
+  CLASS IDENTIFIER {
+    std::cout << "class_declaration passed" << std::endl;
+  }
+|
+  ABSTRACT CLASS IDENTIFIER {
+    std::cout << "class_declaration passed, with abstract" << std::endl;
+  }
+|
+  class_declaration IMPLEMENTS IDENTIFIER {
+    std::cout << "class_declaration passed, with implements" << std::endl;
+  }
+|
+  class_declaration EXTENDS IDENTIFIER {
+    std::cout << "class_declaration passed, with extends" << std::endl;
+  }
+;
+
+interface_declaration:
+  INTERFACE IDENTIFIER {
+    std::cout << "interface_declaration passed" << std::endl;
+  }
+;
+
+modifier:
+  PUBLIC { std::cout << "modifier public passed" << std::endl; }
+| PROTECTED { std::cout << "modifier protected passed" << std::endl; }
+| PRIVATE { std::cout << "modifier private passed" << std::endl; }
+| STATIC { std::cout << "modifier static passed" << std::endl; }
+| FINAL { std::cout << "modifier final passed" << std::endl; }
+;
+
+
+
 variable_declaration:
   type IDENTIFIER {
     /* Empty Rule. */
@@ -220,44 +259,6 @@ value:
   NUMBER { std::cout << "number passed" << std::endl; }
 | STRING { std::cout << "string passed" << std::endl; }
 | BOOL { std::cout << "bool passed" << std::endl; }
-;
-
-
-main_body_code_declaration:
-  class_declaration
-| interface_declaration
-;
-
-class_declaration:
-  CLASS IDENTIFIER {
-    std::cout << "class_declaration passed" << std::endl;
-  }
-|
-  CLASS IDENTIFIER IMPLEMENTS IDENTIFIER {
-    std::cout << "class_declaration passed, with implements" << std::endl;
-  }
-|
-  CLASS IDENTIFIER EXTENDS IDENTIFIER {
-    std::cout << "class_declaration passed, with extends" << std::endl;
-  }
-|
-  ABSTRACT class_declaration {
-    std::cout << "class_declaration passed, with abstract" << std::endl;
-  }
-;
-
-interface_declaration:
-  INTERFACE IDENTIFIER {
-    std::cout << "interface_declaration passed" << std::endl;
-  }
-;
-
-modifier:
-  PUBLIC { std::cout << "modifier public passed" << std::endl; }
-| PROTECTED { std::cout << "modifier protected passed" << std::endl; }
-| PRIVATE { std::cout << "modifier private passed" << std::endl; }
-| STATIC { std::cout << "modifier static passed" << std::endl; }
-| FINAL { std::cout << "modifier final passed" << std::endl; }
 ;
 
 
