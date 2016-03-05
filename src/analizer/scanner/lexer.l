@@ -1,6 +1,6 @@
 DIGIT   [[:digit:]]
 INTEGER {DIGIT}+
-REAL    -?{INTEGER}+("."{INTEGER}+)?
+REAL    -?{WHITESPACE}?{INTEGER}+("."{INTEGER}+)?
 
 CHARACTER .
 LITERAL   \".*\"
@@ -194,12 +194,12 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::STRING;
 }
 
-{IDENTIFIER} {
-  *d_val = matched();
-  return Parser::IDENTIFIER;
-}
-
 {BOOLEAN} {
   *d_val = matched();
   return Parser::BOOL;
+}
+
+{IDENTIFIER} {
+  *d_val = matched();
+  return Parser::IDENTIFIER;
 }
