@@ -216,6 +216,69 @@ modifier:
 
 
 
+method_declaration:
+  method_no_return_declaration
+| method_with_return_declaration
+;
+
+method_no_return_declaration:
+  DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
+    const string identifier_token( $2 );
+    test_generator.set_method_name( identifier_token );
+
+    std::cout << "method_no_return_declaration passed, no params" << std::endl;
+  }
+|
+  DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
+    const string identifier_token( $2 );
+    test_generator.set_method_name( identifier_token );
+
+    std::cout << "method_no_return_declaration passed, with params"
+              << std::endl;
+  }
+|
+  modifier method_no_return_declaration {
+    std::cout << "method_no_return_declaration passed, with modifer"
+              << std::endl;
+  }
+;
+
+method_with_return_declaration:
+  type IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
+    std::cout << "method_with_return_declaration passed, no params"
+              << std::endl;
+  }
+|
+  type IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
+    std::cout << "method_with_return_declaration passed, with params"
+              << std::endl;
+  }
+|
+  modifier method_with_return_declaration {
+    std::cout << "method_with_return_declaration passed, with modifier"
+              << std::endl;
+  }
+;
+  
+params_declaration:
+  type IDENTIFIER {
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, with type" << std::endl;
+  }
+|
+  IDENTIFIER {
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, no type" << std::endl;
+  }
+|
+  params_declaration COMMA params_declaration {
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, many params" << std::endl;
+  }
+;
+
+
+
 variable_declaration:
   type IDENTIFIER {
     /* Empty Rule. */
@@ -265,44 +328,6 @@ value:
 ;
 
 
-
-method_declaration:
-  method_no_return_declaration
-;
-
-method_no_return_declaration:
-  DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    const string identifier_token( $2 );
-    test_generator.set_method_name( identifier_token );
-
-    std::cout << "method_no_return_declaration passed, no params" << std::endl;
-  }
-|
-  DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
-    const string identifier_token( $2 );
-    test_generator.set_method_name( identifier_token );
-
-    std::cout << "method_no_return_declaration passed, with params"
-              << std::endl;
-  }
-;
-
-params_declaration:
-  type IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "params_declaration passed, with type" << std::endl;
-  }
-|
-  IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "params_declaration passed, no type" << std::endl;
-  }
-|
-  params_declaration COMMA params_declaration {
-    /* Empty Rule. */
-    std::cout << "params_declaration passed, many params" << std::endl;
-  }
-;
 
 /*************** End of Rules for Groovy Programming Language **************/
 
