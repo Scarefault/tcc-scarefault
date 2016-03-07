@@ -69,6 +69,7 @@
 %token SEMICOLON
 %token COLON
 %token DOT
+%token SUSPENSION_DOTS
 %token COMMA
 %token EQUAL
 
@@ -266,6 +267,16 @@ params_declaration:
     std::cout << "params_declaration passed, with type" << std::endl;
   }
 |
+  params_declaration EQUAL value {
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, with default value" << std::endl;
+  }
+|
+  type SUSPENSION_DOTS IDENTIFIER {
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, varargs" << std::endl;
+  }
+|
   IDENTIFIER {
     /* Empty Rule. */
     std::cout << "params_declaration passed, no type" << std::endl;
@@ -284,11 +295,6 @@ variable_declaration:
     /* Empty Rule. */
     std::cout << "variable_declaration passed" << std::endl;
   }
-|
-  type LEFT_BRACKETS RIGHT_BRACKETS IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "variable_declaration passed, Array" << std::endl;
-  }
 | modifier variable_declaration {
     std::cout << "variable_declaration passed, with modifier" << std::endl;
   }
@@ -305,6 +311,9 @@ type:
 | TYPE_LIST { $$ = $1; std::cout << "list passed" << std::endl; }
 | TYPE_DATE { $$ = $1; std::cout << "date passed" << std::endl; }
 | IDENTIFIER { $$ = $1; std::cout << "user-type passed" << std::endl; }
+| type LEFT_BRACKETS RIGHT_BRACKETS {
+    $$ = $1; std::cout << "array passed" << std::endl;
+  }
 ;
 
 

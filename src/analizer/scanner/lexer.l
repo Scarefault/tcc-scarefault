@@ -192,6 +192,11 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::DOT;
 }
 
+"..." {
+  *d_val = matched();
+  return Parser::SUSPENSION_DOTS;
+}
+
 "," {
   *d_val = matched();
   return Parser::COMMA;
