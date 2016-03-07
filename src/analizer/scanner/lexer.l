@@ -10,7 +10,7 @@ WHITESPACE [[:blank:]]+
 WORD       [_0-9a-zA-Z]+
 NOT_DIGIT  [^?0-9]
 NOT_DOLLAR [^?"$"]
-IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]* 
+IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]*
 
 TRUE    true
 FALSE   false
@@ -89,15 +89,14 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::FINAL;
 }
 
+
+// ------------------------------ Methods ---------------------------------- //
+//
 "def" {
   *d_val = matched();
   return Parser::DEF;
 }
 
-"return" {
-  *d_val = matched();
-  return Parser::RETURN;
-}
 
 // --------------------------- Type of Data -------------------------------- //
 //
@@ -208,11 +207,6 @@ BOOLEAN {TRUE}|{FALSE}
 "scarefault" {
   *d_val = matched();
   return Parser::SCAREFAULT;
-}
-
-"test" {
-  *d_val = matched();
-  return Parser::TEST;
 }
 
 "scenario" {

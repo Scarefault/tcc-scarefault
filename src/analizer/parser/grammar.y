@@ -35,8 +35,12 @@
 %token PRIVATE
 %token STATIC
 %token FINAL
+
+
+/*
+ * *********** Methods *******************
+ */
 %token DEF
-%token RETURN
 
 
 /*
@@ -73,7 +77,6 @@
  * ********** Scarefault Marks ***********
  */
 %token SCAREFAULT
-%token TEST
 %token SCENARIO
 %token ENTRIES
 %token OUT
@@ -264,27 +267,40 @@ value:
 
 
 method_declaration:
+  method_no_return_declaration
+;
+
+method_no_return_declaration:
   DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
+
+    std::cout << "method_no_return_declaration passed, no params" << std::endl;
   }
 |
   DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
+
+    std::cout << "method_no_return_declaration passed, with params"
+              << std::endl;
   }
 ;
 
-/*
- * Represents the declaration of the parameters in declaration of a method.
- */
 params_declaration:
   type IDENTIFIER {
-    /* Empty Rule */
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, with type" << std::endl;
+  }
+|
+  IDENTIFIER {
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, no type" << std::endl;
   }
 |
   params_declaration COMMA params_declaration {
-    /* Empty Rule */
+    /* Empty Rule. */
+    std::cout << "params_declaration passed, many params" << std::endl;
   }
 ;
 
