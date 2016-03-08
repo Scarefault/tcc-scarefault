@@ -95,6 +95,8 @@
  * ********** Control Structures *********
  */
 %token IF
+%token ELSE
+%token QUESTION_MARK
 
 /*
  * ********** Operators ******************
@@ -303,11 +305,26 @@ params_statement:
 
 conditional_structure_statement:
   if_statement
+| ternary_statement
 ;
 
 if_statement:
   IF LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
-    std::cout << "if_statement passed, simple" << std::endl;
+    std::cout << "if_statement passed, if" << std::endl;
+  }
+|
+  ELSE if_statement {
+    std::cout << "if_statement passed, else-if" << std::endl;
+  }
+|
+  ELSE LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
+    std::cout << "if_statement passed, else" << std::endl;
+  }
+;
+
+ternary_statement:
+  logical_expression QUESTION_MARK value COLON value {
+    std::cout << "ternary_statement passed" << std::endl;
   }
 ;
 

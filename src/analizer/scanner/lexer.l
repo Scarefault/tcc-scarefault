@@ -236,6 +236,16 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::IF;
 }
 
+"else" {
+  *d_val = matched();
+  return Parser::ELSE;
+}
+
+"?" {
+  *d_val = matched();
+  return Parser::QUESTION_MARK;
+}
+
 //------------------------------ Operators --------------------------------- //
 "=="    |
 "!="    |
