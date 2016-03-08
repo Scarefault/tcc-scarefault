@@ -246,6 +246,21 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::QUESTION_MARK;
 }
 
+"switch" {
+  *d_val = matched();
+  return Parser::SWITCH;
+}
+
+"case" {
+  *d_val = matched();
+  return Parser::CASE;
+}
+
+"default" {
+  *d_val = matched();
+  return Parser::DEFAULT;
+}
+
 //------------------------------ Operators --------------------------------- //
 "=="    |
 "!="    |

@@ -97,6 +97,9 @@
 %token IF
 %token ELSE
 %token QUESTION_MARK
+%token SWITCH
+%token CASE
+%token DEFAULT
 
 /*
  * ********** Operators ******************
@@ -306,6 +309,7 @@ params_statement:
 conditional_structure_statement:
   if_statement
 | ternary_statement
+| switch_statement
 ;
 
 if_statement:
@@ -325,6 +329,26 @@ if_statement:
 ternary_statement:
   logical_expression QUESTION_MARK value COLON value {
     std::cout << "ternary_statement passed" << std::endl;
+  }
+;
+
+switch_statement:
+  SWITCH LEFT_PARENTHESES IDENTIFIER RIGHT_PARENTHESES {
+    std::cout << "switch_statement passed" << std::endl;
+  }
+|
+  switch_component {
+    std::cout << "switch_component passed" << std::endl;
+  }
+;
+
+switch_component:
+  CASE value COLON {
+    std::cout << "case passed" << std::endl;
+  }
+|
+  DEFAULT COLON {
+    std::cout << "default passed" << std::endl;
   }
 ;
 
