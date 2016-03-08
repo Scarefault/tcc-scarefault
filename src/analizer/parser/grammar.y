@@ -91,6 +91,16 @@
 %token IDENTIFIER;
 %token BOOL;
 
+/*
+ * ********** Control Structures *********
+ */
+%token IF
+
+/*
+ * ********** Operators ******************
+ */
+%token LOGICAL_OPERATOR
+
 
 %%
 
@@ -111,11 +121,12 @@ startrule:
  * This rule represents the content of the test file.
  */
 content:
-  initial_declaration
-| variable_declaration
-| assignment_declaration
-| main_body_code_declaration
-| method_declaration
+  initial_statement
+| variable_statement
+| assignment_statement
+| main_body_code_statement
+| method_statement
+| conditional_structure_statement
 | scenario_declaration
 | entries_declaration
 | out_declaration
@@ -137,26 +148,26 @@ text:
 
 
 
-initial_declaration:
-  package_declaration
-| import_declaration
+initial_statement:
+  package_statement
+| import_statement
 ;
 
-import_declaration:
-  IMPORT parcel_initial_declaration {
+import_statement:
+  IMPORT parcel_initial_statement {
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
 
-    std::cout << "import_declaration passed" << std::endl;
+    std::cout << "import_statement passed" << std::endl;
   }
 ;
 
-package_declaration:
-  PACKAGE parcel_initial_declaration {
+package_statement:
+  PACKAGE parcel_initial_statement {
     const string identifier_token( $2 );
     test_generator.set_package_name( identifier_token );
 
-    std::cout << "package_declaration passed" << std::endl;
+    std::cout << "package_statement passed" << std::endl;
   }
 ;
 
@@ -164,46 +175,46 @@ package_declaration:
  * Represents the structure of the name of a package or file that we need
  *   import.
  */
-parcel_initial_declaration:
+parcel_initial_statement:
   IDENTIFIER {
     /* Empty Rule. */
-    std::cout << "parcel_initial_declaration passed, simple" << std::endl;
+    std::cout << "parcel_initial_statement passed, simple" << std::endl;
   }
 |
-  parcel_initial_declaration DOT parcel_initial_declaration {
+  parcel_initial_statement DOT parcel_initial_statement {
     /* Empty Rule. */
-    std::cout << "parcel_initial_declaration passed, composed" << std::endl;
+    std::cout << "parcel_initial_statement passed, composed" << std::endl;
   }
 ;
 
 
 
-main_body_code_declaration:
-  class_declaration
-| interface_declaration
+main_body_code_statement:
+  class_statement
+| interface_statement
 ;
 
-class_declaration:
+class_statement:
   CLASS IDENTIFIER {
-    std::cout << "class_declaration passed" << std::endl;
+    std::cout << "class_statement passed" << std::endl;
   }
 |
   ABSTRACT CLASS IDENTIFIER {
-    std::cout << "class_declaration passed, with abstract" << std::endl;
+    std::cout << "class_statement passed, with abstract" << std::endl;
   }
 |
-  class_declaration IMPLEMENTS IDENTIFIER {
-    std::cout << "class_declaration passed, with implements" << std::endl;
+  class_statement IMPLEMENTS IDENTIFIER {
+    std::cout << "class_statement passed, with implements" << std::endl;
   }
 |
-  class_declaration EXTENDS IDENTIFIER {
-    std::cout << "class_declaration passed, with extends" << std::endl;
+  class_statement EXTENDS IDENTIFIER {
+    std::cout << "class_statement passed, with extends" << std::endl;
   }
 ;
 
-interface_declaration:
+interface_statement:
   INTERFACE IDENTIFIER {
-    std::cout << "interface_declaration passed" << std::endl;
+    std::cout << "interface_statement passed" << std::endl;
   }
 ;
 
@@ -217,86 +228,108 @@ modifier:
 
 
 
-method_declaration:
-  method_no_return_declaration
-| method_with_return_declaration
+method_statement:
+  method_no_return_statement
+| method_with_return_statement
 ;
 
-method_no_return_declaration:
+method_no_return_statement:
   DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
 
-    std::cout << "method_no_return_declaration passed, no params" << std::endl;
+    std::cout << "method_no_return_statement passed, no params" << std::endl;
   }
 |
-  DEF IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
+  DEF IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
 
-    std::cout << "method_no_return_declaration passed, with params"
+    std::cout << "method_no_return_statement passed, with params"
               << std::endl;
   }
 |
-  modifier method_no_return_declaration {
-    std::cout << "method_no_return_declaration passed, with modifer"
+  modifier method_no_return_statement {
+    std::cout << "method_no_return_statement passed, with modifer"
               << std::endl;
   }
 ;
 
-method_with_return_declaration:
+method_with_return_statement:
   type IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    std::cout << "method_with_return_declaration passed, no params"
+    std::cout << "method_with_return_statement passed, no params"
               << std::endl;
   }
 |
-  type IDENTIFIER LEFT_PARENTHESES params_declaration RIGHT_PARENTHESES {
-    std::cout << "method_with_return_declaration passed, with params"
+  type IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
+    std::cout << "method_with_return_statement passed, with params"
               << std::endl;
   }
 |
-  modifier method_with_return_declaration {
-    std::cout << "method_with_return_declaration passed, with modifier"
+  modifier method_with_return_statement {
+    std::cout << "method_with_return_statement passed, with modifier"
               << std::endl;
   }
 ;
   
-params_declaration:
+params_statement:
   type IDENTIFIER {
     /* Empty Rule. */
-    std::cout << "params_declaration passed, with type" << std::endl;
+    std::cout << "params_statement passed, with type" << std::endl;
   }
 |
-  params_declaration EQUAL value {
+  params_statement EQUAL value {
     /* Empty Rule. */
-    std::cout << "params_declaration passed, with default value" << std::endl;
+    std::cout << "params_statement passed, with default value" << std::endl;
   }
 |
   type SUSPENSION_DOTS IDENTIFIER {
     /* Empty Rule. */
-    std::cout << "params_declaration passed, varargs" << std::endl;
+    std::cout << "params_statement passed, varargs" << std::endl;
   }
 |
   IDENTIFIER {
     /* Empty Rule. */
-    std::cout << "params_declaration passed, no type" << std::endl;
+    std::cout << "params_statement passed, no type" << std::endl;
   }
 |
-  params_declaration COMMA params_declaration {
+  params_statement COMMA params_statement {
     /* Empty Rule. */
-    std::cout << "params_declaration passed, many params" << std::endl;
+    std::cout << "params_statement passed, many params" << std::endl;
   }
 ;
 
 
 
-variable_declaration:
+conditional_structure_statement:
+  if_statement
+;
+
+if_statement:
+  IF LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
+    std::cout << "if_statement passed, simple" << std::endl;
+  }
+;
+
+logical_expression:
+  value LOGICAL_OPERATOR value {
+    std::cout << "logical expression passed" << std::endl;
+  }
+|
+  logical_expression LOGICAL_OPERATOR logical_expression {
+    std::cout << "logical expression passed" << std::endl;
+  }
+;
+
+
+
+variable_statement:
   type IDENTIFIER {
     /* Empty Rule. */
-    std::cout << "variable_declaration passed" << std::endl;
+    std::cout << "variable_statement passed" << std::endl;
   }
-| modifier variable_declaration {
-    std::cout << "variable_declaration passed, with modifier" << std::endl;
+| modifier variable_statement {
+    std::cout << "variable_statement passed, with modifier" << std::endl;
   }
 ;
 
@@ -318,15 +351,15 @@ type:
 
 
 
-assignment_declaration:
+assignment_statement:
   IDENTIFIER EQUAL value {
     /* Empty Rule. */
-    std::cout << "assignment_declaration passed" << std::endl;
+    std::cout << "assignment_statement passed" << std::endl;
   }
 |
   IDENTIFIER EQUAL NEW IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
     /* Empty Rule. */
-    std::cout << "assignment_declaration passed, class instance" << std::endl;
+    std::cout << "assignment_statement passed, class instance" << std::endl;
   }
 ;
 

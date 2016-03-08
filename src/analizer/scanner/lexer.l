@@ -229,6 +229,24 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::OUT;
 }
 
+//-------------------------- Control Strutucture --------------------------- //
+//
+"if" {
+  *d_val = matched();
+  return Parser::IF;
+}
+
+//------------------------------ Operators --------------------------------- //
+"=="    |
+"!="    |
+"<="    |
+">="    |
+"&&"    |
+"||" {
+  *d_val = matched();
+  return Parser::LOGICAL_OPERATOR;
+}
+
 //------------------------------- Data Values ------------------------------ //
 //
 {DIGIT}       |
