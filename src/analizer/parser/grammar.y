@@ -100,11 +100,14 @@
 %token SWITCH
 %token CASE
 %token DEFAULT
+%token FOR
 
 /*
  * ********** Operators ******************
  */
 %token LOGICAL_OPERATOR
+%token COMPARISON_OPERATOR
+%token INCREMENT_OPERATOR
 
 
 %%
@@ -132,6 +135,7 @@ content:
 | main_body_code_statement
 | method_statement
 | conditional_structure_statement
+| looping_structure_statement
 | scenario_declaration
 | entries_declaration
 | out_declaration
@@ -357,8 +361,41 @@ logical_expression:
     std::cout << "logical expression passed" << std::endl;
   }
 |
+  value COMPARISON_OPERATOR value {
+    std::cout << "logical expression passed" << std::endl;
+  }
+|
   logical_expression LOGICAL_OPERATOR logical_expression {
     std::cout << "logical expression passed" << std::endl;
+  }
+|
+  logical_expression COMPARISON_OPERATOR logical_expression {
+    std::cout << "logical_expression passed" << std::endl;
+  }
+;
+
+
+
+looping_structure_statement:
+  for_statement
+;
+
+for_statement:
+  FOR LEFT_PARENTHESES assignment_statement SEMICOLON comparison_expression
+  SEMICOLON increments_expression RIGHT_PARENTHESES {
+    std::cout << "for_statement passed" << std::endl;
+  }
+;
+
+comparison_expression:
+  value COMPARISON_OPERATOR value {
+    std::cout << "comparison_expression passed" << std::endl;
+  }
+;
+
+increments_expression:
+  IDENTIFIER INCREMENT_OPERATOR {
+    std::cout << "increments_expression passed" << std::endl;
   }
 ;
 

@@ -261,16 +261,35 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::DEFAULT;
 }
 
+"for" {
+  *d_val = matched();
+  return Parser::FOR;
+}
+
+
 //------------------------------ Operators --------------------------------- //
 "=="    |
 "!="    |
 "<="    |
 ">="    |
+">"     |
+"<" {
+  *d_val = matched();
+  return Parser::COMPARISON_OPERATOR;
+}
+
 "&&"    |
 "||" {
   *d_val = matched();
   return Parser::LOGICAL_OPERATOR;
 }
+
+"++"    |
+"--" {
+  *d_val = matched();
+  return Parser::INCREMENT_OPERATOR;
+}
+
 
 //------------------------------- Data Values ------------------------------ //
 //
