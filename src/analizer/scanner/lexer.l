@@ -266,6 +266,16 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::FOR;
 }
 
+"in" {
+  *d_val = matched();
+  return Parser::IN;
+}
+
+"while" {
+  *d_val = matched();
+  return Parser::WHILE;
+}
+
 
 //------------------------------ Operators --------------------------------- //
 "=="    |

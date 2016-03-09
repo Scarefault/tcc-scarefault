@@ -101,6 +101,8 @@
 %token CASE
 %token DEFAULT
 %token FOR
+%token IN
+%token WHILE
 
 /*
  * ********** Operators ******************
@@ -378,12 +380,27 @@ logical_expression:
 
 looping_structure_statement:
   for_statement
+| while_statement
 ;
 
 for_statement:
   FOR LEFT_PARENTHESES assignment_statement SEMICOLON comparison_expression
   SEMICOLON increments_expression RIGHT_PARENTHESES {
     std::cout << "for_statement passed" << std::endl;
+  }
+|
+  FOR LEFT_PARENTHESES variable_statement COLON IDENTIFIER RIGHT_PARENTHESES {
+    std::cout << "for_statement passed, collection" << std::endl;
+  }
+|
+  FOR LEFT_PARENTHESES IDENTIFIER IN IDENTIFIER RIGHT_PARENTHESES {
+    std::cout << "for_statement passed, list" << std::endl;
+  }
+;
+
+while_statement:
+  WHILE LEFT_PARENTHESES comparison_expression RIGHT_PARENTHESES {
+    std::cout << "while_statement passed" << std::endl;
   }
 ;
 
