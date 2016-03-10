@@ -6,12 +6,12 @@ TEST_HEADER = ../catch.hpp
 TEST_MAIN = ../MainTests.cpp
 TESTS = *.cpp
 
+all: test normalize
+
 test:
-	$(shell echo "#define private public" >> ../../src/generator/temp_TestGenerator.hpp)
-	$(shell cat ../../src/generator/TestGenerator.hpp >> ../../src/generator/temp_TestGenerator.hpp)
-	$(shell mv ../../src/generator/temp_TestGenerator.hpp ../../src/generator/TestGenerator.hpp)
+	$(shell sed -i "1i #define private public" ../../src/generator/TestGenerator.hpp)
 
 	$(CC) $(CFLAGS) runSuiteTest $(TESTS) $(TEST_HEADER) $(TEST_MAIN) $(TARGET_HEADER) $(TARGET_IMP)
 
 normalize:
-	$(shell sed -i '1d' ./../../src/generator/TestGenerator.hpp)
+	$(shell sed -i '1d' ../../src/generator/TestGenerator.hpp)
