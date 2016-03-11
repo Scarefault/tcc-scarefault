@@ -16,3 +16,6 @@ test:
 
 normalize:
 	$(shell sed -i '1d' ../src/generator/TestGenerator.hpp)
+
+clean:
+	rm runAllTest
