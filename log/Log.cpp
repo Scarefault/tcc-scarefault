@@ -17,11 +17,10 @@ void Log::info( std::string message )
 
   if( log_stream_ptr->is_open() )
   {
-    time_t rawtime;
-    time( &rawtime );
+    log_stream_ptr->write( this->get_date_time( buffer ), date_time_size );
+    log_stream_ptr->write( "\t", 2 );
 
     const unsigned int size_message = sizeof(char)*message.size();
-    const unsigned int size_time = sizeof( ctime( &rawtime ) );
 
     log_stream_ptr->write( message.c_str(), size_message );
     log_stream_ptr->write( "\n", 2 );

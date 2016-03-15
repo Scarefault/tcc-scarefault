@@ -10,8 +10,8 @@
 #include <fstream>
 #include <string>
 
-const std::string date_time_format( "%d %B %Y%t%a%t%T - " );
-const int date_time_size = 50;
+const std::string date_time_format( "[%d %B %Y %a %T] " );
+const int date_time_size = 41;
 
 class Log
 {
