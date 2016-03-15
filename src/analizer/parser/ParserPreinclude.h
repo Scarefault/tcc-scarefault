@@ -4,7 +4,9 @@
 #include <string>
 #include <cstring>
 #include <vector>
+
 #include "../../generator/TestGenerator.hpp"
+#include "../../../log/Log.hpp"
 
 using namespace std;
 

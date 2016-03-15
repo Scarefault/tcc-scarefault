@@ -112,6 +112,7 @@ guestbook/
 *.swp
 /tests/runAllTest
 /tests/*/runSuiteTest
+*.log
 
 # --------------------------------SCAREFAULT ---------------------------------#
 lex.cc

@@ -131,7 +131,7 @@ startrule:
  * This rule represents the content of the test file.
  */
 content:
-  initial_statement
+  initial_statement 
 | variable_statement
 | assignment_statement
 | main_body_code_statement
@@ -168,8 +168,6 @@ import_statement:
   IMPORT parcel_initial_statement {
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
-
-    std::cout << "import_statement passed" << std::endl;
   }
 ;
 
@@ -177,8 +175,6 @@ package_statement:
   PACKAGE parcel_initial_statement {
     const string identifier_token( $2 );
     test_generator.set_package_name( identifier_token );
-
-    std::cout << "package_statement passed" << std::endl;
   }
 ;
 
@@ -187,15 +183,8 @@ package_statement:
  *   import.
  */
 parcel_initial_statement:
-  IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "parcel_initial_statement passed, simple" << std::endl;
-  }
-|
-  parcel_initial_statement DOT parcel_initial_statement {
-    /* Empty Rule. */
-    std::cout << "parcel_initial_statement passed, composed" << std::endl;
-  }
+  IDENTIFIER
+| parcel_initial_statement DOT parcel_initial_statement
 ;
 
 
@@ -206,35 +195,22 @@ main_body_code_statement:
 ;
 
 class_statement:
-  CLASS IDENTIFIER {
-    std::cout << "class_statement passed" << std::endl;
-  }
-|
-  ABSTRACT CLASS IDENTIFIER {
-    std::cout << "class_statement passed, with abstract" << std::endl;
-  }
-|
-  class_statement IMPLEMENTS IDENTIFIER {
-    std::cout << "class_statement passed, with implements" << std::endl;
-  }
-|
-  class_statement EXTENDS IDENTIFIER {
-    std::cout << "class_statement passed, with extends" << std::endl;
-  }
+  CLASS IDENTIFIER
+| ABSTRACT CLASS IDENTIFIER
+| class_statement IMPLEMENTS IDENTIFIER
+| class_statement EXTENDS IDENTIFIER
 ;
 
 interface_statement:
-  INTERFACE IDENTIFIER {
-    std::cout << "interface_statement passed" << std::endl;
-  }
+  INTERFACE IDENTIFIER
 ;
 
 modifier:
-  PUBLIC { std::cout << "modifier public passed" << std::endl; }
-| PROTECTED { std::cout << "modifier protected passed" << std::endl; }
-| PRIVATE { std::cout << "modifier private passed" << std::endl; }
-| STATIC { std::cout << "modifier static passed" << std::endl; }
-| FINAL { std::cout << "modifier final passed" << std::endl; }
+  PUBLIC 
+| PROTECTED
+| PRIVATE
+| STATIC
+| FINAL
 ;
 
 
@@ -248,66 +224,29 @@ method_no_return_statement:
   DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
-
-    std::cout << "method_no_return_statement passed, no params" << std::endl;
   }
 |
   DEF IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
-
-    std::cout << "method_no_return_statement passed, with params"
-              << std::endl;
   }
 |
   modifier method_no_return_statement {
-    std::cout << "method_no_return_statement passed, with modifer"
-              << std::endl;
   }
 ;
 
 method_with_return_statement:
-  type IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    std::cout << "method_with_return_statement passed, no params"
-              << std::endl;
-  }
-|
-  type IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
-    std::cout << "method_with_return_statement passed, with params"
-              << std::endl;
-  }
-|
-  modifier method_with_return_statement {
-    std::cout << "method_with_return_statement passed, with modifier"
-              << std::endl;
-  }
+  type IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES
+| type IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES
+| modifier method_with_return_statement
 ;
   
 params_statement:
-  type IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "params_statement passed, with type" << std::endl;
-  }
-|
-  params_statement EQUAL value {
-    /* Empty Rule. */
-    std::cout << "params_statement passed, with default value" << std::endl;
-  }
-|
-  type SUSPENSION_DOTS IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "params_statement passed, varargs" << std::endl;
-  }
-|
-  IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "params_statement passed, no type" << std::endl;
-  }
-|
-  params_statement COMMA params_statement {
-    /* Empty Rule. */
-    std::cout << "params_statement passed, many params" << std::endl;
-  }
+  type IDENTIFIER
+| params_statement EQUAL value
+| type SUSPENSION_DOTS IDENTIFIER
+| IDENTIFIER
+| params_statement COMMA params_statement
 ;
 
 
@@ -319,61 +258,30 @@ conditional_structure_statement:
 ;
 
 if_statement:
-  IF LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
-    std::cout << "if_statement passed, if" << std::endl;
-  }
-|
-  ELSE if_statement {
-    std::cout << "if_statement passed, else-if" << std::endl;
-  }
-|
-  ELSE LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
-    std::cout << "if_statement passed, else" << std::endl;
-  }
+  IF LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES
+| ELSE if_statement
+| ELSE LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES
 ;
 
 ternary_statement:
-  logical_expression QUESTION_MARK value COLON value {
-    std::cout << "ternary_statement passed" << std::endl;
-  }
+  logical_expression QUESTION_MARK value COLON value
 ;
 
 switch_statement:
-  SWITCH LEFT_PARENTHESES IDENTIFIER RIGHT_PARENTHESES {
-    std::cout << "switch_statement passed" << std::endl;
-  }
-|
-  switch_component {
-    std::cout << "switch_component passed" << std::endl;
-  }
+  SWITCH LEFT_PARENTHESES IDENTIFIER RIGHT_PARENTHESES
+| switch_component
 ;
 
 switch_component:
-  CASE value COLON {
-    std::cout << "case passed" << std::endl;
-  }
-|
-  DEFAULT COLON {
-    std::cout << "default passed" << std::endl;
-  }
+  CASE value COLON
+| DEFAULT COLON
 ;
 
 logical_expression:
-  value LOGICAL_OPERATOR value {
-    std::cout << "logical expression passed" << std::endl;
-  }
-|
-  value COMPARISON_OPERATOR value {
-    std::cout << "logical expression passed" << std::endl;
-  }
-|
-  logical_expression LOGICAL_OPERATOR logical_expression {
-    std::cout << "logical expression passed" << std::endl;
-  }
-|
-  logical_expression COMPARISON_OPERATOR logical_expression {
-    std::cout << "logical_expression passed" << std::endl;
-  }
+  value LOGICAL_OPERATOR value
+| value COMPARISON_OPERATOR value
+| logical_expression LOGICAL_OPERATOR logical_expression
+| logical_expression COMPARISON_OPERATOR logical_expression
 ;
 
 
@@ -385,83 +293,55 @@ looping_structure_statement:
 
 for_statement:
   FOR LEFT_PARENTHESES assignment_statement SEMICOLON comparison_expression
-  SEMICOLON increments_expression RIGHT_PARENTHESES {
-    std::cout << "for_statement passed" << std::endl;
-  }
-|
-  FOR LEFT_PARENTHESES variable_statement COLON IDENTIFIER RIGHT_PARENTHESES {
-    std::cout << "for_statement passed, collection" << std::endl;
-  }
-|
-  FOR LEFT_PARENTHESES IDENTIFIER IN IDENTIFIER RIGHT_PARENTHESES {
-    std::cout << "for_statement passed, list" << std::endl;
-  }
+  SEMICOLON increments_expression RIGHT_PARENTHESES
+| FOR LEFT_PARENTHESES variable_statement COLON IDENTIFIER RIGHT_PARENTHESES
+| FOR LEFT_PARENTHESES IDENTIFIER IN IDENTIFIER RIGHT_PARENTHESES
 ;
 
 while_statement:
-  WHILE LEFT_PARENTHESES comparison_expression RIGHT_PARENTHESES {
-    std::cout << "while_statement passed" << std::endl;
-  }
+  WHILE LEFT_PARENTHESES comparison_expression RIGHT_PARENTHESES
 ;
 
 comparison_expression:
-  value COMPARISON_OPERATOR value {
-    std::cout << "comparison_expression passed" << std::endl;
-  }
+  value COMPARISON_OPERATOR value
 ;
 
 increments_expression:
-  IDENTIFIER INCREMENT_OPERATOR {
-    std::cout << "increments_expression passed" << std::endl;
-  }
+  IDENTIFIER INCREMENT_OPERATOR
 ;
 
 
 
 variable_statement:
-  type IDENTIFIER {
-    /* Empty Rule. */
-    std::cout << "variable_statement passed" << std::endl;
-  }
-| modifier variable_statement {
-    std::cout << "variable_statement passed, with modifier" << std::endl;
-  }
+  type IDENTIFIER
+| modifier variable_statement
 ;
 
 type:
-  TYPE_INTEGER { $$ = $1; std::cout << "integer passed" << std::endl; }
-| TYPE_LONG { $$ = $1; std::cout << "long passed" << std::endl; }
-| TYPE_SHORT { $$ = $1; std::cout << "short passed" << std::endl; }
-| TYPE_DOUBLE { $$ = $1; std::cout << "double passed" << std::endl; }
-| TYPE_FLOAT { $$ = $1; std::cout << "float passed" << std::endl; }
-| TYPE_STRING { $$ = $1; std::cout << "string passed" << std::endl; }
-| TYPE_BOOLEAN { $$ = $1; std::cout << "boolean passed" << std::endl; }
-| TYPE_LIST { $$ = $1; std::cout << "list passed" << std::endl; }
-| TYPE_DATE { $$ = $1; std::cout << "date passed" << std::endl; }
-| IDENTIFIER { $$ = $1; std::cout << "user-type passed" << std::endl; }
-| type LEFT_BRACKETS RIGHT_BRACKETS {
-    $$ = $1; std::cout << "array passed" << std::endl;
-  }
+  TYPE_INTEGER { $$ = $1; }
+| TYPE_LONG { $$ = $1; }
+| TYPE_SHORT { $$ = $1; }
+| TYPE_DOUBLE { $$ = $1; }
+| TYPE_FLOAT { $$ = $1; }
+| TYPE_STRING { $$ = $1; }
+| TYPE_BOOLEAN { $$ = $1; }
+| TYPE_LIST { $$ = $1; }
+| TYPE_DATE { $$ = $1; }
+| IDENTIFIER { $$ = $1; }
+| type LEFT_BRACKETS RIGHT_BRACKETS { $$ = $1; }
 ;
 
 
 
 assignment_statement:
-  IDENTIFIER EQUAL value {
-    /* Empty Rule. */
-    std::cout << "assignment_statement passed" << std::endl;
-  }
-|
-  IDENTIFIER EQUAL NEW IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    /* Empty Rule. */
-    std::cout << "assignment_statement passed, class instance" << std::endl;
-  }
+  IDENTIFIER EQUAL value
+| IDENTIFIER EQUAL NEW IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES
 ;
 
 value:
-  NUMBER { std::cout << "number passed" << std::endl; }
-| STRING { std::cout << "string passed" << std::endl; }
-| BOOL { std::cout << "bool passed" << std::endl; }
+  NUMBER
+| STRING
+| BOOL
 ;
 
 
