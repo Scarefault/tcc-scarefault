@@ -72,6 +72,7 @@
 %token SUSPENSION_DOTS
 %token COMMA
 %token EQUAL
+%token STAR
 
 
 /*
@@ -110,6 +111,7 @@
 %token LOGICAL_OPERATOR
 %token COMPARISON_OPERATOR
 %token INCREMENT_OPERATOR
+%token COERCION_OPERATOR
 
 
 %%
@@ -171,6 +173,14 @@ import_statement:
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
   }
+|
+  IMPORT STATIC parcel_initial_statement {
+    log.info( "Pass statement: import, with static" );
+  }
+|
+  import_statement COERCION_OPERATOR IDENTIFIER {
+    log.info( "Pass statement: import, with coercion" );
+  }
 ;
 
 package_statement:
@@ -189,6 +199,7 @@ package_statement:
 parcel_initial_statement:
   IDENTIFIER
 | parcel_initial_statement DOT parcel_initial_statement
+| parcel_initial_statement DOT STAR
 ;
 
 

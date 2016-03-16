@@ -207,6 +207,11 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::EQUAL;
 }
 
+"*" {
+  *d_val = matched();
+  return Parser::STAR;
+}
+
 //----------------------------- Scarefault Marks --------------------------- //
 //
 "scarefault" {
@@ -298,6 +303,11 @@ BOOLEAN {TRUE}|{FALSE}
 "--" {
   *d_val = matched();
   return Parser::INCREMENT_OPERATOR;
+}
+
+"as" {
+  *d_val = matched();
+  return Parser::COERCION_OPERATOR;
 }
 
 
