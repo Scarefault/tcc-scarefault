@@ -137,7 +137,7 @@ content:
 | variable_statement { log.info( "Pass stmt: variable" ); }
 | assignment_statement { log.info( "Pass stmt: assignment" ); }
 | main_body_code_statement { log.info( "Pass stmt: class/interface" ); }
-| method_statement { log.info( "Pass stmt: method" ); }
+| method_statement { log.info( "Pass stmt: method/constructor" ); }
 | conditional_structure_statement {
     log.info( "Pass stmt: condicional structure" );
   }
@@ -152,18 +152,6 @@ content:
 
 
 /******************* Rules for Groovy Programming Language *****************/
-
-/*
- * Represents every type of text catched. Currently, there are only STRING.
- */
-text:
-  STRING {
-    $$ = $1;
-  }
-;
-
-
-
 initial_statement:
   package_statement
 | import_statement
@@ -237,6 +225,7 @@ modifier:
 method_statement:
   method_no_return_statement
 | method_with_return_statement
+| constructor_statement
 ;
 
 method_no_return_statement:
@@ -263,6 +252,14 @@ method_with_return_statement:
 |
   modifier method_with_return_statement {
   }
+;
+
+constructor_statement:
+  IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
+  }
+|
+  IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
+}
 ;
   
 params_statement:
@@ -383,6 +380,12 @@ value:
   NUMBER
 | STRING
 | BOOL
+;
+
+text:
+  STRING {
+    $$ = $1;
+  }
 ;
 
 
