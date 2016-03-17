@@ -100,27 +100,32 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------------------- Type of Data -------------------------------- //
 //
-"Integer" {
+"Integer"   |
+"int" {
   *d_val = matched();
   return Parser::TYPE_INTEGER;
 }
 
-"Long" {
+"Long"      |
+"long" {
   *d_val = matched();
   return Parser::TYPE_LONG;
 }
 
-"Short" {
+"Short"     |
+"short" {
   *d_val = matched();
   return Parser::TYPE_SHORT;
 }
 
-"Double" {
+"Double"    |
+"double" {
   *d_val = matched();
   return Parser::TYPE_DOUBLE;
 }
 
-"Float" {
+"Float"     |
+"float" {
   *d_val = matched();
   return Parser::TYPE_FLOAT;
 }
@@ -130,7 +135,8 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::TYPE_STRING;
 }
 
-"Boolean" {
+"Boolean"   |
+"boolean" {
   *d_val = matched();
   return Parser::TYPE_BOOLEAN;
 }

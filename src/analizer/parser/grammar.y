@@ -133,16 +133,19 @@ startrule:
  * This rule represents the content of the test file.
  */
 content:
-  initial_statement 
-| variable_statement
-| assignment_statement
-| main_body_code_statement
-| method_statement
-| conditional_structure_statement
-| looping_structure_statement
-| scenario_declaration
-| entries_declaration
-| out_declaration
+  initial_statement { log.info( "Pass stmt: import/package" ); }
+| variable_statement { log.info( "Pass stmt: variable" ); }
+| assignment_statement { log.info( "Pass stmt: assignment" ); }
+| main_body_code_statement { log.info( "Pass stmt: class/interface" ); }
+| method_statement { log.info( "Pass stmt: method" ); }
+| conditional_structure_statement {
+    log.info( "Pass stmt: condicional structure" );
+  }
+|
+  looping_structure_statement { log.info( "Pass stmt: looping structure" ); }
+| scenario_declaration { log.info( "Pass stmt: scenario declaration" ); }
+| entries_declaration { log.info( "Pass stmt: entries declaration" ); }
+| out_declaration { log.info( "Pass stmt: out declaratio" ); }
 ;
 
 /************************* End of General Rules ****************************/
@@ -168,25 +171,19 @@ initial_statement:
 
 import_statement:
   IMPORT parcel_initial_statement {
-    log.info( "Pass statement: import" );
-
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
   }
 |
   IMPORT STATIC parcel_initial_statement {
-    log.info( "Pass statement: import, with static" );
   }
 |
   import_statement COERCION_OPERATOR IDENTIFIER {
-    log.info( "Pass statement: import, with coercion" );
   }
 ;
 
 package_statement:
   PACKAGE parcel_initial_statement {
-    log.info( "Pass statement: package" );
-
     const string identifier_token( $2 );
     test_generator.set_package_name( identifier_token );
   }
@@ -211,19 +208,15 @@ main_body_code_statement:
 
 class_statement:
   CLASS IDENTIFIER {
-    log.info( "Pass statement: class" );
   }
 | 
   ABSTRACT class_statement {
-    log.info( "Pass statement: abstract class" );
   }
 | 
   class_statement IMPLEMENTS IDENTIFIER {
-    log.info( "Pass statement: class with implements" );
   }
 | 
   class_statement EXTENDS IDENTIFIER {
-    log.info( "Pass statement: class with extends" );
   }
 ;
 
@@ -248,36 +241,28 @@ method_statement:
 
 method_no_return_statement:
   DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    log.info( "Pass statement: method without return, without params" );
-
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
   }
 |
   DEF IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
-    log.info( "Pass statement: method without return, with params" );
-
     const string identifier_token( $2 );
     test_generator.set_method_name( identifier_token );
   }
 |
   modifier method_no_return_statement {
-    log.info( "Pass statement: method without return, with modifier" );
   }
 ;
 
 method_with_return_statement:
   type IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    log.info( "Pass statement: method with return, without params" );
   }
 |
   type IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
-    log.info( "Pass statement: method with return, with params" );
   }
 |
   modifier method_with_return_statement {
-    log.info( "Pass statement: method with return, with modifier" );
-}
+  }
 ;
   
 params_statement:
@@ -298,27 +283,22 @@ conditional_structure_statement:
 
 if_statement:
   IF LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
-    log.info( "Pass statement: if" );
   }
 |
   ELSE if_statement {
-    log.info( "Pass statement: else if" );
   }
 |
   ELSE LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
-    log.info( "Pass statement: else" );
   }
 ;
 
 ternary_statement:
   logical_expression QUESTION_MARK value COLON value {
-    log.info( "Pass statement: ternary" );
   }
 ;
 
 switch_statement:
   SWITCH LEFT_PARENTHESES IDENTIFIER RIGHT_PARENTHESES {
-    log.info( "Pass statement: switch" );
   }
 |
   switch_component
@@ -346,21 +326,17 @@ looping_structure_statement:
 for_statement:
   FOR LEFT_PARENTHESES assignment_statement SEMICOLON comparison_expression
   SEMICOLON increments_expression RIGHT_PARENTHESES {
-    log.info( "Pass statement: for" );
   }
 |
   FOR LEFT_PARENTHESES variable_statement COLON IDENTIFIER RIGHT_PARENTHESES {
-    log.info( "Pass statement: for, with collection" );
   }
 |
   FOR LEFT_PARENTHESES IDENTIFIER IN IDENTIFIER RIGHT_PARENTHESES {
-    log.info( "Pass statement: for, with list" );
   }
 ;
 
 while_statement:
   WHILE LEFT_PARENTHESES comparison_expression RIGHT_PARENTHESES {
-    log.info( "Pass statement: while" );
   }
 ;
 
@@ -397,11 +373,9 @@ type:
 
 assignment_statement:
   IDENTIFIER EQUAL value {
-    log.info( "Pass statement: assigment" );
   }
 |
   IDENTIFIER EQUAL NEW IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    log.info( "Pass statement: assigment, constructor" );
   }
 ;
 
