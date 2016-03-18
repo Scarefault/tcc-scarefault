@@ -226,13 +226,13 @@ method_stmt:
   IDENTIFIER L_PAR params_stmt R_PAR {
   }
 |
-  DEF constructor_stmt {
+  DEF method_stmt {
   }
 |
-  type constructor_stmt {
+  type method_stmt {
   }
 |
-  modifier constructor_stmt {
+  modifier method_stmt {
   }
 ;
 
@@ -344,17 +344,28 @@ type:
 
 
 assignment_stmt:
-  IDENTIFIER EQUAL value {
+  IDENTIFIER EQUAL assignment_expression {
   }
 |
-  IDENTIFIER EQUAL NEW IDENTIFIER L_PAR params_stmt R_PAR {
+  DEF assignment_stmt {
   }
-|
-  IDENTIFIER EQUAL L_BRKT R_BRKT COERCION_OP IDENTIFIER {
-  }
-|
-  IDENTIFIER EQUAL L_BRKT R_BRKT {
-  }
+;
+
+assignment_expression:
+| value
+| assignment_constructor_expression
+;
+
+assignment_constructor_expression:
+  L_BRKT params_constructor_stmt R_BRKT
+| assignment_constructor_expression COERCION_OP IDENTIFIER
+| NEW IDENTIFIER L_PAR params_constructor_stmt R_PAR
+;
+
+params_constructor_stmt:
+  value
+| IDENTIFIER COLON value
+| params_constructor_stmt COMMA params_constructor_stmt
 ;
 
 value:
