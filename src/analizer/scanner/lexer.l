@@ -155,32 +155,32 @@ BOOLEAN {TRUE}|{FALSE}
 //
 "(" {
   *d_val = matched();
-  return Parser::LEFT_PARENTHESES;
+  return Parser::L_PAR;
 }
 
 ")" {
   *d_val = matched();
-  return Parser::RIGHT_PARENTHESES;
+  return Parser::R_PAR;
 }
 
 "[" {
   *d_val = matched();
-  return Parser::LEFT_BRACKETS;
+  return Parser::L_BRKT;
 }
 
 "]" {
   *d_val = matched();
-  return Parser::RIGHT_BRACKETS;
+  return Parser::R_BRKT;
 }
 
 "{" {
   *d_val = matched();
-  return Parser::LEFT_CURLY_BRACKETS;
+  return Parser::L_BRACE;
 }
 
 "}" {
   *d_val = matched();
-  return Parser::RIGHT_CURLY_BRACKETS;
+  return Parser::R_BRACE;
 }
 
 ";" {
@@ -200,7 +200,7 @@ BOOLEAN {TRUE}|{FALSE}
 
 "..." {
   *d_val = matched();
-  return Parser::SUSPENSION_DOTS;
+  return Parser::SUSPN_DOTS;
 }
 
 "," {
@@ -296,24 +296,24 @@ BOOLEAN {TRUE}|{FALSE}
 ">"     |
 "<" {
   *d_val = matched();
-  return Parser::COMPARISON_OPERATOR;
+  return Parser::COMPARISON_OP;
 }
 
 "&&"    |
 "||" {
   *d_val = matched();
-  return Parser::LOGICAL_OPERATOR;
+  return Parser::LOGICAL_OP;
 }
 
 "++"    |
 "--" {
   *d_val = matched();
-  return Parser::INCREMENT_OPERATOR;
+  return Parser::INCR_OP;
 }
 
 "as" {
   *d_val = matched();
-  return Parser::COERCION_OPERATOR;
+  return Parser::COERCION_OP;
 }
 
 

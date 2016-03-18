@@ -60,16 +60,16 @@
 /*
  * ********** Punctuation Marks **********
  */
-%token LEFT_PARENTHESES
-%token RIGHT_PARENTHESES
-%token LEFT_BRACKETS
-%token RIGHT_BRACKETS
-%token LEFT_CURLY_BRACKETS
-%token RIGHT_CURLY_BRACKETS
+%token L_PAR
+%token R_PAR
+%token L_BRKT
+%token R_BRKT
+%token L_BRACE
+%token R_BRACE
 %token SEMICOLON
 %token COLON
 %token DOT
-%token SUSPENSION_DOTS
+%token SUSPN_DOTS
 %token COMMA
 %token EQUAL
 %token STAR
@@ -87,10 +87,10 @@
 /*
  * ********** Data Values ****************
  */
-%token NUMBER;
-%token STRING;
-%token IDENTIFIER;
-%token BOOL;
+%token NUMBER
+%token STRING
+%token IDENTIFIER
+%token BOOL
 
 /*
  * ********** Control Structures *********
@@ -108,10 +108,10 @@
 /*
  * ********** Operators ******************
  */
-%token LOGICAL_OPERATOR
-%token COMPARISON_OPERATOR
-%token INCREMENT_OPERATOR
-%token COERCION_OPERATOR
+%token LOGICAL_OP
+%token COMPARISON_OP
+%token INCR_OP
+%token COERCION_OP
 
 
 %%
@@ -133,16 +133,16 @@ startrule:
  * This rule represents the content of the test file.
  */
 content:
-  initial_statement { log.info( "Pass stmt: import/package" ); }
-| variable_statement { log.info( "Pass stmt: variable" ); }
-| assignment_statement { log.info( "Pass stmt: assignment" ); }
-| main_body_code_statement { log.info( "Pass stmt: class/interface" ); }
-| method_statement { log.info( "Pass stmt: method/constructor" ); }
-| conditional_structure_statement {
+  initial_stmt { log.info( "Pass stmt: import/package" ); }
+| variable_stmt { log.info( "Pass stmt: variable" ); }
+| assignment_stmt { log.info( "Pass stmt: assignment" ); }
+| main_body_code_stmt { log.info( "Pass stmt: class/interface" ); }
+| method_stmt { log.info( "Pass stmt: method/constructor" ); }
+| conditional_structure_stmt {
     log.info( "Pass stmt: condicional structure" );
   }
 |
-  looping_structure_statement { log.info( "Pass stmt: looping structure" ); }
+  looping_structure_stmt { log.info( "Pass stmt: looping structure" ); }
 | scenario_declaration { log.info( "Pass stmt: scenario declaration" ); }
 | entries_declaration { log.info( "Pass stmt: entries declaration" ); }
 | out_declaration { log.info( "Pass stmt: out declaratio" ); }
@@ -152,26 +152,26 @@ content:
 
 
 /******************* Rules for Groovy Programming Language *****************/
-initial_statement:
-  package_statement
-| import_statement
+initial_stmt:
+  package_stmt
+| import_stmt
 ;
 
-import_statement:
-  IMPORT parcel_initial_statement {
+import_stmt:
+  IMPORT parcel_initial_stmt {
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
   }
 |
-  IMPORT STATIC parcel_initial_statement {
+  IMPORT STATIC parcel_initial_stmt {
   }
 |
-  import_statement COERCION_OPERATOR IDENTIFIER {
+  import_stmt COERCION_OP IDENTIFIER {
   }
 ;
 
-package_statement:
-  PACKAGE parcel_initial_statement {
+package_stmt:
+  PACKAGE parcel_initial_stmt {
     const string identifier_token( $2 );
     test_generator.set_package_name( identifier_token );
   }
@@ -181,34 +181,34 @@ package_statement:
  * Represents the structure of the name of a package or file that we need
  *   import.
  */
-parcel_initial_statement:
+parcel_initial_stmt:
   IDENTIFIER
-| parcel_initial_statement DOT parcel_initial_statement
-| parcel_initial_statement DOT STAR
+| parcel_initial_stmt DOT parcel_initial_stmt
+| parcel_initial_stmt DOT STAR
 ;
 
 
 
-main_body_code_statement:
-  class_statement
-| interface_statement
+main_body_code_stmt:
+  class_stmt
+| interface_stmt
 ;
 
-class_statement:
+class_stmt:
   CLASS IDENTIFIER {
   }
-| 
-  ABSTRACT class_statement {
+|
+  ABSTRACT class_stmt {
   }
-| 
-  class_statement IMPLEMENTS IDENTIFIER {
+|
+  class_stmt IMPLEMENTS IDENTIFIER {
   }
-| 
-  class_statement EXTENDS IDENTIFIER {
+|
+  class_stmt EXTENDS IDENTIFIER {
   }
 ;
 
-interface_statement:
+interface_stmt:
   INTERFACE IDENTIFIER
 ;
 
@@ -222,80 +222,55 @@ modifier:
 
 
 
-method_statement:
-  method_no_return_statement
-| method_with_return_statement
-| constructor_statement
-;
-
-method_no_return_statement:
-  DEF IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-    const string identifier_token( $2 );
-    test_generator.set_method_name( identifier_token );
+method_stmt:
+  IDENTIFIER L_PAR params_stmt R_PAR {
   }
 |
-  DEF IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
-    const string identifier_token( $2 );
-    test_generator.set_method_name( identifier_token );
+  DEF constructor_stmt {
   }
 |
-  modifier method_no_return_statement {
+  type constructor_stmt {
+  }
+|
+  modifier constructor_stmt {
   }
 ;
 
-method_with_return_statement:
-  type IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-  }
-|
-  type IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
-  }
-|
-  modifier method_with_return_statement {
-  }
-;
-
-constructor_statement:
-  IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
-  }
-|
-  IDENTIFIER LEFT_PARENTHESES params_statement RIGHT_PARENTHESES {
-}
-;
-  
-params_statement:
-  type IDENTIFIER
-| params_statement EQUAL value
-| type SUSPENSION_DOTS IDENTIFIER
+params_stmt:
+  /* Empty Rule. */
+| type IDENTIFIER
+| params_stmt EQUAL value
+| type SUSPN_DOTS IDENTIFIER
 | IDENTIFIER
-| params_statement COMMA params_statement
+| params_stmt COMMA params_stmt
 ;
 
 
 
-conditional_structure_statement:
-  if_statement
-| ternary_statement
-| switch_statement
+conditional_structure_stmt:
+  if_stmt
+| ternary_stmt
+| switch_stmt
 ;
 
-if_statement:
-  IF LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
+if_stmt:
+  IF L_PAR logical_expression R_PAR {
   }
 |
-  ELSE if_statement {
+  ELSE if_stmt {
   }
 |
-  ELSE LEFT_PARENTHESES logical_expression RIGHT_PARENTHESES {
+  ELSE L_PAR logical_expression R_PAR {
   }
 ;
 
-ternary_statement:
+ternary_stmt:
   logical_expression QUESTION_MARK value COLON value {
   }
 ;
 
-switch_statement:
-  SWITCH LEFT_PARENTHESES IDENTIFIER RIGHT_PARENTHESES {
+switch_stmt:
+  SWITCH L_PAR IDENTIFIER R_PAR {
   }
 |
   switch_component
@@ -307,49 +282,49 @@ switch_component:
 ;
 
 logical_expression:
-  value LOGICAL_OPERATOR value
-| value COMPARISON_OPERATOR value
-| logical_expression LOGICAL_OPERATOR logical_expression
-| logical_expression COMPARISON_OPERATOR logical_expression
+  value LOGICAL_OP value
+| value COMPARISON_OP value
+| logical_expression LOGICAL_OP logical_expression
+| logical_expression COMPARISON_OP logical_expression
 ;
 
 
 
-looping_structure_statement:
-  for_statement
-| while_statement
+looping_structure_stmt:
+  for_stmt
+| while_stmt
 ;
 
-for_statement:
-  FOR LEFT_PARENTHESES assignment_statement SEMICOLON comparison_expression
-  SEMICOLON increments_expression RIGHT_PARENTHESES {
+for_stmt:
+  FOR L_PAR assignment_stmt SEMICOLON comparison_expression
+  SEMICOLON increments_expression R_PAR {
   }
 |
-  FOR LEFT_PARENTHESES variable_statement COLON IDENTIFIER RIGHT_PARENTHESES {
+  FOR L_PAR variable_stmt COLON IDENTIFIER R_PAR {
   }
 |
-  FOR LEFT_PARENTHESES IDENTIFIER IN IDENTIFIER RIGHT_PARENTHESES {
+  FOR L_PAR IDENTIFIER IN IDENTIFIER R_PAR {
   }
 ;
 
-while_statement:
-  WHILE LEFT_PARENTHESES comparison_expression RIGHT_PARENTHESES {
+while_stmt:
+  WHILE L_PAR comparison_expression R_PAR {
   }
 ;
 
 comparison_expression:
-  value COMPARISON_OPERATOR value
+  value COMPARISON_OP value
 ;
 
 increments_expression:
-  IDENTIFIER INCREMENT_OPERATOR
+  IDENTIFIER INCR_OP
 ;
 
 
 
-variable_statement:
+variable_stmt:
   type IDENTIFIER
-| modifier variable_statement
+| modifier variable_stmt
 ;
 
 type:
@@ -363,16 +338,22 @@ type:
 | TYPE_LIST { $$ = $1; }
 | TYPE_DATE { $$ = $1; }
 | IDENTIFIER { $$ = $1; }
-| type LEFT_BRACKETS RIGHT_BRACKETS { $$ = $1; }
+| type L_BRKT R_BRKT { $$ = $1; }
 ;
 
 
 
-assignment_statement:
+assignment_stmt:
   IDENTIFIER EQUAL value {
   }
 |
-  IDENTIFIER EQUAL NEW IDENTIFIER LEFT_PARENTHESES RIGHT_PARENTHESES {
+  IDENTIFIER EQUAL NEW IDENTIFIER L_PAR params_stmt R_PAR {
+  }
+|
+  IDENTIFIER EQUAL L_BRKT R_BRKT COERCION_OP IDENTIFIER {
+  }
+|
+  IDENTIFIER EQUAL L_BRKT R_BRKT {
   }
 ;
 
@@ -402,7 +383,7 @@ text:
 scenario_declaration:
   SCENARIO COLON text {
     const string text_token( $3 );
-  
+
     test_generator.set_scenario_name( text_token );
   }
 ;
@@ -417,7 +398,7 @@ entries_declaration:
 ;
 
 /*
- * Represents the data of input. 
+ * Represents the data of input.
  */
 test_input:
   test_input COMMA test_input {
@@ -429,7 +410,7 @@ test_input:
     int input = stoi( input_token );
 
     test_generator.add_scenario_entry( input );
-  }  
+  }
 ;
 
 /*
