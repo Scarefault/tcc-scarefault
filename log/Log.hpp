@@ -23,6 +23,8 @@ namespace LogSystem
     private:
       char buffer[date_time_size];
       std::fstream log_stream;
+      std::string last_message;
+      int times_counted;
 
       char* get_date_time( char* );
       std::fstream* get_log_stream();
