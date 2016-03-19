@@ -319,6 +319,7 @@ comparison_expression:
 
 increments_expression:
   IDENTIFIER INCR_OP
+| INCR_OP IDENTIFIER
 ;
 
 
@@ -379,6 +380,7 @@ value:
   NUMBER
 | STRING
 | BOOL
+| IDENTIFIER
 ;
 
 text:
