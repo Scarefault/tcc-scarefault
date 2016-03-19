@@ -3,13 +3,20 @@ INTEGER {DIGIT}+
 REAL    -?{WHITESPACE}?{INTEGER}+("."{INTEGER}+)?
 
 CHARACTER .
-LITERAL   \".*\"
+QUOT \'
+D_QUOT \"
+TRIPLE_D_QUOT \"\"\"
+T_QUOT \'\'\'
+
+S_QUOT_TEXT {QUOT}{CHARACTER}*{QUOT}
+D_QUOT_TEXT {D_QUOT}{CHARACTER}*{D_QUOT}
+T_D_QUOT_TEXT {TRIPLE_D_QUOT}{CHARACTER}*{TRIPLE_D_QUOT}
+T_QUOT_TEXT {T_QUOT}{CHARACTER}*{T_QUOT}
+
+TEXT {S_QUOT_TEXT}|{D_QUOT_TEXT}|{T_QUOT_TEXT}|{T_D_QUOT_TEXT}
 
 WHITESPACE [[:blank:]]+
 
-WORD       [_0-9a-zA-Z]+
-NOT_DIGIT  [^?0-9]
-NOT_DOLLAR [^?"$"]
 IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]*
 
 TRUE    true
@@ -224,6 +231,7 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::STAR;
 }
 
+
 //----------------------------- Scarefault Marks --------------------------- //
 //
 "scarefault" {
@@ -332,14 +340,14 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::NUMBER;
 }
 
-{LITERAL} {
-  *d_val = matched();
-  return Parser::STRING;
-}
-
 {BOOLEAN} {
   *d_val = matched();
   return Parser::BOOL;
+}
+
+{TEXT} {
+  *d_val = matched();
+  return Parser::STRING;
 }
 
 {IDENTIFIER} {

@@ -378,15 +378,13 @@ params_constructor_stmt:
 
 value:
   NUMBER
-| STRING
+| string
 | BOOL
 | IDENTIFIER
 ;
 
-text:
-  STRING {
-    $$ = $1;
-  }
+string:
+  STRING { $$ = $1; }
 ;
 
 
@@ -401,10 +399,10 @@ text:
  *   the Scarefault.
  */
 scenario_declaration:
-  SCENARIO COLON text {
-    const string text_token( $3 );
+  SCENARIO COLON string {
+    const string string_token( $3 );
 
-    test_generator.set_scenario_name( text_token );
+    test_generator.set_scenario_name( string_token );
   }
 ;
 
