@@ -135,6 +135,12 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::TYPE_STRING;
 }
 
+"Character" |
+"char" {
+  *d_val = matched();
+  return Parser::TYPE_CHAR;
+}
+
 "Boolean"   |
 "boolean" {
   *d_val = matched();

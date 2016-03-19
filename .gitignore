@@ -108,7 +108,7 @@ hs_err_pid*
 
 
 # ---------------------------------- GENERAL ---------------------------------#
-TestGrammar
+testgrammar
 guestbook/
 *.swp
 /tests/runAllTest

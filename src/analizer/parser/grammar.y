@@ -52,6 +52,7 @@
 %token TYPE_DOUBLE
 %token TYPE_FLOAT
 %token TYPE_STRING
+%token TYPE_CHAR
 %token TYPE_BOOLEAN
 %token TYPE_LIST
 %token TYPE_DATE
@@ -158,12 +159,12 @@ initial_stmt:
 ;
 
 import_stmt:
-  IMPORT parcel_initial_stmt {
+  IMPORT package_name {
     const string identifier_token( $2 );
     test_generator.add_import_name( identifier_token );
   }
 |
-  IMPORT STATIC parcel_initial_stmt {
+  IMPORT STATIC package_name {
   }
 |
   import_stmt COERCION_OP IDENTIFIER {
@@ -171,7 +172,7 @@ import_stmt:
 ;
 
 package_stmt:
-  PACKAGE parcel_initial_stmt {
+  PACKAGE package_name {
     const string identifier_token( $2 );
     test_generator.set_package_name( identifier_token );
   }
@@ -181,10 +182,10 @@ package_stmt:
  * Represents the structure of the name of a package or file that we need
  *   import.
  */
-parcel_initial_stmt:
+package_name:
   IDENTIFIER
-| parcel_initial_stmt DOT parcel_initial_stmt
-| parcel_initial_stmt DOT STAR
+| package_name DOT package_name
+| package_name DOT STAR
 ;
 
 
@@ -334,6 +335,7 @@ type:
 | TYPE_DOUBLE { $$ = $1; }
 | TYPE_FLOAT { $$ = $1; }
 | TYPE_STRING { $$ = $1; }
+| TYPE_CHAR { $$ = $1; }
 | TYPE_BOOLEAN { $$ = $1; }
 | TYPE_LIST { $$ = $1; }
 | TYPE_DATE { $$ = $1; }
@@ -345,6 +347,9 @@ type:
 
 assignment_stmt:
   IDENTIFIER EQUAL assignment_expression {
+  }
+|
+  type IDENTIFIER EQUAL assignment_expression {
   }
 |
   DEF assignment_stmt {
@@ -359,7 +364,9 @@ assignment_expression:
 assignment_constructor_expression:
   L_BRKT params_constructor_stmt R_BRKT
 | assignment_constructor_expression COERCION_OP IDENTIFIER
+| assignment_constructor_expression COERCION_OP type L_BRKT R_BRKT
 | NEW IDENTIFIER L_PAR params_constructor_stmt R_PAR
+| NEW IDENTIFIER L_PAR R_PAR
 ;
 
 params_constructor_stmt:
