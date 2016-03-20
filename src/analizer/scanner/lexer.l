@@ -10,7 +10,10 @@ TRUE    true
 FALSE   false
 BOOLEAN {TRUE}|{FALSE}
 
-%x string
+%x quot_string
+%x t_quot_string
+%x t_d_quot_string
+%x slashy_string
 
 
 %%
@@ -339,12 +342,70 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::IDENTIFIER;
 }
 
-\"  {
+"\""      |
+"\'"  {
   more();
-  begin( StartCondition__::string );
+  begin( StartCondition__::quot_string );
 }
-<string> {
-  \" {
+<quot_string> {
+  "\""    |
+  "\'" {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::STRING;
+  }
+
+  \\.|. {
+    more();
+  }
+}
+
+"\'\'\'" {
+  more();
+  begin( StartCondition__::t_quot_string );
+}
+<t_quot_string> {
+  "\'\'\'" {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::STRING;
+  }
+
+  \\.|. {
+    more();
+  }
+
+  "\n" {
+    more();
+  }
+}
+
+"\"\"\"" {
+  more();
+  begin( StartCondition__::t_d_quot_string );
+}
+<t_d_quot_string> {
+  "\"\"\"" {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::STRING;
+  }
+
+  \\.|. {
+    more();
+  }
+
+  "\n" {
+    more();
+  }
+}
+
+"\/" {
+  more();
+  begin( StartCondition__::slashy_string );
+}
+<slashy_string> {
+  "\/" {
     begin( StartCondition__::INITIAL );
     *d_val = matched();
     return Parser::STRING;

@@ -384,7 +384,7 @@ value:
 ;
 
 string:
-  STRING { $$ = $1; log.info( "String!" ); }
+  STRING { $$ = $1; }
 ;
 
 
