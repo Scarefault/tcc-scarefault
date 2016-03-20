@@ -14,7 +14,8 @@ BOOLEAN {TRUE}|{FALSE}
 %x t_quot_string
 %x t_d_quot_string
 %x slashy_string
-%x comment
+%x multiline_comment
+%x oneline_comment
 
 
 %%
@@ -420,20 +421,33 @@ BOOLEAN {TRUE}|{FALSE}
 "/*"   |
 "/**" {
   more();
-  begin( StartCondition__::comment );
+  begin( StartCondition__::multiline_comment );
 }
-<comment> {
+<multiline_comment> {
   "*/" {
     begin( StartCondition__::INITIAL );
     *d_val = matched();
     return Parser::COMMENT;
   }
 
-  \\.|. {
+  .|\n {
     more();
   }
+}
 
-  "\n" {
+\/\/ {
+  more();
+  begin( StartCondition__::oneline_comment );
+}
+
+<oneline_comment> {
+  .$ {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::COMMENT;
+  }
+
+  .|. {
     more();
   }
 }
