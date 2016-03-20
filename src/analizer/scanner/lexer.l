@@ -14,6 +14,7 @@ BOOLEAN {TRUE}|{FALSE}
 %x t_quot_string
 %x t_d_quot_string
 %x slashy_string
+%x comment
 
 
 %%
@@ -412,6 +413,27 @@ BOOLEAN {TRUE}|{FALSE}
   }
 
   \\.|. {
+    more();
+  }
+}
+
+"/*"   |
+"/**" {
+  more();
+  begin( StartCondition__::comment );
+}
+<comment> {
+  "*/" {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::COMMENT;
+  }
+
+  \\.|. {
+    more();
+  }
+
+  "\n" {
     more();
   }
 }

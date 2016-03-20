@@ -35,6 +35,7 @@
 %token PRIVATE
 %token STATIC
 %token FINAL
+%token COMMENT
 
 
 /*
@@ -144,6 +145,7 @@ content:
   }
 |
   looping_structure_stmt { log.info( "Pass stmt: looping structure" ); }
+| comment_stmt { log.info( "Pass stmt: comment/groovy doc" ); }
 | scenario_declaration { log.info( "Pass stmt: scenario declaration" ); }
 | entries_declaration { log.info( "Pass stmt: entries declaration" ); }
 | out_declaration { log.info( "Pass stmt: out declaratio" ); }
@@ -186,6 +188,12 @@ package_name:
   IDENTIFIER
 | package_name DOT package_name
 | package_name DOT STAR
+;
+
+
+
+comment_stmt:
+  COMMENT
 ;
 
 
