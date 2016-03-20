@@ -2,19 +2,6 @@ DIGIT   [[:digit:]]
 INTEGER {DIGIT}+
 REAL    -?{WHITESPACE}?{INTEGER}+("."{INTEGER}+)?
 
-CHARACTER .
-QUOT \'
-D_QUOT \"
-TRIPLE_D_QUOT \"\"\"
-T_QUOT \'\'\'
-
-S_QUOT_TEXT {QUOT}{CHARACTER}*{QUOT}
-D_QUOT_TEXT {D_QUOT}{CHARACTER}*{D_QUOT}
-T_D_QUOT_TEXT {TRIPLE_D_QUOT}{CHARACTER}*{TRIPLE_D_QUOT}
-T_QUOT_TEXT {T_QUOT}{CHARACTER}*{T_QUOT}
-
-TEXT {S_QUOT_TEXT}|{D_QUOT_TEXT}|{T_QUOT_TEXT}|{T_D_QUOT_TEXT}
-
 WHITESPACE [[:blank:]]+
 
 IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]*
@@ -22,6 +9,8 @@ IDENTIFIER _?[a-zA-Z0-9][a-zA-Z0-9]*
 TRUE    true
 FALSE   false
 BOOLEAN {TRUE}|{FALSE}
+
+%x string
 
 
 %%
@@ -345,12 +334,23 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::BOOL;
 }
 
-{TEXT} {
-  *d_val = matched();
-  return Parser::STRING;
-}
-
 {IDENTIFIER} {
   *d_val = matched();
   return Parser::IDENTIFIER;
+}
+
+\"  {
+  more();
+  begin( StartCondition__::string );
+}
+<string> {
+  \" {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::STRING;
+  }
+
+  \\.|. {
+    more();
+  }
 }
