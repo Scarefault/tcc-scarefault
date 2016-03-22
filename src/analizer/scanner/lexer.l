@@ -10,12 +10,9 @@ TRUE    true
 FALSE   false
 BOOLEAN {TRUE}|{FALSE}
 
-%x quot_string
-%x t_quot_string
-%x t_d_quot_string
-%x slashy_string
+%x oneline_string
+%x multiline_string
 %x multiline_comment
-%x oneline_comment
 
 
 %%
@@ -345,75 +342,39 @@ BOOLEAN {TRUE}|{FALSE}
 }
 
 "\""      |
-"\'"  {
-  more();
-  begin( StartCondition__::quot_string );
-}
-<quot_string> {
-  "\""    |
-  "\'" {
-    begin( StartCondition__::INITIAL );
-    *d_val = matched();
-    return Parser::STRING;
-  }
-
-  \\.|. {
-    more();
-  }
-}
-
-"\'\'\'" {
-  more();
-  begin( StartCondition__::t_quot_string );
-}
-<t_quot_string> {
-  "\'\'\'" {
-    begin( StartCondition__::INITIAL );
-    *d_val = matched();
-    return Parser::STRING;
-  }
-
-  \\.|. {
-    more();
-  }
-
-  "\n" {
-    more();
-  }
-}
-
-"\"\"\"" {
-  more();
-  begin( StartCondition__::t_d_quot_string );
-}
-<t_d_quot_string> {
-  "\"\"\"" {
-    begin( StartCondition__::INITIAL );
-    *d_val = matched();
-    return Parser::STRING;
-  }
-
-  \\.|. {
-    more();
-  }
-
-  "\n" {
-    more();
-  }
-}
-
+"\'"      |
 "\/" {
   more();
-  begin( StartCondition__::slashy_string );
+  begin( StartCondition__::oneline_string );
 }
-<slashy_string> {
+<oneline_string> {
+  "\""    |
+  "\'"    |
   "\/" {
     begin( StartCondition__::INITIAL );
     *d_val = matched();
     return Parser::STRING;
   }
 
-  \\.|. {
+  . {
+    more();
+  }
+}
+
+"\'\'\'"  |
+"\"\"\"" {
+  more();
+  begin( StartCondition__::multiline_string );
+}
+<multiline_string> {
+  "\'\'\'"  |
+  "\"\"\"" {
+    begin( StartCondition__::INITIAL );
+    *d_val = matched();
+    return Parser::STRING;
+  }
+
+  .|\n {
     more();
   }
 }
@@ -435,19 +396,7 @@ BOOLEAN {TRUE}|{FALSE}
   }
 }
 
-\/\/ {
-  more();
-  begin( StartCondition__::oneline_comment );
+\/\/.*$ {
+  /* Ignore Comment. */
 }
 
-<oneline_comment> {
-  .$ {
-    begin( StartCondition__::INITIAL );
-    *d_val = matched();
-    return Parser::COMMENT;
-  }
-
-  .|. {
-    more();
-  }
-}
