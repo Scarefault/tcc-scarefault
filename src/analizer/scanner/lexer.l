@@ -18,8 +18,8 @@ BOOLEAN {TRUE}|{FALSE}
 %%
 
 
-//---------------------------- Importation --------------------------------- //
-//
+// -------------- Importation -----------------------------
+
 "import" {
   *d_val = matched();
   return Parser::IMPORT;
@@ -30,8 +30,10 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::PACKAGE;
 }
 
-//-------------------------------- Classes --------------------------------- //
-//
+// --------------- End of Importation ---------------------
+
+// --------------- Classes --------------------------------
+
 "class" {
   *d_val = matched();
   return Parser::CLASS;
@@ -55,11 +57,6 @@ BOOLEAN {TRUE}|{FALSE}
 "abstract" {
   *d_val = matched();
   return Parser::ABSTRACT;
-}
-
-"new" {
-  *d_val = matched();
-  return Parser::NEW;
 }
 
 "public" {
@@ -87,42 +84,40 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::FINAL;
 }
 
-
-// ------------------------------ Methods ---------------------------------- //
-//
 "def" {
   *d_val = matched();
   return Parser::DEF;
 }
 
+// --------------- End of Classes -------------------------
 
-// --------------------------- Type of Data -------------------------------- //
-//
-"Integer"   |
+// --------------- Type of Data ---------------------------
+
+"Integer" |
 "int" {
   *d_val = matched();
   return Parser::TYPE_INTEGER;
 }
 
-"Long"      |
+"Long" |
 "long" {
   *d_val = matched();
   return Parser::TYPE_LONG;
 }
 
-"Short"     |
+"Short" |
 "short" {
   *d_val = matched();
   return Parser::TYPE_SHORT;
 }
 
-"Double"    |
+"Double" |
 "double" {
   *d_val = matched();
   return Parser::TYPE_DOUBLE;
 }
 
-"Float"     |
+"Float" |
 "float" {
   *d_val = matched();
   return Parser::TYPE_FLOAT;
@@ -139,7 +134,7 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::TYPE_CHAR;
 }
 
-"Boolean"   |
+"Boolean" |
 "boolean" {
   *d_val = matched();
   return Parser::TYPE_BOOLEAN;
@@ -155,8 +150,15 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser:: TYPE_DATE;
 }
 
-//-------------------------- Punctuation Marks ----------------------------- //
-//
+// -------------- End of Type of Data ---------------------
+
+// -------------- Punctuation Marks -----------------------
+
+"?" {
+  *d_val = matched();
+  return Parser::QUESTION_MARK;
+}
+
 "(" {
   *d_val = matched();
   return Parser::L_PAR;
@@ -187,14 +189,24 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::R_BRACE;
 }
 
-";" {
+"*" {
   *d_val = matched();
-  return Parser::SEMICOLON;
+  return Parser::STAR;
 }
 
 ":" {
   *d_val = matched();
   return Parser::COLON;
+}
+
+";" {
+  *d_val = matched();
+  return Parser::SEMICOLON;
+}
+
+"," {
+  *d_val = matched();
+  return Parser::COMMA;
 }
 
 "." {
@@ -207,46 +219,10 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::SUSPN_DOTS;
 }
 
-"," {
-  *d_val = matched();
-  return Parser::COMMA;
-}
+// --------------- End of Punctuation Marks ---------------
 
-"=" {
-  *d_val = matched();
-  return Parser::EQUAL;
-}
+// --------------- Control Strutuctures -------------------
 
-"*" {
-  *d_val = matched();
-  return Parser::STAR;
-}
-
-
-//----------------------------- Scarefault Marks --------------------------- //
-//
-"scarefault" {
-  *d_val = matched();
-  return Parser::SCAREFAULT;
-}
-
-"scenario" {
-  *d_val = matched();
-  return Parser::SCENARIO;
-}
-
-"entries" {
-  *d_val = matched();
-  return Parser::ENTRIES;
-}
-
-"out" {
-  *d_val = matched();
-  return Parser::OUT;
-}
-
-//-------------------------- Control Strutucture --------------------------- //
-//
 "if" {
   *d_val = matched();
   return Parser::IF;
@@ -255,11 +231,6 @@ BOOLEAN {TRUE}|{FALSE}
 "else" {
   *d_val = matched();
   return Parser::ELSE;
-}
-
-"?" {
-  *d_val = matched();
-  return Parser::QUESTION_MARK;
 }
 
 "switch" {
@@ -282,35 +253,37 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::FOR;
 }
 
-"in" {
-  *d_val = matched();
-  return Parser::IN;
-}
-
 "while" {
   *d_val = matched();
   return Parser::WHILE;
 }
 
+// --------------- End of Control Structures --------------
 
-//------------------------------ Operators --------------------------------- //
-"=="    |
-"!="    |
-"<="    |
-">="    |
-">"     |
+// --------------- Operators ------------------------------
+
+"=" {
+  *d_val = matched();
+  return Parser::EQUAL;
+}
+
+"==" |
+"!=" |
+"<=" |
+">=" |
+">"  |
 "<" {
   *d_val = matched();
   return Parser::COMPARISON_OP;
 }
 
-"&&"    |
+"&&" |
 "||" {
   *d_val = matched();
   return Parser::LOGICAL_OP;
 }
 
-"++"    |
+"++" |
 "--" {
   *d_val = matched();
   return Parser::INCR_OP;
@@ -321,11 +294,36 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::COERCION_OP;
 }
 
+"new" {
+  *d_val = matched();
+  return Parser::NEW;
+}
 
-//------------------------------- Data Values ------------------------------ //
-//
-{DIGIT}       |
-{INTEGER}     |
+"in" {
+  *d_val = matched();
+  return Parser::IN;
+}
+
+// --------------- End of Operators -----------------------
+
+// --------------- Comments -------------------------------
+
+\/\/.*$ {
+  /* Ignore Comment. */
+}
+
+"/*" |
+"/**" {
+  more();
+  begin( StartCondition__::multiline_comment );
+}
+
+// --------------- End of Comments ------------------------
+
+// --------------- Data Values ----------------------------
+
+{DIGIT}   |
+{INTEGER} |
 {REAL} {
   *d_val = matched();
   return Parser::NUMBER;
@@ -341,15 +339,26 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::IDENTIFIER;
 }
 
-"\""      |
-"\'"      |
+"\"" |
+"\'" |
 "\/" {
   more();
   begin( StartCondition__::oneline_string );
 }
+
+"\'\'\'" |
+"\"\"\"" {
+  more();
+  begin( StartCondition__::multiline_string );
+}
+
+// --------------- End of Data Values ---------------------
+
+// --------------- Mini-Scanners --------------------------
+
 <oneline_string> {
-  "\""    |
-  "\'"    |
+  "\"" |
+  "\'" |
   "\/" {
     begin( StartCondition__::INITIAL );
     *d_val = matched();
@@ -361,11 +370,7 @@ BOOLEAN {TRUE}|{FALSE}
   }
 }
 
-"\'\'\'"  |
-"\"\"\"" {
-  more();
-  begin( StartCondition__::multiline_string );
-}
+
 <multiline_string> {
   "\'\'\'"  |
   "\"\"\"" {
@@ -379,11 +384,7 @@ BOOLEAN {TRUE}|{FALSE}
   }
 }
 
-"/*"   |
-"/**" {
-  more();
-  begin( StartCondition__::multiline_comment );
-}
+
 <multiline_comment> {
   "*/" {
     begin( StartCondition__::INITIAL );
@@ -394,9 +395,5 @@ BOOLEAN {TRUE}|{FALSE}
   .|\n {
     more();
   }
-}
-
-\/\/.*$ {
-  /* Ignore Comment. */
 }
 

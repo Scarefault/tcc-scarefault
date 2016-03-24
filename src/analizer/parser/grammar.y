@@ -22,25 +22,19 @@
 
 
 /*
- * ********* Classes *********************
+ * ************* Classes *****************
  */
 %token CLASS
 %token INTERFACE
 %token IMPLEMENTS
 %token EXTENDS
 %token ABSTRACT
-%token NEW
 %token PUBLIC
 %token PROTECTED
 %token PRIVATE
 %token STATIC
 %token FINAL
 %token COMMENT
-
-
-/*
- * *********** Methods *******************
- */
 %token DEF
 
 
@@ -62,28 +56,19 @@
 /*
  * ********** Punctuation Marks **********
  */
+%token QUESTION_MARK
 %token L_PAR
 %token R_PAR
 %token L_BRKT
 %token R_BRKT
 %token L_BRACE
 %token R_BRACE
-%token SEMICOLON
+%token STAR
 %token COLON
+%token SEMICOLON
+%token COMMA
 %token DOT
 %token SUSPN_DOTS
-%token COMMA
-%token EQUAL
-%token STAR
-
-
-/*
- * ********** Scarefault Marks ***********
- */
-%token SCAREFAULT
-%token SCENARIO
-%token ENTRIES
-%token OUT
 
 
 /*
@@ -99,21 +84,22 @@
  */
 %token IF
 %token ELSE
-%token QUESTION_MARK
 %token SWITCH
 %token CASE
 %token DEFAULT
 %token FOR
-%token IN
 %token WHILE
 
 /*
  * ********** Operators ******************
  */
-%token LOGICAL_OP
+%token EQUAL
 %token COMPARISON_OP
+%token LOGICAL_OP
 %token INCR_OP
 %token COERCION_OP
+%token NEW
+%token IN
 
 
 %%
@@ -121,19 +107,12 @@
 
 /******************************* General Rules *****************************/
 
-/*
- * It is the initial rule. Formed essentially by the rules establishing the
- *   content of the test file.
- */
 startrule:
   /* Empty Rule */
 |
   startrule content
 ;
 
-/*
- * This rule represents the content of the test file.
- */
 content:
   initial_stmt { log.info( "Pass stmt: import/package" ); }
 | variable_stmt { log.info( "Pass stmt: variable" ); }
@@ -146,9 +125,6 @@ content:
 |
   looping_structure_stmt { log.info( "Pass stmt: looping structure" ); }
 | comment_stmt { log.info( "Pass stmt: comment/groovy doc" ); }
-| scenario_declaration { log.info( "Pass stmt: scenario declaration" ); }
-| entries_declaration { log.info( "Pass stmt: entries declaration" ); }
-| out_declaration { log.info( "Pass stmt: out declaratio" ); }
 ;
 
 /************************* End of General Rules ****************************/
@@ -398,66 +374,3 @@ string:
 
 
 /*************** End of Rules for Groovy Programming Language **************/
-
-
-/************************* Rules for Scarefault ****************************/
-
-/*
- * Represents the description of the scenario of the test to implement by
- *   the Scarefault.
- */
-scenario_declaration:
-  SCENARIO COLON string {
-    const string string_token( $3 );
-
-    test_generator.set_scenario_name( string_token );
-  }
-;
-
-/*
- * Represents the description of the entries of test scenario.
- */
-entries_declaration:
-  SCAREFAULT DOT ENTRIES COLON test_input SEMICOLON {
-    /* Empty Rule */
-  }
-;
-
-/*
- * Represents the data of input.
- */
-test_input:
-  test_input COMMA test_input {
-    /* Empty Rule */
-  }
-|
-  NUMBER {
-    const string input_token( $1 );
-    int input = stoi( input_token );
-
-    test_generator.add_scenario_entry( input );
-  }
-;
-
-/*
- * Represents the description of the output of the test scenario.
- */
-out_declaration:
-  SCAREFAULT DOT OUT COLON test_output SEMICOLON {
-    /* Empty Rule */
-  }
-;
-
-/*
- * Represents the data of output.
- */
-test_output:
-  NUMBER {
-    const string output_token( $1 );
-    int output = stoi( output_token );
-
-    test_generator.set_scenario_out( output );
-  }
-;
-
-/********************** End of Rules for Scarefault ************************/
