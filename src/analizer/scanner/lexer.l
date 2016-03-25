@@ -189,6 +189,11 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::R_BRACE;
 }
 
+"/" {
+  *d_val = matched();
+  return Parser::SLASH;
+}
+
 "*" {
   *d_val = matched();
   return Parser::STAR;
@@ -302,6 +307,16 @@ BOOLEAN {TRUE}|{FALSE}
 "in" {
   *d_val = matched();
   return Parser::IN;
+}
+
+"+" {
+  *d_val = matched();
+  return Parser::PLUS;
+}
+
+"-" {
+  *d_val = matched();
+  return Parser::MINUS;
 }
 
 // --------------- End of Operators -----------------------

@@ -62,6 +62,7 @@
 %token R_BRKT
 %token L_BRACE
 %token R_BRACE
+%token SLASH
 %token STAR
 %token COLON
 %token SEMICOLON
@@ -99,6 +100,8 @@
 %token COERCION_OP
 %token NEW
 %token IN
+%token PLUS
+%token MINUS
 
 
 %%
@@ -148,6 +151,13 @@ boolean:
 
 identifier:
   IDENTIFIER { $$ = $1; }
+;
+
+arith_op:
+  PLUS
+| MINUS
+| STAR
+| SLASH
 ;
 
 /************************* End of General Rules ****************************/
@@ -356,7 +366,7 @@ assignment_stmt:
 ;
 
 assignment_expression:
-| value
+| expr
 | assignment_constructor_expression
 ;
 
@@ -372,5 +382,14 @@ params_constructor_stmt:
   value
 | identifier COLON value
 | params_constructor_stmt COMMA params_constructor_stmt
+;
+
+expr:
+  number
+| string
+| boolean
+| identifier
+| L_PAR expr R_PAR
+| expr arith_op expr
 ;
 /*************** End of Rules for Groovy Programming Language **************/
