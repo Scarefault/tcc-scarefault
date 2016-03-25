@@ -13,7 +13,6 @@
  *   of external libraries is also made to this section.
  */
 
-
 /*
  * ************ Importation **************
  */
@@ -127,6 +126,30 @@ content:
 | comment_stmt { log.info( "Pass stmt: comment/groovy doc" ); }
 ;
 
+
+value:
+  number
+| string
+| boolean
+| identifier
+;
+
+number:
+  NUMBER { $$ = $1; }
+;
+
+string:
+  STRING { $$ = $1; }
+;
+
+boolean:
+  BOOL { $$ = $1; }
+;
+
+identifier:
+  IDENTIFIER { $$ = $1; }
+;
+
 /************************* End of General Rules ****************************/
 
 
@@ -156,10 +179,6 @@ package_stmt:
   }
 ;
 
-/*
- * Represents the structure of the name of a package or file that we need
- *   import.
- */
 package_name:
   IDENTIFIER
 | package_name DOT package_name
@@ -223,10 +242,10 @@ method_stmt:
 
 params_stmt:
   /* Empty Rule. */
-| type IDENTIFIER
+| type identifier
 | params_stmt EQUAL value
-| type SUSPN_DOTS IDENTIFIER
-| IDENTIFIER
+| type SUSPN_DOTS identifier
+| identifier
 | params_stmt COMMA params_stmt
 ;
 
@@ -255,7 +274,7 @@ ternary_stmt:
 ;
 
 switch_stmt:
-  SWITCH L_PAR IDENTIFIER R_PAR {
+  SWITCH L_PAR identifier R_PAR {
   }
 |
   switch_component
@@ -288,7 +307,7 @@ for_stmt:
   FOR L_PAR variable_stmt COLON IDENTIFIER R_PAR {
   }
 |
-  FOR L_PAR IDENTIFIER IN IDENTIFIER R_PAR {
+  FOR L_PAR identifier IN IDENTIFIER R_PAR {
   }
 ;
 
@@ -302,14 +321,14 @@ comparison_expression:
 ;
 
 increments_expression:
-  IDENTIFIER INCR_OP
-| INCR_OP IDENTIFIER
+  identifier INCR_OP
+| INCR_OP identifier
 ;
 
 
 
 variable_stmt:
-  type IDENTIFIER
+  type identifier
 | modifier variable_stmt
 ;
 
@@ -331,14 +350,9 @@ type:
 
 
 assignment_stmt:
-  IDENTIFIER EQUAL assignment_expression {
-  }
-|
-  type IDENTIFIER EQUAL assignment_expression {
-  }
-|
-  DEF assignment_stmt {
-  }
+  IDENTIFIER EQUAL assignment_expression
+| type IDENTIFIER EQUAL assignment_expression
+| DEF assignment_stmt
 ;
 
 assignment_expression:
@@ -356,21 +370,7 @@ assignment_constructor_expression:
 
 params_constructor_stmt:
   value
-| IDENTIFIER COLON value
+| identifier COLON value
 | params_constructor_stmt COMMA params_constructor_stmt
 ;
-
-value:
-  NUMBER
-| string
-| BOOL
-| IDENTIFIER
-;
-
-string:
-  STRING { $$ = $1; }
-;
-
-
-
 /*************** End of Rules for Groovy Programming Language **************/
