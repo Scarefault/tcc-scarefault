@@ -57,7 +57,7 @@
  * ********** Control Structures *********
  */
 %token IF
-%token ELSE
+%left ELSE
 %token SWITCH
 %token CASE
 %token DEFAULT
