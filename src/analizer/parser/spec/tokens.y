@@ -68,12 +68,10 @@
 /*
  * ********** Operators ******************
  */
-%token EQUAL
+%token ASSIGN_OP
 %token COMPARISON_OP
 %token LOGICAL_OP
 %token INCR_OP
 %token COERCION_OP
 %token NEW
 %token IN
-%token PLUS
-%token MINUS

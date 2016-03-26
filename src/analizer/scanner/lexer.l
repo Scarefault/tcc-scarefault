@@ -164,6 +164,8 @@ BOOLEAN {TRUE}|{FALSE}
 ";" |
 "," |
 "." |
+"+" |
+"-" |
 "*" |
 "/" {
   return matched()[ 0 ];
@@ -218,9 +220,14 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- Operators ------------------------------
 
+"+=" |
+"-=" |
+"*=" |
+"/=" |
+"%=" |
 "=" {
   *d_val = matched();
-  return Parser::EQUAL;
+  return Parser::ASSIGN_OP;
 }
 
 "==" |
@@ -258,16 +265,6 @@ BOOLEAN {TRUE}|{FALSE}
 "in" {
   *d_val = matched();
   return Parser::IN;
-}
-
-"+" {
-  *d_val = matched();
-  return Parser::PLUS;
-}
-
-"-" {
-  *d_val = matched();
-  return Parser::MINUS;
 }
 
 // --------------- End of Operators -----------------------

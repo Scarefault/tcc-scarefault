@@ -9,7 +9,9 @@ stmt_list:
 
 stmt:
   variable_declaration
+| assign_stmt
 | control_structure_stmt
+| method_stmt
 ;
 
 variable_declaration:
@@ -19,6 +21,11 @@ variable_declaration:
 
 variable:
   identifier
+;
+
+assign_stmt:
+  variable ASSIGN_OP expr
+| DEF assign_stmt
 ;
 
 control_structure_stmt:
@@ -31,7 +38,6 @@ conditional_structure_stmt:
 | ternary_stmt
 | switch_stmt
 ;
-
 
 if_stmt:
   IF '(' expr ')' content_stmt
@@ -79,6 +85,36 @@ for_stmt:
 
 while_stmt:
   WHILE '(' expr ')' content_stmt
+;
+
+method_stmt:
+  method_header content_stmt
+;
+
+method_header:
+  identifier '(' param_list ')'
+| DEF method_header
+| type method_header
+| modifier method_header
+;
+
+param_list:
+  // Empty.
+|
+  params
+;
+
+params:
+  param
+|
+  params ',' param
+;
+
+param:
+  variable
+| type variable
+| type variable ASSIGN_OP expr
+| type SUSPN_DOTS variable
 ;
 
 expr:
