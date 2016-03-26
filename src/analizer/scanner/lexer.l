@@ -153,6 +153,7 @@ BOOLEAN {TRUE}|{FALSE}
 // -------------- End of Type of Data ---------------------
 
 // -------------- Punctuation Marks -----------------------
+"!" |
 "?" |
 "(" |
 ")" |
@@ -167,7 +168,11 @@ BOOLEAN {TRUE}|{FALSE}
 "+" |
 "-" |
 "*" |
-"/" {
+"/" |
+"&" |
+"|" |
+"^" |
+"~" {
   return matched()[ 0 ];
 }
 
@@ -252,6 +257,36 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::INCR_OP;
 }
 
+"?:" {
+  *d_val = matched();
+  return Paser::ELVIS_OP;
+}
+
+"&." {
+  *d_val = matched();
+  return  Parser::MTD_PTR_OP;
+}
+
+"~=" {
+  *d_val = matched();
+  return Parser::FIND_RGX_OP;
+}
+
+"==~" {
+  *d_val = matched();
+  return Parser::MATCH_RGX_OP;
+}
+
+"*." {
+  *d_val = matched();
+  return Parser::SPD_OP;
+}
+
+".." {
+  *d_val = matched();
+  return Parser::RNG_OP;
+}
+
 "as" {
   *d_val = matched();
   return Parser::COERCION_OP;
@@ -259,12 +294,22 @@ BOOLEAN {TRUE}|{FALSE}
 
 "new" {
   *d_val = matched();
-  return Parser::NEW;
+  return Parser::CREATION_OP;
 }
 
 "in" {
   *d_val = matched();
-  return Parser::IN;
+  return Parser::MEMBER_OP;
+}
+
+"is" {
+  *d_val = mathced();
+  return Parser::ID_OP;
+}
+
+"instanceof" {
+  *d_val = mathced();
+  return Parser::INSTANCEOF_OP;
 }
 
 // --------------- End of Operators -----------------------

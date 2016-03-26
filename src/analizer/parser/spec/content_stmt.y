@@ -122,4 +122,5 @@ expr:
 | string
 | boolean
 | identifier
+| '(' expr ')'
 ;

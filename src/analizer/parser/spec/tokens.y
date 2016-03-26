@@ -73,5 +73,14 @@
 %token LOGICAL_OP
 %token INCR_OP
 %token COERCION_OP
-%token NEW
-%token IN
+%token BITWISE_OP
+%token ELVIS_OP
+%token MTD_PTR_OP
+%token FIND_RGX_OP
+%token MATCH_RGX_OP
+%token SPD_OP
+%token RNG_OP
+%token CREATION_OP
+%token MEMBER_OP
+%token ID_OP
+%token INSTANCEOF_OP
