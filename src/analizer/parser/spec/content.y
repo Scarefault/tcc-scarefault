@@ -1,7 +1,12 @@
 content:
-  initial_definition
+  comment_stmt
+| initial_definition
 | class_definition
 | interface_definition
+;
+
+comment_stmt:
+  COMMENT
 ;
 
 initial_definition:

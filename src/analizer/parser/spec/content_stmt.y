@@ -9,7 +9,6 @@ stmt_list:
 
 stmt:
   variable_declaration
-| comment_stmt
 | control_structure_stmt
 ;
 
@@ -22,12 +21,9 @@ variable:
   identifier
 ;
 
-comment_stmt:
-  COMMENT
-;
-
 control_structure_stmt:
   conditional_structure_stmt
+| looping_structure_stmt
 ;
 
 conditional_structure_stmt:
@@ -36,18 +32,19 @@ conditional_structure_stmt:
 | switch_stmt
 ;
 
+
 if_stmt:
-  IF '(' identifier ')' content_stmt
+  IF '(' expr ')' content_stmt
 | if_stmt ELSE content_stmt
-| if_stmt ELSE if_stmt
+| if_stmt ELSE if_stmt content_stmt
 ;
 
 ternary_stmt:
-  identifier '?' identifier ':' identifier
+  expr '?' expr ':' expr
 ;
 
 switch_stmt:
-  SWITCH '(' identifier ')' content_switch
+  SWITCH '(' expr ')' content_switch
 ;
 
 content_switch:
@@ -60,11 +57,33 @@ case_list:
 ;
 
 case_stmt:
-  CASE identifier ':' content_case
+  CASE expr ':' content_case
 | DEFAULT ':' content_case
 ;
 
 content_case:
   stmt
 | content_case stmt
+;
+
+looping_structure_stmt:
+  for_stmt
+| while_stmt
+;
+
+for_stmt:
+  FOR '(' variable_declaration ';' expr ';' expr ')' content_stmt
+| FOR '(' variable_declaration ':' identifier ')' content_stmt
+| FOR '(' variable ':' identifier ')' content_stmt
+;
+
+while_stmt:
+  WHILE '(' expr ')' content_stmt
+;
+
+expr:
+  number
+| string
+| boolean
+| identifier
 ;
