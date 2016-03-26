@@ -9,7 +9,6 @@
 
 %%
 
-
 startrule:
   // Empty Rule.
 |
@@ -17,4 +16,6 @@ startrule:
 ;
 
 %include spec/values.y
+%include spec/types_modifiers.y
+%include spec/content_stmt.y
 %include spec/content.y

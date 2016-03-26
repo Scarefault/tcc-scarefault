@@ -26,6 +26,10 @@ package_name:
 ;
 
 class_definition:
+  class_header content_stmt
+;
+
+class_header:
   CLASS identifier
 | ABSTRACT class_definition
 | class_definition class_complement
@@ -37,5 +41,9 @@ class_complement:
 ;
 
 interface_definition:
+  interface_header content_stmt
+;
+
+interface_header:
   INTERFACE identifier
 ;
