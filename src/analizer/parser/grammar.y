@@ -5,13 +5,10 @@
 %stype std::string
 %start startrule
 
-%include spec/declare_session.y
+%include spec/tokens.y
 
 %%
 
-identifier:
-  IDENTIFIER
-;
 
 startrule:
   // Empty Rule.
@@ -19,27 +16,5 @@ startrule:
   startrule content
 ;
 
-content:
-  initial_definition
-;
-
-initial_definition:
-  package_declaration
-| import_declaration
-;
-
-package_declaration:
-  PACKAGE package_name
-;
-
-import_declaration:
-  IMPORT package_name
-| IMPORT STATIC package_name
-| import_declaration COERCION_OP identifier
-;
-
-package_name:
-  identifier
-| package_name '.' identifier
-| package_name '.' '*'
-;
+%include spec/values.y
+%include spec/content.y

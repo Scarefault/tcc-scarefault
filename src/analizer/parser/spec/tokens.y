@@ -10,8 +10,8 @@
  */
 %token CLASS
 %token INTERFACE
-%token IMPLEMENTS
-%token EXTENDS
+%left IMPLEMENTS
+%left EXTENDS
 %token ABSTRACT
 %token PUBLIC
 %token PROTECTED
