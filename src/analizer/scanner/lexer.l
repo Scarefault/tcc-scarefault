@@ -153,76 +153,24 @@ BOOLEAN {TRUE}|{FALSE}
 // -------------- End of Type of Data ---------------------
 
 // -------------- Punctuation Marks -----------------------
-
-"?" {
-  *d_val = matched();
-  return Parser::QUESTION_MARK;
-}
-
-"(" {
-  *d_val = matched();
-  return Parser::L_PAR;
-}
-
-")" {
-  *d_val = matched();
-  return Parser::R_PAR;
-}
-
-"[" {
-  *d_val = matched();
-  return Parser::L_BRKT;
-}
-
-"]" {
-  *d_val = matched();
-  return Parser::R_BRKT;
-}
-
-"{" {
-  *d_val = matched();
-  return Parser::L_BRACE;
-}
-
-"}" {
-  *d_val = matched();
-  return Parser::R_BRACE;
-}
-
+"?" |
+"(" |
+")" |
+"[" |
+":" |
+";" |
+"," |
+"." |
+"*" |
 "/" {
-  *d_val = matched();
-  return Parser::SLASH;
-}
-
-"*" {
-  *d_val = matched();
-  return Parser::STAR;
-}
-
-":" {
-  *d_val = matched();
-  return Parser::COLON;
-}
-
-";" {
-  *d_val = matched();
-  return Parser::SEMICOLON;
-}
-
-"," {
-  *d_val = matched();
-  return Parser::COMMA;
-}
-
-"." {
-  *d_val = matched();
-  return Parser::DOT;
+  return matched()[ 0 ];
 }
 
 "..." {
   *d_val = matched();
   return Parser::SUSPN_DOTS;
 }
+
 
 // --------------- End of Punctuation Marks ---------------
 
@@ -321,20 +269,6 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- End of Operators -----------------------
 
-// --------------- Comments -------------------------------
-
-\/\/.*$ {
-  /* Ignore Comment. */
-}
-
-"/*" |
-"/**" {
-  more();
-  begin( StartCondition__::multiline_comment );
-}
-
-// --------------- End of Comments ------------------------
-
 // --------------- Data Values ----------------------------
 
 {DIGIT}   |
@@ -355,8 +289,7 @@ BOOLEAN {TRUE}|{FALSE}
 }
 
 "\"" |
-"\'" |
-"\/" {
+"\'" {
   more();
   begin( StartCondition__::oneline_string );
 }
@@ -369,12 +302,25 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- End of Data Values ---------------------
 
+// --------------- Comments -------------------------------
+
+\/\/.*$ {
+  /* Ignore Comment. */
+}
+
+"/*" |
+"/**" {
+  more();
+  begin( StartCondition__::multiline_comment );
+}
+
+// --------------- End of Comments ------------------------
+
 // --------------- Mini-Scanners --------------------------
 
 <oneline_string> {
   "\"" |
-  "\'" |
-  "\/" {
+  "\'" {
     begin( StartCondition__::INITIAL );
     *d_val = matched();
     return Parser::STRING;
@@ -411,4 +357,3 @@ BOOLEAN {TRUE}|{FALSE}
     more();
   }
 }
- 

@@ -111,9 +111,10 @@ hs_err_pid*
 testgrammar
 guestbook/
 *.swp
+*.log
+*.output
 /tests/runAllTest
 /tests/*/runSuiteTest
-*.log
 
 # --------------------------------SCAREFAULT ---------------------------------#
 lex.cc
