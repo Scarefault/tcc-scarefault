@@ -26,7 +26,8 @@ variable:
 
 assign_stmt:
   variable ASSIGN_OP expr
-| DEF assign_stmt
+| DEF variable ASSIGN_OP expr
+| variable_declaration ASSIGN_OP expr
 ;
 
 control_structure_stmt:
@@ -125,4 +126,26 @@ expr:
 | boolean
 | identifier
 | '(' expr ')'
+| arithmetic_expr
+| relational_expr
+;
+
+arithmetic_expr:
+  expr '*' expr
+| expr '/' expr
+| expr '+' expr
+| expr '-' expr
+;
+
+relational_expr:
+  comparison_expr
+| logical_expr
+;
+
+comparison_expr:
+  expr COMPARISON_OP expr
+;
+
+logical_expr:
+  expr LOGICAL_OP expr
 ;

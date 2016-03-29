@@ -68,7 +68,9 @@
 /*
  * ********** Operators ******************
  */
-%token ASSIGN_OP
+%left '*' '/'
+%left '+' '-'
+%right ASSIGN_OP
 %token COMPARISON_OP
 %token LOGICAL_OP
 %token INCR_OP
