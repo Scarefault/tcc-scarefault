@@ -128,6 +128,9 @@ expr:
 | '(' expr ')'
 | arithmetic_expr
 | relational_expr
+| elvis_expr
+| safe_nav_expr
+| mtd_ptr_expr
 ;
 
 arithmetic_expr:
@@ -140,6 +143,7 @@ arithmetic_expr:
 relational_expr:
   comparison_expr
 | logical_expr
+| bitwise_expr
 ;
 
 comparison_expr:
@@ -148,4 +152,20 @@ comparison_expr:
 
 logical_expr:
   expr LOGICAL_OP expr
+;
+
+bitwise_expr:
+  expr BITWISE_OP expr
+;
+
+elvis_expr:
+  expr ELVIS_OP expr
+;
+
+safe_nav_expr:
+  expr SAFE_NAV_OP expr
+;
+
+mtd_ptr_expr:
+  expr MTD_PTR_OP expr
 ;

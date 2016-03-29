@@ -71,13 +71,13 @@
 %left '*' '/'
 %left '+' '-'
 %right ASSIGN_OP
-%token COMPARISON_OP
-%token LOGICAL_OP
+%left COMPARISON_OP
+%left LOGICAL_OP
 %token INCR_OP
 %token COERCION_OP
-%token BITWISE_OP
-%token ELVIS_OP
-%token MTD_PTR_OP
+%left BITWISE_OP
+%left ELVIS_OP
+%left MTD_PTR_OP
 %token FIND_RGX_OP
 %token MATCH_RGX_OP
 %token SPD_OP
@@ -86,3 +86,4 @@
 %token MEMBER_OP
 %token ID_OP
 %token INSTANCEOF_OP
+%left SAFE_NAV_OP

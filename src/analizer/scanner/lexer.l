@@ -312,6 +312,11 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::INSTANCEOF_OP;
 }
 
+"?." {
+  *d_val = matched();
+  return Parser::SAFE_NAV_OP;
+}
+
 // --------------- End of Operators -----------------------
 
 // --------------- Data Values ----------------------------
