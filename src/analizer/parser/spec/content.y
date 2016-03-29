@@ -1,8 +1,8 @@
 content:
-  comment_stmt
-| initial_definition
-| class_definition
-| interface_definition
+  comment_stmt { std::cout << "stmt: comment" << std::endl; }
+| initial_definition { std::cout << "stmt: initial" << std::endl; }
+| class_definition { std::cout << "stmt: class" << std::endl; }
+| interface_definition { std::cout << "stmt: interface" << std::endl; }
 ;
 
 comment_stmt:
@@ -36,8 +36,8 @@ class_definition:
 
 class_header:
   CLASS identifier
-| ABSTRACT class_definition
-| class_definition class_complement
+| ABSTRACT class_header
+| class_header class_complement
 ;
 
 class_complement:

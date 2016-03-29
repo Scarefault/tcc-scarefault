@@ -8,7 +8,8 @@ stmt_list:
 ;
 
 stmt:
-  variable_declaration
+  comment_stmt
+| variable_declaration
 | assign_stmt
 | control_structure_stmt
 | method_stmt
@@ -88,7 +89,8 @@ while_stmt:
 ;
 
 method_stmt:
-  method_header content_stmt
+  method_header
+| method_stmt content_stmt
 ;
 
 method_header:

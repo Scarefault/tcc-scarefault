@@ -259,12 +259,12 @@ BOOLEAN {TRUE}|{FALSE}
 
 "?:" {
   *d_val = matched();
-  return Paser::ELVIS_OP;
+  return Parser::ELVIS_OP;
 }
 
 "&." {
   *d_val = matched();
-  return  Parser::MTD_PTR_OP;
+  return Parser::MTD_PTR_OP;
 }
 
 "~=" {
@@ -303,12 +303,12 @@ BOOLEAN {TRUE}|{FALSE}
 }
 
 "is" {
-  *d_val = mathced();
+  *d_val = matched();
   return Parser::ID_OP;
 }
 
 "instanceof" {
-  *d_val = mathced();
+  *d_val = matched();
   return Parser::INSTANCEOF_OP;
 }
 
