@@ -97,7 +97,7 @@
 *.war
 *.ear
 
-# Virtual machine crash logs, 
+# Virtual machine crash logs,
 #   see http://www.java.com/en/download/help/error_hotspot.xml
 #
 hs_err_pid*
@@ -109,6 +109,8 @@ hs_err_pid*
 
 # ---------------------------------- GENERAL ---------------------------------#
 testgrammar
+testDomain
+testController
 guestbook/
 *.swp
 *.log

@@ -1,7 +1,3 @@
-identifier:
-  IDENTIFIER
-;
-
 number:
   NUMBER
 ;
@@ -13,3 +9,9 @@ string:
 boolean:
   BOOL
 ;
+
+identifier:
+  IDENTIFIER
+| IDENTIFIER '[' ']'
+;
+

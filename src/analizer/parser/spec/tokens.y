@@ -38,13 +38,6 @@
 
 
 /*
- * ********** Punctuation Marks **********
- */
-%right '.'
-%token SUSPN_DOTS
-
-
-/*
  * ********** Data Values ****************
  */
 %token NUMBER
@@ -73,7 +66,7 @@
 %right ASSIGN_OP
 %left COMPARISON_OP
 %left LOGICAL_OP
-%token INCR_OP
+%left INCR_OP
 %token COERCION_OP
 %left BITWISE_OP
 %left ELVIS_OP
@@ -87,3 +80,11 @@
 %token ID_OP
 %token INSTANCEOF_OP
 %left SAFE_NAV_OP
+
+
+/*
+ * ********** Punctuation Marks **********
+ */
+%right '.'
+%left '(' ')' '[' ']' '{' '}'
+%token SUSPN_DOTS

@@ -8,26 +8,20 @@ stmt_list:
 ;
 
 stmt:
-  comment_stmt
-| variable_declaration
-| assign_stmt
-| control_structure_stmt
-| method_stmt
+  comment_stmt { log.info( "stmt: comment/ GroovyDoc" ); }
+| variable_declaration { log.info( "stmt: variable declaration" ); }
+| control_structure_stmt { log.info( "stmt: control structure" ); }
+| method_stmt { log.info( "method declaration" ); }
 ;
 
 variable_declaration:
-  type variable
-| modifier variable_declaration
-;
-
-variable:
-  identifier
-;
-
-assign_stmt:
-  variable ASSIGN_OP expr
-| DEF variable ASSIGN_OP expr
+  type identifier
+| identifier identifier
+| modifier type identifier
+| modifier identifier identifier
+| identifier ASSIGN_OP expr
 | variable_declaration ASSIGN_OP expr
+| DEF identifier ASSIGN_OP expr
 ;
 
 control_structure_stmt:
@@ -43,8 +37,8 @@ conditional_structure_stmt:
 
 if_stmt:
   IF '(' expr ')' content_stmt
+| if_stmt ELSE if_stmt
 | if_stmt ELSE content_stmt
-| if_stmt ELSE if_stmt content_stmt
 ;
 
 ternary_stmt:
@@ -82,7 +76,7 @@ looping_structure_stmt:
 for_stmt:
   FOR '(' variable_declaration ';' expr ';' expr ')' content_stmt
 | FOR '(' variable_declaration ':' identifier ')' content_stmt
-| FOR '(' variable ':' identifier ')' content_stmt
+| FOR '(' identifier MEMBER_OP identifier ')' content_stmt
 ;
 
 while_stmt:
@@ -114,10 +108,10 @@ params:
 ;
 
 param:
-  variable
-| type variable
-| type variable ASSIGN_OP expr
-| type SUSPN_DOTS variable
+  identifier
+| type identifier
+| type identifier ASSIGN_OP expr
+| type SUSPN_DOTS identifier
 ;
 
 expr:
@@ -131,6 +125,7 @@ expr:
 | elvis_expr
 | safe_nav_expr
 | mtd_ptr_expr
+| increment_expr
 ;
 
 arithmetic_expr:
@@ -168,4 +163,8 @@ safe_nav_expr:
 
 mtd_ptr_expr:
   expr MTD_PTR_OP expr
+;
+
+increment_expr:
+  identifier INCR_OP
 ;

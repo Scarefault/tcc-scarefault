@@ -1,8 +1,8 @@
 content:
-  comment_stmt { std::cout << "stmt: comment" << std::endl; }
-| initial_definition { std::cout << "stmt: initial" << std::endl; }
-| class_definition { std::cout << "stmt: class" << std::endl; }
-| interface_definition { std::cout << "stmt: interface" << std::endl; }
+  comment_stmt { log.info( "stmt: comment" ); }
+| initial_definition { log.info( "stmt: initial definition" ); }
+| class_definition { log.info( "stmt: class" ); }
+| interface_definition { log.info( "stmt: interface" ); }
 ;
 
 comment_stmt:
@@ -28,6 +28,7 @@ package_name:
   identifier
 | package_name '.' identifier
 | package_name '.' '*'
+| package_name '.' type
 ;
 
 class_definition:
