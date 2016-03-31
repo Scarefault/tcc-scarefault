@@ -17,9 +17,9 @@ stmt:
 variable_declaration:
   type identifier
 | identifier identifier
+| modifier identifier
 | modifier type identifier
 | modifier identifier identifier
-| identifier ASSIGN_OP expr
 | variable_declaration ASSIGN_OP expr
 | DEF identifier ASSIGN_OP expr
 ;
@@ -120,12 +120,32 @@ expr:
 | boolean
 | identifier
 | '(' expr ')'
+| list_literals_expr
 | arithmetic_expr
 | relational_expr
 | elvis_expr
 | safe_nav_expr
 | mtd_ptr_expr
 | increment_expr
+;
+
+list_literals_expr:
+  '[' item_list ']'
+| '[' maps_list ']'
+;
+
+item_list:
+  expr
+| item_list ',' expr
+;
+
+maps_list:
+  item_map
+| maps_list ',' item_map
+;
+
+item_map:
+  expr ':' expr
 ;
 
 arithmetic_expr:
