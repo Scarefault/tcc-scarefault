@@ -9,7 +9,7 @@ type:
 | TYPE_BOOLEAN { $$ = $1; }
 | TYPE_LIST { $$ = $1; }
 | TYPE_DATE { $$ = $1; }
-| type '[' ']' { $$ = $1; }
+| type '[' ']'
 ;
 
 modifier:

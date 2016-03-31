@@ -2,10 +2,10 @@
 %scanner-token-function   d_scanner.lex()
 %baseclass-preinclude     ParserPreinclude.h
 
-%expect 17
 
 %stype std::string
 %start startrule
+%expect 4
 
 %include spec/tokens.y
 

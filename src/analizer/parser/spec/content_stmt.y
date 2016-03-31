@@ -15,13 +15,12 @@ stmt:
 ;
 
 variable_declaration:
-  type identifier
+  IDENTIFIER
 | identifier identifier
-| modifier identifier
-| modifier type identifier
-| modifier identifier identifier
+| type IDENTIFIER
+| modifier variable_declaration
 | variable_declaration ASSIGN_OP expr
-| DEF identifier ASSIGN_OP expr
+| DEF variable_declaration
 ;
 
 control_structure_stmt:
