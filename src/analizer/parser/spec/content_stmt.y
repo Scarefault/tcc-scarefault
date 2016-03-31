@@ -16,11 +16,16 @@ stmt:
 
 variable_declaration:
   IDENTIFIER
-| identifier identifier
-| type IDENTIFIER
+| identifier variable
+| type variable
 | modifier variable_declaration
 | variable_declaration ASSIGN_OP expr
 | DEF variable_declaration
+| variable_declaration ASSIGN_OP content_stmt
+;
+
+variable:
+  identifier
 ;
 
 control_structure_stmt:
@@ -75,7 +80,7 @@ looping_structure_stmt:
 for_stmt:
   FOR '(' variable_declaration ';' expr ';' expr ')' content_stmt
 | FOR '(' variable_declaration ':' identifier ')' content_stmt
-| FOR '(' identifier MEMBER_OP identifier ')' content_stmt
+| FOR '(' variable MEMBER_OP identifier ')' content_stmt
 ;
 
 while_stmt:
@@ -107,17 +112,18 @@ params:
 ;
 
 param:
-  identifier
-| type identifier
-| type identifier ASSIGN_OP expr
-| type SUSPN_DOTS identifier
+  expr
+| type expr
+| param ASSIGN_OP expr
+| param ':' expr
+| type SUSPN_DOTS variable
 ;
 
 expr:
   number
 | string
 | boolean
-| identifier
+| variable
 | '(' expr ')'
 | list_literals_expr
 | arithmetic_expr
@@ -185,5 +191,5 @@ mtd_ptr_expr:
 ;
 
 increment_expr:
-  identifier INCR_OP
+  variable INCR_OP
 ;

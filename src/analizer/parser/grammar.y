@@ -5,7 +5,7 @@
 
 %stype std::string
 %start startrule
-%expect 4
+%expect 5
 
 %include spec/tokens.y
 
