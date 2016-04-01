@@ -11,7 +11,7 @@ stmt:
   comment_stmt { log.info( "stmt: comment/ GroovyDoc" ); }
 | variable_declaration { log.info( "stmt: variable declaration" ); }
 | control_structure_stmt { log.info( "stmt: control structure" ); }
-| method_stmt { log.info( "method declaration" ); }
+| method_stmt { log.info( "stmt: method declaration" ); }
 ;
 
 variable_declaration:
@@ -88,15 +88,29 @@ while_stmt:
 ;
 
 method_stmt:
+  method_prototype
+| method_definition
+| identifier '.' method_call
+| method_call
+;
+
+method_definition:
+  method_prototype content_stmt
+;
+
+method_call:
   method_header
-| method_stmt content_stmt
+| method_call '.' method_header
+;
+
+method_prototype:
+  DEF method_header
+| type method_header
+| modifier method_header
 ;
 
 method_header:
   identifier '(' param_list ')'
-| DEF method_header
-| type method_header
-| modifier method_header
 ;
 
 param_list:
