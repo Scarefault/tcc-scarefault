@@ -14,4 +14,3 @@ identifier:
   IDENTIFIER
 | IDENTIFIER '[' ']'
 ;
-

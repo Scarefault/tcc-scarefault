@@ -15,13 +15,26 @@ stmt:
 ;
 
 variable_declaration:
-  IDENTIFIER
-| identifier variable
-| type variable
-| modifier variable_declaration
-| variable_declaration ASSIGN_OP expr
+  typed_variable
+| variable
+| basic_variable_declaration
 | DEF variable_declaration
-| variable_declaration ASSIGN_OP content_stmt
+;
+
+basic_variable_declaration:
+  modifier variable
+| modifier typed_variable
+| variable_declaration ASSIGN_OP content_variable
+;
+
+content_variable:
+  expr
+| content_stmt
+;
+
+typed_variable:
+  type variable
+| identifier variable
 ;
 
 variable:
@@ -106,11 +119,11 @@ method_call:
 method_prototype:
   DEF method_header
 | type method_header
-| modifier method_header
+| modifier method_prototype
 ;
 
 method_header:
-  identifier '(' param_list ')'
+  IDENTIFIER '(' param_list ')'
 ;
 
 param_list:
