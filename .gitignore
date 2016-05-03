@@ -109,8 +109,8 @@ hs_err_pid*
 
 # ---------------------------------- GENERAL ---------------------------------#
 testgrammar
-testDomain
-testController
+testdomain
+testcontroller
 guestbook/
 *.swp
 *.log

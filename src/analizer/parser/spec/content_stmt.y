@@ -17,6 +17,7 @@ stmt:
 variable_declaration:
   typed_variable
 | variable
+| attribute_call
 | basic_variable_declaration
 | DEF variable_declaration
 ;
@@ -35,6 +36,10 @@ content_variable:
 typed_variable:
   type variable
 | identifier variable
+;
+
+attribute_call:
+  identifier '.' variable
 ;
 
 variable:
@@ -109,6 +114,7 @@ method_stmt:
 
 method_definition:
   method_prototype content_stmt
+| identifier '.' method_call content_stmt
 ;
 
 method_call:
@@ -118,8 +124,13 @@ method_call:
 
 method_prototype:
   DEF method_header
-| type method_header
+| typed_method_header
 | modifier method_prototype
+;
+
+typed_method_header:
+  type method_header
+| identifier method_header
 ;
 
 method_header:
