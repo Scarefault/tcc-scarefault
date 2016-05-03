@@ -170,6 +170,7 @@ expr:
 | safe_nav_expr
 | mtd_ptr_expr
 | increment_expr
+| creation_expr
 ;
 
 list_literals_expr:
@@ -230,4 +231,8 @@ mtd_ptr_expr:
 
 increment_expr:
   variable INCR_OP
+;
+
+creation_expr:
+  CREATION_OP method_header
 ;
