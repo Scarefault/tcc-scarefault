@@ -15,10 +15,12 @@ namespace LogSystem
   const std::string date_time_format( "[%d %B %Y %a %T] " );
   const int date_time_size = 28;
 
+  enum Category { INFO, SUCCESS, WARNING, ERROR };
+
   class Log
   {
     public:
-      void info( std::string );
+      void message( Category, std::string );
 
     private:
       char buffer[date_time_size];

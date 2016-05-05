@@ -8,8 +8,43 @@
 
 namespace LogSystem
 {
-  void Log::info( std::string message )
+  void Log::message( Category log_category, std::string message )
   {
+    std::string category;
+    int category_size = 0;
+
+    switch( log_category )
+    {
+      case INFO:
+        category = "INFO";
+        category_size = 4;
+
+      break;
+
+      case SUCCESS:
+        category = "SUCCESS";
+        category_size = 7;
+
+      break;
+
+      case WARNING:
+        category = "WARNING";
+        category_size = 7;
+
+      break;
+
+      case ERROR:
+        category = "ERROR";
+        category_size = 5;
+
+      break;
+
+      default:
+        category = "NO CATEGORY";
+        category_size = 11;
+
+    }
+
     if( message == this->last_message )
     {
       this->times_counted++;
@@ -35,6 +70,8 @@ namespace LogSystem
       times += std::to_string( this->times_counted + 1 );
       times += " )";
 
+      log_stream_ptr->write( category.c_str(), category_size );
+      log_stream_ptr->write( "\t", 2 );
       log_stream_ptr->write( message.c_str(), size_message );
       log_stream_ptr->write( times.c_str(), times.size() );
       log_stream_ptr->write( "\n", 2 );

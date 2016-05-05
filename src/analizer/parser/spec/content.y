@@ -1,8 +1,8 @@
 content:
-  comment_stmt { log.info( "stmt: comment" ); }
-| initial_definition { log.info( "stmt: initial definition" ); }
-| class_definition { log.info( "stmt: class" ); }
-| interface_definition { log.info( "stmt: interface" ); }
+  comment_stmt { log.message( LogSystem::INFO, "stmt: comment" ); }
+| initial_definition { log.message( LogSystem::INFO, "stmt: initial definition" ); }
+| class_definition { log.message( LogSystem::INFO, "stmt: class" ); }
+| interface_definition { log.message( LogSystem::INFO, "stmt: interface" ); }
 ;
 
 comment_stmt:
