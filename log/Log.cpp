@@ -10,41 +10,61 @@ namespace LogSystem
 {
   void Log::message( Category log_category, std::string message )
   {
-    std::string category;
-    int category_size = 0;
+    set_log_category( log_category );
+    verify_last_message( message );
 
+    std::fstream* log_stream_ptr = this->get_log_stream();
+
+    log_stream_ptr->open( LOGFILE, WRITE|APPEND );
+
+    if( log_stream_ptr->is_open() )
+    {
+      write( *log_stream_ptr, message );
+    } else
+    {
+      std::cout << std::endl << "Something Wrong. File not opened..."
+                << std::endl;
+    }
+
+    log_stream_ptr->close();
+  }
+
+  void Log::set_log_category( Category log_category )
+  {
     switch( log_category )
     {
       case INFO:
-        category = "INFO";
-        category_size = 4;
+        this->category.type = "INFO";
+        this->category.size = 4;
 
       break;
 
       case SUCCESS:
-        category = "SUCCESS";
-        category_size = 7;
+        this->category.type = "SUCCESS";
+        this->category.size = 7;
 
       break;
 
       case WARNING:
-        category = "WARNING";
-        category_size = 7;
+        this->category.type = "WARNING";
+        this->category.size = 7;
 
       break;
 
       case ERROR:
-        category = "ERROR";
-        category_size = 5;
+        this->category.type = "ERROR";
+        this->category.size = 5;
 
       break;
 
       default:
-        category = "NO CATEGORY";
-        category_size = 11;
-
+        this->category.type = "NO CATEGORY";
+        this->category.size = 11;
     }
+  }
 
+  void Log::verify_last_message( std::string message )
+  {
     if( message == this->last_message )
     {
       this->times_counted++;
@@ -54,34 +74,38 @@ namespace LogSystem
     }
 
     this->last_message = message;
+  }
 
-    std::fstream* log_stream_ptr = this->get_log_stream();
+  void Log::write( std::fstream& log_stream, std::string message )
+  {
+    write_date_time( log_stream );
+    write_message( log_stream, message );
+    write_times( log_stream );
+  }
 
-    log_stream_ptr->open( LOGFILE, WRITE|APPEND );
+  void Log::write_date_time(std::fstream& log_stream )
+  {
+    log_stream.write( this->get_date_time( buffer ), date_time_size );
+    log_stream.write( "\t", 2 );
+  }
 
-    if( log_stream_ptr->is_open() )
-    {
-      log_stream_ptr->write( this->get_date_time( buffer ), date_time_size );
-      log_stream_ptr->write( "\t", 2 );
+  void Log::write_message( std::fstream& log_stream, std::string message )
+  {
+    const unsigned int size_message = sizeof(char)*message.size();
 
-      const unsigned int size_message = sizeof(char)*message.size();
+    log_stream.write( this->category.type.c_str(), this->category.size );
+    log_stream.write( "\t", 2 );
+    log_stream.write( message.c_str(), size_message );
+  }
 
-      std::string times( " ( " );
-      times += std::to_string( this->times_counted + 1 );
-      times += " )";
+  void Log::write_times( std::fstream& log_stream )
+  {
+    std::string times( " ( " );
+    times += std::to_string( this->times_counted + 1 );
+    times += " )";
 
-      log_stream_ptr->write( category.c_str(), category_size );
-      log_stream_ptr->write( "\t", 2 );
-      log_stream_ptr->write( message.c_str(), size_message );
-      log_stream_ptr->write( times.c_str(), times.size() );
-      log_stream_ptr->write( "\n", 2 );
-    } else
-    {
-      std::cout << std::endl << "Something Wrong. File not opened..."
-                << std::endl;
-    }
-
-    log_stream_ptr->close();
+    log_stream.write( times.c_str(), times.size() );
+    log_stream.write( "\n", 2 );
   }
 
   char* Log::get_date_time( char* buffer )
