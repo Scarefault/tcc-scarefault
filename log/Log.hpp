@@ -26,7 +26,7 @@ namespace LogSystem
   class Log
   {
     public:
-      void message( Category, std::string );
+      void message( LogSystem::Category, std::string );
 
     private:
       char buffer[date_time_size];

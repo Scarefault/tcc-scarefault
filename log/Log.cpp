@@ -8,7 +8,7 @@
 
 namespace LogSystem
 {
-  void Log::message( Category log_category, std::string message )
+  void Log::message( LogSystem::Category log_category, std::string message )
   {
     set_log_category( log_category );
     verify_last_message( message );
