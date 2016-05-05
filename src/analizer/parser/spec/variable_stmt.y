@@ -1,7 +1,6 @@
 variable_declaration:
-  typed_variable
-| variable
-| attribute_call
+  variable
+| typed_variable
 | basic_variable_declaration
 | DEF variable_declaration
 ;
@@ -20,10 +19,6 @@ content_variable:
 typed_variable:
   type variable
 | identifier variable
-;
-
-attribute_call:
-  identifier '.' variable
 ;
 
 variable:
