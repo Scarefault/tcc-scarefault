@@ -13,7 +13,7 @@
 namespace LogSystem
 {
   const std::string date_time_format( "[%d %B %Y %a %T] " );
-  const int date_time_size = 30;
+  const int date_time_size = 28;
 
   class Log
   {
