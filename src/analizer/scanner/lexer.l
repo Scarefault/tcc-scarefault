@@ -267,26 +267,6 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::MTD_PTR_OP;
 }
 
-"~=" {
-  *d_val = matched();
-  return Parser::FIND_RGX_OP;
-}
-
-"==~" {
-  *d_val = matched();
-  return Parser::MATCH_RGX_OP;
-}
-
-"*." {
-  *d_val = matched();
-  return Parser::SPD_OP;
-}
-
-".." {
-  *d_val = matched();
-  return Parser::RNG_OP;
-}
-
 "as" {
   *d_val = matched();
   return Parser::COERCION_OP;
@@ -300,16 +280,6 @@ BOOLEAN {TRUE}|{FALSE}
 "in" {
   *d_val = matched();
   return Parser::MEMBER_OP;
-}
-
-"is" {
-  *d_val = matched();
-  return Parser::ID_OP;
-}
-
-"instanceof" {
-  *d_val = matched();
-  return Parser::INSTANCEOF_OP;
 }
 
 "?." {

@@ -71,14 +71,8 @@
 %left BITWISE_OP
 %left ELVIS_OP
 %left MTD_PTR_OP
-%token FIND_RGX_OP
-%token MATCH_RGX_OP
-%token SPD_OP
-%token RNG_OP
 %token CREATION_OP
 %token MEMBER_OP
-%token ID_OP
-%token INSTANCEOF_OP
 %left SAFE_NAV_OP
 
 
