@@ -18,7 +18,6 @@ content_variable:
 
 typed_variable:
   type variable
-| identifier variable
 ;
 
 variable:

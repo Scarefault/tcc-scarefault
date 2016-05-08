@@ -49,7 +49,7 @@ looping_structure_stmt:
 
 for_stmt:
   FOR '(' variable_declaration ';' expr ';' expr ')' content_stmt
-| FOR '(' variable_declaration ':' identifier ')' content_stmt
+| FOR '(' instantiate_object ':' identifier ')' content_stmt
 | FOR '(' variable MEMBER_OP identifier ')' content_stmt
 ;
 
