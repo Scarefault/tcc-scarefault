@@ -1,5 +1,5 @@
 #include "../catch.hpp"
-#include "../../src/generator/TestGenerator.hpp"
+#include "../../../src/generator/TestGenerator.hpp"
 
 TEST_CASE( "Infomations can be captured", "[TestGenerator]" )
 {

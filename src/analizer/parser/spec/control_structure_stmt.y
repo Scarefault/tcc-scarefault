@@ -1,6 +1,6 @@
 control_structure_stmt:
-  conditional_structure_stmt
-| looping_structure_stmt
+  conditional_structure_stmt { log.message( LogSystem::INFO, "stmt: conditional structure" ); }
+| looping_structure_stmt { log.message( LogSystem::INFO, "stmt: looping structure" ); }
 ;
 
 conditional_structure_stmt:

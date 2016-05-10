@@ -1,6 +1,6 @@
 content:
   comment_stmt { log.message( LogSystem::INFO, "stmt: comment" ); }
-| initial_definition { log.message( LogSystem::INFO, "stmt: initial definition" ); }
+| initial_definition
 | class_definition { log.message( LogSystem::INFO, "stmt: class" ); }
 | interface_definition { log.message( LogSystem::INFO, "stmt: interface" ); }
 ;
@@ -10,8 +10,8 @@ comment_stmt:
 ;
 
 initial_definition:
-  package_declaration
-| import_declaration
+  package_declaration { log.message( LogSystem::INFO, "stmt: package declaration" ); }
+| import_declaration { log.message( LogSystem::INFO, "stmt: import declaration" ); }
 ;
 
 package_declaration:

@@ -108,15 +108,12 @@ hs_err_pid*
 
 
 # ---------------------------------- GENERAL ---------------------------------#
-testgrammar
-testdomain
-testcontroller
 guestbook/
 *.swp
 *.log
 *.output
-/tests/runAllTest
-/tests/*/runSuiteTest
+/tests/unit-test/runAllUnitTests
+/tests/unit-test/*/runSuiteTest
 
 # --------------------------------SCAREFAULT ---------------------------------#
 lex.cc

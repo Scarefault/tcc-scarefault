@@ -1,0 +1,158 @@
+/* This is a example file to test the identification of the grails
+ *   programming language.
+ */
+
+
+package br.com.companyx.example
+
+import br.com.companyx.array
+import static br.com.companyx.math as Math
+import static br.com.companyx.umbrella.*
+import br.com.companyx.standard.*
+import br.com.companyx.String.format
+
+/**
+ * This is a interface. And this comment is a GroovyDoc!
+ * Do you notice this? Good!
+ */
+interface InterfaceWithMethodPrototypes {
+  def someMethod()
+  String someMethod()
+
+  def someMethod(param1)
+  def someMethod(param1, param2)
+
+  int someMethod(param1)
+  long someMethod(para1, param2, param3)
+
+  public Date someMethod()
+  private String someMethod(param1)
+  protected Short someMethod(param1, param2)
+}
+
+abstract class AbstractClassExample {
+  /* This is a example of abstract class. */
+}
+
+class ExampleVariableDeclarations implements Interface {
+  short varShort
+  public int varInt
+  private long varLong
+  protected float varFloat
+  final double varDouble
+  static boolean varBoolean
+
+  UserClass varUserClass
+}
+
+class AnotherExampleVariableDeclarations extends AbstracClass {
+  Short varShort
+  public Integer varInteger
+  private long varLong
+  protected Float varFloat
+  final Double varDouble
+  static Boolean varBoolean
+
+  Date varDate
+  List varList
+
+  UserClass[] varArrayClass
+}
+
+class AssignmentExamples {
+  def varShort = 1
+  def varInt = 15600
+  def varLong = 1000000000
+  def varFloat = 1250.250
+  def varDouble = 525000.25400
+  def varBoolean = true
+}
+
+class AnotherAssignmentExamples {
+  Short varShort = 0
+  public Integer varInteger = 15600
+  private long varLong = 43546572323
+  protected Float varFloat = 2324.234
+  final Double varDouble = 7654222.2345422
+  static Boolean varBoolean = false
+
+  Date varDate = "17/02/1992"
+ 
+  varShort = 1
+  varInteger = 1200
+  varLong = 1543000
+  varFloat = 150.00
+  varDouble = 123400.32550
+  varBoolean = true
+}
+
+class StringExamples {
+  var = 'Its a string'
+  var = "Its another string!"
+  var = '''Its a
+           string with
+           multilines...'''
+  var = """
+        This another example
+        of a multiline string
+        !
+        """
+}
+
+class ControlStructureIFExample {
+  if(variable && variable) {
+    /* If structure. */
+  }
+
+  if(variable == variable) {
+    /* If structure. */
+  } else {
+    /* If structure. */
+  }
+
+  if(variable != variable) {
+    /* If structure. */
+  } else if(variable <= variable) {
+    /* If structure. */
+  }
+
+  if(variable >= variable) {
+    /* If structure. */
+  } else if(variable || variable) {
+    /* If structure. */
+  } else {
+    /* If structure. */
+  }
+}
+
+class ControlStructureSWITCHExample {
+  switch(variable) {
+    case 1:
+      /* Switch structure. */
+    case 2:
+      /* Switch structure. */
+    case 3:
+      /* Switch structure. */
+    case 4:
+      /* Switch structure. */
+    default:
+      /* Switch structure. */
+  }
+}
+
+class ControlStructureFORExample {
+  for(int i = 0; i < variable; i++) {
+    if( variable == variable ) {
+      /* Its a IF structure. */
+    }
+  }
+
+  for(UserClass user : Users) {
+    def var = user
+  }
+
+  for(user in Users) {
+    /* Its a FOR structure. */
+  }
+}
+
