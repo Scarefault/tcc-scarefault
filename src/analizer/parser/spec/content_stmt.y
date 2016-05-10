@@ -12,5 +12,5 @@ stmt:
 | variable_declaration { log.message( LogSystem::INFO, "stmt: variable declaration" ); }
 | control_structure_stmt
 | method_stmt { log.message( LogSystem::INFO, "stmt: method declaration" ); }
-| oop_stmt { log.message( LogSystem::INFO, "stmt: opp declaration" ); }
+| oop_stmt { log.message( LogSystem::INFO, "stmt: oop declaration" ); }
 ;
