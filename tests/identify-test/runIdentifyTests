@@ -1,13 +1,19 @@
 #!/bin/bash
 
-LOG_FILE="../../log/scarefault.log"
-SIZE_FILE=$(wc -l < "$LOG_FILE")
+RESULT_FILE="../../log/scarefault.log"
+EXPECT_FILE=$1
 
-i=1
+iterator=1
 
-cat $LOG_FILE -n | cut -f2-3 | cat -n | while read line; do
-  echo "$line"
-  echo "$(sed "${i}q;d" $1 | cat -n)"
+cat $RESULT_FILE | cut -f2-3 | while read line; do
+  if [ "$line" = "$(sed "${iterator}q;d" $EXPECT_FILE)" ]; then
+    echo "[OK]" >> out
+  else
+    echo "[FAIL]" >> out
+  fi
 
-  let i=i+1
+  let iterator=iterator+1
 done
+
+cat out -n
+rm out
