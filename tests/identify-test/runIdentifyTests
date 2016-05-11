@@ -15,17 +15,19 @@ RESET='\033[0;0m'
 
 iterator=1
 
-cat $RESULT_FILE | cut -f2-3 | while read line; do
+cat $RESULT_FILE | cut -f2-3 | while read result; do
   expect=$(sed "${iterator}q;d" $EXPECT_FILE)
 
-  if [ "$line" = "$expect" ]; then
-    echo -e "[${BOLD_GREEN}OK${RESET}]" >> out
+  if [ "$result" = "$expect" ]; then
+    echo -e "${iterator}\t[  ${BOLD_GREEN}OK${RESET}  ]" >> out
   else
-    echo -e "[${BOLD_RED}FAIL${RESET}]" >> out
+    echo -e "${iterator}\t[ ${BOLD_RED}FAIL${RESET} ]" >> out
+    echo -e "\t\t ${BOLD_YELLOW}Expect:${YELLOW} $expect${RESET}" >> out
+    echo -e "\t\t ${BOLD_YELLOW}Result:${YELLOW} $result${RESET}" >> out
   fi
 
   let iterator=iterator+1
 done
 
-cat out -n
+cat out
 rm out
