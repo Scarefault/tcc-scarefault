@@ -1,0 +1,13 @@
+#!/bin/bash
+
+LOG_FILE="../../log/scarefault.log"
+SIZE_FILE=$(wc -l < "$LOG_FILE")
+
+i=1
+
+cat $LOG_FILE -n | cut -f2-3 | cat -n | while read line; do
+  echo "$line"
+  echo "$(sed "${i}q;d" $1 | cat -n)"
+
+  let i=i+1
+done
