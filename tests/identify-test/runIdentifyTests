@@ -3,13 +3,25 @@
 RESULT_FILE="../../log/scarefault.log"
 EXPECT_FILE=$1
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+BOLD_RED='\033[1;31m'
+BOLD_GREEN='\033[1;32m'
+BOLD_YELLOW='\033[1;33m'
+BOLD_BLUE='\033[1;34m'
+RESET='\033[0;0m'
+
 iterator=1
 
 cat $RESULT_FILE | cut -f2-3 | while read line; do
-  if [ "$line" = "$(sed "${iterator}q;d" $EXPECT_FILE)" ]; then
-    echo "[OK]" >> out
+  expect=$(sed "${iterator}q;d" $EXPECT_FILE)
+
+  if [ "$line" = "$expect" ]; then
+    echo -e "[${BOLD_GREEN}OK${RESET}]" >> out
   else
-    echo "[FAIL]" >> out
+    echo -e "[${BOLD_RED}FAIL${RESET}]" >> out
   fi
 
   let iterator=iterator+1
