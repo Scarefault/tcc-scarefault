@@ -1,10 +1,18 @@
 #!/bin/bash
 
 # ---------------------------------------------------------
-#                       CONSTANTS
+#                       PATHS
 # ---------------------------------------------------------
 RESULT_FILE="../../log/scarefault.log"
-EXPECT_FILE=$1
+MAIN_DIR="../.."
+IDENTIFY_TEST_DIR="tests/identify-test"
+
+# ---------------------------------------------------------
+#                       CONSTANTS
+# ---------------------------------------------------------
+CASE_TEST_FILE=$1
+EXPECT_FILE="${1}.expect"
+OUT_FILE="out"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -45,6 +53,17 @@ increase_iterator()
   let iterator=iterator+1
 }
 
+create_result()
+{
+  if [ -e $RESULT_FILE ]; then
+    rm $RESULT_FILE
+  fi
+
+  cd $MAIN_DIR
+  ./scarefault < "${IDENTIFY_TEST_DIR}/${CASE_TEST_FILE}"
+  cd $IDENTIFY_TEST_DIR
+}
+
 compare_line_by_line()
 {
   iterator=1
@@ -59,12 +78,17 @@ compare_line_by_line()
 
 print_test_result()
 {
-  cat out
-  rm out
+  if [ -e out ]; then
+    cat out
+    rm out
+  else
+    echo "Unable to access or remove out file..."
+  fi
 }
 
 # ---------------------------------------------------------
 #                         MAIN
 # ---------------------------------------------------------
+create_result
 compare_line_by_line
 print_test_result

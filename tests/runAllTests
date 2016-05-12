@@ -1,6 +1,4 @@
 #!/bin/bash
 
-cd identify-test && ./runIdentifyTests
-cd ../
-cd unit-test && ./runAllUnitTests
-cd ../
+./identify-test/runIdentifyTests
+./unit-test/runAllUnitTests
