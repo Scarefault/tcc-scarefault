@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# ---------------------------------------------------------
+#                       CONSTANTS
+# ---------------------------------------------------------
 RESULT_FILE="../../log/scarefault.log"
 EXPECT_FILE=$1
 
@@ -13,21 +16,55 @@ BOLD_YELLOW='\033[1;33m'
 BOLD_BLUE='\033[1;34m'
 RESET='\033[0;0m'
 
-iterator=1
+# ---------------------------------------------------------
+#                       FUNCTIONS
+# ---------------------------------------------------------
+write_success_message()
+{
+  echo -e "${iterator}\t[  ${BOLD_GREEN}OK${RESET}  ]" >> out
+}
 
-cat $RESULT_FILE | cut -f2-3 | while read result; do
-  expect=$(sed "${iterator}q;d" $EXPECT_FILE)
+write_fail_message()
+{
+  echo -e "${iterator}\t[ ${BOLD_RED}FAIL${RESET} ]" >> out
+  echo -e "\t\t ${BOLD_YELLOW}Expect:${YELLOW} $expect${RESET}" >> out
+  echo -e "\t\t ${BOLD_YELLOW}Result:${YELLOW} $result${RESET}" >> out
+}
 
+compare_result_expect()
+{
   if [ "$result" = "$expect" ]; then
-    echo -e "${iterator}\t[  ${BOLD_GREEN}OK${RESET}  ]" >> out
+    write_success_message
   else
-    echo -e "${iterator}\t[ ${BOLD_RED}FAIL${RESET} ]" >> out
-    echo -e "\t\t ${BOLD_YELLOW}Expect:${YELLOW} $expect${RESET}" >> out
-    echo -e "\t\t ${BOLD_YELLOW}Result:${YELLOW} $result${RESET}" >> out
+    write_fail_message
   fi
+}
 
+increase_iterator()
+{
   let iterator=iterator+1
-done
+}
 
-cat out
-rm out
+compare_line_by_line()
+{
+  iterator=1
+
+  cat $RESULT_FILE | cut -f2-3 | while read result; do
+    expect=$(sed "${iterator}q;d" $EXPECT_FILE)
+
+    compare_result_expect
+    increase_iterator
+  done
+}
+
+print_test_result()
+{
+  cat out
+  rm out
+}
+
+# ---------------------------------------------------------
+#                         MAIN
+# ---------------------------------------------------------
+compare_line_by_line
+print_test_result
