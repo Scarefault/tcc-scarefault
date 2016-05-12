@@ -6,6 +6,7 @@
 RESULT_FILE="../../log/scarefault.log"
 MAIN_DIR="../.."
 IDENTIFY_TEST_DIR="tests/identify-test"
+TEMP_OUT="/tmp/identifytest-script.log"
 
 # ---------------------------------------------------------
 #                       CONSTANTS
@@ -13,6 +14,8 @@ IDENTIFY_TEST_DIR="tests/identify-test"
 CASE_TEST_FILE=$1
 EXPECT_FILE="${1}.expect"
 OUT_FILE="out"
+LINES=$(wc -l < "$EXPECT_FILE")
+NUMBER_LINES=$((${LINES}+1))
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -27,6 +30,8 @@ RESET='\033[0;0m'
 # ---------------------------------------------------------
 #                       FUNCTIONS
 # ---------------------------------------------------------
+declare -a array_total_results
+
 write_success_message()
 {
   echo -e "${iterator}\t[  ${BOLD_GREEN}OK${RESET}  ]" >> out
@@ -43,8 +48,10 @@ compare_result_expect()
 {
   if [ "$result" = "$expect" ]; then
     write_success_message
+    let success=success+1
   else
     write_fail_message
+    let fails=fails+1
   fi
 }
 
@@ -60,18 +67,25 @@ create_result()
   fi
 
   cd $MAIN_DIR
-  ./scarefault < "${IDENTIFY_TEST_DIR}/${CASE_TEST_FILE}"
+  ./scarefault < "${IDENTIFY_TEST_DIR}/${CASE_TEST_FILE}" >>$TEMP_OUT 2>&1
   cd $IDENTIFY_TEST_DIR
 }
 
 compare_line_by_line()
 {
   iterator=1
+  success=0
+  fails=0
 
   cat $RESULT_FILE | cut -f2-3 | while read result; do
     expect=$(sed "${iterator}q;d" $EXPECT_FILE)
 
     compare_result_expect
+
+    array_total_results[0]=$success
+    array_total_results[1]=$fails
+    echo "${array_total_results[@]}" > /tmp/tempout
+
     increase_iterator
   done
 }
@@ -89,6 +103,33 @@ print_test_result()
 # ---------------------------------------------------------
 #                         MAIN
 # ---------------------------------------------------------
+
 create_result
 compare_line_by_line
+
+echo -e "${GREEN}========================================================="
+echo -e "\t\t${BOLD_GREEN}Tests of Identification"
+echo -e "\t\tTest Case - ${BOLD_BLUE}${CASE_TEST_FILE}${RESET}"
+echo
+
 print_test_result
+
+echo
+echo -e "${GREEN}========================================================="
+echo -e "Total examples: ${BOLD_GREEN}${NUMBER_LINES}${RESET}"
+
+read -r -a array_total_results < /tmp/tempout
+TOTAL_SUCCESS=${array_total_results[0]}
+TOTAL_FAILS=${array_total_results[1]}
+
+if [ $TOTAL_SUCCESS -eq $NUMBER_LINES ]; then
+  echo -e "${GREEN}Passed: ${BOLD_GREEN}ALL${RESET}"
+elif [ $TOTAL_SUCCESS -gt $TOTAL_FAILS ]; then
+  echo -e "${GREEN}Passed: ${BOLD_GREEN}${TOTAL_SUCCESS}${RESET}"
+  echo -e "${RED}Failed: ${BOLD_RED}${TOTAL_FAILS}${RESET}"
+elif [ $TOTAL_SUCCESS -lt $TOTAL_FAILS ]; then
+  echo -e "${RED}Failed: ${BOLD_RED}${TOTAL_FAILS}${RESET}"
+  echo -e "${GREEN}Passed: ${BOLD_GREEN}${TOTAL_SUCCESS}${RESET}"
+else
+  echo -e "${RED}Failed: ${BOLD_RED}ALL${RESET}"
+fi
