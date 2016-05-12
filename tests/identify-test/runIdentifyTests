@@ -118,7 +118,7 @@ print_summary_message()
   echo -e "${GREEN}========================================================="
   echo -e "Total examples: ${BOLD_GREEN}${NUMBER_LINES}${RESET}"
 
-  read -r -a array_total_results < /tmp/tempout
+  read -r -a array_total_results < $TEMP_RESULT_FILE
   TOTAL_SUCCESS=${array_total_results[0]}
   TOTAL_FAILS=${array_total_results[1]}
 
