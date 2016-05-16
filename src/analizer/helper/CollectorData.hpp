@@ -27,6 +27,12 @@ namespace Helper
     private:
       std::string method_name;
       std::map<std::string, CollectorData::ParamInfo> params;
+
+      std::string get_method_name();
+      std::map<std::string, CollectorData::ParamInfo> get_params();
+
+      void set_method_name( std::string );
+      void set_params( std::map<std::string, CollectorData::ParamInfo> );
   };
 }
 
