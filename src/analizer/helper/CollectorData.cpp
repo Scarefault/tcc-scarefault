@@ -4,7 +4,29 @@ namespace Helper
 {
   void CollectorData::collect_data( const char * format, ... )
   {
-    // TODO: all tasks to collect and record the data in data file.
+    va_list arguments;
+    va_start( arguments, format );
+
+    while( *format != '\0' )
+    {
+      switch ( *format )
+      {
+        case 'm':
+          std::string name = va_args( arguments, std::string );
+          this->set_method_name( name );
+          this->std::cout << get_method_name() << std::endl;
+          break;
+        case 'p':
+          break;
+        case 't':
+          break;
+        case 'r':
+          break;
+        default:
+      }
+
+      format++;
+    }
   }
 
   std::string CollectorData::get_method_name()
