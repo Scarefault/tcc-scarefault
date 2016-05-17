@@ -2,6 +2,8 @@
 
 namespace Helper
 {
+// ------------------ PUBLIC FUNCTIONS IMPLEMENTATION -------------------
+
   void CollectorData::collect_data( const char * format, ... )
   {
     va_list arguments;
@@ -31,17 +33,46 @@ namespace Helper
 
     if( data_stream.is_open() )
     {
-      data_stream.write( "[package:", 9 );
-      data_stream.write( get_package_name().c_str(), get_package_name().size() );
-      data_stream.write( "[class:", 7 );
-      data_stream.write( get_class_name().c_str(), get_class_name().size() );
-      data_stream.write( "]]\n", 4 );
+      insert_data();
+
+      while( !data.empty() )
+      {
+        std::string current_data = data.front();
+        data_stream.write( current_data.c_str(), current_data.size() );
+        data.pop();
+      }
+
     } else
     {
       std::cout << "Unable to open datafile.dat..." << std::endl;
     }
 
     data_stream.close();
+  }
+
+// ------------------ PRIVATE FUNCTIONS IMPLEMENTANTION --------------------
+
+  void CollectorData::insert_data()
+  {
+    insert_data_package();
+    insert_data_class();
+    conclude_data();
+  }
+  void CollectorData::insert_data_package()
+  {
+    data.push( "[package: " );
+    data.push( this->get_package_name() );
+  }
+
+  void CollectorData::insert_data_class()
+  {
+    data.push( "[class: " );
+    data.push( this->get_class_name() );
+  }
+
+  void CollectorData::conclude_data()
+  {
+    data.push( "]]\n" );
   }
 
   void CollectorData::set_package_name( std::string name )

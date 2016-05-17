@@ -10,6 +10,7 @@
 #include <cstdarg>
 #include <iostream>
 #include <fstream>
+#include <queue>
 
 namespace Helper
 {
@@ -31,6 +32,12 @@ namespace Helper
       static const char CLASS = 'c';
 
       InputFile input;
+      std::queue<std::string> data;
+
+      void insert_data();
+      void insert_data_package();
+      void insert_data_class();
+      void conclude_data();
 
       void set_package_name( std::string );
       void set_class_name( std::string );
