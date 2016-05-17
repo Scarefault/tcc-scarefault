@@ -33,4 +33,25 @@ namespace Helper
       std::cout << "Unable to open DATAFILE..." << std::endl;
     }
   }
+
+  void SpreaderData::write_data()
+  {
+    std::fstream test_stream;
+
+    test_stream.open( TESTFILE, WRITE|APPEND );
+
+    if( test_stream.is_open() )
+    {
+      test_stream << "package " << output.package_name << std::endl
+                  << std::endl
+                  << "import org.junit.*" << std::endl
+                  << "import grails.test.mixin.*" << std::endl
+                  << std::endl
+                  << "@TestFor(" << output.class_name << ")" << std::endl
+                  << "class " << output.class_name << "Tests" << std::endl;
+    } else
+    {
+      std::cout << "Unable to open TESTFILE..." << std::endl;
+    }
+  } 
 }

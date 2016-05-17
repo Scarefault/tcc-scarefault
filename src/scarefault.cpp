@@ -10,4 +10,5 @@ int main( int argc, char **argv )
 
   SpreaderData spreader;
   spreader.recover_data();
+  spreader.write_data();
 }
