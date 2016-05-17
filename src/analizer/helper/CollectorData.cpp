@@ -7,14 +7,14 @@ namespace Helper
     va_list arguments;
     va_start( arguments, format );
 
-    while( *format != '\0' )
+    while( *format != EOL )
     {
       switch( *format )
       {
-        case 'p':
+        case PACKAGE:
           this->set_package_name( va_arg( arguments, char * ) );
           break;
-        case 'c':
+        case CLASS:
           this->set_class_name( va_arg( arguments, char * ) );
           break;
       }
@@ -35,7 +35,7 @@ namespace Helper
       data_stream.write( get_package_name().c_str(), get_package_name().size() );
       data_stream.write( "[class:", 7 );
       data_stream.write( get_class_name().c_str(), get_class_name().size() );
-      data_stream.write( "]]", 2 );
+      data_stream.write( "]]\n", 4 );
     } else
     {
       std::cout << "Unable to open datafile.dat..." << std::endl;

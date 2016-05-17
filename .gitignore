@@ -114,6 +114,7 @@ guestbook/
 *.output
 /tests/unit-test/runAllUnitTests
 /tests/unit-test/*/runSuiteTest
+*.dat
 
 # --------------------------------SCAREFAULT ---------------------------------#
 lex.cc

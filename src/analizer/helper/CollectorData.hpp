@@ -26,6 +26,10 @@ namespace Helper
       void record_data();
 
     private:
+      static const char EOL = '\0';
+      static const char PACKAGE = 'p';
+      static const char CLASS = 'c';
+
       InputFile input;
 
       void set_package_name( std::string );
