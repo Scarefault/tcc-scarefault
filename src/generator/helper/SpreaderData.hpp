@@ -4,7 +4,16 @@
 #define DATAFILE "datafile.dat"
 #define TESTFILE "testfile.dat"
 
-namespace helper
+#define WRITE std::fstream::out
+#define APPEND std::fstream::app
+#define READ std::fstream::in
+
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <cstdio>
+
+namespace Helper
 {
   class SpreaderData
   {

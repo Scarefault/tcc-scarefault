@@ -37,7 +37,6 @@ namespace Helper
       void insert_data();
       void insert_data_package();
       void insert_data_class();
-      void conclude_data();
 
       void set_package_name( std::string );
       void set_class_name( std::string );

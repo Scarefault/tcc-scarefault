@@ -42,12 +42,11 @@ namespace Helper
         data.pop();
       }
 
+      data_stream.close();
     } else
     {
       std::cout << "Unable to open datafile.dat..." << std::endl;
     }
-
-    data_stream.close();
   }
 
 // ------------------ PRIVATE FUNCTIONS IMPLEMENTANTION --------------------
@@ -56,23 +55,19 @@ namespace Helper
   {
     insert_data_package();
     insert_data_class();
-    conclude_data();
   }
   void CollectorData::insert_data_package()
   {
-    data.push( "[package: " );
+    data.push( "package: " );
     data.push( this->get_package_name() );
+    data.push( "\n" );
   }
 
   void CollectorData::insert_data_class()
   {
-    data.push( "[class: " );
+    data.push( "class: " );
     data.push( this->get_class_name() );
-  }
-
-  void CollectorData::conclude_data()
-  {
-    data.push( "]]\n" );
+    data.push( "\n" );
   }
 
   void CollectorData::set_package_name( std::string name )
