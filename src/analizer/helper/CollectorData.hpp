@@ -1,9 +1,15 @@
 #ifndef COLLECTORDATA_HPP_
 #define COOLECTORDATA_HPP_
 
+#define DATAFILE "datafile.dat"
+
+#define WRITE std::fstream::out
+#define APPEND std::fstream::app
+
 #include <string>
 #include <cstdarg>
 #include <iostream>
+#include <fstream>
 
 namespace Helper
 {
@@ -16,10 +22,8 @@ namespace Helper
     } InputFile;
 
     public:
-      CollectorData();
-      ~CollectorData();
-
-    void collect_data( const char *, ... );
+      void collect_data( const char *, ... );
+      void record_data();
 
     private:
       InputFile input;

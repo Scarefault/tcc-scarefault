@@ -44,6 +44,7 @@ class_header:
     const std::string identifier_token( $2 );
 
     collector.collect_data( "c", identifier_token.c_str() );
+    collector.record_data();
   }
 | ABSTRACT class_header
 | class_header class_complement

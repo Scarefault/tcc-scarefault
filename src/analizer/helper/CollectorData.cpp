@@ -17,13 +17,31 @@ namespace Helper
         case 'c':
           this->set_class_name( va_arg( arguments, char * ) );
           break;
-        default:
-          std::cout << "Unable to identify format..." << std::endl;
-          // Nothing to do
       }
 
       format++;
     }
+  }
+
+  void CollectorData::record_data()
+  {
+    std::fstream data_stream;
+
+    data_stream.open( DATAFILE, WRITE|APPEND );
+
+    if( data_stream.is_open() )
+    {
+      data_stream.write( "[package:", 9 );
+      data_stream.write( get_package_name().c_str(), get_package_name().size() );
+      data_stream.write( "[class:", 7 );
+      data_stream.write( get_class_name().c_str(), get_class_name().size() );
+      data_stream.write( "]]", 2 );
+    } else
+    {
+      std::cout << "Unable to open datafile.dat..." << std::endl;
+    }
+
+    data_stream.close();
   }
 
   void CollectorData::set_package_name( std::string name )
