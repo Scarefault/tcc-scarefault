@@ -10,29 +10,24 @@ namespace Helper
 {
   class CollectorData
   {
-    typedef pair<std::string, std::string> Range;
-
-    typedef struct param_info
+    typedef struct input_file
     {
-      std::string type;
-      CollectorData::Range range;
-    } ParamInfo;
+      std::string package_name;
+      std::string class_name;
+    } InputFile;
 
     public:
       CollectorData();
       ~CollectorData();
 
-      void collect_data( const char*, ... );
-
     private:
-      std::string method_name;
-      std::map<std::string, CollectorData::ParamInfo> params;
+      InputFile input;
 
-      std::string get_method_name();
-      std::map<std::string, CollectorData::ParamInfo> get_params();
+      void set_package_name( std::string );
+      void set_class_name( std::string );
 
-      void set_method_name( std::string );
-      void set_params( std::map<std::string, CollectorData::ParamInfo> );
+      std::string get_package_name();
+      std::string get_class_name();
   };
 }
 

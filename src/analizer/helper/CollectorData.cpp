@@ -2,50 +2,23 @@
 
 namespace Helper
 {
-  void CollectorData::collect_data( const char * format, ... )
+  void CollectorData::set_package_name( std::string name )
   {
-    va_list arguments;
-    va_start( arguments, format );
-
-    while( *format != '\0' )
-    {
-      switch ( *format )
-      {
-        case 'm':
-          std::string name = va_args( arguments, std::string );
-          this->set_method_name( name );
-          this->std::cout << get_method_name() << std::endl;
-          break;
-        case 'p':
-          break;
-        case 't':
-          break;
-        case 'r':
-          break;
-        default:
-      }
-
-      format++;
-    }
+    this->input.package_name = name;
   }
 
-  std::string CollectorData::get_method_name()
+  void CollectorData::set_class_name( std::string name )
   {
-    return this->method_name;
+    this->input.class_name = name;
   }
 
-  std::map<std::string, CollectorData::ParamInfo> CollectorData::get_params()
+  std::string CollectorData::get_package_name()
   {
-    return this->params;
-  } 
-
-  void CollectorData::set_method_name( std::string name )
-  {
-    this->method_name = name;
+    return this->input.package_name;
   }
 
-  void CollectorData::set_params( std::map<std::string, CollectorData::ParamInfo> param_list )
+  std::string CollectorData::get_class_name()
   {
-    this->params = param_list;
+    return this->input.class_name;
   }
 }
