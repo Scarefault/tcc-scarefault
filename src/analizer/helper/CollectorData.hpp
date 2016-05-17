@@ -2,9 +2,8 @@
 #define COOLECTORDATA_HPP_
 
 #include <string>
-#include <utility>
 #include <cstdarg>
-#include <map>
+#include <iostream>
 
 namespace Helper
 {
@@ -19,6 +18,8 @@ namespace Helper
     public:
       CollectorData();
       ~CollectorData();
+
+    void collect_data( const char *, ... );
 
     private:
       InputFile input;

@@ -15,7 +15,11 @@ initial_definition:
 ;
 
 package_declaration:
-  PACKAGE package_name
+  PACKAGE package_name {
+    const std::string package_name_token( $2 );
+
+    collector.collect_data( "p", package_name_token.c_str() );
+  }
 ;
 
 import_declaration:
@@ -36,7 +40,11 @@ class_definition:
 ;
 
 class_header:
-  CLASS identifier
+  CLASS identifier {
+    const std::string identifier_token( $2 );
+
+    collector.collect_data( "c", identifier_token.c_str() );
+  }
 | ABSTRACT class_header
 | class_header class_complement
 ;
