@@ -25,50 +25,7 @@ namespace Helper
     }
   }
 
-  void CollectorData::record_data()
-  {
-    std::fstream data_stream;
-
-    data_stream.open( DATAFILE, WRITE|APPEND );
-
-    if( data_stream.is_open() )
-    {
-      insert_data();
-
-      while( !data.empty() )
-      {
-        std::string current_data = data.front();
-        data_stream.write( current_data.c_str(), current_data.size() );
-        data.pop();
-      }
-
-      data_stream.close();
-    } else
-    {
-      std::cout << "Unable to open datafile.dat..." << std::endl;
-    }
-  }
-
 // ------------------ PRIVATE FUNCTIONS IMPLEMENTANTION --------------------
-
-  void CollectorData::insert_data()
-  {
-    insert_data_package();
-    insert_data_class();
-  }
-  void CollectorData::insert_data_package()
-  {
-    data.push( "package: " );
-    data.push( this->get_package_name() );
-    data.push( "\n" );
-  }
-
-  void CollectorData::insert_data_class()
-  {
-    data.push( "class: " );
-    data.push( this->get_class_name() );
-    data.push( "\n" );
-  }
 
   void CollectorData::set_package_name( std::string name )
   {

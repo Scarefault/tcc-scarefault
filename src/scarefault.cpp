@@ -7,8 +7,4 @@ int main( int argc, char **argv )
 {
   Parser parser;
   parser.parse();
-
-  SpreaderData spreader;
-  spreader.recover_data();
-  spreader.write_data();
 }
