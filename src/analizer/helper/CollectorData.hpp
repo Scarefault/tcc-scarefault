@@ -4,41 +4,24 @@
 #include <string>
 #include <cstdarg>
 #include <iostream>
+#include <vector>
+#include "Data.hpp"
 
 namespace Helper
 {
-  typedef struct file_param
-  {
-    std::string param_name;
-    std::string param_type;
-  } Param;
-
-  typedef struct file_method
-  {
-    std::string method_name;
-    std::string return_type;
-    std::vector<Param> params;
-  } Method;
-
-  typedef struct file_data
-  {
-    std::string package_name;
-    std::string class_name;
-    std::vector<Method> methods;
-  } Data;
-
-
   class CollectorData
   {
 
     public:
       void collect_data( const char *, ... );
+      Helper::Data* get_data();
 
     private:
       static const char EOL = '\0';
       static const char PACKAGE = 'p';
       static const char CLASS = 'c';
 
+      Helper::Data data;
 
       void set_package_name( std::string );
       void set_class_name( std::string );

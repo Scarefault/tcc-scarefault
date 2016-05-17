@@ -7,4 +7,7 @@ int main( int argc, char **argv )
 {
   Parser parser;
   parser.parse();
+
+  SpreaderData * spreader_ptr = address_spreader;
+  spreader_ptr->write_data();
 }
