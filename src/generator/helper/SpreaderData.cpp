@@ -54,6 +54,9 @@ namespace Helper
         } else if( data_ptr->methods[ i ].name == "show" )
         {
           write_test_show( test_stream );
+        } else if( data_ptr->methods[ i ].name == "delete" )
+        {
+          write_test_delete( test_stream );
         }
       }
     } else
@@ -88,6 +91,32 @@ namespace Helper
       << "\t\tdef model = controller.show()" << std::endl
       << std::endl
       << "\t\tassert model.userInstance == user" << std::endl
+      << "\t}" << std::endl
+      << std::endl;
+  }
+
+  void SpreaderData::write_test_delete( std::fstream * test_stream )
+  {
+    (* test_stream ) << "\tvoid testDelete() {" << std::endl
+      << "\t\tcontroller.delete()" << std::endl
+      << "\t\tassert flash.message != null" << std::endl
+      << "\t\tassert response.redirectedUrl == '/user/list'" << std::endl
+      << std::endl
+      << "\t\tresponse.reset()" << std::endl
+      << std::endl
+      << "\t\tpopulateValidParams(params)" << std::endl
+      << "\t\tdef user = new User(params)" << std::endl
+      << std::endl
+      << "\t\tassert user.save() != null" << std::endl
+      << "\t\tassert User.count() == 1" << std::endl
+      << std::endl
+      << "\t\tparams.id = user.id" << std::endl
+      << std::endl
+      << "\t\tcontroller.delete()" << std::endl
+      << std::endl
+      << "\t\tassert User.count() == 0" << std::endl
+      << "\t\tassert User.get(user.id) == null" << std::endl
+      << "\t\tassert response.redirectedUrl == '/user/list'" << std::endl
       << "\t}" << std::endl
       << std::endl;
   }
