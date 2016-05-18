@@ -38,11 +38,15 @@ namespace Helper
 
       void set_data( Helper::Data * );
       void write_data();
-      void write_test_create();
-      void analiser_methods();
 
-
+    private:
       Helper::Data * data_ptr;
+
+      void write_header( std::fstream * );
+      void analizer_methods( std::fstream * );
+      void write_test_create( std::fstream * );
+      void write_test_show( std::fstream * );
+      void conclude_data( std:: fstream * );
   };
 }
 
