@@ -14,7 +14,7 @@ namespace Helper
 
   typedef struct file_method
   {
-    std::string method_name;
+    std::string name;
     std::string return_type;
     std::vector<Param> params;
   } Method;

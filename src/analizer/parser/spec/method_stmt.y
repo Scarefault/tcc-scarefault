@@ -27,7 +27,11 @@ typed_method_header:
 ;
 
 method_header:
-  IDENTIFIER '(' param_list ')'
+  IDENTIFIER '(' param_list ')' {
+    std::string identifier_token( $1 );
+
+    collector.collect_data( "m", identifier_token.c_str() );
+  }
 ;
 
 param_list:

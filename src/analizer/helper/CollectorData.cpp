@@ -19,10 +19,15 @@ namespace Helper
         case CLASS:
           this->set_class_name( va_arg( arguments, char * ) );
           break;
+        case MTD:
+          this->set_method_name( va_arg( arguments, char * ) );
+          std::cout << "method_name: " << this->get_methods()[0].name << std::endl;
+          break;
       }
 
       format++;
     }
+    
   }
 
   Helper::Data* CollectorData::get_data()
@@ -42,6 +47,14 @@ namespace Helper
     this->data.class_name = name;
   }
 
+  void CollectorData::set_method_name( std::string name )
+  {
+    Helper::Method method;
+    method.name = name;
+
+    this->data.methods.push_back( method );
+  }
+
   std::string CollectorData::get_package_name()
   {
     return this->data.package_name;
@@ -50,5 +63,10 @@ namespace Helper
   std::string CollectorData::get_class_name()
   {
     return this->data.class_name;
+  }
+
+  std::vector<Helper::Method> CollectorData::get_methods()
+  {
+    return this->data.methods;
   }
 }

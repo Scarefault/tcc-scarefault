@@ -12,8 +12,6 @@ namespace Helper
 
   void SpreaderData::write_data()
   {
-
-
     std::fstream test_stream;
 
     test_stream.open( TESTFILE, WRITE|APPEND );
