@@ -20,7 +20,7 @@ namespace Helper
       static const char EOL = '\0';
       static const char PACKAGE = 'p';
       static const char CLASS = 'c';
-      static const char MTD = 'm';
+      static const char METHOD = 'm';
 
       Helper::Data data;
 

@@ -19,14 +19,14 @@ namespace Helper
 
   /*
    * Define a new type to keep a reference to the address of the
-   *   TestGenerator.
+   *   SpreaderData.
    */
   typedef SpreaderData* ADDRESS;
 
   /*
    * It's a global variable. Currently, it's necessary to allow access the
-   *   references of all Test Generators. With this, Is possible access a
-   *   Test Generator, created in parser file, in other files.
+   *   reference of SpreaderData. With this, Is possible access a
+   *   SpreaderData, created in parser file, in other files.
    */
   extern ADDRESS address_spreader;
 
@@ -36,7 +36,7 @@ namespace Helper
     public:
       SpreaderData();
 
-      void set_Data( Helper::Data * );
+      void set_data( Helper::Data * );
       void write_data();
       void write_test_create();
       void analiser_methods();

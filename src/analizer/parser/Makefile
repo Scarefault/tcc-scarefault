@@ -13,7 +13,8 @@ changes_parser.ih:
 	$(shell sed -i "8i Parser::Parser(std::istream &in, std::ostream &out)" Parser.ih)
 	$(shell sed -i "9i {" Parser.ih)
 	$(shell sed -i "10i \\\t d_scanner.setSval(&d_val__);" Parser.ih)
-	$(shell sed -i "11i }" Parser.ih)
+	$(shell sed -i "11i \\\t spreader.set_data( collector.get_data() );" Parser.ih)
+	$(shell sed -i "12i }" Parser.ih)
 
 clean:
 	rm parse.cc Parserbase.h Parser.h Parser.ih

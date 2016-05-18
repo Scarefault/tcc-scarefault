@@ -19,14 +19,13 @@ namespace Helper
         case CLASS:
           this->set_class_name( va_arg( arguments, char * ) );
           break;
-        case MTD:
+        case METHOD:
           this->set_method_name( va_arg( arguments, char * ) );
           break;
       }
 
       format++;
     }
-    
   }
 
   Helper::Data* CollectorData::get_data()
