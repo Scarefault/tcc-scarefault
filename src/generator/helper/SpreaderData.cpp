@@ -57,6 +57,9 @@ namespace Helper
         } else if( data_ptr->methods[ i ].name == "delete" )
         {
           write_test_delete( test_stream );
+        } else if( data_ptr->methods[ i ].name == "list")
+        {
+          write_test_list( test_stream );
         }
       }
     } else
@@ -117,6 +120,17 @@ namespace Helper
       << "\t\tassert User.count() == 0" << std::endl
       << "\t\tassert User.get(user.id) == null" << std::endl
       << "\t\tassert response.redirectedUrl == '/user/list'" << std::endl
+      << "\t}" << std::endl
+      << std::endl;
+  }
+
+  void SpreaderData::write_test_list( std::fstream * test_stream )
+  {
+    (* test_stream ) << "\tvoid testList() {" << std::endl
+      << "\t\tdef model = controller.list()" << std::endl
+      << std::endl
+      << "\t\tassert model.userInstanceList.size() == 0" << std::endl
+      << "\t\tassert model.userInstanceTotal == 0" << std::endl
       << "\t}" << std::endl
       << std::endl;
   }
