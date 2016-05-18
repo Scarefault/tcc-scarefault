@@ -31,6 +31,23 @@ namespace Helper
     }
   }
 
+  void SpreaderData::write_test_create()
+  {
+    std::fstream test_stream;
+
+    test_stream.open( TESTFILE, WRITE|APPEND );
+
+    if( test_stream.is_open() )
+    {
+      test_stream << "\n\nvoid testCreate() { " << std::endl
+                  << "def model = controller.create()" << std::endl
+                  << "assert model.userInstance != null\n}" << std::endl;
+    } else
+    {
+      std::cout << "Unable to open TESTFILE..." << std::endl;
+    }
+  }
+
   void SpreaderData::set_Data( Helper::Data * ptr )
   {
       this->data_ptr = ptr;

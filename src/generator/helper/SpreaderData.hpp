@@ -38,6 +38,7 @@ namespace Helper
 
       void set_Data( Helper::Data * );
       void write_data();
+      void write_test_create();
 
 
       Helper::Data * data_ptr;

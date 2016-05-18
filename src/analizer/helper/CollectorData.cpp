@@ -21,7 +21,6 @@ namespace Helper
           break;
         case MTD:
           this->set_method_name( va_arg( arguments, char * ) );
-          std::cout << "method_name: " << this->get_methods()[0].name << std::endl;
           break;
       }
 
