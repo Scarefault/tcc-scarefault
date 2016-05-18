@@ -10,5 +10,6 @@ int main( int argc, char **argv )
 
   SpreaderData * spreader_ptr = address_spreader;
   spreader_ptr->write_data();
-  spreader_ptr->write_test_create();
+  spreader_ptr->analiser_methods();
+
 }

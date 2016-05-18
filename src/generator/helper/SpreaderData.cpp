@@ -9,6 +9,13 @@ namespace Helper
     address_spreader = this;
   }
 
+  void SpreaderData::analiser_methods()
+  {
+    if( data_ptr->methods[0].name == "create")
+    {
+      write_test_create();
+    }
+  }
 
   void SpreaderData::write_data()
   {
