@@ -57,9 +57,12 @@ namespace Helper
         } else if( data_ptr->methods[ i ].name == "delete" )
         {
           write_test_delete( test_stream );
-        } else if( data_ptr->methods[ i ].name == "list")
+        } else if( data_ptr->methods[ i ].name == "list" )
         {
           write_test_list( test_stream );
+        } else if( data_ptr->methods[ i ].name == "save" )
+        {
+          write_test_save( test_stream );
         }
       }
     } else
@@ -131,6 +134,26 @@ namespace Helper
       << std::endl
       << "\t\tassert model.userInstanceList.size() == 0" << std::endl
       << "\t\tassert model.userInstanceTotal == 0" << std::endl
+      << "\t}" << std::endl
+      << std::endl;
+  }
+
+  void SpreaderData::write_test_save( std::fstream * test_stream )
+  {
+    (* test_stream ) << "\tvoid testSave() {" << std::endl
+      << "\t\tcontroller.save()" << std::endl
+      << std::endl
+      << "\t\tassert model.userInstance != null" << std::endl
+      << "\t\tassert view == '/user/create'" << std::endl
+      << std::endl
+      << "\t\tresponse.reset()" << std::endl
+      << "" << std::endl
+      << "\t\tpopulateValidParams(params)" << std::endl
+      << "\t\tcontroller.save()" << std::endl
+      << std::endl
+      << "\t\tassert response.redirectedUrl == '/user/show/1'" << std::endl
+      << "\t\tassert controller.flash.message != null" << std::endl
+      << "\t\tassert User.count() == 1" << std::endl
       << "\t}" << std::endl
       << std::endl;
   }

@@ -48,6 +48,7 @@ namespace Helper
       void write_test_show( std::fstream * );
       void write_test_delete( std::fstream * );
       void write_test_list( std::fstream * );
+      void write_test_save( std::fstream * );
       void conclude_data( std:: fstream * );
   };
 }
