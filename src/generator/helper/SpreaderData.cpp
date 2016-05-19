@@ -63,6 +63,9 @@ namespace Helper
         } else if( data_ptr->methods[ i ].name == "save" )
         {
           write_test_save( test_stream );
+        } else if( data_ptr->methods[ i ].name == "edit" )
+        {
+          write_test_edit( test_stream );
         }
       }
     } else
@@ -75,6 +78,7 @@ namespace Helper
   {
     (* test_stream) << "\tvoid testCreate() {" << std::endl
       << "\t\tdef model = controller.create()" << std::endl
+      << std::endl
       << "\t\tassert model.userInstance != null" << std::endl
       << "\t}" << std::endl
       << std::endl;
@@ -155,6 +159,27 @@ namespace Helper
       << "\t\tassert controller.flash.message != null" << std::endl
       << "\t\tassert User.count() == 1" << std::endl
       << "\t}" << std::endl
+      << std::endl;
+  }
+
+  void SpreaderData::write_test_edit( std::fstream * test_stream )
+  {
+    (* test_stream ) << "\tvoid testEdit() {" << std::endl
+      << "\t\tcontroller.edit()" << std::endl
+      << std::endl
+      << "\t\tassert flash.message != null" << std::endl
+      << "\t\tassert response.redirectedUrl == '/user/list'" << std::endl
+      << std::endl
+      << "\t\tpopulateValidParams(params)" << std::endl
+      << "\t\tdef user = new User(params)" << std::endl
+      << std::endl
+      << "\t\tassert user.save() != null" << std::endl
+      << std::endl
+      << "\t\tparams.id = user.id" << std::endl
+      << std::endl
+      << "\t\tdef model = controller.edit()" << std::endl
+      << std::endl
+      << "\t\tassert model.userInstance == user" << std::endl
       << std::endl;
   }
 
