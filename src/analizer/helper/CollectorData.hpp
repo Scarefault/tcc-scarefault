@@ -1,5 +1,5 @@
 #ifndef COLLECTORDATA_HPP_
-#define COOLECTORDATA_HPP_
+#define COLLECTORDATA_HPP_
 
 #include <string>
 #include <cstdarg>
@@ -10,10 +10,29 @@
 
 namespace Helper
 {
+  class CollectorData;
+
+
+  /*
+   * Define a new type to keep a reference to the address of the
+   *   CollectorData.
+   */
+  typedef CollectorData * ADDRESS;
+
+  /*
+   * It's a global variable. Currently, it's necessary to allow access the
+   *   reference of CollectorData. With this, Is possible access a
+   *   CollectorData, created in parser file, in other files.
+   */
+  extern ADDRESS address_collector;
+
+
   class CollectorData
   {
 
     public:
+      CollectorData();
+
       void collect_data( const char *, ... );
       Helper::Data* get_data();
 

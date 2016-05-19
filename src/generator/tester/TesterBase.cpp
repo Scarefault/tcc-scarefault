@@ -2,13 +2,6 @@
 
 namespace Tester
 {
-  ADDRESS address_tester;
-
-  TesterBase::TesterBase()
-  {
-    address_tester = this;
-  }
-
   void TesterBase::write_data()
   {
     std::fstream test_stream;

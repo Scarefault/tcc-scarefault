@@ -14,28 +14,9 @@
 
 namespace Tester
 {
-  class TesterBase;
-
-
-  /*
-   * Define a new type to keep a reference to the address of the
-   *   Tester.
-   */
-  typedef TesterBase * ADDRESS;
-
-  /*
-   * It's a global variable. Currently, it's necessary to allow access the
-   *   reference of Tester. With this, Is possible access a
-   *   Tester, created in parser file, in other files.
-   */
-  extern ADDRESS address_tester;
-
-
   class TesterBase
   {
     public:
-      TesterBase();
-
       void set_data( Helper::Data * );
       void write_data();
 

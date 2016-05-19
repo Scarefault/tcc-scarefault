@@ -2,7 +2,13 @@
 
 namespace Helper
 {
+  ADDRESS address_collector;
+
 // ------------------ PUBLIC FUNCTIONS IMPLEMENTATION -------------------
+  CollectorData::CollectorData()
+  {
+    address_collector = this;
+  }
 
   void CollectorData::collect_data( const char * format, ... )
   {

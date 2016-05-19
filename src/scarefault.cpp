@@ -1,6 +1,8 @@
 #include "analizer/parser/Parser.h"
+#include "analizer/helper/CollectorData.hpp"
 #include "generator/tester/TesterBase.hpp"
 
+using namespace Helper;
 using namespace Tester;
 
 int main( int argc, char **argv )
@@ -8,6 +10,9 @@ int main( int argc, char **argv )
   Parser parser;
   parser.parse();
 
-  TesterBase * tester_ptr = address_tester;
-  tester_ptr->write_data();
+  CollectorData * collector_ptr = address_collector;
+  TesterBase tester;
+
+  tester.set_data( collector_ptr->get_data() );
+  tester.write_data();
 }
