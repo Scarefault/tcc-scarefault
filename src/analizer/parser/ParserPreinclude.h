@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "../helper/CollectorData.hpp"
-#include "../../generator/Tester.hpp"
+#include "../../generator/tester/TesterBase.hpp"
 #include "../../../log/Log.hpp"
 
 using namespace std;

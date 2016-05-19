@@ -1,15 +1,15 @@
-#include "Tester.hpp"
+#include "TesterBase.hpp"
 
-namespace Helper
+namespace Tester
 {
-  ADDRESS address_spreader;
+  ADDRESS address_tester;
 
-  Tester::Tester()
+  TesterBase::TesterBase()
   {
-    address_spreader = this;
+    address_tester = this;
   }
 
-  void Tester::write_data()
+  void TesterBase::write_data()
   {
     std::fstream test_stream;
 
@@ -28,7 +28,7 @@ namespace Helper
     }
   }
 
-  void Tester::make_header( std::fstream * test_stream )
+  void TesterBase::make_header( std::fstream * test_stream )
   {
     (* test_stream) << "package " << data_ptr->package_name << std::endl
       << std::endl
@@ -40,7 +40,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::test_methods( std::fstream * test_stream )
+  void TesterBase::test_methods( std::fstream * test_stream )
   {
     if( (* test_stream).is_open() )
     {
@@ -77,7 +77,7 @@ namespace Helper
     }
   }
 
-  void Tester::make_test_create( std::fstream * test_stream )
+  void TesterBase::make_test_create( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
 
@@ -90,7 +90,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::make_test_show( std::fstream * test_stream )
+  void TesterBase::make_test_show( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
@@ -117,7 +117,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::make_test_delete( std::fstream * test_stream )
+  void TesterBase::make_test_delete( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
@@ -150,7 +150,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::make_test_list( std::fstream * test_stream )
+  void TesterBase::make_test_list( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
@@ -165,7 +165,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::make_test_save( std::fstream * test_stream )
+  void TesterBase::make_test_save( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
@@ -190,7 +190,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::make_test_edit( std::fstream * test_stream )
+  void TesterBase::make_test_edit( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
@@ -218,7 +218,7 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::make_test_update( std::fstream * test_stream )
+  void TesterBase::make_test_update( std::fstream * test_stream )
   {
     std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
@@ -273,17 +273,17 @@ namespace Helper
       << std::endl;
   }
 
-  void Tester::conclude_data( std::fstream * test_stream )
+  void TesterBase::conclude_data( std::fstream * test_stream )
   {
     (* test_stream ) << "}" << std::endl;
   }
 
-  void Tester::set_data( Helper::Data * ptr )
+  void TesterBase::set_data( Helper::Data * ptr )
   {
       this->data_ptr = ptr;
   }
 
-  std::string Tester::convert_to_lower( std::string text )
+  std::string TesterBase::convert_to_lower( std::string text )
   {
     std::string lower_text;
 

@@ -1,5 +1,5 @@
-#ifndef TESTER_HPP_
-#define TESTER_HPP_
+#ifndef TESTERBASE_HPP_
+#define TESTERBASE_HPP_
 
 #define TESTFILE "testfile.groovy"
 
@@ -10,31 +10,31 @@
 #include <fstream>
 #include <iostream>
 #include <locale>
-#include "../analizer/helper/Data.hpp"
+#include "../../analizer/helper/Data.hpp"
 
-namespace Helper
+namespace Tester
 {
-  class Tester;
+  class TesterBase;
 
 
   /*
    * Define a new type to keep a reference to the address of the
    *   Tester.
    */
-  typedef Tester* ADDRESS;
+  typedef TesterBase * ADDRESS;
 
   /*
    * It's a global variable. Currently, it's necessary to allow access the
    *   reference of Tester. With this, Is possible access a
    *   Tester, created in parser file, in other files.
    */
-  extern ADDRESS address_spreader;
+  extern ADDRESS address_tester;
 
 
-  class Tester
+  class TesterBase
   {
     public:
-      Tester();
+      TesterBase();
 
       void set_data( Helper::Data * );
       void write_data();
@@ -58,4 +58,4 @@ namespace Helper
   };
 }
 
-#endif // TESTER_HPP_
+#endif // TESTERBASE_HPP_
