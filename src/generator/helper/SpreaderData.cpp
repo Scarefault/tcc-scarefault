@@ -66,6 +66,9 @@ namespace Helper
         } else if( data_ptr->methods[ i ].name == "edit" )
         {
           write_test_edit( test_stream );
+        } else if( data_ptr->methods[ i ].name == "update" )
+        {
+          write_test_update( test_stream );
         }
       }
     } else
@@ -180,6 +183,55 @@ namespace Helper
       << "\t\tdef model = controller.edit()" << std::endl
       << std::endl
       << "\t\tassert model.userInstance == user" << std::endl
+      << "\t}" << std::endl
+      << std::endl;
+  }
+
+  void SpreaderData::write_test_update( std::fstream * test_stream )
+  {
+    (* test_stream ) << "\tvoid testUpdate() {" << std::endl
+      << "\t\tcontroller.update()" << std::endl
+      << std::endl
+      << "\t\tassert flash.message != null" << std::endl
+      << "\t\tassert response.redirectedUrl == '/user/list'" << std::endl
+      << std::endl
+      << "\t\tresponse.reset()" << std::endl
+      << std::endl
+      << "\t\tpopulateValidParams(params)" << std::endl
+      << "\t\tdef user = new User(params)" << std::endl
+      << std::endl
+      << "\t\tassert user.save() != null" << std::endl
+      << std::endl
+      << "\t\t// test invalid parameters in update" << std::endl
+      << "\t\tparams.id = user.id" << std::endl
+      << "\t\t//TODO: add invalid values to params object" << std::endl
+      << std::endl
+      << "\t\tcontroller.update()" << std::endl
+      << std::endl
+      << "\t\tassert view == \"/user/edit\"" << std::endl
+      << "\t\tassert model.userInstance != null" << std::endl
+      << std::endl
+      << "\t\tuser.clearErrors()" << std::endl
+      << std::endl
+      << "\t\tpopulateValidParams(params)" << std::endl
+      << "\t\tcontroller.update()" << std::endl
+      << std::endl
+      << "\t\tassert response.redirectedUrl == \"/user/show/$user.id\"" << std::endl
+      << "\t\tassert flash.message != null" << std::endl
+      << std::endl
+      << "\t\tresponse.reset()" << std::endl
+      << "\t\tuser.clearErrors()" << std::endl
+      << std::endl
+      << "\t\tpopulateValidParams(params)" << std::endl
+      << "\t\tparams.id = user.id" << std::endl
+      << "\t\tparams.version = -1" << std::endl
+      << "\t\tcontroller.update()" << std::endl
+      << std::endl
+      << "\t\tassert view == \"/user/edit\"" << std::endl
+      << "\t\tassert model.userInstance != null" << std::endl
+      << "\t\tassert model.userInstance.errors.getFieldError('version')" << std::endl
+      << "\t\tassert flash.message != null" << std::endl
+      << "\t}" << std::endl
       << std::endl;
   }
 

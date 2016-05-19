@@ -50,6 +50,7 @@ namespace Helper
       void write_test_list( std::fstream * );
       void write_test_save( std::fstream * );
       void write_test_edit( std::fstream * );
+      void write_test_update( std::fstream * );
       void conclude_data( std:: fstream * );
   };
 }
