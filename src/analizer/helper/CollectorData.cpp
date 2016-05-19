@@ -79,4 +79,14 @@ namespace Helper
   {
     return this->data.methods;
   }
+
+  std::string CollectorData::get_category_MVC()
+  {
+    return this->data.category_MVC;
+  }
+
+  std::string CollectorData::get_domain_base()
+  {
+    return this->data.domain_base;
+  }
 }

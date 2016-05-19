@@ -79,11 +79,12 @@ namespace Helper
 
   void Tester::make_test_create( std::fstream * test_stream )
   {
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
+
     (* test_stream) << "\tvoid testCreate() {" << std::endl
       << "\t\tdef model = controller.create()" << std::endl
       << std::endl
-      << "\t\tassert model."<< convert_to_lower( data_ptr->domain_base )
-      << "Instance != null"
+      << "\t\tassert model."<< low_domain << "Instance != null"
       << std::endl
       << "\t}" << std::endl
       << std::endl;
@@ -91,90 +92,90 @@ namespace Helper
 
   void Tester::make_test_show( std::fstream * test_stream )
   {
-    std::string lo_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
 
     (* test_stream ) << "\tvoid testShow() {" << std::endl
       << "\t\tcontroller show" << std::endl
       << "\t\tassert flash.message != null" << std::endl
-      << "\t\tassert response.redirectedUrl == '/" << lo_domain << "/list'"
+      << "\t\tassert response.redirectedUrl == '/" << low_domain << "/list'"
       << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
-      << "\t\tdef " << lo_domain << " = new " << data_ptr->domain_base
+      << "\t\tdef " << low_domain << " = new " << data_ptr->domain_base
       << "(params)" << std::endl
       << std::endl
-      << "\t\tassert " << lo_domain << ".save() != null" << std::endl
+      << "\t\tassert " << low_domain << ".save() != null" << std::endl
       << std::endl
-      << "\t\tparams.id = " << lo_domain << ".id" << std::endl
+      << "\t\tparams.id = " << low_domain << ".id" << std::endl
       << std::endl
       << "\t\tdef model = controller.show()" << std::endl
       << std::endl
-      << "\t\tassert model." << lo_domain << "Instance == "
-      << lo_domain << std::endl
+      << "\t\tassert model." << low_domain << "Instance == "
+      << low_domain << std::endl
       << "\t}" << std::endl
       << std::endl;
   }
 
   void Tester::make_test_delete( std::fstream * test_stream )
   {
-    std::string lo_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
 
     (* test_stream ) << "\tvoid testDelete() {" << std::endl
       << "\t\tcontroller.delete()" << std::endl
       << "\t\tassert flash.message != null" << std::endl
       << "\t\tassert response.redirectedUrl == '/"
-      << lo_domain << "/list'" << std::endl
+      << low_domain << "/list'" << std::endl
       << std::endl
       << "\t\tresponse.reset()" << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
-      << "\t\tdef " << lo_domain << " = new " << up_domain << "(params)"
+      << "\t\tdef " << low_domain << " = new " << up_domain << "(params)"
       << std::endl
       << std::endl
-      << "\t\tassert " << lo_domain << ".save() != null" << std::endl
+      << "\t\tassert " << low_domain << ".save() != null" << std::endl
       << "\t\tassert " << up_domain << ".count() == 1" << std::endl
       << std::endl
-      << "\t\tparams.id = " << lo_domain << ".id" << std::endl
+      << "\t\tparams.id = " << low_domain << ".id" << std::endl
       << std::endl
       << "\t\tcontroller.delete()" << std::endl
       << std::endl
-      << "\t\tassert " << lo_domain << ".count() == 0" << std::endl
-      << "\t\tassert " << lo_domain << ".get(" << lo_domain << ".id) == null"
+      << "\t\tassert " << low_domain << ".count() == 0" << std::endl
+      << "\t\tassert " << low_domain << ".get(" << low_domain << ".id) == null"
       << std::endl
       << "\t\tassert response.redirectedUrl == '/"
-      << lo_domain << "/list'" << std::endl
+      << low_domain << "/list'" << std::endl
       << "\t}" << std::endl
       << std::endl;
   }
 
   void Tester::make_test_list( std::fstream * test_stream )
   {
-    std::string lo_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
 
     (* test_stream ) << "\tvoid testList() {" << std::endl
       << "\t\tdef model = controller.list()" << std::endl
       << std::endl
-      << "\t\tassert model." << lo_domain << "InstanceList.size() == 0"
+      << "\t\tassert model." << low_domain << "InstanceList.size() == 0"
       << std::endl
-      << "\t\tassert model." << lo_domain << "InstanceTotal == 0" << std::endl
+      << "\t\tassert model." << low_domain << "InstanceTotal == 0" << std::endl
       << "\t}" << std::endl
       << std::endl;
   }
 
   void Tester::make_test_save( std::fstream * test_stream )
   {
-    std::string lo_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
 
     (* test_stream ) << "\tvoid testSave() {" << std::endl
       << "\t\tcontroller.save()" << std::endl
       << std::endl
-      << "\t\tassert model." << lo_domain
+      << "\t\tassert model." << low_domain
       << "Instance != null" << std::endl
-      << "\t\tassert view == '/" << lo_domain << "/create'" << std::endl
+      << "\t\tassert view == '/" << low_domain << "/create'" << std::endl
       << std::endl
       << "\t\tresponse.reset()" << std::endl
       << "" << std::endl
@@ -182,7 +183,7 @@ namespace Helper
       << "\t\tcontroller.save()" << std::endl
       << std::endl
       << "\t\tassert response.redirectedUrl == '/"
-      << lo_domain << "/show/1'" << std::endl
+      << low_domain << "/show/1'" << std::endl
       << "\t\tassert controller.flash.message != null" << std::endl
       << "\t\tassert " << up_domain << ".count() == 1" << std::endl
       << "\t}" << std::endl
@@ -191,7 +192,7 @@ namespace Helper
 
   void Tester::make_test_edit( std::fstream * test_stream )
   {
-    std::string lo_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
 
     (* test_stream ) << "\tvoid testEdit() {" << std::endl
@@ -199,73 +200,73 @@ namespace Helper
       << std::endl
       << "\t\tassert flash.message != null" << std::endl
       << "\t\tassert response.redirectedUrl == '/"
-      << lo_domain << "/list'" << std::endl
+      << low_domain << "/list'" << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
-      << "\t\tdef " << lo_domain << " = new " << up_domain << "(params)"
+      << "\t\tdef " << low_domain << " = new " << up_domain << "(params)"
       << std::endl
       << std::endl
-      << "\t\tassert " << lo_domain << ".save() != null" << std::endl
+      << "\t\tassert " << low_domain << ".save() != null" << std::endl
       << std::endl
-      << "\t\tparams.id = " << lo_domain << ".id" << std::endl
+      << "\t\tparams.id = " << low_domain << ".id" << std::endl
       << std::endl
       << "\t\tdef model = controller.edit()" << std::endl
       << std::endl
-      << "\t\tassert model." << lo_domain << "Instance == "
-      << lo_domain << std::endl
+      << "\t\tassert model." << low_domain << "Instance == "
+      << low_domain << std::endl
       << "\t}" << std::endl
       << std::endl;
   }
 
   void Tester::make_test_update( std::fstream * test_stream )
   {
-    std::string lo_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
     std::string up_domain = data_ptr->domain_base;
 
     (* test_stream ) << "\tvoid testUpdate() {" << std::endl
       << "\t\tcontroller.update()" << std::endl
       << std::endl
       << "\t\tassert flash.message != null" << std::endl
-      << "\t\tassert response.redirectedUrl == '/" << lo_domain << "/list'"
+      << "\t\tassert response.redirectedUrl == '/" << low_domain << "/list'"
       << std::endl
       << std::endl
       << "\t\tresponse.reset()" << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
-      << "\t\tdef " << lo_domain << " = new " << up_domain << "(params)"
+      << "\t\tdef " << low_domain << " = new " << up_domain << "(params)"
       << std::endl
       << std::endl
-      << "\t\tassert " << lo_domain << ".save() != null" << std::endl
+      << "\t\tassert " << low_domain << ".save() != null" << std::endl
       << std::endl
       << "\t\t// test invalid parameters in update" << std::endl
-      << "\t\tparams.id = " << lo_domain << ".id" << std::endl
+      << "\t\tparams.id = " << low_domain << ".id" << std::endl
       << "\t\t//TODO: add invalid values to params object" << std::endl
       << std::endl
       << "\t\tcontroller.update()" << std::endl
       << std::endl
-      << "\t\tassert view == \"/" << lo_domain << "/edit\"" << std::endl
-      << "\t\tassert model." << lo_domain << "Instance != null" << std::endl
+      << "\t\tassert view == \"/" << low_domain << "/edit\"" << std::endl
+      << "\t\tassert model." << low_domain << "Instance != null" << std::endl
       << std::endl
       << "\t\tuser.clearErrors()" << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
       << "\t\tcontroller.update()" << std::endl
       << std::endl
-      << "\t\tassert response.redirectedUrl == \"/" << lo_domain
-      << "/show/$" << lo_domain << ".id\"" << std::endl
+      << "\t\tassert response.redirectedUrl == \"/" << low_domain
+      << "/show/$" << low_domain << ".id\"" << std::endl
       << "\t\tassert flash.message != null" << std::endl
       << std::endl
       << "\t\tresponse.reset()" << std::endl
-      << "\t\t" << lo_domain << ".clearErrors()" << std::endl
+      << "\t\t" << low_domain << ".clearErrors()" << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
-      << "\t\tparams.id = " << lo_domain << ".id" << std::endl
+      << "\t\tparams.id = " << low_domain << ".id" << std::endl
       << "\t\tparams.version = -1" << std::endl
       << "\t\tcontroller.update()" << std::endl
       << std::endl
-      << "\t\tassert view == \"/" << lo_domain << "/edit\"" << std::endl
-      << "\t\tassert model." << lo_domain << "Instance != null" << std::endl
-      << "\t\tassert model." << lo_domain
+      << "\t\tassert view == \"/" << low_domain << "/edit\"" << std::endl
+      << "\t\tassert model." << low_domain << "Instance != null" << std::endl
+      << "\t\tassert model." << low_domain
       << "Instance.errors.getFieldError('version')" << std::endl
       << "\t\tassert flash.message != null" << std::endl
       << "\t}" << std::endl
