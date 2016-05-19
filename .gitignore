@@ -115,6 +115,7 @@ guestbook/
 /tests/unit-test/runAllUnitTests
 /tests/unit-test/*/runSuiteTest
 *.dat
+*.groovy
 
 # --------------------------------SCAREFAULT ---------------------------------#
 lex.cc

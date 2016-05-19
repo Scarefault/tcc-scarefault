@@ -5,6 +5,7 @@
 #include <cstdarg>
 #include <iostream>
 #include <vector>
+#include <locale>
 #include "Data.hpp"
 
 namespace Helper
