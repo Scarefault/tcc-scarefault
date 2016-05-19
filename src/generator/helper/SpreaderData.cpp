@@ -17,6 +17,9 @@ namespace Helper
 
     if( test_stream.is_open() )
     {
+      std::cout << "domain_base: " << data_ptr->domain_base << std::endl;
+      std::cout << "category_MVC: " << data_ptr->category_MVC << std::endl;
+
       write_header( &test_stream );
       analizer_methods( &test_stream );
       conclude_data( &test_stream );

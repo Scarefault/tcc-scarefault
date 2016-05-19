@@ -28,9 +28,14 @@ namespace Helper
       void set_class_name( std::string );
       void set_method_name( std::string );
 
+      void identify_category( std::string );
+
       std::string get_package_name();
       std::string get_class_name();
       std::vector<Helper::Method> get_methods();
+
+      std::string get_category_MVC();
+      std::string get_domain_base();
   };
 }
 

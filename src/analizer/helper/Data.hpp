@@ -21,6 +21,8 @@ namespace Helper
 
   typedef struct file_data
   {
+    std::string category_MVC;
+    std::string domain_base;
     std::string package_name;
     std::string class_name;
     std::vector<Method> methods;

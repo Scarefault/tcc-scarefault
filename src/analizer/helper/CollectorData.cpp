@@ -43,6 +43,8 @@ namespace Helper
   void CollectorData::set_class_name( std::string name )
   {
     this->data.class_name = name;
+
+    identify_category( name );
   }
 
   void CollectorData::set_method_name( std::string name )
@@ -51,6 +53,16 @@ namespace Helper
     method.name = name;
 
     this->data.methods.push_back( method );
+  }
+
+  void CollectorData::identify_category( std::string name )
+  {
+    std::size_t found = name.find( "Controller" );
+    std::string category = name.substr( found );
+    std::string domain_base = name.substr( 0, found );
+
+    this->data.domain_base = domain_base;
+    this->data.category_MVC = category;
   }
 
   std::string CollectorData::get_package_name()
