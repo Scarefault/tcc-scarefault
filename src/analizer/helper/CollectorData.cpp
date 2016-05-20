@@ -63,12 +63,18 @@ namespace Helper
 
   void CollectorData::identify_category( std::string name )
   {
-    std::size_t found = name.find( "Controller" );
-    std::string category = name.substr( found );
-    std::string domain_base = name.substr( 0, found );
+    if( name.compare( "Controller" ) != std::string::npos )
+    {
+      std::size_t found = name.find( "Controller" );
+      std::string category = name.substr( found );
+      std::string domain_base = name.substr( 0, found );
 
-    this->data.domain_base = domain_base;
-    this->data.category_MVC = category;
+      this->data.domain_base = domain_base;
+      this->data.category_MVC = category;
+    } else
+    {
+      // Nothing to do
+    }
   }
 
   std::string CollectorData::get_package_name()

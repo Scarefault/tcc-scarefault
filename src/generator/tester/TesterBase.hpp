@@ -21,7 +21,7 @@ namespace Tester
       static TesterBase * get_tester( Helper::Data * );
 
       void set_data( Helper::Data * );
-      virtual void write_data() { std::cout << "Write_data() da TesterBase" << std::endl; };
+      virtual void write_data() { /* Implement it in Subclass */ };
 
     protected:
       Helper::Data * data_ptr;

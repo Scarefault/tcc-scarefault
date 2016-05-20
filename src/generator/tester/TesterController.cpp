@@ -9,7 +9,6 @@ namespace Tester
 
   void TesterController::write_data()
   {
-    std::cout << "Write_data() da TesterController" << std::endl;
     std::fstream test_stream;
 
     test_stream.open( TESTFILE, WRITE|APPEND );
