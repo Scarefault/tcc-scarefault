@@ -30,6 +30,7 @@ relational_expr:
 
 comparison_expr:
   expr COMPARISON_OP expr
+| oop_stmt COMPARISON_OP oop_stmt
 ;
 
 logical_expr:
