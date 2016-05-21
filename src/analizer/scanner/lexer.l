@@ -206,10 +206,12 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::CASE;
 }
 
-"default" {
-  *d_val = matched();
-  return Parser::DEFAULT;
-}
+// We remove it for now, because it have a conflict with some parameters of grails.
+//
+//"default" {
+//  *d_val = matched();
+//  return Parser::DEFAULT;
+//}
 
 "for" {
   *d_val = matched();

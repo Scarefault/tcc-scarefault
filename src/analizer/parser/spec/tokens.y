@@ -53,7 +53,7 @@
 %left ELSE
 %token SWITCH
 %token CASE
-%token DEFAULT
+//%token DEFAULT
 %token FOR
 %token WHILE
 

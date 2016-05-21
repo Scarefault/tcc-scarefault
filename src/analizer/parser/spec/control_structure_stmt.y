@@ -34,7 +34,7 @@ case_list:
 
 case_stmt:
   CASE expr ':' content_case
-| DEFAULT ':' content_case
+//| DEFAULT ':' content_case
 ;
 
 content_case:

@@ -42,8 +42,7 @@ param_list:
 
 params:
   param
-|
-  params ',' param
+| params ',' param
 ;
 
 param:
@@ -51,5 +50,6 @@ param:
 | type expr
 | param ASSIGN_OP expr
 | param ':' expr
+| param ':' attribute_call
 | type SUSPN_DOTS variable
 ;

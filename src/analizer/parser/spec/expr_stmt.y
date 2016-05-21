@@ -4,7 +4,7 @@ expr:
 | boolean
 | variable
 | '(' expr ')'
-| list_literals_expr
+| list_literals_declaration
 | arithmetic_expr
 | relational_expr
 | elvis_expr
@@ -12,25 +12,7 @@ expr:
 | mtd_ptr_expr
 | increment_expr
 | creation_expr
-;
-
-list_literals_expr:
-  '[' item_list ']'
-| '[' maps_list ']'
-;
-
-item_list:
-  expr
-| item_list ',' expr
-;
-
-maps_list:
-  item_map
-| maps_list ',' item_map
-;
-
-item_map:
-  expr ':' expr
+| inverse_logic_expr
 ;
 
 arithmetic_expr:
@@ -76,4 +58,9 @@ increment_expr:
 
 creation_expr:
   CREATION_OP method_header
+;
+
+inverse_logic_expr:
+  '!' expr
+| '!' method_stmt
 ;
