@@ -1,0 +1,279 @@
+/* This is a example file to test the identification of the grails
+ *   programming language.
+ */
+
+
+package br.com.companyx.example
+
+import br.com.companyx.array
+
+/**
+ * This is a class. And this comment is a GroovyDoc!
+ *   Do you notice this? Good!
+ */
+class TypedVariableDeclarationExample {
+  short variable
+  Short variable
+  int variable
+  Integer variable
+  long variable
+  Long variable
+  float variable
+  Float variable
+  double variable
+  Double variable
+  String variable
+  char variable
+  Character variable
+}
+
+class TypedVariableDeclarationWithModifiersExample {
+  public short variable
+  protected short variable
+  private short variable
+  static short variable
+  final short variable
+
+  public Short variable
+  protected Short variable
+  private Short variable
+  static Short variable
+  final Short variable
+
+  public int variable
+  protected int variable
+  private int variable
+  static int variable
+  final int variable
+
+  public Integer variable
+  protected Integer variable
+  private Integer variable
+  static Integer variable
+  final Integer variable
+
+  public long variable
+  protected long variable
+  private long variable
+  static long variable
+  final long variable
+
+  public Long variable
+  protected Long variable
+  private Long variable
+  static Long variable
+  final Long variable
+
+  public float variable
+  protected float variable
+  private float variable
+  static float variable
+  final float variable
+
+  public Float variable
+  protected Float variable
+  private Float variable
+  static Float variable
+  final Float variable
+
+  public double variable
+  protected double variable
+  private double variable
+  static double variable
+  final double variable
+
+  public Double variable
+  protected Double variable
+  private Double variable
+  static Double variable
+  final Double variable
+
+  public String variable
+  protected String variable
+  private String variable
+  static String variable
+  final String variable
+
+  public char variable
+  protected char variable
+  private char variable
+  static char variable
+  final char variable
+
+  public Character variable
+  protected Character variable
+  private Character variable
+  static Character variable
+  final Character variable
+}
+
+class UntypedVariableDeclarationExample {
+  public variable
+  protected variable
+  private variable
+  static variable
+  final variable
+
+  def variable
+
+  public def variable
+  protected def variable
+  private def variable
+  static def variable
+  final def variable
+}
+
+class TypedVariableAssignmentExample {
+  short variable = 0
+  Short variable = 1
+  int variable = 10
+  Integer variable = 1000
+  long variable = 1000000
+  Long variable = 10000000000000
+  float variable = 10.0
+  Float variable = 1000.1234
+  double variable = 1234.12345
+  Double variable = 1234567.123456789
+  String variable = "blablabla blabla bla!"
+  char variable = 'a'
+  Character variable = '1'
+}
+
+class UntypedVariableDeclarationAssignmentExample {
+  /* TODO: Não está identificando o operador de subração ( '-' ) */
+
+  /* TODO: fazer isso passar -- variable = 1 + 1 * 1 / 1
+       A regra que permite a declaração de uma variável/objeto sozinha,
+       não está passando. Talvez a solução seja colocar isso apenas no
+       assignment.
+       Mas, como resolver a questão do token limitador das declarações
+       sem deixar o IDENTIFIER nessas regras?
+   */
+
+  public variable = 123 * 234 + 543
+  protected variable = 123 * 32 && 1234 / 432
+  private variable = "strinstringstring" == "stringstring"
+  static variable = true && false != false && true
+  final variable = 123456789 > 0
+
+  def variable = 0 < 1234567
+
+  public def variable = true || false && false
+}
+
+class ConditionalStructureExample {
+/* TODO: Adicionar exemplos de condições usando oop_stmt */
+/* TODO: Adicionar exemplos de condições usando variáveis */
+
+  if( 1 ) {
+    /* Do Something */
+  } else if( 0 ) {
+    /* Do Something */
+  } else if( 1 + 2 + 8 * 23 / 2 ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  if( true ) {
+    /* Do Something */
+  } else if( false ) {
+    /* Do Something */
+  } else if( true && false ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  if( true || false ) {
+    /* Do Something */
+  } else if( "string" == "string" ) {
+    /* Do Something */
+  } else if( "string" != "string string" ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  if( 1234 > 432 ) {
+    /* Do Something */
+  } else if( 543 < 2345 ) {
+    /* Do Something */
+  } else if( !true ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  switch( 1 ) {
+    case 1:
+      /* Do Something */
+    case 2:
+      /* Do Something */
+    case 3:
+      /* Do Something */
+  }
+
+  switch( 1 ) {
+    case 'a':
+      /* Do Something */
+    case 'b':
+      /* Do Something */
+    case 'c':
+      /* Do Something */
+  }
+}
+
+class LoopingtructureExample {
+  /* TODO: Adicionar exemplos com variaveis */
+  /* TODO: Adicionar exemplos com oop_stmt */
+  /* TODO: Adicionar exemplos com as diferentes formas do for */
+
+  for( int i = 0; 1 < 100; 1+1 ) {
+    /* Do Something */
+  }
+
+  while( true ) {
+    /* Do Something */
+  }
+}
+
+class ObjectDeclarationExample {
+  Class object
+  def object
+
+  public object
+  protected object
+  private object
+  static object
+  final object
+}
+
+class ObjectAssignmentExample {
+  /* TODO: Adicionar exemplos para esse contexto */
+}
+
+class ObecjectCallExample {
+  /* TODO: Adicionar exemplos com métodos com argumentos */
+  /* NENHUM ESTÁ PASSANDO.... Suspeito do conflito shift/reduce */
+
+  object.method()
+  object.object.method()
+  object.object.object.method()
+
+  method().method()
+  method().method().method()
+  method().method().method().method()
+
+  object.propriety.method()
+  object.object.propriety.method()
+  object.object.object.propriety.method()
+
+  object.method().propriety
+  object.object.method().propriety
+  object.object.object.method().propriety
+
+  method().propriety.method().propriety.method()
+  method().method().propriety.method().propriety.method()
+  method().method().method().propriety.method().propriety.method()
+}

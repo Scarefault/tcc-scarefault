@@ -68,7 +68,6 @@
 %left LOGICAL_OP
 %left INCR_OP
 %token COERCION_OP
-%left BITWISE_OP
 %left ELVIS_OP
 %left MTD_PTR_OP
 %token CREATION_OP
