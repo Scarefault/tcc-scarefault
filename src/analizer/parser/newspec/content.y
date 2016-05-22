@@ -200,28 +200,29 @@ object_assignment:
 ;
 
 object_call:
-  called '.' IDENTIFIER {
+  IDENTIFIER '.' IDENTIFIER {
     log.message( LogSystem::INFO, "propriety called" );
   }
-| called '.' method_prototype {
+| IDENTIFIER '.' method_prototype {
   log.message( LogSystem::INFO, "method called" );
   }
 ;
 
-called:
-  propriety_call
-| method_call
-;
+// TODO: Check how to make it work
+//called:
+//  propriety_call
+//| method_call
+//;
 
-propriety_call:
-  IDENTIFIER
-| propriety_call '.' IDENTIFIER
-;
+//propriety_call:
+//  IDENTIFIER
+//| propriety_call '.' IDENTIFIER
+//;
 
-method_call:
-  method_prototype
-| method_call '.' method_prototype
-;
+//method_call:
+//  method_prototype
+//| method_call '.' method_prototype
+//;
 
 method_prototype:
   IDENTIFIER '(' args_list ')'
@@ -247,7 +248,7 @@ method_stmt:
     log.message( LogSystem::INFO, "typed method declaration" );
   }
 | untyped_method_stmt content_stmt {
-  log.message( LogSystem::INFO, "untyped method declaration" );
+    log.message( LogSystem::INFO, "untyped method declaration" );
   }
 ;
 

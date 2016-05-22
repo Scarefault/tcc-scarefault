@@ -257,23 +257,24 @@ class ObecjectCallExample {
   /* TODO: Adicionar exemplos com métodos com argumentos */
   /* NENHUM ESTÁ PASSANDO.... Suspeito do conflito shift/reduce */
 
+  object.propriety
   object.method()
-  object.object.method()
-  object.object.object.method()
+}
 
-  method().method()
-  method().method().method()
-  method().method().method().method()
+class MethodStmtExample {
+  int method() {
+    /* Do something */
+  }
 
-  object.propriety.method()
-  object.object.propriety.method()
-  object.object.object.propriety.method()
+  Integer method() {
+    /* do somthing */
+  }
 
-  object.method().propriety
-  object.object.method().propriety
-  object.object.object.method().propriety
+  String method( int param, char param ) {
+    /* Do something */
+  }
 
-  method().propriety.method().propriety.method()
-  method().method().propriety.method().propriety.method()
-  method().method().method().propriety.method().propriety.method()
+  def method( double param, Double param, String param ) {
+    /* Do somthing */
+  }
 }
