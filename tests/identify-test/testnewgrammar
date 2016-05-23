@@ -165,6 +165,36 @@ class ConditionalStructureExample {
 /* TODO: Adicionar exemplos de condições usando oop_stmt */
 /* TODO: Adicionar exemplos de condições usando variáveis */
 
+  if( variable ) {
+    /* Do Something */
+  } else if( !variable ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  if( variable && variable ) {
+    /* Do Something */
+  } else if( variable || variable ) {
+    /* Do Something */
+  } else if( variable && variable || variable && variable ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  if( variable == variable ) {
+    /* Do Something */
+  } else if( variable != variable ) {
+    /* Do Something */
+  } else if( variable > variable ) {
+    /* Do Something */
+  } else if( variable < variable ) {
+    /* Do Something */
+  else {
+    /* Do Something */
+  }
+
   if( 1 ) {
     /* Do Something */
   } else if( 0 ) {
