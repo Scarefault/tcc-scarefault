@@ -41,6 +41,7 @@ stmt:
   comment_stmt
 | basic_stmt
 | oop_stmt
+| untyped_identifier_declaration
 ;
 
 comment_stmt:
@@ -63,9 +64,6 @@ variable_declaration:
   typed_variable_declaration {
     log.message( LogSystem::INFO, "typed variable declaration" );
   }
-| untyped_variable_declaration {
-  log.message( LogSystem::INFO, "untyped variable declaration" );
-  }
 ;
 
 typed_variable_declaration:
@@ -73,17 +71,11 @@ typed_variable_declaration:
 | modifier typed_variable_declaration
 ;
 
-untyped_variable_declaration:
-  IDENTIFIER
-| DEF untyped_variable_declaration
-| modifier untyped_variable_declaration
-;
-
 variable_assignment:
   typed_variable_declaration ASSIGN_OP expr {
     log.message( LogSystem::INFO, "typed variable assignment" );
   }
-| untyped_variable_declaration ASSIGN_OP expr {
+| untyped_identifier_declaration ASSIGN_OP expr {
   log.message( LogSystem::INFO, "untyped variable assignment" );
   }
 ;
@@ -174,9 +166,6 @@ object_instantiate:
   typed_object_instantiate {
     log.message( LogSystem::INFO, "typed object instantiate" );
   }
-| untyped_object_instantiate {
-  log.message( LogSystem::INFO, "untyped object instantiate" );
-  }
 ;
 
 typed_object_instantiate:
@@ -184,17 +173,17 @@ typed_object_instantiate:
 | modifier typed_object_instantiate
 ;
 
-untyped_object_instantiate:
+untyped_identifier_declaration:
   IDENTIFIER
-| DEF untyped_object_instantiate
-| modifier untyped_object_instantiate
+| DEF untyped_identifier_declaration
+| modifier untyped_identifier_declaration
 ;
 
 object_assignment:
   typed_object_instantiate ASSIGN_OP expr {
     log.message( LogSystem::INFO, "typed object assignment" );
   }
-| untyped_object_instantiate ASSIGN_OP expr {
+| untyped_identifier_declaration ASSIGN_OP expr {
   log.message( LogSystem::INFO, "untyped object assignment" );
   }
 ;
