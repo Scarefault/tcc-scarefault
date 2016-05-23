@@ -74,7 +74,7 @@ typed_variable_declaration:
 ;
 
 untyped_variable_declaration:
-  identifier
+  IDENTIFIER
 | DEF untyped_variable_declaration
 | modifier untyped_variable_declaration
 ;
@@ -180,12 +180,12 @@ object_instantiate:
 ;
 
 typed_object_instantiate:
-  IDENTIFIER IDENTIFIER
+  identifier IDENTIFIER
 | modifier typed_object_instantiate
 ;
 
 untyped_object_instantiate:
-  identifier
+  IDENTIFIER
 | DEF untyped_object_instantiate
 | modifier untyped_object_instantiate
 ;
@@ -200,10 +200,10 @@ object_assignment:
 ;
 
 object_call:
-  IDENTIFIER '.' IDENTIFIER {
+  identifier '.' IDENTIFIER {
     log.message( LogSystem::INFO, "propriety called" );
   }
-| IDENTIFIER '.' method_prototype {
+| identifier '.' method_prototype {
   log.message( LogSystem::INFO, "method called" );
   }
 ;
@@ -225,7 +225,7 @@ object_call:
 //;
 
 method_prototype:
-  IDENTIFIER '(' args_list ')'
+  identifier '(' args_list ')'
 ;
 
 args_list:

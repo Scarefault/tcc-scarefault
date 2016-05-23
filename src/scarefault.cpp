@@ -14,5 +14,5 @@ int main( int argc, char **argv )
   CollectorData * collector_ptr = address_collector;
   TesterBase * tester = TesterBase::get_tester( collector_ptr->get_data() );
 
-  tester->write_data();
+//  tester->write_data();
 }
