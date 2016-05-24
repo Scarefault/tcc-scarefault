@@ -289,6 +289,16 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser::SAFE_NAV_OP;
 }
 
+"try" {
+  *d_val = matched();
+  return Parser::TRY;
+}
+
+"catch" {
+  *d_val = matched();
+  return Parser::CATCH;
+}
+
 // --------------- End of Operators -----------------------
 
 // --------------- Data Values ----------------------------

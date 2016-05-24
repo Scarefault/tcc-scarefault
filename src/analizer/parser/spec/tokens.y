@@ -73,6 +73,8 @@
 %token CREATION_OP
 %token MEMBER_OP
 %left SAFE_NAV_OP
+%token TRY
+%token CATCH
 
 
 /*

@@ -170,7 +170,7 @@ oop_stmt:
   object_stmt
 | method_stmt
 | list_stmt
-//| try_catch_stmt
+| try_catch_stmt
 ;
 
 object_stmt:
@@ -294,10 +294,17 @@ item_map:
   expr ':' expr
 ;
 
-expr:
-  value {
-    log.message( LogSystem::INFO, "value" );
+try_catch_stmt:
+  TRY content_stmt {
+    log.message( LogSystem::INFO, "try statement");
   }
+| CATCH '(' object_instantiate ')' content_stmt {
+    log.message( LogSystem::INFO, "catch statement");
+  }
+;
+
+expr:
+  value
 | arithmetical_expr {
   log.message( LogSystem::INFO, "arithmetical expression" );
   }
