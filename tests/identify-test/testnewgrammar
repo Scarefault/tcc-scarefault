@@ -140,16 +140,9 @@ class TypedVariableAssignmentExample {
 }
 
 class UntypedVariableDeclarationAssignmentExample {
-  /* TODO: Não está identificando o operador de subração ( '-' ) */
+  /* TODO: Não está identificando o operador de subtração ( '-' ) */
 
-  /* TODO: fazer isso passar -- variable = 1 + 1 * 1 / 1
-       A regra que permite a declaração de uma variável/objeto sozinha,
-       não está passando. Talvez a solução seja colocar isso apenas no
-       assignment.
-       Mas, como resolver a questão do token limitador das declarações
-       sem deixar o IDENTIFIER nessas regras?
-   */
-
+  variable = 1 + 1 * 1 / 1
   public variable = 123 * 234 + 543
   protected variable = 123 * 32 && 1234 / 432
   private variable = "strinstringstring" == "stringstring"
@@ -162,6 +155,16 @@ class UntypedVariableDeclarationAssignmentExample {
 }
 
 class ConditionalStructureExample {
+
+  if( object.method(1.8, 2.2) && object.method(2, 6, 8) ) {
+    /* Do Something */
+  } else if( object.method("arg", 'arg') || variable ) {
+    /* Do Something */
+  } else if( variable && object.method(arg, arg, arg) || object.method() && object.method() ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
 
   if( object.attribute && object.attribute ) {
     /* Do Something */
@@ -291,6 +294,10 @@ class LoopingtructureExample {
     /* Do Something */
   }
 
+  for( int i = 0; i > object.method(arg, 6, 10.0, "arg"); i++ ) {
+    /* Do Something */
+  }
+
   for( int i = 0; i > object.method(); i++ ) {
     /* Do Something */
   }
@@ -328,14 +335,23 @@ class ObjectDeclarationExample {
 }
 
 class ObjectAssignmentExample {
-  /* TODO: Adicionar exemplos para esse contexto */
+  def object = new Class()
+
+  public object = new Class(arg, arg)
+  protected object = object
+  private object = new Class(arg)
+  static object = new Class()
+  final object = new Class(arg, arg, arg)
+
+  object = new Class(arg, arg, arg)
+  object = new Class()
+  object = object
 }
 
 class ObecjectCallExample {
-  /* TODO: Adicionar exemplos com métodos com argumentos */
-
   object.propriety
   object.method()
+  object.method(arg1, arg2, 1, 2, 10.525, "string")
 }
 
 class MethodStmtExample {

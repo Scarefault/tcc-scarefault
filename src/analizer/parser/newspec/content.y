@@ -46,7 +46,7 @@ stmt:
 
 untyped_identifier_stmt:
   untyped_identifier_declaration {
-    log.message( LogSystem::INFO, "untyped identifier delcaration" );
+    log.message( LogSystem::INFO, "untyped identifier declaration" );
   }
 | untyped_identifier_declaration ASSIGN_OP expr {
     log.message( LogSystem::INFO, "untyped identifier expression" );
@@ -99,6 +99,7 @@ control_structure_stmt:
 
 conditional_structure_stmt:
   if_stmt
+| ternary_stmt
 | switch_stmt
 ;
 
@@ -106,12 +107,16 @@ if_stmt:
   IF '(' conditional_argument ')' content_stmt {
     log.message( LogSystem::INFO, "if statement" );
   }
-| ELSE if_stmt {
+| if_stmt ELSE if_stmt {
   log.message( LogSystem::INFO, "elseif statement" );
   }
-| ELSE content_stmt {
+| if_stmt ELSE content_stmt {
   log.message( LogSystem::INFO, "else statement" );
   }
+;
+
+ternary_stmt:
+  expr '?' expr ':' expr
 ;
 
 switch_stmt:
@@ -164,6 +169,7 @@ while_stmt:
 oop_stmt:
   object_stmt
 | method_stmt
+| list_stmt
 //| try_catch_stmt
 ;
 
@@ -231,7 +237,6 @@ args:
 
 arg:
   expr
-| object_call
 ;
 
 method_stmt:
@@ -264,6 +269,25 @@ params:
 
 param:
   variable_stmt
+;
+
+list_stmt:
+  '[' item_list ']'
+| '[' maps_list ']'
+;
+
+item_list:
+  expr
+| item_list ',' expr
+;
+
+maps_list:
+  item_map
+| maps_list ',' item_map
+;
+
+item_map:
+  expr ':' expr
 ;
 
 expr:
