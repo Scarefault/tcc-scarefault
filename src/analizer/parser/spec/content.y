@@ -1,20 +1,22 @@
 content:
-  package_declaration
-| import_declaration
+  package_declaration {
+    log.message( LogSystem::INFO, "package declaration" );
+  }
+| import_declaration {
+    log.message( LogSystem::INFO, "import declaration" );
+  }
 | class_declaration
 | comment_stmt
 ;
 
 package_declaration:
-  PACKAGE package_name {
-    log.message( LogSystem::INFO, "package declaration" );
-  }
+  PACKAGE package_name
 ;
 
 import_declaration:
-  IMPORT package_name {
-    log.message( LogSystem::INFO, "import declaration" );
-  }
+  IMPORT package_name
+| IMPORT STATIC package_name
+| import_declaration COERCION_OP IDENTIFIER
 ;
 
 class_declaration:
@@ -26,6 +28,7 @@ class_declaration:
 package_name:
   IDENTIFIER
 | package_name '.' IDENTIFIER
+| package_name '.' '*'
 ;
 
 content_stmt:
@@ -237,6 +240,7 @@ args:
 
 arg:
   expr
+| item_map
 ;
 
 method_stmt:
