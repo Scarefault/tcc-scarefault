@@ -138,7 +138,6 @@ case_stmt:
 
 conditional_argument:
   expr
-| oop_stmt
 ;
 
 looping_structure_stmt:
@@ -275,12 +274,16 @@ expr:
   log.message( LogSystem::INFO, "arithmetical expression" );
   }
 | relational_expr
+| creation_expr
+| increment_expr
+| oop_stmt
 ;
 
 value:
   NUMBER
 | STRING
 | BOOL
+| IDENTIFIER
 ;
 
 arithmetical_expr:
@@ -306,6 +309,14 @@ comparison_expr:
 logical_expr:
   expr LOGICAL_OP expr
 | '!' expr
+;
+
+creation_expr:
+  CREATION_OP method_prototype
+;
+
+increment_expr:
+  expr INCR_OP
 ;
 
 type:

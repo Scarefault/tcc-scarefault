@@ -162,8 +162,26 @@ class UntypedVariableDeclarationAssignmentExample {
 }
 
 class ConditionalStructureExample {
-/* TODO: Adicionar exemplos de condições usando oop_stmt */
-/* TODO: Adicionar exemplos de condições usando variáveis */
+
+  if( object.attribute && object.attribute ) {
+    /* Do Something */
+  } else if( object.attribute || variable ) {
+    /* Do Something */
+  } else if( variable && object.attribute || object.attribute && object.attribute ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
+
+  if( object.method() && object.method() ) {
+    /* Do Something */
+  } else if( object.method() || variable ) {
+    /* Do Something */
+  } else if( variable && object.method() || object.method() && object.method() ) {
+    /* Do Something */
+  } else {
+    /* Do Something */
+  }
 
   if( variable ) {
     /* Do Something */
@@ -191,7 +209,7 @@ class ConditionalStructureExample {
     /* Do Something */
   } else if( variable < variable ) {
     /* Do Something */
-  else {
+  } else {
     /* Do Something */
   }
 
@@ -254,12 +272,42 @@ class ConditionalStructureExample {
   }
 }
 
-class LoopingtructureExample {
-  /* TODO: Adicionar exemplos com variaveis */
-  /* TODO: Adicionar exemplos com oop_stmt */
-  /* TODO: Adicionar exemplos com as diferentes formas do for */
+class StringExamples {
+  var = 'Its a string'
+  var = "Its another string!"
+  var = '''Its a
+           string with
+           multilines...'''
+  var = """
+        This another example
+        of a multiline string
+        !
+        """
+}
 
-  for( int i = 0; 1 < 100; 1+1 ) {
+class LoopingtructureExample {
+
+  for( int i = 0; i > object.attribute; i++ ) {
+    /* Do Something */
+  }
+
+  for( int i = 0; i > object.method(); i++ ) {
+    /* Do Something */
+  }
+
+  for( int i = 0; i > variable; i++ ) {
+    /* Do Something */
+  }
+
+  for( int i = 0; i > 100; i++ ) {
+    /* Do Something */
+  }
+
+  for( int i = 0; i < variable; i++ ) {
+  /* Do Something */
+  }
+
+  for( int i = 0; i < 100; i++ ) {
     /* Do Something */
   }
 
@@ -285,7 +333,6 @@ class ObjectAssignmentExample {
 
 class ObecjectCallExample {
   /* TODO: Adicionar exemplos com métodos com argumentos */
-  /* NENHUM ESTÁ PASSANDO.... Suspeito do conflito shift/reduce */
 
   object.propriety
   object.method()
