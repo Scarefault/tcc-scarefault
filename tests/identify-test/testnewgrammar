@@ -6,6 +6,9 @@
 package br.com.companyx.example
 
 import br.com.companyx.array
+import static br.com.companyx.math as Math
+import static br.com.companyx.umbrella.*
+import br.com.companyx.standard.*
 
 /**
  * This is a class. And this comment is a GroovyDoc!
@@ -385,6 +388,9 @@ class ObjectCallExample {
   object.method([arg: 'a', arg: 100], ["string": variable, "string": object])
   object.method([arg: obj.attribute, arg: obj.method()], arg, 1)
   object.method([arg: obj.method( [1, 2], arg), arg: obj.method( var, obj), arg: obj.method( 1, 2)])
+
+  object.method( arg: 1, arg: "string", arg: 2.34, arg: variable )
+  object.method( "string": 1, "string": "string", "string": 2.34, "string": variable )
 }
 
 class MethodStmtExample {
