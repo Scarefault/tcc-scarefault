@@ -151,6 +151,31 @@ class UntypedVariableDeclarationAssignmentExample {
 
   def variable = 0 < 1234567
 
+  def variable = [1, 2, 3, 4, 5, 6]
+  def variable = [1.23, 2.34, 5.67, 10.3]
+  def variable = ['a', 'b', 'c', 'd', 'e']
+  def variable = ["str", "str", "str", "str", "str"]
+  def variable = [variable, variable, variable, variable, variable]
+  def variable = [object, object, object, object, object, object]
+  def variable = [object.attribute, object.attribute, object.attribute]
+  def variable = [object.method(), object.method(), object.method()]
+  def variable = [object.method(arg, arg), object.method()]
+
+  def variable = [arg: 1, arg: 2, arg: 3]
+  def variable = [arg: 1.23, arg: 2.34, arg: 3.56]
+  def variable = [arg: 'a', arg: 'b', arg: 'c']
+  def variable = [arg: "string", arg: "string", arg: "string"]
+  def variable = [arg: variable, arg: variable, arg: variable]
+  def variable = [arg: object.attribute, arg: object.attribute]
+  def variable = [arg: object.method(), arg: object.method(1, arg)]
+  def variable = ["string": 1, "string": 2, "string": 3]
+  def variable = ["string": 1.23, "string": 2.34, "string": 4.56]
+  def variable = ["string": 'a', "string": 'c', "string": 'b']
+  def variable = ["string": "string", "string": "string", "string": "string"]
+  def variable = ["string": variable, "string": variable, "string": variable]
+  def variable = ["string": object.attribute, "string": object.attribute]
+  def variable = ["string": object.method(), "string": object.method(1, arg)]
+
   public def variable = true || false && false
 }
 
@@ -348,10 +373,18 @@ class ObjectAssignmentExample {
   object = object
 }
 
-class ObecjectCallExample {
+class ObjectCallExample {
   object.propriety
   object.method()
   object.method(arg1, arg2, 1, 2, 10.525, "string")
+
+  object.method([1, 2, 3], [object, variable], [object.method(), object.attribute])
+  object.method([object.method(1, 2), object.method(1, 2, [1, 2, 3])])
+
+  object.method([arg: "string", arg: 2.34], arg, 1)
+  object.method([arg: 'a', arg: 100], ["string": variable, "string": object])
+  object.method([arg: obj.attribute, arg: obj.method()], arg, 1)
+  object.method([arg: obj.method( [1, 2], arg), arg: obj.method( var, obj), arg: obj.method( 1, 2)])
 }
 
 class MethodStmtExample {

@@ -272,8 +272,12 @@ param:
 ;
 
 list_stmt:
-  '[' item_list ']'
-| '[' maps_list ']'
+  '[' item_list ']' {
+    log.message( LogSystem::INFO, "list declaration" );
+  }
+| '[' maps_list ']' {
+    log.message( LogSystem::INFO, "map declaration" );
+  }
 ;
 
 item_list:
