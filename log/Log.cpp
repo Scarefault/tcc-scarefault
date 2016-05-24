@@ -67,7 +67,7 @@ namespace LogSystem
   void Log::write_date_time(std::fstream& log_stream )
   {
     log_stream.write( this->get_date_time( buffer ), DATETIME_SIZE );
-    log_stream.write( "\t", 2 );
+    log_stream.write( " ", 2 );
   }
 
   void Log::write_message( std::fstream& log_stream, std::string message )
@@ -75,7 +75,7 @@ namespace LogSystem
     const unsigned int MESSAGE_SIZE = sizeof(char)*message.size();
 
     log_stream.write( this->category.type.c_str(), this->category.size );
-    log_stream.write( "\t", 2 );
+    log_stream.write( " ", 2 );
     log_stream.write( message.c_str(), MESSAGE_SIZE );
     log_stream.write( "\n", 2 );
   }

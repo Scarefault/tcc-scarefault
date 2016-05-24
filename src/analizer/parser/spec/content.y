@@ -1,11 +1,12 @@
 content:
   package_declaration {
-    log.message( LogSystem::INFO, "package declaration" );
+    log.message( LogSystem::INFO, "stmt: package declaration" );
   }
 | import_declaration {
-    log.message( LogSystem::INFO, "import declaration" );
+    log.message( LogSystem::INFO, "stmt: import declaration" );
   }
 | class_declaration
+| interface_declaration
 | comment_stmt
 ;
 
@@ -20,8 +21,25 @@ import_declaration:
 ;
 
 class_declaration:
-  CLASS IDENTIFIER content_stmt {
-    log.message( LogSystem::INFO, "class declaration" );
+  class_definition content_stmt {
+    log.message( LogSystem::INFO, "stmt: class declaration" );
+  }
+;
+
+class_definition:
+  CLASS IDENTIFIER
+| ABSTRACT class_definition
+| class_definition class_complements
+;
+
+class_complements:
+  IMPLEMENTS IDENTIFIER
+| EXTENDS IDENTIFIER
+;
+
+interface_declaration:
+  INTERFACE IDENTIFIER content_stmt {
+    log.message( LogSystem::INFO, "stmt: interface declaration" );
   }
 ;
 
@@ -49,10 +67,10 @@ stmt:
 
 untyped_identifier_stmt:
   untyped_identifier_declaration {
-    log.message( LogSystem::INFO, "untyped identifier declaration" );
+    log.message( LogSystem::INFO, "stmt: untyped identifier declaration" );
   }
 | untyped_identifier_declaration ASSIGN_OP expr {
-    log.message( LogSystem::INFO, "untyped identifier expression" );
+    log.message( LogSystem::INFO, "stmt: untyped identifier assignment" );
   }
 ;
 
@@ -64,7 +82,7 @@ untyped_identifier_declaration:
 
 comment_stmt:
   COMMENT {
-    log.message( LogSystem::INFO, "comment statement" );
+    log.message( LogSystem::INFO, "stmt: comment statement" );
   }
 ;
 
@@ -80,7 +98,7 @@ variable_stmt:
 
 variable_declaration:
   typed_variable_declaration {
-    log.message( LogSystem::INFO, "typed variable declaration" );
+    log.message( LogSystem::INFO, "stmt: typed variable declaration" );
   }
 ;
 
@@ -91,7 +109,7 @@ typed_variable_declaration:
 
 variable_assignment:
   typed_variable_declaration ASSIGN_OP expr {
-    log.message( LogSystem::INFO, "typed variable assignment" );
+    log.message( LogSystem::INFO, "stmt: typed variable assignment" );
   }
 ;
 
@@ -108,13 +126,13 @@ conditional_structure_stmt:
 
 if_stmt:
   IF '(' conditional_argument ')' content_stmt {
-    log.message( LogSystem::INFO, "if statement" );
+    log.message( LogSystem::INFO, "stmt: if statement" );
   }
 | if_stmt ELSE if_stmt {
-  log.message( LogSystem::INFO, "elseif statement" );
+  log.message( LogSystem::INFO, "stmt: elseif statement" );
   }
 | if_stmt ELSE content_stmt {
-  log.message( LogSystem::INFO, "else statement" );
+  log.message( LogSystem::INFO, "stmt: else statement" );
   }
 ;
 
@@ -124,7 +142,7 @@ ternary_stmt:
 
 switch_stmt:
   SWITCH '(' conditional_argument ')' switch_content  {
-    log.message( LogSystem::INFO, "switch statement" );
+    log.message( LogSystem::INFO, "stmt: switch statement" );
   }
 ;
 
@@ -139,7 +157,7 @@ case_list:
 
 case_stmt:
   CASE expr ':' stmt_list {
-    log.message( LogSystem::INFO, "case statement" );
+    log.message( LogSystem::INFO, "stmt: case statement" );
   }
 //| DEFAULT ':' stmt_list
 ;
@@ -155,7 +173,7 @@ looping_structure_stmt:
 
 for_stmt:
   FOR '(' for_argument ')' content_stmt {
-    log.message( LogSystem::INFO, "for statement" );
+    log.message( LogSystem::INFO, "stmt: for statement" );
   }
 ;
 
@@ -165,7 +183,7 @@ for_argument:
 
 while_stmt:
   WHILE '(' conditional_argument ')' content_stmt {
-    log.message( LogSystem::INFO, "while statement" );
+    log.message( LogSystem::INFO, "stmt: while statement" );
   }
 ;
 
@@ -181,13 +199,13 @@ object_stmt:
 | object_assignment
 | object_call
 | method_prototype {
-  log.message( LogSystem::INFO, "method called" );
+  log.message( LogSystem::INFO, "stmt: method called" );
   }
 ;
 
 object_instantiate:
   typed_object_instantiate {
-    log.message( LogSystem::INFO, "typed object instantiate" );
+    log.message( LogSystem::INFO, "stmt: typed object instantiate" );
   }
 ;
 
@@ -198,16 +216,16 @@ typed_object_instantiate:
 
 object_assignment:
   typed_object_instantiate ASSIGN_OP expr {
-    log.message( LogSystem::INFO, "typed object assignment" );
+    log.message( LogSystem::INFO, "stmt: typed object assignment" );
   }
 ;
 
 object_call:
   caller '.' IDENTIFIER {
-    log.message( LogSystem::INFO, "propriety called" );
+    log.message( LogSystem::INFO, "stmt: propriety called" );
   }
 | caller '.' method_prototype {
-  log.message( LogSystem::INFO, "method called" );
+  log.message( LogSystem::INFO, "stmt: method called" );
   }
 ;
 
@@ -239,10 +257,10 @@ arg:
 
 method_stmt:
   typed_method_stmt content_stmt {
-    log.message( LogSystem::INFO, "typed method declaration" );
+    log.message( LogSystem::INFO, "stmt: typed method declaration" );
   }
 | untyped_method_stmt content_stmt {
-    log.message( LogSystem::INFO, "untyped method declaration" );
+    log.message( LogSystem::INFO, "stmt: untyped method declaration" );
   }
 ;
 
@@ -271,10 +289,10 @@ param:
 
 list_stmt:
   '[' item_list ']' {
-    log.message( LogSystem::INFO, "list declaration" );
+    log.message( LogSystem::INFO, "stmt: list declaration" );
   }
 | '[' maps_list ']' {
-    log.message( LogSystem::INFO, "map declaration" );
+    log.message( LogSystem::INFO, "stmt: map declaration" );
   }
 ;
 
@@ -294,17 +312,25 @@ item_map:
 
 try_catch_stmt:
   TRY content_stmt {
-    log.message( LogSystem::INFO, "try statement");
+    log.message( LogSystem::INFO, "stmt: try statement");
   }
 | CATCH '(' object_instantiate ')' content_stmt {
-    log.message( LogSystem::INFO, "catch statement");
+    log.message( LogSystem::INFO, "stmt: catch statement");
   }
+;
+
+mvc_stmt:
+  criteria_stmt
+;
+
+criteria_stmt:
+  identifier '.' method_prototype content_stmt
 ;
 
 expr:
   value
 | arithmetical_expr {
-  log.message( LogSystem::INFO, "arithmetical expression" );
+  log.message( LogSystem::INFO, "stmt: arithmetical expression" );
   }
 | relational_expr
 | creation_expr
@@ -328,10 +354,10 @@ arithmetical_expr:
 
 relational_expr:
   comparison_expr {
-    log.message( LogSystem::INFO, "comparison expression" );
+    log.message( LogSystem::INFO, "stmt: comparison expression" );
   }
 | logical_expr {
-  log.message( LogSystem::INFO, "logical expression" );
+  log.message( LogSystem::INFO, "stmt: logical expression" );
   }
 ;
 
@@ -345,7 +371,9 @@ logical_expr:
 ;
 
 creation_expr:
-  CREATION_OP method_prototype
+  CREATION_OP method_prototype {
+    log.message( LogSystem::INFO, "stmt: creation expression" );
+  }
 ;
 
 increment_expr:

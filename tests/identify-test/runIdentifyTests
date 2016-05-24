@@ -16,7 +16,7 @@ CASE_TEST_FILE=$1
 EXPECT_FILE="${1}.expect"
 OUT_FILE="out"
 LINES=$(wc -l < "$EXPECT_FILE")
-NUMBER_LINES=$((${LINES}+1))
+NUMBER_LINES=$((${LINES}))
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -85,8 +85,9 @@ compare_line_by_line()
   success=0
   fails=0
 
-  cat $RESULT_FILE | cut -f2-3 | while read result; do
-    expect=$(sed "${iterator}q;d" $EXPECT_FILE)
+  cat $EXPECT_FILE | cut -d' ' -f6- | while read expect; do
+    temp=$(sed "${iterator}q;d" $RESULT_FILE)
+    result=$(echo -e ${temp} | cut -d' ' -f6-)
 
     compare_result_expect
     store_compare_data
@@ -101,6 +102,10 @@ print_test_result()
     rm out
   else
     echo "Unable to access or remove out file..."
+  fi
+
+  if [ -e temp ]; then
+    rm temp
   fi
 }
 
