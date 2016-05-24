@@ -404,3 +404,19 @@ class MethodStmtExample {
     /* Do somthing */
   }
 }
+
+class TryCatchExample {
+  try {
+    /* Do Something */
+  } catch( Exception exception ) {
+    /* Do Something */
+  }
+
+  try {
+    /* Do Something */
+  } catch( Exception exception ) {
+    /* Do Something */
+  } catch( Exception exception ) {
+    /* Do Something */
+  }
+}
