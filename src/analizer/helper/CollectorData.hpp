@@ -38,9 +38,10 @@ namespace Helper
 
     private:
       static const char EOL = '\0';
-      static const char PACKAGE = 'p';
+      static const char PACKAGE = 'P';
       static const char CLASS = 'c';
       static const char METHOD = 'm';
+      static const char PARAM = 'p';
 
       Helper::Data data;
 

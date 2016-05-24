@@ -11,7 +11,10 @@ content:
 ;
 
 package_declaration:
-  PACKAGE package_name
+  PACKAGE package_name {
+    std::string package_token( $2 );
+    collector.collect_data( "P", package_token.c_str() );
+  }
 ;
 
 import_declaration:
@@ -27,7 +30,10 @@ class_declaration:
 ;
 
 class_definition:
-  CLASS IDENTIFIER
+  CLASS IDENTIFIER {
+    std::string identifier_token( $2 );
+    collector.collect_data( "c", identifier_token.c_str() );
+  }
 | ABSTRACT class_definition
 | class_definition class_complements
 ;
@@ -159,7 +165,6 @@ case_stmt:
   CASE expr ':' stmt_list {
     log.message( LogSystem::INFO, "stmt: case statement" );
   }
-//| DEFAULT ':' stmt_list
 ;
 
 conditional_argument:
@@ -265,12 +270,18 @@ method_stmt:
 ;
 
 typed_method_stmt:
-  type IDENTIFIER '(' param_list ')'
+  type IDENTIFIER '(' param_list ')' {
+    std::string identifier_token( $2 );
+    collector.collect_data( "m", identifier_token.c_str() );
+  }
 | modifier typed_method_stmt
 ;
 
 untyped_method_stmt:
-  DEF IDENTIFIER '(' param_list ')'
+  DEF IDENTIFIER '(' param_list ')' {
+    std::string identifier_token( $2 );
+    collector.collect_data( "m", identifier_token.c_str() );
+  }
 ;
 
 param_list:
