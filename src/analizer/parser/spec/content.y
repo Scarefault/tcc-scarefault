@@ -180,6 +180,9 @@ object_stmt:
   object_instantiate
 | object_assignment
 | object_call
+| method_prototype {
+  log.message( LogSystem::INFO, "method called" );
+  }
 ;
 
 object_instantiate:
@@ -200,29 +203,20 @@ object_assignment:
 ;
 
 object_call:
-  identifier '.' IDENTIFIER {
+  caller '.' IDENTIFIER {
     log.message( LogSystem::INFO, "propriety called" );
   }
-| identifier '.' method_prototype {
+| caller '.' method_prototype {
   log.message( LogSystem::INFO, "method called" );
   }
 ;
 
-// TODO: Check how to make it work
-//called:
-//  propriety_call
-//| method_call
-//;
-
-//propriety_call:
-//  IDENTIFIER
-//| propriety_call '.' IDENTIFIER
-//;
-
-//method_call:
-//  method_prototype
-//| method_call '.' method_prototype
-//;
+caller:
+  IDENTIFIER
+| method_prototype
+| caller '.' IDENTIFIER
+| caller '.' method_prototype
+;
 
 method_prototype:
   identifier '(' args_list ')'

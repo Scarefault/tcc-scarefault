@@ -378,7 +378,16 @@ class ObjectAssignmentExample {
 
 class ObjectCallExample {
   object.propriety
+  object.propriety.propriety
+  object.propriety.propriety.propriety
+
   object.method()
+  object.method(1, 2, arg).method()
+  object.method("string": 2, obj.method()).method(obj.propriety).method()
+
+  object.propriety.method([1, 2, 3], arg, arg).propriety
+  object.method([arg: var, arg: 1], "string").propriety.method()
+
   object.method(arg1, arg2, 1, 2, 10.525, "string")
 
   object.method([1, 2, 3], [object, variable], [object.method(), object.attribute])
@@ -391,6 +400,10 @@ class ObjectCallExample {
 
   object.method( arg: 1, arg: "string", arg: 2.34, arg: variable )
   object.method( "string": 1, "string": "string", "string": 2.34, "string": variable )
+
+  method()
+  method(1, 2, arg, "string", [arg: 12, arg: var], [1, 2, 3, "string"])
+  method(arg: 1, 1, "string": 1)
 }
 
 class MethodStmtExample {
