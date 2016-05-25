@@ -45,14 +45,14 @@ namespace Helper
 
       Helper::Data data;
 
-      void set_package_name( std::string );
-      void set_class_name( std::string );
-      void set_method_name( std::string );
+      void set_package( std::string );
+      void set_class( std::string );
+      void set_methods( std::vector<std::string> );
 
       void identify_category( std::string );
 
-      std::string get_package_name();
-      std::string get_class_name();
+      std::string get_package();
+      std::string get_class();
       std::vector<Helper::Method> get_methods();
 
       std::string get_category_MVC();

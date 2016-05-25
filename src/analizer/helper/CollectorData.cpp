@@ -15,23 +15,31 @@ namespace Helper
     va_list arguments;
     va_start( arguments, format );
 
+    std::vector<std::string> info_method;
+
     while( *format != EOL )
     {
       switch( *format )
       {
         case PACKAGE:
-          this->set_package_name( va_arg( arguments, char * ) );
+          this->set_package( va_arg( arguments, char * ) );
           break;
         case CLASS:
-          this->set_class_name( va_arg( arguments, char * ) );
+          this->set_class( va_arg( arguments, char * ) );
           break;
         case METHOD:
-          this->set_method_name( va_arg( arguments, char * ) );
+          info_method.push_back( va_arg( arguments, char * ) );
+          break;
+        case PARAM:
+          info_method.push_back( va_arg( arguments, char * ) );
           break;
       }
 
       format++;
     }
+
+    this->set_methods( info_method );
+    info_method.clear();
   }
 
   Helper::Data* CollectorData::get_data()
@@ -41,22 +49,22 @@ namespace Helper
 
 // ------------------ PRIVATE FUNCTIONS IMPLEMENTANTION --------------------
 
-  void CollectorData::set_package_name( std::string name )
+  void CollectorData::set_package( std::string name )
   {
     this->data.package_name = name;
   }
 
-  void CollectorData::set_class_name( std::string name )
+  void CollectorData::set_class( std::string name )
   {
     this->data.class_name = name;
 
     identify_category( name );
   }
 
-  void CollectorData::set_method_name( std::string name )
+  void CollectorData::set_methods( std::vector<std::string> info )
   {
     Helper::Method method;
-    method.name = name;
+    method.name = info[ 0 ];
 
     this->data.methods.push_back( method );
   }
@@ -77,12 +85,12 @@ namespace Helper
     }
   }
 
-  std::string CollectorData::get_package_name()
+  std::string CollectorData::get_package()
   {
     return this->data.package_name;
   }
 
-  std::string CollectorData::get_class_name()
+  std::string CollectorData::get_class()
   {
     return this->data.class_name;
   }
