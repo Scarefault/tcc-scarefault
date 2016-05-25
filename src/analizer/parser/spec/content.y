@@ -280,6 +280,7 @@ typed_method_stmt:
 untyped_method_stmt:
   DEF IDENTIFIER '(' param_list ')' {
     std::string identifier_token( $2 );
+
     collector.collect_data( "m", identifier_token.c_str() );
   }
 ;

@@ -19,6 +19,8 @@ namespace Helper
 
     while( *format != EOL )
     {
+      std::string collected_text;
+
       switch( *format )
       {
         case PACKAGE:
@@ -28,10 +30,12 @@ namespace Helper
           this->set_class( va_arg( arguments, char * ) );
           break;
         case METHOD:
-          info_method.push_back( va_arg( arguments, char * ) );
+          collected_text.assign( va_arg( arguments, char * ) );
+          info_method.push_back( collected_text );
           break;
         case PARAM:
-          info_method.push_back( va_arg( arguments, char * ) );
+          collected_text.assign( va_arg( arguments, char * ) );
+          info_method.push_back( collected_text );
           break;
       }
 
@@ -39,7 +43,6 @@ namespace Helper
     }
 
     this->set_methods( info_method );
-    info_method.clear();
   }
 
   Helper::Data* CollectorData::get_data()
@@ -63,10 +66,16 @@ namespace Helper
 
   void CollectorData::set_methods( std::vector<std::string> info )
   {
-    Helper::Method method;
-    method.name = info[ 0 ];
+    if( !info.empty() )
+    {
+      Helper::Method method;
+      method.name = info[ 0 ];
 
-    this->data.methods.push_back( method );
+      this->data.methods.push_back( method );
+    } else
+    {
+      // Nothing To do
+    }
   }
 
   void CollectorData::identify_category( std::string name )
