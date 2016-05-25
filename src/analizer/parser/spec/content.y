@@ -109,7 +109,14 @@ variable_declaration:
 ;
 
 typed_variable_declaration:
-  type IDENTIFIER
+  type IDENTIFIER {
+    std::string declaration( $1 );
+
+    declaration.append( " " );
+    declaration.append( $2 );
+
+    $$ = declaration;
+  }
 | modifier typed_variable_declaration
 ;
 
@@ -272,7 +279,9 @@ method_stmt:
 typed_method_stmt:
   type IDENTIFIER '(' param_list ')' {
     std::string identifier_token( $2 );
-    collector.collect_data( "m", identifier_token.c_str() );
+    std::string params_token( $4 );
+
+    collector.collect_data( "mp", identifier_token.c_str(), params_token.c_str() );
   }
 | modifier typed_method_stmt
 ;
@@ -280,8 +289,9 @@ typed_method_stmt:
 untyped_method_stmt:
   DEF IDENTIFIER '(' param_list ')' {
     std::string identifier_token( $2 );
+    std::string params_token( $4 );
 
-    collector.collect_data( "m", identifier_token.c_str() );
+    collector.collect_data( "mp", identifier_token.c_str(), params_token.c_str() );
   }
 ;
 
@@ -292,7 +302,13 @@ param_list:
 
 params:
   param
-| params ',' param
+| params ',' param {
+  std::string params_token( $1 );
+  params_token.append( "," );
+  params_token.append( $3 );
+
+  $$ = params_token;
+}
 ;
 
 param:
