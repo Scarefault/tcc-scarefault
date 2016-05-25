@@ -50,13 +50,13 @@ namespace Helper
       void set_methods( std::vector<std::string> );
 
       void identify_category( std::string );
+      std::vector<Helper::Param> collect_params( std::vector<std::string> );
 
       std::string get_package();
       std::string get_class();
-      std::vector<Helper::Method> get_methods();
-
       std::string get_category_MVC();
       std::string get_domain_base();
+      std::vector<Helper::Method> get_methods();
   };
 }
 

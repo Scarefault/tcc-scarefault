@@ -303,12 +303,12 @@ param_list:
 params:
   param
 | params ',' param {
-  std::string params_token( $1 );
-  params_token.append( "," );
-  params_token.append( $3 );
+    std::string params_token( $1 );
+    params_token.append( "," );
+    params_token.append( $3 );
 
-  $$ = params_token;
-}
+    $$ = params_token;
+  }
 ;
 
 param:

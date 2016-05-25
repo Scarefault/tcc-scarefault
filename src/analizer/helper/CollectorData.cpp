@@ -71,11 +71,63 @@ namespace Helper
       Helper::Method method;
       method.name = info[ 0 ];
 
+      method.params = collect_params( info );
+
       this->data.methods.push_back( method );
     } else
     {
       // Nothing To do
     }
+  }
+
+  std::vector<Helper::Param>
+  CollectorData::collect_params( std::vector<std::string> info )
+  {
+    std::vector<Helper::Param> params;
+
+    if( info.size() > 1 )
+    {
+      std::string collected_params = info[ 1 ];
+
+      while( !collected_params.empty() )
+      {
+        std::size_t comma_position = collected_params.find( "," );
+
+        Helper::Param new_param;
+
+        if( comma_position != std::string::npos )
+        {
+          std::string found_param = collected_params.substr( 0, comma_position );
+
+          std::size_t blank_position = found_param.find( " " );
+          std::string type = found_param.substr( 0, blank_position );
+          std::string name = found_param.substr( blank_position+1 );
+
+          new_param.param_name = name;
+          new_param.param_type = type;
+
+          collected_params.erase( collected_params.begin(),
+              collected_params.begin()+comma_position+1 );
+        } else
+        {
+          std::size_t blank_position = collected_params.find( " " );
+          std::string type = collected_params.substr( 0, blank_position );
+          std::string name = collected_params.substr( blank_position+1 );
+
+          new_param.param_name = name;
+          new_param.param_type = type;
+
+          collected_params.clear();
+        }
+
+        params.push_back( new_param );
+      }
+    } else
+    {
+      // Nothing To do
+    }
+
+    return params;
   }
 
   void CollectorData::identify_category( std::string name )
