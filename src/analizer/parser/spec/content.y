@@ -69,6 +69,7 @@ stmt:
 | basic_stmt
 | oop_stmt
 | untyped_identifier_stmt
+| scarefault_stmt
 ;
 
 untyped_identifier_stmt:
@@ -90,7 +91,6 @@ comment_stmt:
   COMMENT {
     log.message( LogSystem::INFO, "stmt: comment statement" );
   }
-| scarefault_stmt
 ;
 
 basic_stmt:

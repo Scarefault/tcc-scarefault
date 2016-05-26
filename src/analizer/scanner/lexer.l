@@ -487,7 +487,7 @@ BOOLEAN {TRUE}|{FALSE}
 
   {IDENTIFIER} {
     *d_val = matched();
-    return Parser::IDENTIFIER;
+    return Parser::WORD;
   }
 
   //----------------------Operators-------------------------------

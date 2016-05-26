@@ -44,6 +44,7 @@
 %token STRING
 %token IDENTIFIER
 %token BOOL
+%token WORD
 
 
 /*
