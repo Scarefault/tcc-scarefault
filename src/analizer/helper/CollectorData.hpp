@@ -51,6 +51,8 @@ namespace Helper
 
       void identify_category( std::string );
       std::vector<Helper::Param> collect_params( std::vector<std::string> );
+      Helper::Param find_param( std::string );
+      Helper::Param create_param( std::string * );
 
       std::string get_package();
       std::string get_class();

@@ -91,35 +91,7 @@ namespace Helper
 
       while( !collected_params.empty() )
       {
-        std::size_t comma_position = collected_params.find( "," );
-
-        Helper::Param new_param;
-
-        if( comma_position != std::string::npos )
-        {
-          std::string found_param = collected_params.substr( 0, comma_position );
-
-          std::size_t blank_position = found_param.find( " " );
-          std::string type = found_param.substr( 0, blank_position );
-          std::string name = found_param.substr( blank_position+1 );
-
-          new_param.param_name = name;
-          new_param.param_type = type;
-
-          collected_params.erase( collected_params.begin(),
-              collected_params.begin()+comma_position+1 );
-        } else
-        {
-          std::size_t blank_position = collected_params.find( " " );
-          std::string type = collected_params.substr( 0, blank_position );
-          std::string name = collected_params.substr( blank_position+1 );
-
-          new_param.param_name = name;
-          new_param.param_type = type;
-
-          collected_params.clear();
-        }
-
+        Helper::Param new_param = create_param( &collected_params );
         params.push_back( new_param );
       }
     } else
@@ -128,6 +100,43 @@ namespace Helper
     }
 
     return params;
+  }
+
+  Helper::Param CollectorData::create_param( std::string * text )
+  {
+    std::size_t comma_position = text->find( "," );
+
+    Helper::Param new_param;
+
+    if( comma_position != std::string::npos )
+    {
+      std::string found_param = text->substr( 0, comma_position );
+
+      new_param = find_param( found_param );
+
+      text->erase( text->begin(), text->begin()+comma_position+1 );
+    } else
+    {
+      new_param = find_param( *text );
+
+      text->clear();
+    }
+
+    return new_param;
+  }
+
+  Helper::Param CollectorData::find_param( std::string text )
+  {
+    std::size_t blank_position = text.find( " " );
+    std::string type = text.substr( 0, blank_position );
+    std::string name = text.substr( blank_position+1 );
+
+    Helper::Param new_param;
+
+    new_param.param_name = name;
+    new_param.param_type = type;
+
+    return new_param;
   }
 
   void CollectorData::identify_category( std::string name )
