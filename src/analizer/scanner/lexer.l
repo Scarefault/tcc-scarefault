@@ -385,6 +385,31 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::COMMENT;
   }
 
+  "@param" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_PARAM;
+  }
+
+  "@return" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_RETURN;
+  }
+
+  "@range" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_RANGE;
+  }
+
+  "@invalid" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_INVALID;
+  }
+
+  "@expected" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_EXPECTED;
+  }
+
   .|\n {
     more();
   }

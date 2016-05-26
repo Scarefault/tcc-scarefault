@@ -16,3 +16,4 @@ startrule:
 ;
 
 %include spec/content.y
+%include spec/scarefault.y

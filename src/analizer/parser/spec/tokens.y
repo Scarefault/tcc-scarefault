@@ -83,3 +83,12 @@
 %right '.'
 %left '(' ')' '[' ']' '{' '}'
 %token SUSPN_DOTS
+
+/*
+ * ********** Scarefault Marks **********
+ */
+%token SCAREFAULT_PARAM
+%token SCAREFAULT_RANGE
+%token SCAREFAULT_RETURN
+%token SCAREFAULT_INVALID
+%token SCAREFAULT_EXPECTED
