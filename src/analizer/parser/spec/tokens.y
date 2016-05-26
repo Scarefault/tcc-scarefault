@@ -75,6 +75,7 @@
 %left SAFE_NAV_OP
 %token TRY
 %token CATCH
+%token RANGE_OP
 
 
 /*

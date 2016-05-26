@@ -385,6 +385,8 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::COMMENT;
   }
 
+  //--------------------------Scarefault--------------------------
+  //
   "@param" {
     *d_val = matched();
     return Parser::SCAREFAULT_PARAM;
@@ -408,6 +410,91 @@ BOOLEAN {TRUE}|{FALSE}
   "@expected" {
     *d_val = matched();
     return Parser::SCAREFAULT_EXPECTED;
+  }
+
+  //--------------------------Types--------------------------
+  //
+  "Integer" |
+  "int" {
+    *d_val = matched();
+    return Parser::TYPE_INTEGER;
+  }
+
+  "Long" |
+  "long" {
+    *d_val = matched();
+    return Parser::TYPE_LONG;
+  }
+
+  "Short" |
+  "short" {
+    *d_val = matched();
+    return Parser::TYPE_SHORT;
+  }
+
+  "Double" |
+  "double" {
+    *d_val = matched();
+    return Parser::TYPE_DOUBLE;
+  }
+
+  "Float" |
+  "float" {
+    *d_val = matched();
+    return Parser::TYPE_FLOAT;
+  }
+
+  "String" {
+    *d_val = matched();
+    return Parser::TYPE_STRING;
+  }
+
+  "Character" |
+  "char" {
+    *d_val = matched();
+    return Parser::TYPE_CHAR;
+  }
+
+  "Boolean" |
+  "boolean" {
+    *d_val = matched();
+    return Parser::TYPE_BOOLEAN;
+  }
+
+  "List" {
+    *d_val = matched();
+    return Parser::TYPE_LIST;
+  }
+
+  "Date" {
+    *d_val = matched();
+    return Parser:: TYPE_DATE;
+  }
+
+  //--------------------------Data Values--------------------------
+  //
+  {DIGIT}   |
+  {INTEGER} |
+  {REAL} {
+    *d_val = matched();
+    return Parser::NUMBER;
+  }
+
+  {BOOLEAN} {
+    *d_val = matched();
+    return Parser::BOOL;
+  }
+
+  {IDENTIFIER} {
+    *d_val = matched();
+    return Parser::IDENTIFIER;
+  }
+
+  //----------------------Operators-------------------------------
+  //
+  ".." {
+    *d_val = matched();
+    return Parser::RANGE_OP;
   }
 
   .|\n {

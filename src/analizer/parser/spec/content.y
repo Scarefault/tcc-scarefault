@@ -90,6 +90,7 @@ comment_stmt:
   COMMENT {
     log.message( LogSystem::INFO, "stmt: comment statement" );
   }
+| scarefault_stmt
 ;
 
 basic_stmt:
