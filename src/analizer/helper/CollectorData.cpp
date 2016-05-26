@@ -154,29 +154,4 @@ namespace Helper
       // Nothing to do
     }
   }
-
-  std::string CollectorData::get_package()
-  {
-    return this->data.package_name;
-  }
-
-  std::string CollectorData::get_class()
-  {
-    return this->data.class_name;
-  }
-
-  std::vector<Helper::Method> CollectorData::get_methods()
-  {
-    return this->data.methods;
-  }
-
-  std::string CollectorData::get_category_MVC()
-  {
-    return this->data.category_MVC;
-  }
-
-  std::string CollectorData::get_domain_base()
-  {
-    return this->data.domain_base;
-  }
 }

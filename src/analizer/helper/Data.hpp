@@ -6,27 +6,55 @@
 
 namespace Helper
 {
-  typedef struct file_param
+  class Constraint
   {
-    std::string param_name;
-    std::string param_type;
-  } Param;
+    public:
+      bool blank;
+      bool creditCard;
+      bool email;
+      bool nullable;
+      bool unique;
+      bool url;
 
-  typedef struct file_method
-  {
-    std::string name;
-    std::string return_type;
-    std::vector<Param> params;
-  } Method;
+      int minSize;
+      int maxSize;
+  };
 
-  typedef struct file_data
+  class Propriety
   {
-    std::string category_MVC;
-    std::string domain_base;
-    std::string package_name;
-    std::string class_name;
-    std::vector<Method> methods;
-  } Data;
+    public:
+      std::string name;
+      std::string type;
+      Constraint contraints;
+  };
+
+  class Param
+  {
+    public:
+      std::string param_name;
+      std::string param_type;
+  };
+
+  class Method
+  {
+    public:
+      std::string name;
+      std::string return_type;
+      std::vector<Param> params;
+  };
+
+  class Data
+  {
+    public:
+      std::string category_MVC;
+      std::string domain_base;
+      std::string package_name;
+      std::string class_name;
+
+      std::vector<Propriety> proprieties;
+
+      std::vector<Method> methods;
+  };
 }
 
 #endif // DATA_HPP_

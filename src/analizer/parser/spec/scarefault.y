@@ -16,6 +16,10 @@ return_scarefault:
 ;
 
 range_scarefault:
+  param_scarefault range_stmt
+;
+
+range_stmt:
   SCAREFAULT_RANGE value RANGE_OP value {
     log.message( LogSystem::INFO, "stmt: scarefault range" );
   }

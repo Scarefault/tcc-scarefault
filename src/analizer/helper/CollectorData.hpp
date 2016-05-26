@@ -1,6 +1,11 @@
 #ifndef COLLECTORDATA_HPP_
 #define COLLECTORDATA_HPP_
 
+#define READ std::fstream::in
+
+#define PATH_CONTROLLER "guestbook/grails-app/controllers/guestbook/"
+#define PATH_DOMAIN "guestbook/grails-app/domain/guestbook/"
+
 #include <string>
 #include <cstdarg>
 #include <iostream>
@@ -53,12 +58,6 @@ namespace Helper
       std::vector<Helper::Param> collect_params( std::vector<std::string> );
       Helper::Param find_param( std::string );
       Helper::Param create_param( std::string * );
-
-      std::string get_package();
-      std::string get_class();
-      std::string get_category_MVC();
-      std::string get_domain_base();
-      std::vector<Helper::Method> get_methods();
   };
 }
 
