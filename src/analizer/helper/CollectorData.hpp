@@ -63,6 +63,7 @@ namespace Helper
       Helper::Param create_param( std::string * );
 
       std::string extract_content_file( std::fstream * );
+      std::string extract_content_file( std::string );
       char * convert_string_to_cstring( std::string );
       std::vector<std::string> extract_words( std::string, std::string );
       bool is_type( std::string );

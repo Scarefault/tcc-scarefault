@@ -159,17 +159,10 @@ namespace Helper
 
   void CollectorData::collect_proprieties( std::string domain )
   {
-    std::fstream domain_stream;
+    std::string content_file = extract_content_file( domain );
 
-    std::string domain_file( PATH_DOMAIN );
-    domain_file.append( domain );
-    domain_file.append( ".groovy" );
-
-    domain_stream.open( domain_file, READ );
-
-    if( domain_stream.is_open() )
+    if( !content_file.empty() )
     {
-      std::string content_file = extract_content_file( &domain_stream );
       std::vector<std::string> content = extract_words( content_file, " ={" );
 
       for( int i = 0; i < content.size(); i++ )
@@ -178,8 +171,8 @@ namespace Helper
 
         if( is_type( content[ i ] ) )
         {
-          new_propriety.name = content[i+1];
-          new_propriety.type = content[i];
+          new_propriety.name = content[ i+1 ];
+          new_propriety.type = content[ i ];
 
           data.proprieties.push_back( new_propriety );
         }
@@ -189,11 +182,6 @@ namespace Helper
           collect_constraints( content_file );
         }
       }
-
-      domain_stream.close();
-    } else
-    {
-      std::cout << "Unable to open "<< domain_file << "..." << std::endl;
     }
   }
 
@@ -228,14 +216,30 @@ namespace Helper
     }
   }
 
-  std::string CollectorData::extract_content_file( std::fstream * file )
+  std::string CollectorData::extract_content_file( std::string domain )
   {
-    std::string content;
-    std::string line;
+    std::fstream domain_stream;
 
-    while( std::getline( *file, line ) )
+    std::string domain_file( PATH_DOMAIN );
+    domain_file.append( domain );
+    domain_file.append( ".groovy" );
+
+    domain_stream.open( domain_file, READ );
+    std::string content;
+
+    if( domain_stream.is_open() )
     {
-      content.append( line );
+      std::string line;
+
+      while( std::getline( domain_stream, line ) )
+      {
+        content.append( line );
+      }
+
+      domain_stream.close();
+    } else
+    {
+      std::cout << "Unable to open "<< domain_file << "..." << std::endl;
     }
 
     return content;
@@ -243,7 +247,7 @@ namespace Helper
 
   char * CollectorData::convert_string_to_cstring( std::string text )
   {
-    char * cstring = new char[text.size() + 1];
+    char * cstring = new char[ text.size() + 1 ];
     std::copy( text.begin(), text.end(), cstring );
     cstring[ text.size() ] = '\0';
 
