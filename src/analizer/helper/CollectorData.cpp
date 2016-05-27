@@ -204,7 +204,28 @@ namespace Helper
     std::size_t bracket_found = sub.find( "}" );
     std::string substring = sub.substr( 0, bracket_found );
 
-    std::vector<std::string> constraint_content = extract_words(substring, "={:,(");
+    std::vector<std::string> words = extract_words( substring, " ={:,(" );
+    std::vector<Propriety> proprieties = data.proprieties;
+
+    for( int i = 0; i < proprieties.size(); i++ )
+    {
+      if( !proprieties[ i ].name.compare( words[ 0 ] ) )
+      {
+        int k = 1;
+
+        while( words[ k ].compare( ")" ) )
+        {
+          Helper::Constraint new_constraint;
+          new_constraint.name = words[ k ];
+          new_constraint.value = words[ k+1 ];
+
+          data.proprieties[ i ].contraints.push_back( new_constraint );
+          k += 2;
+        }
+
+          words.erase( words.begin(), words.begin()+k+1 );
+      }
+    }
   }
 
   std::string CollectorData::extract_content_file( std::fstream * file )
