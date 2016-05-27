@@ -8,6 +8,7 @@ content:
 | class_declaration
 | interface_declaration
 | comment_stmt
+| scarefault_stmt
 ;
 
 package_declaration:

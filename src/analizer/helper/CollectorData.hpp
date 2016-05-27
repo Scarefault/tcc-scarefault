@@ -9,6 +9,7 @@
 #include <string>
 #include <cstdarg>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <locale>
 #include "Data.hpp"
@@ -54,6 +55,7 @@ namespace Helper
       void set_class( std::string );
       void set_methods( std::vector<std::string> );
 
+      void collect_proprieties( std::string );
       void identify_category( std::string );
       std::vector<Helper::Param> collect_params( std::vector<std::string> );
       Helper::Param find_param( std::string );

@@ -441,12 +441,3 @@ class TryCatchExample {
     /* Do Something */
   }
 }
-
-class MVCExample {
-  /* TODO: Esse tipo de construção aindanão está passando.
-    Version.withCriteria(uniqueResult: true) {
-        eq("current", this)
-        body(title, 1, arg: "string")
-    }
-  */
-}

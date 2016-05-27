@@ -52,7 +52,6 @@ namespace Helper
       std::string class_name;
 
       std::vector<Propriety> proprieties;
-
       std::vector<Method> methods;
   };
 }

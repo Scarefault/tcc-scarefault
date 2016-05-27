@@ -147,11 +147,36 @@ namespace Helper
       std::string category = name.substr( found );
       std::string domain_base = name.substr( 0, found );
 
+      collect_proprieties( domain_base );
+
       this->data.domain_base = domain_base;
       this->data.category_MVC = category;
     } else
     {
       // Nothing to do
+    }
+  }
+
+  void CollectorData::collect_proprieties( std::string domain )
+  {
+    std::fstream domain_stream;
+
+    std::string domain_file( PATH_DOMAIN );
+    domain_file.append( domain );
+    domain_file.append( ".groovy" );
+
+    domain_stream.open( domain_file, READ );
+
+    if( domain_stream.is_open() )
+    {
+      // TODO: Read all domain file in a single string.
+      //    TODO: Collect the type and name each propriety of Domain Class
+      //    TODO: Collect the constraints of all proprieties.
+
+      domain_stream.close();
+    } else
+    {
+      std::cout << "Unable to open "<< domain_file << "..." << std::endl;
     }
   }
 }
