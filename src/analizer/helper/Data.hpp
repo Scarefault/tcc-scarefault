@@ -9,6 +9,8 @@ namespace Helper
   class Constraint
   {
     public:
+      std::string name;
+      std::string value;
       bool blank;
       bool creditCard;
       bool email;
@@ -25,7 +27,7 @@ namespace Helper
     public:
       std::string name;
       std::string type;
-      Constraint contraints;
+      std::vector<Constraint> contraints;
   };
 
   class Param

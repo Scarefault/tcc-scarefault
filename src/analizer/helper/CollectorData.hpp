@@ -7,6 +7,7 @@
 #define PATH_DOMAIN "guestbook/grails-app/domain/guestbook/"
 
 #include <string>
+#include <cstring>
 #include <cstdarg>
 #include <iostream>
 #include <fstream>
@@ -60,6 +61,12 @@ namespace Helper
       std::vector<Helper::Param> collect_params( std::vector<std::string> );
       Helper::Param find_param( std::string );
       Helper::Param create_param( std::string * );
+
+      std::string extract_content_file( std::fstream * );
+      char * convert_string_to_cstring( std::string );
+      std::vector<std::string> extract_words( std::string, std::string );
+      bool is_type( std::string );
+      void collect_constraints( std::string );
   };
 }
 

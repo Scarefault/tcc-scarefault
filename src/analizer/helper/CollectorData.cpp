@@ -169,14 +169,108 @@ namespace Helper
 
     if( domain_stream.is_open() )
     {
-      // TODO: Read all domain file in a single string.
-      //    TODO: Collect the type and name each propriety of Domain Class
-      //    TODO: Collect the constraints of all proprieties.
+      std::string content_file = extract_content_file( &domain_stream );
+      std::vector<std::string> content = extract_words( content_file, " ={" );
+
+      for( int i = 0; i < content.size(); i++ )
+      {
+        Helper::Propriety new_propriety;
+
+        if( is_type( content[ i ] ) )
+        {
+          new_propriety.name = content[i+1];
+          new_propriety.type = content[i];
+
+          data.proprieties.push_back( new_propriety );
+        }
+
+        if( !content[i].compare( "constraints" ) )
+        {
+          collect_constraints( content_file );
+        }
+      }
 
       domain_stream.close();
     } else
     {
       std::cout << "Unable to open "<< domain_file << "..." << std::endl;
     }
+  }
+
+  void CollectorData::collect_constraints( std::string text )
+  {
+    std::size_t found = text.find( "constraints" );
+    std::string sub = text.substr( found+11 );
+    std::size_t bracket_found = sub.find( "}" );
+    std::string substring = sub.substr( 0, bracket_found );
+
+    std::vector<std::string> constraint_content = extract_words(substring, "={:,(");
+  }
+
+  std::string CollectorData::extract_content_file( std::fstream * file )
+  {
+    std::string content;
+    std::string line;
+
+    while( std::getline( *file, line ) )
+    {
+      content.append( line );
+    }
+
+    return content;
+  }
+
+  char * CollectorData::convert_string_to_cstring( std::string text )
+  {
+    char * cstring = new char[text.size() + 1];
+    std::copy( text.begin(), text.end(), cstring );
+    cstring[ text.size() ] = '\0';
+
+    return cstring;
+  }
+
+  std::vector<std::string>
+  CollectorData::extract_words( std::string text, std::string delimiters )
+  {
+    char * cdelimiters = convert_string_to_cstring( delimiters );
+    char * ctext = convert_string_to_cstring( text );
+
+    std::vector<std::string> words;
+    char * phrase = strtok( ctext, cdelimiters );
+
+    while( phrase != NULL )
+    {
+      std::string token( phrase );
+      words.push_back( token );
+      phrase = strtok( NULL, cdelimiters );
+    }
+
+    delete[] cdelimiters;
+    delete[] ctext;
+    delete[] phrase;
+
+    return words;
+  }
+
+  bool CollectorData::is_type( std::string token )
+  {
+    bool result = true;
+    std::vector<std::string> types {
+      "short", "Short", "int", "Integer", "long", "Long", "float", "Float",
+      "double", "Double", "String", "Date", "List" };
+
+    for( int i = 0; i < types.size(); i++ )
+    {
+      if( !token.compare( types[ i ] ) )
+      {
+        result = true;
+        break;
+      } else
+      {
+        result = false;
+      }
+    }
+
+    return result;
   }
 }
