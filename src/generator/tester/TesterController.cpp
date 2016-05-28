@@ -96,11 +96,11 @@ namespace Tester
   std::string TesterController::generate_randon_string( int size )
   {
     std::string random_string;
-    static const std::string alphanun = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    static const std::string alphanum( "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" );
 
     for( int i = 0; i < size; i++ )
     {
-      random_string[i] = alphanum[ rand() % ( sizeof(alphanum)-1 ) ];
+      random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
     }
 
     return random_string;
