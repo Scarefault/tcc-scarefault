@@ -1,6 +1,7 @@
 #ifndef TESTCONTROLLER_HPP_
 #define TESTCONTROLLER_HPP_
 
+#include <cmath>
 #include "TesterBase.hpp"
 #include "../../analizer/helper/Data.hpp"
 
@@ -30,9 +31,9 @@ namespace Tester
       void create_params( std::fstream * );
       std::string create_value( Helper::Propriety );
 
-      std::string generate_randon_string( int );
-      int generate_random_integer( int );
-      double generate_random_double();
+      std::string generate_random_string( int = 50 );
+      int generate_random_integer( int = 100 );
+      double generate_random_double( int = 100, int = 2 );
       bool generate_random_boolean();
   };
 }

@@ -93,10 +93,11 @@ namespace Tester
     return value;
   }
 
-  std::string TesterController::generate_randon_string( int size )
+  std::string TesterController::generate_random_string( int size )
   {
     std::string random_string;
-    static const std::string alphanum( "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" );
+    static const std::string alphanum =
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     for( int i = 0; i < size; i++ )
     {
@@ -104,6 +105,26 @@ namespace Tester
     }
 
     return random_string;
+  }
+
+  int TesterController::generate_random_integer( int max )
+  {
+      int random_integer = rand() % max;
+      return random_integer;
+  }
+
+  double TesterController::generate_random_double( int max, int scale )
+  {
+      double random_integer = rand() % max;
+      double fractional = pow( 0.5, scale );
+
+      double random_double = random_integer + fractional;
+      return random_double;
+  }
+
+  bool TesterController::generate_random_boolean()
+  {
+      return rand() % 2;
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )
@@ -114,7 +135,8 @@ namespace Tester
                     << std::endl
                     << "\t\tcontroller.index()"
                     << std::endl
-                    << "\t\tassert \"/" << low_domain  << "/list\" == response.redirectedUrl"
+                    << "\t\tassert \"/" << low_domain
+                    << "/list\" == response.redirectedUrl"
                     << std::endl
                     << "\t}"
                     << std::endl
