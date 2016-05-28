@@ -57,17 +57,19 @@ namespace Helper
       void set_methods( std::vector<std::string> );
 
       void collect_proprieties( std::string );
-      void identify_category( std::string );
       std::vector<Helper::Param> collect_params( std::vector<std::string> );
+      void collect_constraints( std::string );
+
+      void identify_category( std::string );
       Helper::Param find_param( std::string );
       Helper::Param create_param( std::string * );
 
       std::string extract_content_file( std::fstream * );
       std::string extract_content_file( std::string );
-      char * convert_string_to_cstring( std::string );
       std::vector<std::string> extract_words( std::string, std::string );
+
+      char * convert_string_to_cstring( std::string );
       bool is_type( std::string );
-      void collect_constraints( std::string );
   };
 }
 

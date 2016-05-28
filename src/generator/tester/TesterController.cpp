@@ -16,6 +16,7 @@ namespace Tester
     if( test_stream.is_open() )
     {
       make_header( &test_stream );
+      make_test_index( &test_stream );
       test_methods( &test_stream );
       TesterBase::conclude_data( &test_stream );
 
@@ -28,14 +29,32 @@ namespace Tester
 
   void TesterController::make_header( std::fstream * test_stream )
   {
-    (* test_stream) << "package " << data_ptr->package_name << std::endl
-      << std::endl
-      << "import org.junit.*" << std::endl
-      << "import grails.test.mixin.*" << std::endl
-      << std::endl
-      << "@TestFor(" << data_ptr->class_name << ")" << std::endl
-      << "class " << data_ptr->class_name << "Tests {" << std::endl
-      << std::endl;
+    (* test_stream) << "package " << data_ptr->package_name
+                    << std::endl
+                    << std::endl
+                    << "import org.junit.*"
+                    << std::endl
+                    << "import grails.test.mixin.*"
+                    << std::endl
+                    << std::endl
+                    << "@TestFor(" << data_ptr->class_name << ")"
+                    << std::endl
+                    << "class " << data_ptr->class_name << "Tests {"
+                    << std::endl
+                    << std::endl;
+  }
+
+  void TesterController::make_test_index( std::fstream * test_stream )
+  {
+    (* test_stream) << "\tvoid testIndex()"
+                    << std::endl
+                    << "\t\tcontroller.index()"
+                    << std::endl
+                    << "\t\tassert \"/feedback/list\" == response.redirectedUrl"
+                    << std::endl
+                    << "\t}"
+                    << std::endl
+                    << std::endl;
   }
 
   void TesterController::test_methods( std::fstream * test_stream )

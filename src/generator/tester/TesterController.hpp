@@ -15,8 +15,10 @@ namespace Tester
 
     private:
       void make_header( std::fstream * );
+      void make_valid_setup( std::fstream * );
       void test_methods( std::fstream * );
 
+      void make_test_index( std::fstream * );
       void make_test_create( std::fstream * );
       void make_test_show( std::fstream * );
       void make_test_delete( std::fstream * );
