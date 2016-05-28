@@ -86,8 +86,24 @@ namespace Tester
 
   std::string TesterController::create_value( Helper::Propriety propriety )
   {
-      std::string value( "VALID VALUE" );
-      return value;
+    std::string value( "VALID VALUE" );
+    std::string type = propriety.type;
+    std::vector<Helper::Constraint> constraints = propriety.contraints;
+
+    return value;
+  }
+
+  std::string TesterController::generate_randon_string( int size )
+  {
+    std::string random_string;
+    static const std::string alphanun = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+    for( int i = 0; i < size; i++ )
+    {
+      random_string[i] = alphanum[ rand() % ( sizeof(alphanum)-1 ) ];
+    }
+
+    return random_string;
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )

@@ -29,6 +29,11 @@ namespace Tester
 
       void create_params( std::fstream * );
       std::string create_value( Helper::Propriety );
+
+      std::string generate_randon_string();
+      int generate_random_integer();
+      double generate_random_double();
+      bool generate_random_boolean();
   };
 }
 
