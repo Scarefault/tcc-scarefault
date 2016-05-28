@@ -19,3 +19,9 @@ As seguintes pessoas contribuiram para o projeto:
 - ThaianeBraga (thaianefbraga@gmail.com)
 
 [how-contribute]: https://github.com/Scarefault/scarefault/wiki/Como-Contribuir
+
+# Licença
+
+O projeto está sob a licença GPLv3, como afirma o [documento][licenca].
+
+[licenca]:https://github.com/Scarefault/scarefault/blob/master/LICENSE.txt
