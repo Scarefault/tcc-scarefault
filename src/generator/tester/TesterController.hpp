@@ -26,6 +26,9 @@ namespace Tester
       void make_test_save( std::fstream * );
       void make_test_edit( std::fstream * );
       void make_test_update( std::fstream * );
+
+      void create_params( std::fstream * );
+      std::string create_value( Helper::Propriety );
   };
 }
 

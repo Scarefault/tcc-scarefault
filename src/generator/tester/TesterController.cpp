@@ -16,6 +16,7 @@ namespace Tester
     if( test_stream.is_open() )
     {
       make_header( &test_stream );
+      make_valid_setup( &test_stream );
       make_test_index( &test_stream );
       test_methods( &test_stream );
       TesterBase::conclude_data( &test_stream );
@@ -44,13 +45,60 @@ namespace Tester
                     << std::endl;
   }
 
+  void TesterController::make_valid_setup( std::fstream * test_stream )
+  {
+    (* test_stream) << "\tdef populateValidParams(params) {"
+                    << std::endl
+                    << "\t\tassert params != null"
+                    << std::endl
+                    << std::endl;
+
+                    create_params( test_stream );
+
+    (* test_stream) << std::endl
+                    << "\t}"
+                    <<std::endl
+                    << std::endl;
+  }
+
+  void TesterController::create_params( std::fstream * test_stream )
+  {
+    for( int i = 0; i < data_ptr->proprieties.size(); i++ )
+    {
+      Helper::Propriety propriety = data_ptr->proprieties[ i ];
+
+      if( propriety.name.compare( "dateCreated") &&
+          propriety.name.compare( "lastUpdated") )
+      {
+        std::string value = create_value( propriety );
+
+        (* test_stream) << "\t\tparams[\""
+                        << propriety.name
+                        << "\"] = "
+                        << value
+                        << std::endl;
+      } else
+      {
+        // Nothing to do
+      }
+    }
+  }
+
+  std::string TesterController::create_value( Helper::Propriety propriety )
+  {
+      std::string value( "VALID VALUE" );
+      return value;
+  }
+
   void TesterController::make_test_index( std::fstream * test_stream )
   {
+    std::string low_domain = convert_to_lower( data_ptr->domain_base );
+
     (* test_stream) << "\tvoid testIndex()"
                     << std::endl
                     << "\t\tcontroller.index()"
                     << std::endl
-                    << "\t\tassert \"/feedback/list\" == response.redirectedUrl"
+                    << "\t\tassert \"/" << low_domain  << "/list\" == response.redirectedUrl"
                     << std::endl
                     << "\t}"
                     << std::endl
