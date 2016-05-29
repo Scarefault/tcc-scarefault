@@ -94,13 +94,13 @@ namespace Tester
       value = create_string( propriety );
     } else if( is_integer( propriety ) )
     {
-      value = value_generator.generate_random_integer();
+      value = value_generator.generate_integer();
     } else if( is_floating( propriety ) )
     {
-      value = value_generator.generate_random_floating();
+      value = value_generator.generate_floating();
     } else if( is_boolean( propriety ) )
     {
-      value = value_generator.generate_random_boolean();
+      value = value_generator.generate_boolean();
     } else
     {
       // Nothing to do
@@ -112,12 +112,14 @@ namespace Tester
   std::string TesterController::create_string( Helper::Propriety propriety )
   {
     std::string result;
+
     bool blank = false;
     bool credit_card = false;
     bool email = false;
     bool nullable = false;
     bool url = false;
-    int size = 0;
+    int min = 0;
+    int max = 0;
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
@@ -127,6 +129,10 @@ namespace Tester
       {
         if( !constraint.name.compare( type_constraint[ type ] ) )
         {
+          std::string min_string;
+          std::string max_string;
+          int range_op_position;
+
           switch( type )
           {
             case BLANK:
@@ -148,7 +154,11 @@ namespace Tester
               nullable = ( constraint.value == "true" ) ? true : false;
               break;
             case SIZE:
-              size = std::stoi( constraint.value );
+              range_op_position = constraint.value.find( ".." );
+              min_string = constraint.value.substr( 0, range_op_position );
+              max_string = constraint.value.substr( range_op_position+2 );
+              min = std::stoi( min_string );
+              max = std::stoi( max_string );
             case UNIQUE:
               break;
             case URL:
@@ -159,8 +169,15 @@ namespace Tester
       }
     }
 
-    result =
-      value_generator.generate_random_string( size, url, email, credit_card, blank, nullable );
+    if( min == 0 && max == 0 )
+    {
+        result = value_generator.generate_string(
+          url, email, credit_card, blank, nullable );
+    } else
+    {
+      result = value_generator.generate_string(
+        url, email, credit_card, blank, nullable, min, max );
+    }
 
     return result;
   }
