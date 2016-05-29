@@ -282,7 +282,7 @@ namespace Helper
     bool result = true;
     std::vector<std::string> types {
       "short", "Short", "int", "Integer", "long", "Long", "float", "Float",
-      "double", "Double", "String", "Date", "List" };
+      "double", "Double", "String", "Date", "List", "boolean" };
 
     for( int i = 0; i < types.size(); i++ )
     {

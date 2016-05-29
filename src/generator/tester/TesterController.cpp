@@ -90,41 +90,77 @@ namespace Tester
     std::string type = propriety.type;
     std::vector<Helper::Constraint> constraints = propriety.contraints;
 
+    if( !type.compare( "String" ) )
+    {
+      value = generate_random_string();
+    } else if( !type.compare( "Integer" ) || !type.compare( "int" ) )
+    {
+      value = generate_random_integer();
+    } else if( !type.compare( "Double" ) || !type.compare( "double" ) ||
+               !type.compare( "Float" ) || !type.compare( "float" ) )
+    {
+      value = generate_random_double();
+    } else if( !type.compare( "boolean" ) )
+    {
+      value = generate_random_boolean();
+    } else
+    {
+      // Nothing to do
+    }
+
     return value;
   }
 
-  std::string TesterController::generate_random_string( int size )
+  std::string TesterController::generate_random_string( int size, bool blank )
   {
     std::string random_string;
-    static const std::string alphanum =
-        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    for( int i = 0; i < size; i++ )
+      if( !blank )
+      {
+        static const std::string alphanum =
+            "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        for( int i = 0; i < size; i++ )
+        {
+          random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
+        }
+    } else
     {
-      random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
+      random_string = "";
     }
 
     return random_string;
   }
 
-  int TesterController::generate_random_integer( int max )
+  std::string TesterController::generate_random_integer( int max )
   {
-      int random_integer = rand() % max;
-      return random_integer;
+    int random_integer = rand() % max;
+    return std::to_string( random_integer );
   }
 
-  double TesterController::generate_random_double( int max, int scale )
+  std::string TesterController::generate_random_double( int max, int scale )
   {
-      double random_integer = rand() % max;
-      double fractional = pow( 0.5, scale );
+    double random_integer = rand() % max;
+    double fractional = pow( 0.5, scale );
 
-      double random_double = random_integer + fractional;
-      return random_double;
+    double random_double = random_integer + fractional;
+    return std::to_string( random_double );
   }
 
-  bool TesterController::generate_random_boolean()
+  std::string TesterController::generate_random_boolean()
   {
-      return rand() % 2;
+    int result = rand() % 2;
+    std::string random_boolean;
+
+    if( result )
+    {
+      random_boolean = "true";
+    } else
+    {
+      random_boolean = "false";
+    }
+
+    return random_boolean;
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )
