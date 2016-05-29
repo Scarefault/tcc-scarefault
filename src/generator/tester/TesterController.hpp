@@ -1,11 +1,10 @@
 #ifndef TESTCONTROLLER_HPP_
 #define TESTCONTROLLER_HPP_
 
-#include <cmath>
-#include <algorithm>
 
 #include "TesterBase.hpp"
 #include "../../analizer/helper/Data.hpp"
+#include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester
 {
@@ -29,6 +28,8 @@ namespace Tester
         "unique", "url"
       };
 
+      Generator::ValueGenerator value_generator;
+
       void make_header( std::fstream * );
       void make_valid_setup( std::fstream * );
       void test_methods( std::fstream * );
@@ -45,13 +46,6 @@ namespace Tester
       void create_params( std::fstream * );
       std::string create_value( Helper::Propriety );
       std::string create_string( Helper::Propriety );
-
-      std::string generate_random_string( int = 50, bool = false,
-        bool = false, bool = false, bool = false, bool = false );
-
-      std::string generate_random_integer( int = 100 );
-      std::string generate_random_floating( int = 100, int = 2 );
-      std::string generate_random_boolean();
 
       bool is_string( Helper::Propriety );
       bool is_integer( Helper::Propriety );
