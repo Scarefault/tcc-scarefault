@@ -87,20 +87,18 @@ namespace Tester
   std::string TesterController::create_value( Helper::Propriety propriety )
   {
     std::string value( "VALID VALUE" );
-    std::string type = propriety.type;
     std::vector<Helper::Constraint> constraints = propriety.contraints;
 
-    if( !type.compare( "String" ) )
+    if( is_string( propriety ) )
     {
       value = generate_random_string();
-    } else if( !type.compare( "Integer" ) || !type.compare( "int" ) )
+    } else if( is_integer( propriety ) )
     {
       value = generate_random_integer();
-    } else if( !type.compare( "Double" ) || !type.compare( "double" ) ||
-               !type.compare( "Float" ) || !type.compare( "float" ) )
+    } else if( is_floating( propriety ) )
     {
-      value = generate_random_double();
-    } else if( !type.compare( "boolean" ) )
+      value = generate_random_floating();
+    } else if( is_boolean( propriety ) )
     {
       value = generate_random_boolean();
     } else
@@ -113,21 +111,23 @@ namespace Tester
 
   std::string TesterController::generate_random_string( int size, bool blank )
   {
-    std::string random_string;
+    std::string random_string( "\"" );
 
-      if( !blank )
+    if( !blank )
+    {
+      static const std::string alphanum =
+          "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+      for( int i = 0; i < size; i++ )
       {
-        static const std::string alphanum =
-            "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-        for( int i = 0; i < size; i++ )
-        {
-          random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
-        }
+        random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
+      }
     } else
     {
       random_string = "";
     }
+
+    random_string.insert( random_string.end(), '\"' );
 
     return random_string;
   }
@@ -138,7 +138,7 @@ namespace Tester
     return std::to_string( random_integer );
   }
 
-  std::string TesterController::generate_random_double( int max, int scale )
+  std::string TesterController::generate_random_floating( int max, int scale )
   {
     double random_integer = rand() % max;
     double fractional = pow( 0.5, scale );
@@ -410,5 +410,66 @@ namespace Tester
       << "\t\tassert flash.message != null" << std::endl
       << "\t}" << std::endl
       << std::endl;
+  }
+
+  bool TesterController::is_string( Helper::Propriety propriety )
+  {
+    bool is_string = false;
+
+    if( !propriety.type.compare( "String" ) )
+    {
+      is_string = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_string;
+  }
+
+  bool TesterController::is_integer( Helper::Propriety propriety )
+  {
+    bool is_integer = false;
+
+    if( !propriety.type.compare( "Integer" ) || !propriety.type.compare( "int" ) )
+    {
+      is_integer = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_integer;
+  }
+
+  bool TesterController::is_floating( Helper::Propriety propriety )
+  {
+    bool is_floating = false;
+
+    if( !propriety.type.compare( "Double" ) || !propriety.type.compare( "double" ) ||
+        !propriety.type.compare( "Float" ) || !propriety.type.compare( "float" ) )
+    {
+      is_floating = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_floating;
+  }
+
+  bool TesterController::is_boolean( Helper::Propriety propriety )
+  {
+    bool is_boolean = false;
+
+    if( !propriety.type.compare( "boolean" ) )
+    {
+      is_boolean = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_boolean;
   }
 }

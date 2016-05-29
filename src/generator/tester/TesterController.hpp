@@ -33,8 +33,13 @@ namespace Tester
 
       std::string generate_random_string( int = 50, bool = false );
       std::string generate_random_integer( int = 100 );
-      std::string generate_random_double( int = 100, int = 2 );
+      std::string generate_random_floating( int = 100, int = 2 );
       std::string generate_random_boolean();
+
+      bool is_string( Helper::Propriety );
+      bool is_integer( Helper::Propriety );
+      bool is_floating( Helper::Propriety );
+      bool is_boolean( Helper::Propriety );
   };
 }
 
