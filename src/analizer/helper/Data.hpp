@@ -11,15 +11,6 @@ namespace Helper
     public:
       std::string name;
       std::string value;
-      bool blank;
-      bool creditCard;
-      bool email;
-      bool nullable;
-      bool unique;
-      bool url;
-
-      int minSize;
-      int maxSize;
   };
 
   class Propriety

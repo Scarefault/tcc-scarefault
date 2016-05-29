@@ -91,7 +91,7 @@ namespace Tester
 
     if( is_string( propriety ) )
     {
-      value = generate_random_string();
+      value = create_string( propriety );
     } else if( is_integer( propriety ) )
     {
       value = generate_random_integer();
@@ -109,25 +109,108 @@ namespace Tester
     return value;
   }
 
-  std::string TesterController::generate_random_string( int size, bool blank )
+  std::string TesterController::create_string( Helper::Propriety propriety )
   {
-    std::string random_string( "\"" );
+    std::string result;
+    bool blank = false;
+    bool credit_card = false;
+    bool email = false;
+    bool nullable = false;
+    bool url = false;
+    int size = 0;
 
-    if( !blank )
+    for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      static const std::string alphanum =
-          "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      Helper::Constraint constraint = propriety.contraints[ i ];
 
-      for( int i = 0; i < size; i++ )
+      for( int type = 0; type < type_constraint.size(); type++ )
       {
-        random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
+        if( !constraint.name.compare( type_constraint[ type ] ) )
+        {
+          switch( type )
+          {
+            case BLANK:
+              blank = ( constraint.value == "true" ) ? true : false;
+              break;
+            case CREDIT_CARD:
+              credit_card = ( constraint.value == "true" ) ? true : false;
+              break;
+            case EMAIL:
+              email = ( constraint.value == "true" ) ? true : false;
+              break;
+            case IN_LIST:
+              break;
+            case MATCHES:
+              break;
+            case NOT_EQUAL:
+              break;
+            case NULLABLE:
+              nullable = ( constraint.value == "true" ) ? true : false;
+              break;
+            case SIZE:
+              size = std::stoi( constraint.value );
+            case UNIQUE:
+              break;
+            case URL:
+              url = ( constraint.value == "true" ) ? true : false;
+              break;
+          }
+        }
+      }
+    }
+
+    result =
+      generate_random_string( size, url, email, credit_card, blank, nullable );
+
+    return result;
+  }
+
+  std::string
+    TesterController::generate_random_string( int size, bool url, bool email,
+      bool credit_card, bool blank, bool nullable )
+  {
+    std::string random_string;
+
+    if( !nullable )
+    {
+      if( !blank )
+      {
+        if( !url )
+        {
+          if( !email )
+          {
+            if( !credit_card )
+            {
+              static const std::string alphanum =
+                  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+              for( int i = 0; i < size; i++ )
+              {
+                random_string += alphanum[ rand() % ( alphanum.size()-1 ) ];
+              }
+
+              random_string.insert( random_string.begin(), '\"' );
+              random_string.insert( random_string.end(), '\"' );
+            } else
+            {
+              random_string = "\"4556647559902\"";
+            }
+          } else
+          {
+            random_string = "\"example@gmail.com\"";
+          }
+        } else
+        {
+          random_string = "\"www.somthing.com\"";
+        }
+      } else
+      {
+        random_string = "";
       }
     } else
     {
-      random_string = "";
+      random_string = "null";
     }
-
-    random_string.insert( random_string.end(), '\"' );
 
     return random_string;
   }
