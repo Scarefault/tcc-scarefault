@@ -8,36 +8,26 @@ namespace Generator
   {
     std::string random_string;
 
-    if( !nullable )
+    switch( verify_type_constraint( nullable, blank, url, email, credit_card ) )
     {
-      if( !blank )
-      {
-        if( !url )
-        {
-          if( !email )
-          {
-            if( !credit_card )
-            {
-              random_string = generate_random_string( min, max );
-            } else
-            {
-              random_string = "\"4556647559902\"";
-            }
-          } else
-          {
-            random_string = generate_random_email( min, max );
-          }
-        } else
-        {
-          random_string = generate_random_url( min, max );
-        }
-      } else
-      {
-        random_string = "";
-      }
-    } else
-    {
-      random_string = "null";
+      case NULLABLE:
+        random_string = null;
+        break;
+      case BLANK:
+        random_string = empty_string;
+        break;
+      case URL:
+        random_string = generate_random_url( min, max );
+        break;
+      case EMAIL:
+        random_string = generate_random_email( min, max );
+        break;
+      case CREDIT_CARD:
+        random_string = "\"4556647559902\"";
+        break;
+      case SIZE:
+        random_string = generate_random_string( min, max );
+        break;
     }
 
     return random_string;
@@ -134,5 +124,17 @@ namespace Generator
     }
 
     return random_boolean;
+  }
+
+  int ValueGenerator::verify_type_constraint( bool nullable, bool blank,
+      bool url, bool email, bool credit_card )
+  {
+    int result = ( nullable ? NULLABLE :
+                 ( blank ? BLANK :
+                 ( url ? URL :
+                 ( email ? EMAIL :
+                 ( credit_card ? CREDIT_CARD : SIZE )))));
+
+    return result;
   }
 }
