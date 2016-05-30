@@ -60,6 +60,7 @@ namespace Tester
       std::string create_value( Helper::Propriety );
       std::string create_string( Helper::Propriety );
       std::string create_integer( Helper::Propriety );
+      std::string create_floating( Helper::Propriety );
 
       bool is_string( Helper::Propriety );
       bool is_integer( Helper::Propriety );

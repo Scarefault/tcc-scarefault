@@ -2,7 +2,9 @@
 #define VALUE_GENERATOR_HPP_
 
 #include <string>
+#include <sstream>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <cmath>
 #include <ctime>

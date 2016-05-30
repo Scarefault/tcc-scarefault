@@ -97,7 +97,7 @@ namespace Tester
       value = create_integer( propriety );
     } else if( is_floating( propriety ) )
     {
-      value = value_generator.generate_floating();
+      value = create_floating( propriety );
     } else if( is_boolean( propriety ) )
     {
       value = value_generator.generate_boolean();
@@ -181,6 +181,43 @@ namespace Tester
     }
 
     return value_generator.generate_integer( constraints );
+  }
+
+  std::string TesterController::create_floating( Helper::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
+    {
+      Helper::Constraint constraint = propriety.contraints[ i ];
+
+      for( int type = 0; type < type_constraint.size(); type++ )
+      {
+        if( !constraint.name.compare( type_constraint[ type ] ) )
+        {
+          switch( type )
+          {
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case MAX:
+              constraints[ MAX ] = std::stoi( constraint.value );
+              break;
+            case MIN:
+              constraints[ MIN ] = std::stoi( constraint.value );
+              break;
+            case SCALE:
+              constraints[ SCALE ] = std::stoi( constraint.value );
+              break;
+            case RANGE:
+              extract_range( constraint.value );
+              break;
+          }
+        }
+      }
+    }
+
+    return value_generator.generate_floating( constraints );
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )

@@ -150,16 +150,18 @@ namespace Generator
         break;
     }
 
-    return random_integer;
+    return random_floating;
   }
 
-  std::string ValueGenerator::generate_random_floating( int, min, int max, int scale )
+  std::string ValueGenerator::generate_random_floating( int min, int max, int scale )
   {
-    double random_integer = rand() % ( max-min ) + min;
-    double fractional = pow( 0.5, scale );
+    double random_floating = rand() % ( max-min ) + min;
+    random_floating += 0.521347;
 
-    double random_double = random_integer + fractional;
-    return std::to_string( random_double );
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision( scale ) << random_floating;
+
+    return stream.str();
   }
 
   std::string ValueGenerator::generate_boolean()
