@@ -111,15 +111,13 @@ namespace Tester
 
   std::string TesterController::create_string( Helper::Propriety propriety )
   {
-    std::string result;
-
     bool blank = false;
     bool credit_card = false;
     bool email = false;
     bool nullable = false;
     bool url = false;
-    int min = 0;
-    int max = 0;
+    int min = 3;
+    int max = 12;
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
@@ -169,17 +167,11 @@ namespace Tester
       }
     }
 
-    if( min == 0 && max == 0 )
-    {
-        result = value_generator.generate_string(
-          url, email, credit_card, blank, nullable );
-    } else
-    {
-      result = value_generator.generate_string(
-        url, email, credit_card, blank, nullable, min, max );
-    }
+    std::vector<bool> boolean_data {
+      nullable, blank, url, email, credit_card
+    };
 
-    return result;
+    return value_generator.generate_string( boolean_data, min, max );
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )

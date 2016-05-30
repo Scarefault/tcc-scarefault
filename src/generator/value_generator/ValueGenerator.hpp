@@ -12,8 +12,7 @@ namespace Generator
   class ValueGenerator
   {
     public:
-      std::string generate_string( bool = false, bool = false, bool = false,
-        bool = false, bool = false, int = 3, int = 12 );
+      std::string generate_string( std::vector<bool>, int = 3, int = 12 );
 
       std::string generate_integer( int = 100 );
       std::string generate_floating( int = 100, int = 2 );
@@ -40,7 +39,7 @@ namespace Generator
         std::string generate_random_email( int, int );
         std::string generate_random_url( int, int );
 
-        int verify_type_constraint( bool, bool, bool, bool, bool );
+        int verify_type_constraint( std::vector<bool> );
   };
 }
 

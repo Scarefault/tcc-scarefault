@@ -3,12 +3,11 @@
 namespace Generator
 {
   std::string
-    ValueGenerator::generate_string( bool url, bool email, bool credit_card,
-      bool blank, bool nullable, int min, int max )
+    ValueGenerator::generate_string( std::vector<bool> bool_data, int min, int max )
   {
     std::string random_string;
 
-    switch( verify_type_constraint( nullable, blank, url, email, credit_card ) )
+    switch( verify_type_constraint( bool_data ) )
     {
       case NULLABLE:
         random_string = null;
@@ -126,9 +125,14 @@ namespace Generator
     return random_boolean;
   }
 
-  int ValueGenerator::verify_type_constraint( bool nullable, bool blank,
-      bool url, bool email, bool credit_card )
+  int ValueGenerator::verify_type_constraint( std::vector<bool> bool_data )
   {
+    bool nullable = bool_data[ 0 ];
+    bool blank = bool_data[ 1 ];
+    bool url = bool_data[ 2 ];
+    bool email = bool_data[ 3 ];
+    bool credit_card = bool_data[ 4 ];
+
     int result = ( nullable ? NULLABLE :
                  ( blank ? BLANK :
                  ( url ? URL :
