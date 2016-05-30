@@ -3,10 +3,13 @@
 namespace Generator
 {
   std::string
-    ValueGenerator::generate_string( std::vector<bool> bool_constraints, int min, int max )
+    ValueGenerator::generate_string( std::vector<int> constraints )
   {
     std::string random_string;
-    switch( verify_type_constraint( bool_constraints ) )
+    int min = constraints[ MIN ];
+    int max = constraints[ MAX ];
+
+    switch( verify_type_constraint( constraints ) )
     {
       case NULLABLE:
         random_string = null;
@@ -130,25 +133,20 @@ namespace Generator
     return random_boolean;
   }
 
-  int ValueGenerator::verify_type_constraint( std::vector<bool> bool_constraints )
+  int ValueGenerator::verify_type_constraint( std::vector<int> constraints )
   {
-    bool nullable = bool_constraints[ NULLABLE ];
-    bool blank = bool_constraints[ BLANK ];
-    bool url = bool_constraints[ URL ];
-    bool email = bool_constraints[ EMAIL ];
-    bool credit_card = bool_constraints[ CREDIT_CARD ];
-    std::cout << "nullable: " << nullable << "\n";
-    std::cout << "blank: " << blank << "\n";
-    std::cout << "url: " << url << "\n";
-    std::cout << "email: " << email << "\n";
-    std::cout << "credit_card: " << credit_card << "\n";
+    bool nullable = constraints[ NULLABLE ];
+    bool blank = constraints[ BLANK ];
+    bool url = constraints[ URL ];
+    bool email = constraints[ EMAIL ];
+    bool credit_card = constraints[ CREDIT_CARD ];
 
     int result = ( nullable ? NULLABLE :
                  ( blank ? BLANK :
                  ( url ? URL :
                  ( email ? EMAIL :
                  ( credit_card ? CREDIT_CARD : SIZE )))));
-    std::cout << "verify_type: " << result << "\n\n";
+
     return result;
   }
 }

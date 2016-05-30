@@ -113,9 +113,6 @@ namespace Tester
   {
     clear_boolean_constraints();
 
-    int min = 3;
-    int max = 12;
-
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
       Helper::Constraint constraint = propriety.contraints[ i ];
@@ -124,40 +121,32 @@ namespace Tester
       {
         if( !constraint.name.compare( type_constraint[ type ] ) )
         {
-          std::string min_string;
-          std::string max_string;
-          int range_op_position;
-          std::cout << "type: " << type << "\n";
           switch( type )
           {
             case BLANK:
-              boolean_constraints[ BLANK ] = convert_to_bool( constraint.value );
+              constraints[ BLANK ] = convert_to_bool( constraint.value );
               break;
             case CREDIT_CARD:
-              boolean_constraints[ CREDIT_CARD ] = convert_to_bool( constraint.value );
+              constraints[ CREDIT_CARD ] = convert_to_bool( constraint.value );
               break;
             case EMAIL:
-              boolean_constraints[ EMAIL ] = convert_to_bool( constraint.value );
+              constraints[ EMAIL ] = convert_to_bool( constraint.value );
               break;
             case NULLABLE:
-              boolean_constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
               break;
             case SIZE:
-              range_op_position = constraint.value.find( ".." );
-              min_string = constraint.value.substr( 0, range_op_position );
-              max_string = constraint.value.substr( range_op_position+2 );
-              min = std::stoi( min_string );
-              max = std::stoi( max_string );
+              extract_range( constraint.value );
               break;
             case URL:
-              boolean_constraints[ URL ] = convert_to_bool( constraint.value );
+              constraints[ URL ] = convert_to_bool( constraint.value );
               break;
           }
         }
       }
     }
 
-    return value_generator.generate_string( boolean_constraints, min, max );
+    return value_generator.generate_string( constraints );
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )
@@ -475,11 +464,29 @@ namespace Tester
     return ( text == "true" ) ? true : false;
   }
 
+  void TesterController::extract_range( std::string text )
+  {
+    int range_op_position = text.find( ".." );
+    std::string min_string = text.substr( 0, range_op_position );
+    std::string max_string = text.substr( range_op_position+2 );
+
+    constraints[ MIN ] = std::stoi( min_string );
+    constraints[ MAX ] = std::stoi( max_string );
+  }
+
   void TesterController::clear_boolean_constraints()
   {
-    for( int i = 0; i < boolean_constraints.size(); i++ )
+    int QTD_BOOLEAN_CONSTRAINTS = 6;
+
+    for( int i = 0; i < QTD_BOOLEAN_CONSTRAINTS; i++ )
     {
-      boolean_constraints[ i ] = false;
+      constraints[ i ] = false;
     }
+
+    constraints[ MIN_SIZE ] = 1;
+    constraints[ MAX_SIZE ] = 25;
+    constraints[ MIN ] = 1;
+    constraints[ MAX ] = 25;
+    constraints[ SCALE ] = 2;
   }
 }

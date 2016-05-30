@@ -12,7 +12,7 @@ namespace Generator
   class ValueGenerator
   {
     public:
-      std::string generate_string( std::vector<bool>, int = 3, int = 12 );
+      std::string generate_string( std::vector<int> );
 
       std::string generate_integer( int = 100 );
       std::string generate_floating( int = 100, int = 2 );
@@ -23,9 +23,10 @@ namespace Generator
       //   and ValueGenerator::TypeConstraint needs the same.
       //
       enum TypeConstraint {
-        NULLABLE, BLANK, URL, EMAIL, CREDIT_CARD, UNIQUE, IN_LIST,
-        MATCHES, MAX, MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, RANGE,
-        SCALE, SIZE
+        NULLABLE, BLANK, URL, EMAIL, CREDIT_CARD, UNIQUE,
+        MIN_SIZE, MAX_SIZE, MIN, MAX,
+        SCALE, SIZE, RANGE,
+        IN_LIST, NOT_EQUAL, MATCHES
       };
 
       const std::string alphanum =
@@ -43,7 +44,7 @@ namespace Generator
       std::string generate_random_url( int, int );
       std::string generate_random_credit_card();
 
-      int verify_type_constraint( std::vector<bool> );
+      int verify_type_constraint( std::vector<int> );
   };
 }
 
