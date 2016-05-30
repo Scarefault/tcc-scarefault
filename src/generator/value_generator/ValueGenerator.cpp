@@ -130,9 +130,32 @@ namespace Generator
     return std::to_string( random_integer );
   }
 
-  std::string ValueGenerator::generate_floating( int max, int scale )
+  std::string ValueGenerator::generate_floating( std::vector<int> constraints )
   {
-    double random_integer = rand() % max;
+    std::string random_floating;
+    int min = constraints[ MIN ];
+    int max = constraints[ MAX ];
+    int scale = constraints[ SCALE ];
+
+    switch( verify_type_constraint( constraints ) )
+    {
+      case NULLABLE:
+          random_floating = null;
+        break;
+      case MAX:
+      case MIN:
+      case SCALE:
+      case RANGE:
+          random_floating = generate_random_floating( min, max, scale );
+        break;
+    }
+
+    return random_integer;
+  }
+
+  std::string ValueGenerator::generate_random_floating( int, min, int max, int scale )
+  {
+    double random_integer = rand() % ( max-min ) + min;
     double fractional = pow( 0.5, scale );
 
     double random_double = random_integer + fractional;

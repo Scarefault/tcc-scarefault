@@ -15,7 +15,7 @@ namespace Generator
       std::string generate_string( std::vector<int> );
 
       std::string generate_integer( std::vector<int> );
-      std::string generate_floating( int = 100, int = 2 );
+      std::string generate_floating( std::vector<int> );
       std::string generate_boolean();
 
     private:
@@ -44,6 +44,7 @@ namespace Generator
       std::string generate_random_url( int, int );
       std::string generate_random_credit_card();
       std::string generate_random_integer( int, int );
+      std::string generate_random_floating( int, int, int );
 
       int verify_type_constraint( std::vector<int> );
   };
