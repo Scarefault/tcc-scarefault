@@ -59,6 +59,7 @@ namespace Tester
       void create_params( std::fstream * );
       std::string create_value( Helper::Propriety );
       std::string create_string( Helper::Propriety );
+      std::string create_integer( Helper::Propriety );
 
       bool is_string( Helper::Propriety );
       bool is_integer( Helper::Propriety );
@@ -67,7 +68,8 @@ namespace Tester
 
       bool convert_to_bool( std::string );
       void extract_size( std::string );
-      void clear_boolean_constraints();
+      void extract_range( std::string );
+      void clear_constraints();
   };
 }
 

@@ -94,7 +94,7 @@ namespace Tester
       value = create_string( propriety );
     } else if( is_integer( propriety ) )
     {
-      value = "0";
+      value = create_integer( propriety );
     } else if( is_floating( propriety ) )
     {
       value = value_generator.generate_floating();
@@ -111,7 +111,7 @@ namespace Tester
 
   std::string TesterController::create_string( Helper::Propriety propriety )
   {
-    clear_boolean_constraints();
+    clear_constraints();
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
@@ -147,6 +147,40 @@ namespace Tester
     }
 
     return value_generator.generate_string( constraints );
+  }
+
+  std::string TesterController::create_integer( Helper::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
+    {
+      Helper::Constraint constraint = propriety.contraints[ i ];
+
+      for( int type = 0; type < type_constraint.size(); type++ )
+      {
+        if( !constraint.name.compare( type_constraint[ type ] ) )
+        {
+          switch( type )
+          {
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case MAX:
+              constraints[ MAX ] = std::stoi( constraint.value );
+              break;
+            case MIN:
+              constraints[ MIN ] = std::stoi( constraint.value );
+              break;
+            case RANGE:
+              extract_range( constraint.value );
+              break;
+          }
+        }
+      }
+    }
+
+    return value_generator.generate_integer( constraints );
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )
@@ -474,7 +508,17 @@ namespace Tester
     constraints[ MAX_SIZE ] = std::stoi( max_string );
   }
 
-  void TesterController::clear_boolean_constraints()
+  void TesterController::extract_range( std::string text )
+  {
+    int range_op_position = text.find( ".." );
+    std::string min_string = text.substr( 0, range_op_position );
+    std::string max_string = text.substr( range_op_position+2 );
+
+    constraints[ MIN ] = std::stoi( min_string );
+    constraints[ MAX ] = std::stoi( max_string );
+  }
+
+  void TesterController::clear_constraints()
   {
     int QTD_BOOLEAN_CONSTRAINTS = 6;
 
