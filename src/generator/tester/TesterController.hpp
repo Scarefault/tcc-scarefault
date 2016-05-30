@@ -16,16 +16,29 @@ namespace Tester
       void write_data();
 
     private:
+      // Order of elements of type_constraint, TesterController::TypeConstraint
+      //   and ValueGenerator::TypeConstraint needs the same.
+      //
       enum TypeConstraint {
-        BLANK, CREDIT_CARD, EMAIL, IN_LIST, MATCHES, MAX,
-        MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, NULLABLE, RANGE,
-        SCALE, SIZE, UNIQUE, URL
+        NULLABLE, BLANK, URL, EMAIL, CREDIT_CARD, UNIQUE,
+        MIN_SIZE, MAX_SIZE, MIN, MAX,
+        SCALE, SIZE, RANGE,
+        IN_LIST, NOT_EQUAL, MATCHES
       };
 
+      // Order of elements of type_constraint, TesterController::TypeConstraint
+      //   and ValueGenerator::TypeConstraint needs the same.
+      //
       const std::vector<std::string> type_constraint {
-        "blank", "creditCard", "email", "inList", "matches", "max", "maxSize",
-        "min", "minSize", "notEqual", "nullable", "range", "scale", "size",
-        "unique", "url"
+        "nullable", "blank", "url", "email", "creditCard", "unique",
+        "minSize", "maxSize", "min", "max",
+        "scale", "size", "range",
+        "inList", "notEqual", "matches"
+      };
+
+      std::vector<int> constraints {
+        false, false, false, false, false, false,
+        1, 25, 1, 9999, 2
       };
 
       Generator::ValueGenerator value_generator;
@@ -46,11 +59,18 @@ namespace Tester
       void create_params( std::fstream * );
       std::string create_value( Helper::Propriety );
       std::string create_string( Helper::Propriety );
+      std::string create_integer( Helper::Propriety );
+      std::string create_floating( Helper::Propriety );
 
       bool is_string( Helper::Propriety );
       bool is_integer( Helper::Propriety );
       bool is_floating( Helper::Propriety );
       bool is_boolean( Helper::Propriety );
+
+      bool convert_to_bool( std::string );
+      void extract_size( std::string );
+      void extract_range( std::string );
+      void clear_constraints();
   };
 }
 

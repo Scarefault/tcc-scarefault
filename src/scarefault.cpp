@@ -8,6 +8,8 @@ using namespace Tester;
 
 int main( int argc, char **argv )
 {
+  srand( time( NULL ) );
+
   Parser parser;
   parser.parse();
 

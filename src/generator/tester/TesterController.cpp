@@ -94,10 +94,10 @@ namespace Tester
       value = create_string( propriety );
     } else if( is_integer( propriety ) )
     {
-      value = value_generator.generate_integer();
+      value = create_integer( propriety );
     } else if( is_floating( propriety ) )
     {
-      value = value_generator.generate_floating();
+      value = create_floating( propriety );
     } else if( is_boolean( propriety ) )
     {
       value = value_generator.generate_boolean();
@@ -111,13 +111,7 @@ namespace Tester
 
   std::string TesterController::create_string( Helper::Propriety propriety )
   {
-    bool blank = false;
-    bool credit_card = false;
-    bool email = false;
-    bool nullable = false;
-    bool url = false;
-    int min = 3;
-    int max = 12;
+    clear_constraints();
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
@@ -127,43 +121,103 @@ namespace Tester
       {
         if( !constraint.name.compare( type_constraint[ type ] ) )
         {
-          std::string min_string;
-          std::string max_string;
-          int range_op_position;
-
           switch( type )
           {
             case BLANK:
-              blank = ( constraint.value == "true" ) ? true : false;
+              constraints[ BLANK ] = convert_to_bool( constraint.value );
               break;
             case CREDIT_CARD:
-              credit_card = ( constraint.value == "true" ) ? true : false;
+              constraints[ CREDIT_CARD ] = convert_to_bool( constraint.value );
               break;
             case EMAIL:
-              email = ( constraint.value == "true" ) ? true : false;
+              constraints[ EMAIL ] = convert_to_bool( constraint.value );
               break;
             case NULLABLE:
-              nullable = ( constraint.value == "true" ) ? true : false;
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
               break;
             case SIZE:
-              range_op_position = constraint.value.find( ".." );
-              min_string = constraint.value.substr( 0, range_op_position );
-              max_string = constraint.value.substr( range_op_position+2 );
-              min = std::stoi( min_string );
-              max = std::stoi( max_string );
+              extract_size( constraint.value );
+              break;
             case URL:
-              url = ( constraint.value == "true" ) ? true : false;
+              constraints[ URL ] = convert_to_bool( constraint.value );
               break;
           }
         }
       }
     }
 
-    std::vector<bool> boolean_data {
-      nullable, blank, url, email, credit_card
-    };
+    return value_generator.generate_string( constraints );
+  }
 
-    return value_generator.generate_string( boolean_data, min, max );
+  std::string TesterController::create_integer( Helper::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
+    {
+      Helper::Constraint constraint = propriety.contraints[ i ];
+
+      for( int type = 0; type < type_constraint.size(); type++ )
+      {
+        if( !constraint.name.compare( type_constraint[ type ] ) )
+        {
+          switch( type )
+          {
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case MAX:
+              constraints[ MAX ] = std::stoi( constraint.value );
+              break;
+            case MIN:
+              constraints[ MIN ] = std::stoi( constraint.value );
+              break;
+            case RANGE:
+              extract_range( constraint.value );
+              break;
+          }
+        }
+      }
+    }
+
+    return value_generator.generate_integer( constraints );
+  }
+
+  std::string TesterController::create_floating( Helper::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
+    {
+      Helper::Constraint constraint = propriety.contraints[ i ];
+
+      for( int type = 0; type < type_constraint.size(); type++ )
+      {
+        if( !constraint.name.compare( type_constraint[ type ] ) )
+        {
+          switch( type )
+          {
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case MAX:
+              constraints[ MAX ] = std::stoi( constraint.value );
+              break;
+            case MIN:
+              constraints[ MIN ] = std::stoi( constraint.value );
+              break;
+            case SCALE:
+              constraints[ SCALE ] = std::stoi( constraint.value );
+              break;
+            case RANGE:
+              extract_range( constraint.value );
+              break;
+          }
+        }
+      }
+    }
+
+    return value_generator.generate_floating( constraints );
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )
@@ -474,5 +528,46 @@ namespace Tester
     }
 
     return is_boolean;
+  }
+
+  bool TesterController::convert_to_bool( std::string text )
+  {
+    return ( text == "true" ) ? true : false;
+  }
+
+  void TesterController::extract_size( std::string text )
+  {
+    int range_op_position = text.find( ".." );
+    std::string min_string = text.substr( 0, range_op_position );
+    std::string max_string = text.substr( range_op_position+2 );
+
+    constraints[ MIN_SIZE ] = std::stoi( min_string );
+    constraints[ MAX_SIZE ] = std::stoi( max_string );
+  }
+
+  void TesterController::extract_range( std::string text )
+  {
+    int range_op_position = text.find( ".." );
+    std::string min_string = text.substr( 0, range_op_position );
+    std::string max_string = text.substr( range_op_position+2 );
+
+    constraints[ MIN ] = std::stoi( min_string );
+    constraints[ MAX ] = std::stoi( max_string );
+  }
+
+  void TesterController::clear_constraints()
+  {
+    int QTD_BOOLEAN_CONSTRAINTS = 6;
+
+    for( int i = 0; i < QTD_BOOLEAN_CONSTRAINTS; i++ )
+    {
+      constraints[ i ] = false;
+    }
+
+    constraints[ MIN_SIZE ] = 1;
+    constraints[ MAX_SIZE ] = 25;
+    constraints[ MIN ] = 1;
+    constraints[ MAX ] = 999;
+    constraints[ SCALE ] = 2;
   }
 }

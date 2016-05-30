@@ -3,11 +3,13 @@
 namespace Generator
 {
   std::string
-    ValueGenerator::generate_string( std::vector<bool> bool_data, int min, int max )
+    ValueGenerator::generate_string( std::vector<int> constraints )
   {
     std::string random_string;
+    int min_size = constraints[ MIN_SIZE ];
+    int max_size = constraints[ MAX_SIZE ];
 
-    switch( verify_type_constraint( bool_data ) )
+    switch( verify_type_constraint( constraints ) )
     {
       case NULLABLE:
         random_string = null;
@@ -16,16 +18,18 @@ namespace Generator
         random_string = empty_string;
         break;
       case URL:
-        random_string = generate_random_url( min, max );
+        random_string = generate_random_url( min_size, max_size );
         break;
       case EMAIL:
-        random_string = generate_random_email( min, max );
+        random_string = generate_random_email( min_size, max_size );
         break;
       case CREDIT_CARD:
         random_string = generate_random_credit_card();
         break;
+      case MIN_SIZE:
+      case MAX_SIZE:
       case SIZE:
-        random_string = generate_random_string( min, max );
+        random_string = generate_random_string( min_size, max_size );
         break;
     }
 
@@ -34,8 +38,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_random_string( int min, int max )
   {
-    srand( time( NULL ) );
-
     std::string random_string( "\"" );
 
     int size = rand() % ( max-min ) + min;
@@ -52,8 +54,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_random_email( int min, int max )
   {
-    srand( time( NULL ) );
-
     std::string random_email( "\"" );
 
     int size = rand() % ( max-min ) + min;
@@ -73,8 +73,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_random_url( int min, int max )
   {
-    srand( time( NULL ) );
-
     std::string random_url( "\"www." );
 
     int size = rand() % ( max-min ) + min;
@@ -96,7 +94,6 @@ namespace Generator
       "4485563878726", "4716555160701", "4172379054151", "4916012101617",
       "4929190395208", "4508797568381" };
 
-    srand( time( NULL ) );
     int index = rand() % 10;
 
     std::string random_card( "\"" );
@@ -106,28 +103,69 @@ namespace Generator
     return random_card;
   }
 
-  std::string ValueGenerator::generate_integer( int max )
+  std::string ValueGenerator::generate_integer( std::vector<int> constraints )
   {
-    srand( time( NULL ) );
-    int random_integer = rand() % max;
+    std::string random_integer;
+    int min = constraints[ MIN ];
+    int max = constraints[ MAX ];
+
+    switch( verify_type_constraint( constraints ) )
+    {
+      case NULLABLE:
+          random_integer = null;
+        break;
+      case MAX:
+      case MIN:
+      case RANGE:
+          random_integer = generate_random_integer( min, max );
+        break;
+    }
+
+    return random_integer;
+  }
+
+  std::string ValueGenerator::generate_random_integer( int min, int max )
+  {
+    int random_integer = rand() % ( max-min ) + min;
     return std::to_string( random_integer );
   }
 
-  std::string ValueGenerator::generate_floating( int max, int scale )
+  std::string ValueGenerator::generate_floating( std::vector<int> constraints )
   {
-    srand( time( NULL ) );
+    std::string random_floating;
+    int min = constraints[ MIN ];
+    int max = constraints[ MAX ];
+    int scale = constraints[ SCALE ];
 
-    double random_integer = rand() % max;
-    double fractional = pow( 0.5, scale );
+    switch( verify_type_constraint( constraints ) )
+    {
+      case NULLABLE:
+          random_floating = null;
+        break;
+      case MAX:
+      case MIN:
+      case SCALE:
+      case RANGE:
+          random_floating = generate_random_floating( min, max, scale );
+        break;
+    }
 
-    double random_double = random_integer + fractional;
-    return std::to_string( random_double );
+    return random_floating;
+  }
+
+  std::string ValueGenerator::generate_random_floating( int min, int max, int scale )
+  {
+    double random_floating = rand() % ( max-min ) + min;
+    random_floating += 0.521347;
+
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision( scale ) << random_floating;
+
+    return stream.str();
   }
 
   std::string ValueGenerator::generate_boolean()
   {
-    srand( time( NULL ) );
-
     int result = rand() % 2;
     std::string random_boolean;
 
@@ -142,19 +180,28 @@ namespace Generator
     return random_boolean;
   }
 
-  int ValueGenerator::verify_type_constraint( std::vector<bool> bool_data )
+  int ValueGenerator::verify_type_constraint( std::vector<int> constraints )
   {
-    bool nullable = bool_data[ 0 ];
-    bool blank = bool_data[ 1 ];
-    bool url = bool_data[ 2 ];
-    bool email = bool_data[ 3 ];
-    bool credit_card = bool_data[ 4 ];
+    int nullable = constraints[ NULLABLE ], blank = constraints[ BLANK ],
+    url = constraints[ URL ], email = constraints[ EMAIL ],
+    credit_card = constraints[ CREDIT_CARD ], unique = constraints[ UNIQUE ],
+    min_size = constraints[ MIN_SIZE ], max_size = constraints[ MAX_SIZE ],
+    min = constraints[ MIN ], max = constraints[ MAX ],
+    scale = constraints[ SCALE ];
 
     int result = ( nullable ? NULLABLE :
                  ( blank ? BLANK :
                  ( url ? URL :
                  ( email ? EMAIL :
-                 ( credit_card ? CREDIT_CARD : SIZE )))));
+                 ( credit_card ? CREDIT_CARD :
+                 ( unique ? UNIQUE :
+                 ( (min_size != 1 && max_size != 25) ? SIZE :
+                 ( (min != 1 && max != 25) ? RANGE :
+                 ( (min_size != 1) ? MIN_SIZE :
+                 ( (max_size != 25) ? MAX_SIZE :
+                 ( (min != 1) ? MIN :
+                 ( (max != 25) ? MAX :
+                 ( scale ? SCALE : MATCHES )))))))))))));
 
     return result;
   }

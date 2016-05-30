@@ -2,7 +2,9 @@
 #define VALUE_GENERATOR_HPP_
 
 #include <string>
+#include <sstream>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <cmath>
 #include <ctime>
@@ -12,17 +14,21 @@ namespace Generator
   class ValueGenerator
   {
     public:
-      std::string generate_string( std::vector<bool>, int = 3, int = 12 );
+      std::string generate_string( std::vector<int> );
 
-      std::string generate_integer( int = 100 );
-      std::string generate_floating( int = 100, int = 2 );
+      std::string generate_integer( std::vector<int> );
+      std::string generate_floating( std::vector<int> );
       std::string generate_boolean();
 
     private:
+      // Order of elements of type_constraint, TesterController::TypeConstraint
+      //   and ValueGenerator::TypeConstraint needs the same.
+      //
       enum TypeConstraint {
-        BLANK, CREDIT_CARD, EMAIL, IN_LIST, MATCHES, MAX,
-        MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, NULLABLE, RANGE,
-        SCALE, SIZE, UNIQUE, URL
+        NULLABLE, BLANK, URL, EMAIL, CREDIT_CARD, UNIQUE,
+        MIN_SIZE, MAX_SIZE, MIN, MAX,
+        SCALE, SIZE, RANGE,
+        IN_LIST, NOT_EQUAL, MATCHES
       };
 
       const std::string alphanum =
@@ -35,12 +41,14 @@ namespace Generator
       const std::string null = "null";
       const std::string empty_string = "";
 
-        std::string generate_random_string( int, int );
-        std::string generate_random_email( int, int );
-        std::string generate_random_url( int, int );
-        std::string generate_random_credit_card();
+      std::string generate_random_string( int, int );
+      std::string generate_random_email( int, int );
+      std::string generate_random_url( int, int );
+      std::string generate_random_credit_card();
+      std::string generate_random_integer( int, int );
+      std::string generate_random_floating( int, int, int );
 
-        int verify_type_constraint( std::vector<bool> );
+      int verify_type_constraint( std::vector<int> );
   };
 }
 
