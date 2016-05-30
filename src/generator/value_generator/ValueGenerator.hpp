@@ -19,10 +19,13 @@ namespace Generator
       std::string generate_boolean();
 
     private:
+      // Order of elements of type_constraint, TesterController::TypeConstraint
+      //   and ValueGenerator::TypeConstraint needs the same.
+      //
       enum TypeConstraint {
-        BLANK, CREDIT_CARD, EMAIL, IN_LIST, MATCHES, MAX,
-        MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, NULLABLE, RANGE,
-        SCALE, SIZE, UNIQUE, URL
+        NULLABLE, BLANK, URL, EMAIL, CREDIT_CARD, UNIQUE, IN_LIST,
+        MATCHES, MAX, MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, RANGE,
+        SCALE, SIZE
       };
 
       const std::string alphanum =
@@ -35,12 +38,12 @@ namespace Generator
       const std::string null = "null";
       const std::string empty_string = "";
 
-        std::string generate_random_string( int, int );
-        std::string generate_random_email( int, int );
-        std::string generate_random_url( int, int );
-        std::string generate_random_credit_card();
+      std::string generate_random_string( int, int );
+      std::string generate_random_email( int, int );
+      std::string generate_random_url( int, int );
+      std::string generate_random_credit_card();
 
-        int verify_type_constraint( std::vector<bool> );
+      int verify_type_constraint( std::vector<bool> );
   };
 }
 

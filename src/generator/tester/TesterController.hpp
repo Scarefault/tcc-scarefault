@@ -16,16 +16,26 @@ namespace Tester
       void write_data();
 
     private:
+      // Order of elements of type_constraint, TesterController::TypeConstraint
+      //   and ValueGenerator::TypeConstraint needs the same.
+      //
       enum TypeConstraint {
-        BLANK, CREDIT_CARD, EMAIL, IN_LIST, MATCHES, MAX,
-        MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, NULLABLE, RANGE,
-        SCALE, SIZE, UNIQUE, URL
+        NULLABLE, BLANK, URL, EMAIL, CREDIT_CARD, UNIQUE, IN_LIST,
+        MATCHES, MAX, MAX_SIZE, MIN, MIN_SIZE, NOT_EQUAL, RANGE,
+        SCALE, SIZE
       };
 
+      // Order of elements of type_constraint, TesterController::TypeConstraint
+      //   and ValueGenerator::TypeConstraint needs the same.
+      //
       const std::vector<std::string> type_constraint {
-        "blank", "creditCard", "email", "inList", "matches", "max", "maxSize",
-        "min", "minSize", "notEqual", "nullable", "range", "scale", "size",
-        "unique", "url"
+        "nullable", "blank", "url", "email", "creditCard", "unique", "inList",
+        "matches", "max", "maxSize", "min", "minSize", "notEqual", "range",
+        "scale", "size"
+      };
+
+      std::vector<bool> boolean_constraints {
+        false, false, false, false, false, false
       };
 
       Generator::ValueGenerator value_generator;
@@ -51,6 +61,9 @@ namespace Tester
       bool is_integer( Helper::Propriety );
       bool is_floating( Helper::Propriety );
       bool is_boolean( Helper::Propriety );
+
+      bool convert_to_bool( std::string );
+      void clear_boolean_constraints();
   };
 }
 

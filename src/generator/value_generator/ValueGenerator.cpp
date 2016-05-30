@@ -3,11 +3,10 @@
 namespace Generator
 {
   std::string
-    ValueGenerator::generate_string( std::vector<bool> bool_data, int min, int max )
+    ValueGenerator::generate_string( std::vector<bool> bool_constraints, int min, int max )
   {
     std::string random_string;
-
-    switch( verify_type_constraint( bool_data ) )
+    switch( verify_type_constraint( bool_constraints ) )
     {
       case NULLABLE:
         random_string = null;
@@ -34,8 +33,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_random_string( int min, int max )
   {
-    srand( time( NULL ) );
-
     std::string random_string( "\"" );
 
     int size = rand() % ( max-min ) + min;
@@ -52,8 +49,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_random_email( int min, int max )
   {
-    srand( time( NULL ) );
-
     std::string random_email( "\"" );
 
     int size = rand() % ( max-min ) + min;
@@ -73,8 +68,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_random_url( int min, int max )
   {
-    srand( time( NULL ) );
-
     std::string random_url( "\"www." );
 
     int size = rand() % ( max-min ) + min;
@@ -96,7 +89,6 @@ namespace Generator
       "4485563878726", "4716555160701", "4172379054151", "4916012101617",
       "4929190395208", "4508797568381" };
 
-    srand( time( NULL ) );
     int index = rand() % 10;
 
     std::string random_card( "\"" );
@@ -106,17 +98,15 @@ namespace Generator
     return random_card;
   }
 
-  std::string ValueGenerator::generate_integer( int max )
+  std::string ValueGenerator::generate_integer( int min )
   {
-    srand( time( NULL ) );
-    int random_integer = rand() % max;
-    return std::to_string( random_integer );
+    std::string random_integer = "0";
+
+    return random_integer;
   }
 
   std::string ValueGenerator::generate_floating( int max, int scale )
   {
-    srand( time( NULL ) );
-
     double random_integer = rand() % max;
     double fractional = pow( 0.5, scale );
 
@@ -126,8 +116,6 @@ namespace Generator
 
   std::string ValueGenerator::generate_boolean()
   {
-    srand( time( NULL ) );
-
     int result = rand() % 2;
     std::string random_boolean;
 
@@ -142,20 +130,25 @@ namespace Generator
     return random_boolean;
   }
 
-  int ValueGenerator::verify_type_constraint( std::vector<bool> bool_data )
+  int ValueGenerator::verify_type_constraint( std::vector<bool> bool_constraints )
   {
-    bool nullable = bool_data[ 0 ];
-    bool blank = bool_data[ 1 ];
-    bool url = bool_data[ 2 ];
-    bool email = bool_data[ 3 ];
-    bool credit_card = bool_data[ 4 ];
+    bool nullable = bool_constraints[ NULLABLE ];
+    bool blank = bool_constraints[ BLANK ];
+    bool url = bool_constraints[ URL ];
+    bool email = bool_constraints[ EMAIL ];
+    bool credit_card = bool_constraints[ CREDIT_CARD ];
+    std::cout << "nullable: " << nullable << "\n";
+    std::cout << "blank: " << blank << "\n";
+    std::cout << "url: " << url << "\n";
+    std::cout << "email: " << email << "\n";
+    std::cout << "credit_card: " << credit_card << "\n";
 
     int result = ( nullable ? NULLABLE :
                  ( blank ? BLANK :
                  ( url ? URL :
                  ( email ? EMAIL :
                  ( credit_card ? CREDIT_CARD : SIZE )))));
-
+    std::cout << "verify_type: " << result << "\n\n";
     return result;
   }
 }

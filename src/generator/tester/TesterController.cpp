@@ -94,7 +94,7 @@ namespace Tester
       value = create_string( propriety );
     } else if( is_integer( propriety ) )
     {
-      value = value_generator.generate_integer();
+      value = "0";
     } else if( is_floating( propriety ) )
     {
       value = value_generator.generate_floating();
@@ -111,11 +111,8 @@ namespace Tester
 
   std::string TesterController::create_string( Helper::Propriety propriety )
   {
-    bool blank = false;
-    bool credit_card = false;
-    bool email = false;
-    bool nullable = false;
-    bool url = false;
+    clear_boolean_constraints();
+
     int min = 3;
     int max = 12;
 
@@ -130,20 +127,20 @@ namespace Tester
           std::string min_string;
           std::string max_string;
           int range_op_position;
-
+          std::cout << "type: " << type << "\n";
           switch( type )
           {
             case BLANK:
-              blank = ( constraint.value == "true" ) ? true : false;
+              boolean_constraints[ BLANK ] = convert_to_bool( constraint.value );
               break;
             case CREDIT_CARD:
-              credit_card = ( constraint.value == "true" ) ? true : false;
+              boolean_constraints[ CREDIT_CARD ] = convert_to_bool( constraint.value );
               break;
             case EMAIL:
-              email = ( constraint.value == "true" ) ? true : false;
+              boolean_constraints[ EMAIL ] = convert_to_bool( constraint.value );
               break;
             case NULLABLE:
-              nullable = ( constraint.value == "true" ) ? true : false;
+              boolean_constraints[ NULLABLE ] = convert_to_bool( constraint.value );
               break;
             case SIZE:
               range_op_position = constraint.value.find( ".." );
@@ -151,19 +148,16 @@ namespace Tester
               max_string = constraint.value.substr( range_op_position+2 );
               min = std::stoi( min_string );
               max = std::stoi( max_string );
+              break;
             case URL:
-              url = ( constraint.value == "true" ) ? true : false;
+              boolean_constraints[ URL ] = convert_to_bool( constraint.value );
               break;
           }
         }
       }
     }
 
-    std::vector<bool> boolean_data {
-      nullable, blank, url, email, credit_card
-    };
-
-    return value_generator.generate_string( boolean_data, min, max );
+    return value_generator.generate_string( boolean_constraints, min, max );
   }
 
   void TesterController::make_test_index( std::fstream * test_stream )
@@ -474,5 +468,18 @@ namespace Tester
     }
 
     return is_boolean;
+  }
+
+  bool TesterController::convert_to_bool( std::string text )
+  {
+    return ( text == "true" ) ? true : false;
+  }
+
+  void TesterController::clear_boolean_constraints()
+  {
+    for( int i = 0; i < boolean_constraints.size(); i++ )
+    {
+      boolean_constraints[ i ] = false;
+    }
   }
 }
