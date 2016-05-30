@@ -38,7 +38,7 @@ namespace Tester
 
       std::vector<int> constraints {
         false, false, false, false, false, false,
-        1, 25, 1, 25, 2
+        1, 25, 1, 9999, 2
       };
 
       Generator::ValueGenerator value_generator;
@@ -66,7 +66,7 @@ namespace Tester
       bool is_boolean( Helper::Propriety );
 
       bool convert_to_bool( std::string );
-      void extract_range( std::string );
+      void extract_size( std::string );
       void clear_boolean_constraints();
   };
 }

@@ -6,8 +6,8 @@ namespace Generator
     ValueGenerator::generate_string( std::vector<int> constraints )
   {
     std::string random_string;
-    int min = constraints[ MIN ];
-    int max = constraints[ MAX ];
+    int min_size = constraints[ MIN_SIZE ];
+    int max_size = constraints[ MAX_SIZE ];
 
     switch( verify_type_constraint( constraints ) )
     {
@@ -18,16 +18,18 @@ namespace Generator
         random_string = empty_string;
         break;
       case URL:
-        random_string = generate_random_url( min, max );
+        random_string = generate_random_url( min_size, max_size );
         break;
       case EMAIL:
-        random_string = generate_random_email( min, max );
+        random_string = generate_random_email( min_size, max_size );
         break;
       case CREDIT_CARD:
         random_string = generate_random_credit_card();
         break;
+      case MIN_SIZE:
+      case MAX_SIZE:
       case SIZE:
-        random_string = generate_random_string( min, max );
+        random_string = generate_random_string( min_size, max_size );
         break;
     }
 
@@ -101,11 +103,31 @@ namespace Generator
     return random_card;
   }
 
-  std::string ValueGenerator::generate_integer( int min )
+  std::string ValueGenerator::generate_integer( std::vector<int> constraints )
   {
-    std::string random_integer = "0";
+    std::string random_integer;
+    int min = constraints[ MIN ];
+    int max = constraints[ MAX ];
+
+    switch( verify_type_constraint( constraints ) )
+    {
+      case NULLABLE:
+          random_integer = null;
+        break;
+      case MAX:
+      case MIN:
+      case RANGE:
+          random_integer = generate_random_integer( min, max );
+        break;
+    }
 
     return random_integer;
+  }
+
+  std::string ValueGenerator::generate_random_integer( int min, int max )
+  {
+    int random_integer = rand() % ( max-min ) + min;
+    return std::to_string( random_integer );
   }
 
   std::string ValueGenerator::generate_floating( int max, int scale )
@@ -135,17 +157,26 @@ namespace Generator
 
   int ValueGenerator::verify_type_constraint( std::vector<int> constraints )
   {
-    bool nullable = constraints[ NULLABLE ];
-    bool blank = constraints[ BLANK ];
-    bool url = constraints[ URL ];
-    bool email = constraints[ EMAIL ];
-    bool credit_card = constraints[ CREDIT_CARD ];
+    int nullable = constraints[ NULLABLE ], blank = constraints[ BLANK ],
+    url = constraints[ URL ], email = constraints[ EMAIL ],
+    credit_card = constraints[ CREDIT_CARD ], unique = constraints[ UNIQUE ],
+    min_size = constraints[ MIN_SIZE ], max_size = constraints[ MAX_SIZE ],
+    min = constraints[ MIN ], max = constraints[ MAX ],
+    scale = constraints[ SCALE ];
 
     int result = ( nullable ? NULLABLE :
                  ( blank ? BLANK :
                  ( url ? URL :
                  ( email ? EMAIL :
-                 ( credit_card ? CREDIT_CARD : SIZE )))));
+                 ( credit_card ? CREDIT_CARD :
+                 ( unique ? UNIQUE :
+                 ( (min_size != 1 && max_size != 25) ? SIZE :
+                 ( (min != 1 && max != 25) ? RANGE :
+                 ( (min_size != 1) ? MIN_SIZE :
+                 ( (max_size != 25) ? MAX_SIZE :
+                 ( (min != 1) ? MIN :
+                 ( (max != 25) ? MAX :
+                 ( scale ? SCALE : MATCHES )))))))))))));
 
     return result;
   }

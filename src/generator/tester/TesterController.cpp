@@ -136,7 +136,7 @@ namespace Tester
               constraints[ NULLABLE ] = convert_to_bool( constraint.value );
               break;
             case SIZE:
-              extract_range( constraint.value );
+              extract_size( constraint.value );
               break;
             case URL:
               constraints[ URL ] = convert_to_bool( constraint.value );
@@ -464,14 +464,14 @@ namespace Tester
     return ( text == "true" ) ? true : false;
   }
 
-  void TesterController::extract_range( std::string text )
+  void TesterController::extract_size( std::string text )
   {
     int range_op_position = text.find( ".." );
     std::string min_string = text.substr( 0, range_op_position );
     std::string max_string = text.substr( range_op_position+2 );
 
-    constraints[ MIN ] = std::stoi( min_string );
-    constraints[ MAX ] = std::stoi( max_string );
+    constraints[ MIN_SIZE ] = std::stoi( min_string );
+    constraints[ MAX_SIZE ] = std::stoi( max_string );
   }
 
   void TesterController::clear_boolean_constraints()
@@ -486,7 +486,7 @@ namespace Tester
     constraints[ MIN_SIZE ] = 1;
     constraints[ MAX_SIZE ] = 25;
     constraints[ MIN ] = 1;
-    constraints[ MAX ] = 25;
+    constraints[ MAX ] = 999;
     constraints[ SCALE ] = 2;
   }
 }
