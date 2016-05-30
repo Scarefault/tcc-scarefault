@@ -22,7 +22,7 @@ namespace Generator
         random_string = generate_random_email( min, max );
         break;
       case CREDIT_CARD:
-        random_string = "\"4556647559902\"";
+        random_string = generate_random_credit_card();
         break;
       case SIZE:
         random_string = generate_random_string( min, max );
@@ -87,6 +87,23 @@ namespace Generator
     random_url.append( ".com" );
 
     return random_url;
+  }
+
+  std::string ValueGenerator::generate_random_credit_card()
+  {
+    std::vector<std::string> card_numbers {
+      "4532940024597", "4916893184492", "4916267903709", "4916547540461",
+      "4485563878726", "4716555160701", "4172379054151", "4916012101617",
+      "4929190395208", "4508797568381" };
+
+    srand( time( NULL ) );
+    int index = rand() % 10;
+
+    std::string random_card( "\"" );
+    random_card.append( card_numbers[ index ] );
+    random_card.append( "\"" );
+
+    return random_card;
   }
 
   std::string ValueGenerator::generate_integer( int max )

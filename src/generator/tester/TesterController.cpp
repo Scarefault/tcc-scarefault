@@ -142,12 +142,6 @@ namespace Tester
             case EMAIL:
               email = ( constraint.value == "true" ) ? true : false;
               break;
-            case IN_LIST:
-              break;
-            case MATCHES:
-              break;
-            case NOT_EQUAL:
-              break;
             case NULLABLE:
               nullable = ( constraint.value == "true" ) ? true : false;
               break;
@@ -157,8 +151,6 @@ namespace Tester
               max_string = constraint.value.substr( range_op_position+2 );
               min = std::stoi( min_string );
               max = std::stoi( max_string );
-            case UNIQUE:
-              break;
             case URL:
               url = ( constraint.value == "true" ) ? true : false;
               break;

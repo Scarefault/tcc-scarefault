@@ -38,6 +38,7 @@ namespace Generator
         std::string generate_random_string( int, int );
         std::string generate_random_email( int, int );
         std::string generate_random_url( int, int );
+        std::string generate_random_credit_card();
 
         int verify_type_constraint( std::vector<bool> );
   };
