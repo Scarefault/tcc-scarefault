@@ -2,6 +2,7 @@
 #define DATA_HPP_
 
 #include <vector>
+#include <utility>
 #include <string>
 
 namespace Helper
@@ -26,7 +27,7 @@ namespace Helper
     public:
       std::string param_name;
       std::string param_type;
-      std::vector<Constraint> contraints;
+      std::pair<int, int> range;
   };
 
   class Method
