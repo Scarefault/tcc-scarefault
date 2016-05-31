@@ -1,6 +1,10 @@
 scarefault_stmt:
   word
 | param_scarefault
+| range_scarefault
+| return_scarefault
+| invalid_scarefault
+| expected_scarefault
 ;
 
 param_scarefault:

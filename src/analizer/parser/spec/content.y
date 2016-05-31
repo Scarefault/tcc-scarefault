@@ -349,14 +349,6 @@ try_catch_stmt:
   }
 ;
 
-mvc_stmt:
-  criteria_stmt
-;
-
-criteria_stmt:
-  identifier '.' method_prototype content_stmt
-;
-
 expr:
   value
 | arithmetical_expr {
@@ -366,6 +358,10 @@ expr:
 | creation_expr
 | increment_expr
 | oop_stmt
+| elvis_expr
+| safe_nav_expr
+| mtd_ptr_expr
+| '(' expr ')'
 ;
 
 value:
@@ -408,6 +404,18 @@ creation_expr:
 
 increment_expr:
   expr INCR_OP
+;
+
+elvis_expr:
+  expr ELVIS_OP expr
+;
+
+safe_nav_expr:
+  expr SAFE_NAV_OP expr
+;
+
+mtd_ptr_expr:
+  expr MTD_PTR_OP expr
 ;
 
 type:

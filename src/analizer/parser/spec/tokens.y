@@ -84,7 +84,6 @@
  */
 %right '.'
 %left '(' ')' '[' ']' '{' '}'
-%token SUSPN_DOTS
 
 /*
  * ********** Scarefault Marks **********

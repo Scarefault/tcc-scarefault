@@ -176,11 +176,6 @@ BOOLEAN {TRUE}|{FALSE}
   return matched()[ 0 ];
 }
 
-"..." {
-  *d_val = matched();
-  return Parser::SUSPN_DOTS;
-}
-
 
 // --------------- End of Punctuation Marks ---------------
 
