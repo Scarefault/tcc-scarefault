@@ -26,6 +26,7 @@ namespace Helper
     public:
       std::string param_name;
       std::string param_type;
+      std::vector<Constraint> contraints;
   };
 
   class Method
