@@ -72,11 +72,42 @@ namespace Helper
       method.name = info[ 0 ];
 
       method.params = collect_params( info );
+      this->set_params_range( &method );
 
       this->data.methods.push_back( method );
     } else
     {
       // Nothing To do
+    }
+  }
+
+  void CollectorData::set_params_range( Helper::Method * method )
+  {
+    if( !method->params.empty() )
+    {
+      int index = 0;
+
+      while( !this->collector_scarefault.get_params().empty() )
+      {
+        Helper::Param compared_param = collector_scarefault.get_param( index );
+
+        for( int i = 0; i < method->params.size(); i++ )
+        {
+          if( !method->params[ i ].param_name.compare( compared_param ) )
+          {
+            method->params[ i ].range = compared_param.range;
+            this->collector_scarefault.get_params().pop_back();
+          } else
+          {
+            // Nothing to do
+          }
+        }
+
+        index++;
+      }
+    } else
+    {
+      // NOthing to do
     }
   }
 

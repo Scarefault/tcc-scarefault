@@ -40,4 +40,14 @@ namespace Collector
     std::get<0>( this->params[ this->params.size() ].range ) = min;
     std::get<1>( this->params[ this->params.size() ].range ) = max;
   }
+
+  std::vector<Helper::Param> CollectorScarefault::get_params()
+  {
+    return this->params;
+  }
+
+  Helper::Param CollectorScarefault::get_param( int index )
+  {
+    return this->params[ index ];
+  }
 }

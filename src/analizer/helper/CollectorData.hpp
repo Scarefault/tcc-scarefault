@@ -14,6 +14,7 @@
 #include <vector>
 #include <locale>
 #include "Data.hpp"
+#include "CollectorScarefault.hpp"
 
 namespace Helper
 {
@@ -50,7 +51,10 @@ namespace Helper
       static const char METHOD = 'm';
       static const char PARAM = 'p';
 
+
       Helper::Data data;
+      Collector::CollectoScarefault collector_scarefault;
+
 
       void set_package( std::string );
       void set_class( std::string );
@@ -63,6 +67,7 @@ namespace Helper
       void identify_category( std::string );
       Helper::Param find_param( std::string );
       Helper::Param create_param( std::string * );
+      void set_params_range( Helper::Method );
 
       std::string extract_content_file( std::fstream * );
       std::string extract_content_file( std::string );

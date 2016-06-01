@@ -24,6 +24,8 @@ namespace Collector
 
       void insert_param( std::string );
       void set_range( std::string );
+      std::vector<Helper::Param> get_params();
+      Helper::Param get_param( int );
   };
 }
 
