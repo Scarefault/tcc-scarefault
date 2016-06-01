@@ -72,8 +72,8 @@ namespace Helper
       method.name = info[ 0 ];
 
       method.params = collect_params( info );
-      this->set_params_range( &method );
 
+      this->set_params_range( &method );
       this->data.methods.push_back( method );
     } else
     {
@@ -85,29 +85,29 @@ namespace Helper
   {
     if( !method->params.empty() )
     {
-      int index = 0;
+      int index = this->collector_scarefault.get_params()->size()-1;
 
-      while( !this->collector_scarefault.get_params().empty() )
+      while( !this->collector_scarefault.get_params()->empty() )
       {
         Helper::Param compared_param = collector_scarefault.get_param( index );
 
-        for( int i = 0; i < method->params.size(); i++ )
+        for( int i = method->params.size()-1; i >= 0; i-- )
         {
-          if( !method->params[ i ].param_name.compare( compared_param ) )
+          if( !method->params[ i ].param_name.compare( compared_param.param_name ) )
           {
             method->params[ i ].range = compared_param.range;
-            this->collector_scarefault.get_params().pop_back();
+            this->collector_scarefault.get_params()->pop_back();
           } else
           {
             // Nothing to do
           }
         }
 
-        index++;
+        index--;
       }
     } else
     {
-      // NOthing to do
+      // Nothing to do
     }
   }
 
@@ -172,7 +172,7 @@ namespace Helper
 
   void CollectorData::identify_category( std::string name )
   {
-    if( name.compare( "Controller" ) != std::string::npos )
+    if( name.find( "Controller" ) != std::string::npos )
     {
       std::size_t found = name.find( "Controller" );
       std::string category = name.substr( found );
@@ -184,7 +184,8 @@ namespace Helper
       this->data.category_MVC = category;
     } else
     {
-      // Nothing to do
+      this->data.domain_base = name;
+      this->data.category_MVC = "Domain";
     }
   }
 

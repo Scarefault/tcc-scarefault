@@ -12,10 +12,10 @@ namespace Collector
       switch( *format )
       {
         case PARAM:
-          this->insert_param( va_arg( arguments, char * ) )
+          this->insert_param( va_arg( arguments, char * ) );
           break;
         case RANGE:
-          this->set_range( var_arg( arguments, char * ) );
+          this->set_range( va_arg( arguments, char * ) );
           break;
       }
 
@@ -26,7 +26,7 @@ namespace Collector
   void CollectorScarefault::insert_param( std::string name )
   {
     Helper::Param param;
-    param.param_name = name;
+    param.param_name = remove_spaces( name );
 
     this->params.push_back( param );
   }
@@ -37,17 +37,26 @@ namespace Collector
     std::string min = range.substr( 0, range_op_position );
     std::string max = range.substr( range_op_position+2 );
 
-    std::get<0>( this->params[ this->params.size() ].range ) = min;
-    std::get<1>( this->params[ this->params.size() ].range ) = max;
+    int last_param = this->params.size()-1;
+
+    std::get<0>( this->params[ last_param ].range ) = std::stoi( min );
+    std::get<1>( this->params[ last_param ].range ) = std::stoi( max );
   }
 
-  std::vector<Helper::Param> CollectorScarefault::get_params()
+  std::vector<Helper::Param> * CollectorScarefault::get_params()
   {
-    return this->params;
+    return &params;
   }
 
   Helper::Param CollectorScarefault::get_param( int index )
   {
     return this->params[ index ];
+  }
+
+  std::string CollectorScarefault::remove_spaces( std::string input )
+  {
+    input.erase( std::remove( input.begin(), input.end(), ' ' ), input.end() );
+
+    return input;
   }
 }

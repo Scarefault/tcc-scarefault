@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <cstdarg>
+#include <algorithm>
 
 #include "Data.hpp"
 
@@ -12,6 +14,8 @@ namespace Collector
   {
     public:
       void collect_data( const char *, ... );
+      std::vector<Helper::Param> * get_params();
+      Helper::Param get_param( int );
 
     private:
       static const char EOL = '\0';
@@ -24,8 +28,8 @@ namespace Collector
 
       void insert_param( std::string );
       void set_range( std::string );
-      std::vector<Helper::Param> get_params();
-      Helper::Param get_param( int );
+
+      std::string remove_spaces( std::string );
   };
 }
 

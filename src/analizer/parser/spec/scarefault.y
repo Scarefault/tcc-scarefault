@@ -10,6 +10,9 @@ scarefault_stmt:
 param_scarefault:
   SCAREFAULT_PARAM word {
     log.message( LogSystem::INFO, "stmt: scarefault param" );
+    std::string param_token( $2 );
+
+    collector.collector_scarefault.collect_data( "p", param_token.c_str() );
   }
 ;
 
@@ -26,6 +29,11 @@ range_scarefault:
 range_stmt:
   SCAREFAULT_RANGE value RANGE_OP value {
     log.message( LogSystem::INFO, "stmt: scarefault range" );
+    std::string range( $2 );
+    range.append( ".." );
+    range.append( $4 );
+
+    collector.collector_scarefault.collect_data( "r", range.c_str() );
   }
 ;
 

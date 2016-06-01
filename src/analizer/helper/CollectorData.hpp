@@ -43,6 +43,7 @@ namespace Helper
 
       void collect_data( const char *, ... );
       Helper::Data* get_data();
+      Collector::CollectorScarefault collector_scarefault;
 
     private:
       static const char EOL = '\0';
@@ -53,7 +54,6 @@ namespace Helper
 
 
       Helper::Data data;
-      Collector::CollectoScarefault collector_scarefault;
 
 
       void set_package( std::string );
@@ -67,7 +67,7 @@ namespace Helper
       void identify_category( std::string );
       Helper::Param find_param( std::string );
       Helper::Param create_param( std::string * );
-      void set_params_range( Helper::Method );
+      void set_params_range( Helper::Method * );
 
       std::string extract_content_file( std::fstream * );
       std::string extract_content_file( std::string );
