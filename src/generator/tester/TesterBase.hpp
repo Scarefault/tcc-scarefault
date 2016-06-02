@@ -11,6 +11,7 @@
 #include <iostream>
 #include <locale>
 
+
 #include "../../analizer/helper/Data.hpp"
 
 namespace Tester

@@ -12,6 +12,9 @@ namespace Tester
     if( !category.compare( "Controller" ) )
     {
       instance = new TesterController( ptr_data );
+    } else if( !category.compare( "Domain" ) )
+    {
+      instance = new TesterDomain( ptr_data );
     }
 
     return instance;
