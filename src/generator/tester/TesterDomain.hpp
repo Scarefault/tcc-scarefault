@@ -1,19 +1,10 @@
 #ifndef TESTER_DOMAIN_HPP_
 #define TESTER_DOMAIN_HPP_
 
-#define TESTFILE "testfile.groovy"
 
-#define WRITE std::fstream::out
-#define APPEND std::fstream::app
-
-
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <locale>
-
-
+#include "TesterBase.hpp"
 #include "../../analizer/helper/Data.hpp"
+#include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester
 {
