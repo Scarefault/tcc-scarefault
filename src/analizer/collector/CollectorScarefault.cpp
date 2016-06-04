@@ -25,7 +25,7 @@ namespace Collector
 
   void CollectorScarefault::insert_param( std::string name )
   {
-    Helper::Param param;
+    Collector::Param param;
     param.param_name = remove_spaces( name );
 
     this->params.push_back( param );
@@ -43,12 +43,12 @@ namespace Collector
     std::get<1>( this->params[ last_param ].range ) = std::stoi( max );
   }
 
-  std::vector<Helper::Param> * CollectorScarefault::get_params()
+  std::vector<Collector::Param> * CollectorScarefault::get_params()
   {
     return &params;
   }
 
-  Helper::Param CollectorScarefault::get_param( int index )
+  Collector::Param CollectorScarefault::get_param( int index )
   {
     return this->params[ index ];
   }

@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TesterController::TesterController( Helper::Data * ptr_data )
+  TesterController::TesterController( Collector::Data * ptr_data )
   {
     this->set_data( ptr_data );
   }
@@ -65,7 +65,7 @@ namespace Tester
   {
     for( int i = 0; i < data_ptr->proprieties.size(); i++ )
     {
-      Helper::Propriety propriety = data_ptr->proprieties[ i ];
+      Collector::Propriety propriety = data_ptr->proprieties[ i ];
 
       if( propriety.name.compare( "dateCreated") &&
           propriety.name.compare( "lastUpdated") )
@@ -84,10 +84,10 @@ namespace Tester
     }
   }
 
-  std::string TesterController::create_value( Helper::Propriety propriety )
+  std::string TesterController::create_value( Collector::Propriety propriety )
   {
     std::string value( "VALID VALUE" );
-    std::vector<Helper::Constraint> constraints = propriety.contraints;
+    std::vector<Collector::Constraint> constraints = propriety.contraints;
 
     if( is_string( propriety ) )
     {
@@ -109,13 +109,13 @@ namespace Tester
     return value;
   }
 
-  std::string TesterController::create_string( Helper::Propriety propriety )
+  std::string TesterController::create_string( Collector::Propriety propriety )
   {
     clear_constraints();
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      Helper::Constraint constraint = propriety.contraints[ i ];
+      Collector::Constraint constraint = propriety.contraints[ i ];
 
       for( int type = 0; type < type_constraint.size(); type++ )
       {
@@ -149,13 +149,13 @@ namespace Tester
     return value_generator.generate_string( constraints );
   }
 
-  std::string TesterController::create_integer( Helper::Propriety propriety )
+  std::string TesterController::create_integer( Collector::Propriety propriety )
   {
     clear_constraints();
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      Helper::Constraint constraint = propriety.contraints[ i ];
+      Collector::Constraint constraint = propriety.contraints[ i ];
 
       for( int type = 0; type < type_constraint.size(); type++ )
       {
@@ -183,13 +183,13 @@ namespace Tester
     return value_generator.generate_integer( constraints );
   }
 
-  std::string TesterController::create_floating( Helper::Propriety propriety )
+  std::string TesterController::create_floating( Collector::Propriety propriety )
   {
     clear_constraints();
 
     for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      Helper::Constraint constraint = propriety.contraints[ i ];
+      Collector::Constraint constraint = propriety.contraints[ i ];
 
       for( int type = 0; type < type_constraint.size(); type++ )
       {
@@ -469,7 +469,7 @@ namespace Tester
       << std::endl;
   }
 
-  bool TesterController::is_string( Helper::Propriety propriety )
+  bool TesterController::is_string( Collector::Propriety propriety )
   {
     bool is_string = false;
 
@@ -484,7 +484,7 @@ namespace Tester
     return is_string;
   }
 
-  bool TesterController::is_integer( Helper::Propriety propriety )
+  bool TesterController::is_integer( Collector::Propriety propriety )
   {
     bool is_integer = false;
 
@@ -499,7 +499,7 @@ namespace Tester
     return is_integer;
   }
 
-  bool TesterController::is_floating( Helper::Propriety propriety )
+  bool TesterController::is_floating( Collector::Propriety propriety )
   {
     bool is_floating = false;
 
@@ -515,7 +515,7 @@ namespace Tester
     return is_floating;
   }
 
-  bool TesterController::is_boolean( Helper::Propriety propriety )
+  bool TesterController::is_boolean( Collector::Propriety propriety )
   {
     bool is_boolean = false;
 

@@ -5,7 +5,7 @@
 #include <utility>
 #include <string>
 
-namespace Helper
+namespace Collector
 {
   class Constraint
   {

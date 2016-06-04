@@ -7,8 +7,8 @@ TST_H = src/*/tester/*.hpp
 TST_I = src/*/tester/*.cpp
 GEN_H = src/*/value_generator/*.hpp
 GEN_I = src/*/value_generator/*.cpp
-HLP_H = src/*/helper/*.hpp
-HLP_I = src/*/helper/*.cpp
+HLP_H = src/*/collector/*.hpp
+HLP_I = src/*/collector/*.cpp
 LOG_H = log/Log.hpp
 LOG_I = log/Log.cpp
 

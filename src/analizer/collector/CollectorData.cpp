@@ -1,6 +1,6 @@
 #include "CollectorData.hpp"
 
-namespace Helper
+namespace Collector
 {
   ADDRESS address_collector;
 
@@ -45,7 +45,7 @@ namespace Helper
     this->set_methods( info_method );
   }
 
-  Helper::Data* CollectorData::get_data()
+  Collector::Data* CollectorData::get_data()
   {
     return &data;
   }
@@ -68,7 +68,7 @@ namespace Helper
   {
     if( !info.empty() )
     {
-      Helper::Method method;
+      Collector::Method method;
       method.name = info[ 0 ];
 
       method.params = collect_params( info );
@@ -81,7 +81,7 @@ namespace Helper
     }
   }
 
-  void CollectorData::set_params_range( Helper::Method * method )
+  void CollectorData::set_params_range( Collector::Method * method )
   {
     if( !method->params.empty() )
     {
@@ -89,7 +89,7 @@ namespace Helper
 
       while( !this->collector_scarefault.get_params()->empty() )
       {
-        Helper::Param compared_param = collector_scarefault.get_param( index );
+        Collector::Param compared_param = collector_scarefault.get_param( index );
 
         for( int i = method->params.size()-1; i >= 0; i-- )
         {
@@ -111,10 +111,10 @@ namespace Helper
     }
   }
 
-  std::vector<Helper::Param>
+  std::vector<Collector::Param>
   CollectorData::collect_params( std::vector<std::string> info )
   {
-    std::vector<Helper::Param> params;
+    std::vector<Collector::Param> params;
 
     if( info.size() > 1 )
     {
@@ -122,7 +122,7 @@ namespace Helper
 
       while( !collected_params.empty() )
       {
-        Helper::Param new_param = create_param( &collected_params );
+        Collector::Param new_param = create_param( &collected_params );
         params.push_back( new_param );
       }
     } else
@@ -133,11 +133,11 @@ namespace Helper
     return params;
   }
 
-  Helper::Param CollectorData::create_param( std::string * text )
+  Collector::Param CollectorData::create_param( std::string * text )
   {
     std::size_t comma_position = text->find( "," );
 
-    Helper::Param new_param;
+    Collector::Param new_param;
 
     if( comma_position != std::string::npos )
     {
@@ -156,13 +156,13 @@ namespace Helper
     return new_param;
   }
 
-  Helper::Param CollectorData::find_param( std::string text )
+  Collector::Param CollectorData::find_param( std::string text )
   {
     std::size_t blank_position = text.find( " " );
     std::string type = text.substr( 0, blank_position );
     std::string name = text.substr( blank_position+1 );
 
-    Helper::Param new_param;
+    Collector::Param new_param;
 
     new_param.param_name = name;
     new_param.param_type = type;
@@ -199,7 +199,7 @@ namespace Helper
 
       for( int i = 0; i < content.size(); i++ )
       {
-        Helper::Propriety new_propriety;
+        Collector::Propriety new_propriety;
 
         if( is_type( content[ i ] ) )
         {
@@ -235,7 +235,7 @@ namespace Helper
 
         while( words[ k ].compare( ")" ) )
         {
-          Helper::Constraint new_constraint;
+          Collector::Constraint new_constraint;
           new_constraint.name = words[ k ];
           new_constraint.value = words[ k+1 ];
 

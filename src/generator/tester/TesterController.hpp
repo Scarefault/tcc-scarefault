@@ -3,7 +3,7 @@
 
 
 #include "TesterBase.hpp"
-#include "../../analizer/helper/Data.hpp"
+#include "../../analizer/collector/Data.hpp"
 #include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester
@@ -11,7 +11,7 @@ namespace Tester
   class TesterController : public TesterBase
   {
     public:
-      TesterController( Helper::Data * );
+      TesterController( Collector::Data * );
 
       void write_data();
 
@@ -57,15 +57,15 @@ namespace Tester
       void make_test_update( std::fstream * );
 
       void create_params( std::fstream * );
-      std::string create_value( Helper::Propriety );
-      std::string create_string( Helper::Propriety );
-      std::string create_integer( Helper::Propriety );
-      std::string create_floating( Helper::Propriety );
+      std::string create_value( Collector::Propriety );
+      std::string create_string( Collector::Propriety );
+      std::string create_integer( Collector::Propriety );
+      std::string create_floating( Collector::Propriety );
 
-      bool is_string( Helper::Propriety );
-      bool is_integer( Helper::Propriety );
-      bool is_floating( Helper::Propriety );
-      bool is_boolean( Helper::Propriety );
+      bool is_string( Collector::Propriety );
+      bool is_integer( Collector::Propriety );
+      bool is_floating( Collector::Propriety );
+      bool is_boolean( Collector::Propriety );
 
       bool convert_to_bool( std::string );
       void extract_size( std::string );

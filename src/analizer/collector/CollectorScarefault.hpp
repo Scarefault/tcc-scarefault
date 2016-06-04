@@ -14,8 +14,8 @@ namespace Collector
   {
     public:
       void collect_data( const char *, ... );
-      std::vector<Helper::Param> * get_params();
-      Helper::Param get_param( int );
+      std::vector<Collector::Param> * get_params();
+      Collector::Param get_param( int );
 
     private:
       static const char EOL = '\0';
@@ -23,7 +23,7 @@ namespace Collector
       static const char RANGE = 'r';
 
 
-      std::vector<Helper::Param> params;
+      std::vector<Collector::Param> params;
 
 
       void insert_param( std::string );

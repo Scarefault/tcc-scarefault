@@ -16,7 +16,7 @@
 #include "Data.hpp"
 #include "CollectorScarefault.hpp"
 
-namespace Helper
+namespace Collector
 {
   class CollectorData;
 
@@ -42,7 +42,7 @@ namespace Helper
       CollectorData();
 
       void collect_data( const char *, ... );
-      Helper::Data* get_data();
+      Collector::Data* get_data();
       Collector::CollectorScarefault collector_scarefault;
 
     private:
@@ -53,7 +53,7 @@ namespace Helper
       static const char PARAM = 'p';
 
 
-      Helper::Data data;
+      Collector::Data data;
 
 
       void set_package( std::string );
@@ -61,13 +61,13 @@ namespace Helper
       void set_methods( std::vector<std::string> );
 
       void collect_proprieties( std::string );
-      std::vector<Helper::Param> collect_params( std::vector<std::string> );
+      std::vector<Collector::Param> collect_params( std::vector<std::string> );
       void collect_constraints( std::string );
 
       void identify_category( std::string );
-      Helper::Param find_param( std::string );
-      Helper::Param create_param( std::string * );
-      void set_params_range( Helper::Method * );
+      Collector::Param find_param( std::string );
+      Collector::Param create_param( std::string * );
+      void set_params_range( Collector::Method * );
 
       std::string extract_content_file( std::fstream * );
       std::string extract_content_file( std::string );
