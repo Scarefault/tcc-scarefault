@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TesterDomain::TesterDomain( Collector::FileBase * ptr_data )
+  TesterDomain::TesterDomain( Collector::FileGrails * ptr_data )
   {
     this->set_data( ptr_data );
   }
@@ -48,7 +48,7 @@ namespace Tester
     std::cout << "Package: " << data_ptr->package_name << "\n";
     std::cout << "Class: " << data_ptr->class_name << "\n";
     std::cout << "Domain: " << data_ptr->domain_base << "\n";
-    std::cout << "Category: " << data_ptr->category_MVC << "\n";
+    std::cout << "Category: " << data_ptr->layer << "\n";
     std::cout << "Qtd methods: " << data_ptr->methods.size() << "\n";
     std::cout << "Qtd proprieties: " << data_ptr->proprieties.size() << "\n";
     std::cout << std::endl

@@ -7,21 +7,6 @@
 
 namespace Collector
 {
-  class Constraint
-  {
-    public:
-      std::string name;
-      std::string value;
-  };
-
-  class Propriety
-  {
-    public:
-      std::string name;
-      std::string type;
-      std::vector<Constraint> contraints;
-  };
-
   class Param
   {
     public:
@@ -41,12 +26,8 @@ namespace Collector
   class FileBase
   {
     public:
-      std::string category_MVC;
-      std::string domain_base;
-      std::string package_name;
       std::string class_name;
 
-      std::vector<Propriety> proprieties;
       std::vector<Method> methods;
   };
 }

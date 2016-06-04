@@ -13,7 +13,7 @@
 #include <fstream>
 #include <vector>
 #include <locale>
-#include "FileBase.hpp"
+#include "FileGrails.hpp"
 #include "CollectorScarefault.hpp"
 #include "../../helper/Helper.hpp"
 
@@ -42,7 +42,7 @@ namespace Collector
       CollectorData();
 
       void collect_data( const char *, ... );
-      Collector::FileBase* get_data();
+      Collector::FileGrails* get_data();
       Collector::CollectorScarefault collector_scarefault;
 
     private:
@@ -53,7 +53,7 @@ namespace Collector
       static const char PARAM = 'p';
 
 
-      Collector::FileBase data;
+      Collector::FileGrails data;
 
 
       void set_package( std::string );

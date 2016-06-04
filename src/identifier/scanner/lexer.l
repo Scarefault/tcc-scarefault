@@ -91,7 +91,7 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- End of Classes -------------------------
 
-// --------------- Type of FileBase ---------------------------
+// --------------- Type of FileGrails ---------------------------
 
 "Integer" |
 "int" {
@@ -150,7 +150,7 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser:: TYPE_DATE;
 }
 
-// -------------- End of Type of FileBase ---------------------
+// -------------- End of Type of FileGrails ---------------------
 
 // -------------- Punctuation Marks -----------------------
 "!" |
@@ -296,7 +296,7 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- End of Operators -----------------------
 
-// --------------- FileBase Values ----------------------------
+// --------------- FileGrails Values ----------------------------
 
 {DIGIT}   |
 {INTEGER} |
@@ -327,7 +327,7 @@ BOOLEAN {TRUE}|{FALSE}
   begin( StartCondition__::multiline_string );
 }
 
-// --------------- End of FileBase Values ---------------------
+// --------------- End of FileGrails Values ---------------------
 
 // --------------- Comments -------------------------------
 
@@ -466,7 +466,7 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser:: TYPE_DATE;
   }
 
-  //--------------------------FileBase Values--------------------------
+  //--------------------------FileGrails Values--------------------------
   //
   {DIGIT}   |
   {INTEGER} |

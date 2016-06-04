@@ -23,7 +23,7 @@
 
 
 /*
- * ********* Type of FileBase ****************
+ * ********* Type of FileGrails ****************
  */
 %token TYPE_INTEGER
 %token TYPE_LONG
@@ -38,7 +38,7 @@
 
 
 /*
- * ********** FileBase Values ****************
+ * ********** FileGrails Values ****************
  */
 %token NUMBER
 %token STRING

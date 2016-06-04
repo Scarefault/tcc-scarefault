@@ -45,7 +45,7 @@ namespace Collector
     this->set_methods( info_method );
   }
 
-  Collector::FileBase* CollectorData::get_data()
+  Collector::FileGrails* CollectorData::get_data()
   {
     return &data;
   }
@@ -181,11 +181,11 @@ namespace Collector
       collect_proprieties( domain_base );
 
       this->data.domain_base = domain_base;
-      this->data.category_MVC = category;
+      this->data.layer = category;
     } else
     {
       this->data.domain_base = name;
-      this->data.category_MVC = "Domain";
+      this->data.layer = "Domain";
     }
   }
 

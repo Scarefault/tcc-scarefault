@@ -4,9 +4,9 @@
 
 namespace Tester
 {
-  TesterBase * TesterBase::get_tester( Collector::FileBase * ptr_data )
+  TesterBase * TesterBase::get_tester( Collector::FileGrails * ptr_data )
   {
-    std::string category = ptr_data->category_MVC;
+    std::string category = ptr_data->layer;
 
     TesterBase * instance;
 
@@ -26,7 +26,7 @@ namespace Tester
     (* test_stream ) << "}" << std::endl;
   }
 
-  void TesterBase::set_data( Collector::FileBase * ptr )
+  void TesterBase::set_data( Collector::FileGrails * ptr )
   {
       this->data_ptr = ptr;
   }
