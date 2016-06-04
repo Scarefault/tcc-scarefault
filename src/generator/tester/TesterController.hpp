@@ -3,7 +3,7 @@
 
 
 #include "TesterBase.hpp"
-#include "../../analizer/collector/Data.hpp"
+#include "../../identifier/collector/Data.hpp"
 #include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester

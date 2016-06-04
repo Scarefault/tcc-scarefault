@@ -12,7 +12,7 @@
 #include <locale>
 
 
-#include "../../analizer/collector/Data.hpp"
+#include "../../identifier/collector/Data.hpp"
 
 namespace Tester
 {

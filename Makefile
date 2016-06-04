@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = --std=c++0x -o
-OBJS = src/*/*/*.cc # analizer/(parser|scanner)/*.cc
+OBJS = src/*/*/*.cc # identifier/(parser|scanner)/*.cc
 
 SRC_S = src/scarefault.cpp
 TST_H = src/*/tester/*.hpp
@@ -16,10 +16,10 @@ LOG_I = log/Log.cpp
 all: parse.cc lex.cc scarefault
 
 parse.cc:
-	cd src/analizer/parser && $(MAKE)
+	cd src/identifier/parser && $(MAKE)
 
 lex.cc:
-	cd src/analizer/scanner && $(MAKE)
+	cd src/identifier/scanner && $(MAKE)
 
 scarefault:
 	$(CC) $(CFLAGS) scarefault $(SRC_S) $(TST_H) $(TST_I) $(GEN_H) $(GEN_I) $(HLP_H) $(HLP_I) $(LOG_H) $(LOG_I) $(OBJS)
@@ -27,10 +27,10 @@ scarefault:
 clean: parser_clean scanner_clean scarefault_clean
 
 parser_clean:
-	cd src/analizer/parser && $(MAKE) clean
+	cd src/identifier/parser && $(MAKE) clean
 
 scanner_clean:
-	cd src/analizer/scanner && $(MAKE) clean
+	cd src/identifier/scanner && $(MAKE) clean
 
 scarefault_clean:
 	rm scarefault

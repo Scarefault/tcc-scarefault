@@ -1,5 +1,5 @@
-#include "analizer/parser/Parser.h"
-#include "analizer/collector/CollectorData.hpp"
+#include "identifier/parser/Parser.h"
+#include "identifier/collector/CollectorData.hpp"
 #include "generator/tester/TesterBase.hpp"
 #include "generator/tester/TesterController.hpp"
 
