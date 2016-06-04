@@ -45,7 +45,7 @@ namespace Collector
     this->set_methods( info_method );
   }
 
-  Collector::Data* CollectorData::get_data()
+  Collector::FileBase* CollectorData::get_data()
   {
     return &data;
   }

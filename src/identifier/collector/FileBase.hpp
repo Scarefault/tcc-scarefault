@@ -1,5 +1,5 @@
-#ifndef DATA_HPP_
-#define DATA_HPP_
+#ifndef FILEBASE_HPP_
+#define FILEBASE_HPP_
 
 #include <vector>
 #include <utility>
@@ -38,7 +38,7 @@ namespace Collector
       std::vector<Param> params;
   };
 
-  class Data
+  class FileBase
   {
     public:
       std::string category_MVC;
@@ -51,4 +51,4 @@ namespace Collector
   };
 }
 
-#endif // DATA_HPP_
+#endif // FILEBASE_HPP_

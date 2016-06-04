@@ -12,20 +12,20 @@
 #include <locale>
 
 
-#include "../../identifier/collector/Data.hpp"
+#include "../../identifier/collector/FileBase.hpp"
 
 namespace Tester
 {
   class TesterBase
   {
     public:
-      static TesterBase * get_tester( Collector::Data * );
+      static TesterBase * get_tester( Collector::FileBase * );
 
-      void set_data( Collector::Data * );
+      void set_data( Collector::FileBase * );
       virtual void write_data() { /* Implement it in Subclass */ };
 
     protected:
-      Collector::Data * data_ptr;
+      Collector::FileBase * data_ptr;
       std::locale locale;
 
       virtual void make_header( std::fstream * ) { /* Implement it in Subclass */ };

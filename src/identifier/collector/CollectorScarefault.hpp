@@ -6,7 +6,7 @@
 #include <cstdarg>
 #include <algorithm>
 
-#include "Data.hpp"
+#include "FileBase.hpp"
 
 namespace Collector
 {

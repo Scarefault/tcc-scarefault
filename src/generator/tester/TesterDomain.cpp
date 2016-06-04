@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TesterDomain::TesterDomain( Collector::Data * ptr_data )
+  TesterDomain::TesterDomain( Collector::FileBase * ptr_data )
   {
     this->set_data( ptr_data );
   }

@@ -23,7 +23,7 @@
 
 
 /*
- * ********* Type of Data ****************
+ * ********* Type of FileBase ****************
  */
 %token TYPE_INTEGER
 %token TYPE_LONG
@@ -38,7 +38,7 @@
 
 
 /*
- * ********** Data Values ****************
+ * ********** FileBase Values ****************
  */
 %token NUMBER
 %token STRING

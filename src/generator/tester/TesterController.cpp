@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TesterController::TesterController( Collector::Data * ptr_data )
+  TesterController::TesterController( Collector::FileBase * ptr_data )
   {
     this->set_data( ptr_data );
   }

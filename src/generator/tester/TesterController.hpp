@@ -3,7 +3,7 @@
 
 
 #include "TesterBase.hpp"
-#include "../../identifier/collector/Data.hpp"
+#include "../../identifier/collector/FileBase.hpp"
 #include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester
@@ -11,7 +11,7 @@ namespace Tester
   class TesterController : public TesterBase
   {
     public:
-      TesterController( Collector::Data * );
+      TesterController( Collector::FileBase * );
 
       void write_data();
 

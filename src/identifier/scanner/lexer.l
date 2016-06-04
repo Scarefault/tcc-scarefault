@@ -91,7 +91,7 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- End of Classes -------------------------
 
-// --------------- Type of Data ---------------------------
+// --------------- Type of FileBase ---------------------------
 
 "Integer" |
 "int" {
@@ -150,7 +150,7 @@ BOOLEAN {TRUE}|{FALSE}
   return Parser:: TYPE_DATE;
 }
 
-// -------------- End of Type of Data ---------------------
+// -------------- End of Type of FileBase ---------------------
 
 // -------------- Punctuation Marks -----------------------
 "!" |
@@ -296,7 +296,7 @@ BOOLEAN {TRUE}|{FALSE}
 
 // --------------- End of Operators -----------------------
 
-// --------------- Data Values ----------------------------
+// --------------- FileBase Values ----------------------------
 
 {DIGIT}   |
 {INTEGER} |
@@ -327,7 +327,7 @@ BOOLEAN {TRUE}|{FALSE}
   begin( StartCondition__::multiline_string );
 }
 
-// --------------- End of Data Values ---------------------
+// --------------- End of FileBase Values ---------------------
 
 // --------------- Comments -------------------------------
 
@@ -466,7 +466,7 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser:: TYPE_DATE;
   }
 
-  //--------------------------Data Values--------------------------
+  //--------------------------FileBase Values--------------------------
   //
   {DIGIT}   |
   {INTEGER} |

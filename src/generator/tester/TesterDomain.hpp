@@ -3,7 +3,7 @@
 
 
 #include "TesterBase.hpp"
-#include "../../identifier/collector/Data.hpp"
+#include "../../identifier/collector/FileBase.hpp"
 #include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester
@@ -11,7 +11,7 @@ namespace Tester
   class TesterDomain : public TesterBase
   {
     public:
-      TesterDomain( Collector::Data * );
+      TesterDomain( Collector::FileBase * );
 
       void write_data();
 

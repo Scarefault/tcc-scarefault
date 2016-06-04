@@ -4,7 +4,7 @@
 
 namespace Tester
 {
-  TesterBase * TesterBase::get_tester( Collector::Data * ptr_data )
+  TesterBase * TesterBase::get_tester( Collector::FileBase * ptr_data )
   {
     std::string category = ptr_data->category_MVC;
 
@@ -26,7 +26,7 @@ namespace Tester
     (* test_stream ) << "}" << std::endl;
   }
 
-  void TesterBase::set_data( Collector::Data * ptr )
+  void TesterBase::set_data( Collector::FileBase * ptr )
   {
       this->data_ptr = ptr;
   }
