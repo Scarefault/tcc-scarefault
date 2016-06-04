@@ -402,14 +402,9 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::SCAREFAULT_INVALID;
   }
 
-  "@expect" {
+  "@expected" {
     *d_val = matched();
-    return Parser::SCAREFAULT_EXPECT;
-  }
-
-  "@test" {
-    *d_val = matched();
-    return Parser::SCAREFAULT_TEST;
+    return Parser::SCAREFAULT_EXPECTED;
   }
 
   //--------------------------Types--------------------------
@@ -477,7 +472,7 @@ BOOLEAN {TRUE}|{FALSE}
   {INTEGER} |
   {REAL} {
     *d_val = matched();
-    return Parser::NUMBER_SCAREFAULT;
+    return Parser::NUMBER;
   }
 
   {BOOLEAN} {

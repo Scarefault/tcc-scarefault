@@ -4,7 +4,7 @@ scarefault_stmt:
 | range_scarefault
 | return_scarefault
 | invalid_scarefault
-| test_scarefault
+| expected_scarefault
 ;
 
 param_scarefault:
@@ -43,30 +43,12 @@ invalid_scarefault:
   }
 ;
 
-test_scarefault:
-  test_stmt
-;
-
-test_stmt:
-  SCAREFAULT_TEST '(' NUMBER_SCAREFAULT ')' {
-    log.message( LogSystem::INFO, "stmt: scarefault test" );
+expected_scarefault:
+  SCAREFAULT_EXPECTED word {
+    log.message( LogSystem::INFO, "stmt: scarefault expected" );
   }
-;
-
-expect_scarefault:
-  SCAREFAULT_EXPECT value {
-    log.message( LogSystem::INFO, "stmt: scarefault expect" );
-  }
-;
-
-argument:
-  word
-| NUMBER_SCAREFAULT
 ;
 
 word:
-  WORD  {
-  log.message( LogSystem::INFO, "word" );
-    $$ = $1;
-  }
+  WORD
 ;

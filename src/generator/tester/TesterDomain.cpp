@@ -45,5 +45,29 @@ namespace Tester
 
   void TesterDomain::test_methods( std::fstream * test_stream )
   {
+    std::cout << "Package: " << data_ptr->package_name << "\n";
+    std::cout << "Class: " << data_ptr->class_name << "\n";
+    std::cout << "Domain: " << data_ptr->domain_base << "\n";
+    std::cout << "Category: " << data_ptr->category_MVC << "\n";
+    std::cout << "Qtd methods: " << data_ptr->methods.size() << "\n";
+    std::cout << "Qtd proprieties: " << data_ptr->proprieties.size() << "\n";
+    std::cout << std::endl
+              << "Methods: " << std::endl;
+    for( int i = 0; i < data_ptr->methods.size(); ++i )
+    {
+      std::cout << "[ " << i+1 << " ]: " << std::endl
+                << "Name: " << data_ptr->methods[ i ].name << std::endl
+                << "Return type: " << data_ptr->methods[ i ].return_type << std::endl
+                << "Params:" << std::endl;
+      for ( int j = 0; j < data_ptr->methods[ i ].params.size(); ++j )
+      {
+        std::cout << "[ " << j+1 << " ]: " << std::endl
+                  << "Name: " << data_ptr->methods[ i ].params[ j ].param_name << std::endl
+                  << "Type: " << data_ptr->methods[ i ].params[ j ].param_type << std::endl
+                  << "Range Min: " << data_ptr->methods[ i ].params[ j ].range.first << std::endl
+                  << "Range Max: " << data_ptr->methods[ i ].params[ j ].range.second << std::endl
+                  << std::endl;
+      }
+    }
   }
 }
