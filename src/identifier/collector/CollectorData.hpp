@@ -15,6 +15,7 @@
 #include <locale>
 #include "Data.hpp"
 #include "CollectorScarefault.hpp"
+#include "../../helper/Helper.hpp"
 
 namespace Collector
 {
@@ -37,7 +38,6 @@ namespace Collector
 
   class CollectorData
   {
-
     public:
       CollectorData();
 
@@ -72,9 +72,6 @@ namespace Collector
       std::string extract_content_file( std::fstream * );
       std::string extract_content_file( std::string );
       std::vector<std::string> extract_words( std::string, std::string );
-
-      char * convert_string_to_cstring( std::string );
-      bool is_type( std::string );
   };
 }
 
