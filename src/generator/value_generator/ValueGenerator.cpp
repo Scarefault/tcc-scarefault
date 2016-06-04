@@ -82,7 +82,7 @@ namespace Generator
       random_url += alphanum[ rand() % ( alphanum.size()-1 ) ];
     }
 
-    random_url.append( ".com" );
+    random_url.append( ".com\"" );
 
     return random_url;
   }

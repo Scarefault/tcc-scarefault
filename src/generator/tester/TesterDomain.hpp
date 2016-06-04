@@ -11,11 +11,13 @@ namespace Tester
   class TesterDomain : public TesterBase
   {
     public:
-      TesterDomain( Helper::Data * )
+      TesterDomain( Helper::Data * );
 
       void write_data();
 
     private:
+      Generator::ValueGenerator value_generator;
+
       void make_header( std::fstream * );
       void test_methods( std::fstream * );
   };

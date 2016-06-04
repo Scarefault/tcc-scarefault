@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TesterDomain::TesterDomain( Helepr::Data ptr_data )
+  TesterDomain::TesterDomain( Helper::Data * ptr_data )
   {
     this->set_data( ptr_data );
   }
@@ -45,6 +45,5 @@ namespace Tester
 
   void TesterDomain::test_methods( std::fstream * test_stream )
   {
-    // TODO: Implemeting this method
   }
 }

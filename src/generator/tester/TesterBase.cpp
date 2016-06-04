@@ -1,5 +1,6 @@
 #include "TesterBase.hpp"
 #include "TesterController.hpp"
+#include "TesterDomain.hpp"
 
 namespace Tester
 {

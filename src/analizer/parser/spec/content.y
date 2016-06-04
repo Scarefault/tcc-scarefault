@@ -261,7 +261,13 @@ args_list:
 
 args:
   arg
-| args ',' arg
+| args ',' arg {
+  std::string args_token( $1 );
+  args_token.append( "," );
+  args_token.append( $3 );
+
+  $$ = args_token;
+}
 ;
 
 arg:
