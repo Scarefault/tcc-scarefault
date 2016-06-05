@@ -5,8 +5,10 @@
 #include <cstring>
 #include <vector>
 
-#include "../collector/CollectorBase.hpp"
+
 #include "../../generator/tester/TesterBase.hpp"
+#include "../collector/CollectorBase.hpp"
+#include "../collector/Language.hpp"
 #include "../../../log/Log.hpp"
 
 using namespace std;

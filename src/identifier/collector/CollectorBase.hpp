@@ -13,8 +13,12 @@
 #include <fstream>
 #include <vector>
 #include <locale>
+
+
 #include "FileGrails.hpp"
 #include "CollectorScarefault.hpp"
+#include "Language.hpp"
+
 #include "../../helper/Helper.hpp"
 
 namespace Collector
@@ -39,10 +43,11 @@ namespace Collector
   class CollectorBase
   {
     public:
+      static CollectorBase * get_collector( Collector::Language );
       CollectorBase();
 
       void collect_data( const char *, ... );
-      Collector::FileGrails* get_data();
+      Collector::FileGrails * get_data();
       Collector::CollectorScarefault collector_scarefault;
 
     private:
@@ -58,7 +63,7 @@ namespace Collector
 
       void set_package( std::string );
       void set_class( std::string );
-      void set_methods( std::vector<std::string> );
+      void collect_methods( std::vector<std::string> );
 
       void collect_proprieties( std::string );
       std::vector<Collector::Param> collect_params( std::vector<std::string> );

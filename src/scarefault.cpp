@@ -1,5 +1,6 @@
 #include "identifier/parser/Parser.h"
 #include "identifier/collector/CollectorBase.hpp"
+#include "identifier/collector/Language.hpp"
 #include "generator/tester/TesterBase.hpp"
 #include "generator/tester/TesterController.hpp"
 
@@ -10,7 +11,7 @@ int main( int argc, char **argv )
 {
   srand( time( NULL ) );
 
-  Parser parser;
+  Parser parser( GRAILS );
   parser.parse();
 
   CollectorBase * collector_ptr = address_collector;

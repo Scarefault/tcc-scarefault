@@ -14,7 +14,7 @@ content:
 package_declaration:
   PACKAGE package_name {
     std::string package_token( $2 );
-    collector.collect_data( "P", package_token.c_str() );
+    collector->collect_data( "P", package_token.c_str() );
   }
 ;
 
@@ -33,7 +33,7 @@ class_declaration:
 class_definition:
   CLASS IDENTIFIER {
     std::string identifier_token( $2 );
-    collector.collect_data( "c", identifier_token.c_str() );
+    collector->collect_data( "c", identifier_token.c_str() );
   }
 | ABSTRACT class_definition
 | class_definition class_complements
@@ -289,7 +289,7 @@ typed_method_stmt:
     std::string identifier_token( $2 );
     std::string params_token( $4 );
 
-    collector.collect_data( "mp", identifier_token.c_str(), params_token.c_str() );
+    collector->collect_data( "mp", identifier_token.c_str(), params_token.c_str() );
   }
 | modifier typed_method_stmt
 ;
@@ -299,7 +299,7 @@ untyped_method_stmt:
     std::string identifier_token( $2 );
     std::string params_token( $4 );
 
-    collector.collect_data( "mp", identifier_token.c_str(), params_token.c_str() );
+    collector->collect_data( "mp", identifier_token.c_str(), params_token.c_str() );
   }
 ;
 

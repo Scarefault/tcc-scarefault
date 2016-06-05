@@ -5,6 +5,20 @@ namespace Collector
   ADDRESS address_collector;
 
 // ------------------ PUBLIC FUNCTIONS IMPLEMENTATION -------------------
+  CollectorBase * CollectorBase::get_collector( Collector::Language language )
+  {
+    CollectorBase * instance;
+
+    switch ( language )
+    {
+      case GRAILS:
+        instance = new CollectorBase();
+        break;
+    }
+
+    return instance;
+  }
+
   CollectorBase::CollectorBase()
   {
     address_collector = this;
@@ -42,10 +56,10 @@ namespace Collector
       format++;
     }
 
-    this->set_methods( info_method );
+    this->collect_methods( info_method );
   }
 
-  Collector::FileGrails* CollectorBase::get_data()
+  Collector::FileGrails * CollectorBase::get_data()
   {
     return &data;
   }
@@ -64,7 +78,7 @@ namespace Collector
     identify_category( name );
   }
 
-  void CollectorBase::set_methods( std::vector<std::string> info )
+  void CollectorBase::collect_methods( std::vector<std::string> info )
   {
     if( !info.empty() )
     {
@@ -74,7 +88,7 @@ namespace Collector
       method.params = collect_params( info );
 
       this->set_params_range( &method );
-      this->data.methods.push_back( method );
+      this->data.insert_method( method );
     } else
     {
       // Nothing To do

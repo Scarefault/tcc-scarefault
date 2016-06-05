@@ -12,7 +12,7 @@ param_scarefault:
     log.message( LogSystem::INFO, "stmt: scarefault param" );
     std::string param_token( $2 );
 
-    collector.collector_scarefault.collect_data( "p", param_token.c_str() );
+    collector->collector_scarefault.collect_data( "p", param_token.c_str() );
   }
 ;
 
@@ -33,7 +33,7 @@ range_stmt:
     range.append( ".." );
     range.append( $4 );
 
-    collector.collector_scarefault.collect_data( "r", range.c_str() );
+    collector->collector_scarefault.collect_data( "r", range.c_str() );
   }
 ;
 

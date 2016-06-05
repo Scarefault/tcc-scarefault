@@ -27,8 +27,10 @@ namespace Collector
   {
     public:
       std::string class_name;
-
       std::vector<Method> methods;
+
+      void insert_method( Collector::Method );
+      void set_class( std::string );
   };
 }
 
