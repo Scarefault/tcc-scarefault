@@ -10,8 +10,8 @@ namespace Collector
   class Param
   {
     public:
-      std::string param_name;
-      std::string param_type;
+      std::string name;
+      std::string type;
       std::pair<int, int> range;
   };
 

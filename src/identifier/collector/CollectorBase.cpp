@@ -1,16 +1,16 @@
-#include "CollectorData.hpp"
+#include "CollectorBase.hpp"
 
 namespace Collector
 {
   ADDRESS address_collector;
 
 // ------------------ PUBLIC FUNCTIONS IMPLEMENTATION -------------------
-  CollectorData::CollectorData()
+  CollectorBase::CollectorBase()
   {
     address_collector = this;
   }
 
-  void CollectorData::collect_data( const char * format, ... )
+  void CollectorBase::collect_data( const char * format, ... )
   {
     va_list arguments;
     va_start( arguments, format );
@@ -45,26 +45,26 @@ namespace Collector
     this->set_methods( info_method );
   }
 
-  Collector::FileGrails* CollectorData::get_data()
+  Collector::FileGrails* CollectorBase::get_data()
   {
     return &data;
   }
 
 // ------------------ PRIVATE FUNCTIONS IMPLEMENTANTION --------------------
 
-  void CollectorData::set_package( std::string name )
+  void CollectorBase::set_package( std::string name )
   {
-    this->data.package_name = name;
+    this->data.package = name;
   }
 
-  void CollectorData::set_class( std::string name )
+  void CollectorBase::set_class( std::string name )
   {
     this->data.class_name = name;
 
     identify_category( name );
   }
 
-  void CollectorData::set_methods( std::vector<std::string> info )
+  void CollectorBase::set_methods( std::vector<std::string> info )
   {
     if( !info.empty() )
     {
@@ -81,7 +81,7 @@ namespace Collector
     }
   }
 
-  void CollectorData::set_params_range( Collector::Method * method )
+  void CollectorBase::set_params_range( Collector::Method * method )
   {
     if( !method->params.empty() )
     {
@@ -93,7 +93,7 @@ namespace Collector
 
         for( int i = method->params.size()-1; i >= 0; i-- )
         {
-          if( !method->params[ i ].param_name.compare( compared_param.param_name ) )
+          if( !method->params[ i ].name.compare( compared_param.name ) )
           {
             method->params[ i ].range = compared_param.range;
             this->collector_scarefault.get_params()->pop_back();
@@ -112,7 +112,7 @@ namespace Collector
   }
 
   std::vector<Collector::Param>
-  CollectorData::collect_params( std::vector<std::string> info )
+  CollectorBase::collect_params( std::vector<std::string> info )
   {
     std::vector<Collector::Param> params;
 
@@ -133,7 +133,7 @@ namespace Collector
     return params;
   }
 
-  Collector::Param CollectorData::create_param( std::string * text )
+  Collector::Param CollectorBase::create_param( std::string * text )
   {
     std::size_t comma_position = text->find( "," );
 
@@ -156,7 +156,7 @@ namespace Collector
     return new_param;
   }
 
-  Collector::Param CollectorData::find_param( std::string text )
+  Collector::Param CollectorBase::find_param( std::string text )
   {
     std::size_t blank_position = text.find( " " );
     std::string type = text.substr( 0, blank_position );
@@ -164,32 +164,32 @@ namespace Collector
 
     Collector::Param new_param;
 
-    new_param.param_name = name;
-    new_param.param_type = type;
+    new_param.name = name;
+    new_param.type = type;
 
     return new_param;
   }
 
-  void CollectorData::identify_category( std::string name )
+  void CollectorBase::identify_category( std::string name )
   {
     if( name.find( "Controller" ) != std::string::npos )
     {
       std::size_t found = name.find( "Controller" );
       std::string category = name.substr( found );
-      std::string domain_base = name.substr( 0, found );
+      std::string model_base = name.substr( 0, found );
 
-      collect_proprieties( domain_base );
+      collect_proprieties( model_base );
 
-      this->data.domain_base = domain_base;
+      this->data.model_base = model_base;
       this->data.layer = category;
     } else
     {
-      this->data.domain_base = name;
+      this->data.model_base = name;
       this->data.layer = "Domain";
     }
   }
 
-  void CollectorData::collect_proprieties( std::string domain )
+  void CollectorBase::collect_proprieties( std::string domain )
   {
     std::string content_file = extract_content_file( domain );
 
@@ -217,7 +217,7 @@ namespace Collector
     }
   }
 
-  void CollectorData::collect_constraints( std::string text )
+  void CollectorBase::collect_constraints( std::string text )
   {
     std::size_t found = text.find( "constraints" );
     std::string sub = text.substr( found+11 );
@@ -248,7 +248,7 @@ namespace Collector
     }
   }
 
-  std::string CollectorData::extract_content_file( std::string domain )
+  std::string CollectorBase::extract_content_file( std::string domain )
   {
     std::fstream domain_stream;
 
@@ -278,7 +278,7 @@ namespace Collector
   }
 
   std::vector<std::string>
-  CollectorData::extract_words( std::string text, std::string delimiters )
+  CollectorBase::extract_words( std::string text, std::string delimiters )
   {
     char * cdelimiters = Helper::convert_string_to_cstring( delimiters );
     char * ctext = Helper::convert_string_to_cstring( text );

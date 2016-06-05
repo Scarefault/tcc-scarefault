@@ -30,7 +30,7 @@ namespace Tester
 
   void TesterController::make_header( std::fstream * test_stream )
   {
-    (* test_stream) << "package " << data_ptr->package_name
+    (* test_stream) << "package " << data_ptr->package
                     << std::endl
                     << std::endl
                     << "import org.junit.*"
@@ -222,7 +222,7 @@ namespace Tester
 
   void TesterController::make_test_index( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
 
     (* test_stream) << "\tvoid testIndex()"
                     << std::endl
@@ -275,7 +275,7 @@ namespace Tester
 
   void TesterController::make_test_create( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
 
     (* test_stream) << "\tvoid testCreate() {" << std::endl
       << "\t\tdef model = controller.create()" << std::endl
@@ -288,8 +288,8 @@ namespace Tester
 
   void TesterController::make_test_show( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
-    std::string up_domain = data_ptr->domain_base;
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
+    std::string up_domain = data_ptr->model_base;
 
     (* test_stream ) << "\tvoid testShow() {" << std::endl
       << "\t\tcontroller show" << std::endl
@@ -298,7 +298,7 @@ namespace Tester
       << std::endl
       << std::endl
       << "\t\tpopulateValidParams(params)" << std::endl
-      << "\t\tdef " << low_domain << " = new " << data_ptr->domain_base
+      << "\t\tdef " << low_domain << " = new " << data_ptr->model_base
       << "(params)" << std::endl
       << std::endl
       << "\t\tassert " << low_domain << ".save() != null" << std::endl
@@ -315,8 +315,8 @@ namespace Tester
 
   void TesterController::make_test_delete( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
-    std::string up_domain = data_ptr->domain_base;
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
+    std::string up_domain = data_ptr->model_base;
 
     (* test_stream ) << "\tvoid testDelete() {" << std::endl
       << "\t\tcontroller.delete()" << std::endl
@@ -348,8 +348,8 @@ namespace Tester
 
   void TesterController::make_test_list( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
-    std::string up_domain = data_ptr->domain_base;
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
+    std::string up_domain = data_ptr->model_base;
 
     (* test_stream ) << "\tvoid testList() {" << std::endl
       << "\t\tdef model = controller.list()" << std::endl
@@ -363,8 +363,8 @@ namespace Tester
 
   void TesterController::make_test_save( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
-    std::string up_domain = data_ptr->domain_base;
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
+    std::string up_domain = data_ptr->model_base;
 
     (* test_stream ) << "\tvoid testSave() {" << std::endl
       << "\t\tcontroller.save()" << std::endl
@@ -388,8 +388,8 @@ namespace Tester
 
   void TesterController::make_test_edit( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
-    std::string up_domain = data_ptr->domain_base;
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
+    std::string up_domain = data_ptr->model_base;
 
     (* test_stream ) << "\tvoid testEdit() {" << std::endl
       << "\t\tcontroller.edit()" << std::endl
@@ -416,8 +416,8 @@ namespace Tester
 
   void TesterController::make_test_update( std::fstream * test_stream )
   {
-    std::string low_domain = convert_to_lower( data_ptr->domain_base );
-    std::string up_domain = data_ptr->domain_base;
+    std::string low_domain = convert_to_lower( data_ptr->model_base );
+    std::string up_domain = data_ptr->model_base;
 
     (* test_stream ) << "\tvoid testUpdate() {" << std::endl
       << "\t\tcontroller.update()" << std::endl

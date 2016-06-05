@@ -27,8 +27,8 @@ namespace Collector
   {
     public:
       std::string layer;
-      std::string domain_base;
-      std::string package_name;
+      std::string model_base;
+      std::string package;
 
       std::vector<Propriety> proprieties;
   };

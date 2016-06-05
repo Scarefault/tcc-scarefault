@@ -4,7 +4,7 @@ parser.cc:
 	bisonc++ grammar.y -V
 
 changes_parser.h:
-	$(shell sed -i "17i \\\t Collector::CollectorData collector;" Parser.h)
+	$(shell sed -i "17i \\\t Collector::CollectorBase collector;" Parser.h)
 	$(shell sed -i "18i \\\t LogSystem::Log log;" Parser.h)
 	$(shell sed -i "21i \\\t\t\t explicit Parser(std::istream &in = std::cin, std::ostream &out = std::cout);" Parser.h)
 

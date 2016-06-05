@@ -5,7 +5,7 @@
 #include <cstring>
 #include <vector>
 
-#include "../collector/CollectorData.hpp"
+#include "../collector/CollectorBase.hpp"
 #include "../../generator/tester/TesterBase.hpp"
 #include "../../../log/Log.hpp"
 

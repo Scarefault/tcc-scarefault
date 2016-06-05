@@ -26,7 +26,7 @@ namespace Collector
   void CollectorScarefault::insert_param( std::string name )
   {
     Collector::Param param;
-    param.param_name = remove_spaces( name );
+    param.name = remove_spaces( name );
 
     this->params.push_back( param );
   }

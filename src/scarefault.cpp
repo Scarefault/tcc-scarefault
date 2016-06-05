@@ -1,5 +1,5 @@
 #include "identifier/parser/Parser.h"
-#include "identifier/collector/CollectorData.hpp"
+#include "identifier/collector/CollectorBase.hpp"
 #include "generator/tester/TesterBase.hpp"
 #include "generator/tester/TesterController.hpp"
 
@@ -13,7 +13,7 @@ int main( int argc, char **argv )
   Parser parser;
   parser.parse();
 
-  CollectorData * collector_ptr = address_collector;
+  CollectorBase * collector_ptr = address_collector;
   TesterBase * tester = TesterBase::get_tester( collector_ptr->get_data() );
 
   tester->write_data();

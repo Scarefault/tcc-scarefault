@@ -28,7 +28,7 @@ namespace Tester
 
   void TesterDomain::make_header( std::fstream * test_stream )
   {
-    (* test_stream) << "package " << data_ptr->package_name
+    (* test_stream) << "package " << data_ptr->package
                     << std::endl
                     << std::endl
                     << "import org.junit.*"
@@ -45,9 +45,9 @@ namespace Tester
 
   void TesterDomain::test_methods( std::fstream * test_stream )
   {
-    std::cout << "Package: " << data_ptr->package_name << "\n";
+    std::cout << "Package: " << data_ptr->package << "\n";
     std::cout << "Class: " << data_ptr->class_name << "\n";
-    std::cout << "Domain: " << data_ptr->domain_base << "\n";
+    std::cout << "Domain: " << data_ptr->model_base << "\n";
     std::cout << "Category: " << data_ptr->layer << "\n";
     std::cout << "Qtd methods: " << data_ptr->methods.size() << "\n";
     std::cout << "Qtd proprieties: " << data_ptr->proprieties.size() << "\n";
@@ -62,8 +62,8 @@ namespace Tester
       for ( int j = 0; j < data_ptr->methods[ i ].params.size(); ++j )
       {
         std::cout << "[ " << j+1 << " ]: " << std::endl
-                  << "Name: " << data_ptr->methods[ i ].params[ j ].param_name << std::endl
-                  << "Type: " << data_ptr->methods[ i ].params[ j ].param_type << std::endl
+                  << "Name: " << data_ptr->methods[ i ].params[ j ].name << std::endl
+                  << "Type: " << data_ptr->methods[ i ].params[ j ].type << std::endl
                   << "Range Min: " << data_ptr->methods[ i ].params[ j ].range.first << std::endl
                   << "Range Max: " << data_ptr->methods[ i ].params[ j ].range.second << std::endl
                   << std::endl;

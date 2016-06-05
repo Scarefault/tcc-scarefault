@@ -19,27 +19,27 @@
 
 namespace Collector
 {
-  class CollectorData;
+  class CollectorBase;
 
 
   /*
    * Define a new type to keep a reference to the address of the
-   *   CollectorData.
+   *   CollectorBase.
    */
-  typedef CollectorData * ADDRESS;
+  typedef CollectorBase * ADDRESS;
 
   /*
    * It's a global variable. Currently, it's necessary to allow access the
-   *   reference of CollectorData. With this, Is possible access a
-   *   CollectorData, created in parser file, in other files.
+   *   reference of CollectorBase. With this, Is possible access a
+   *   CollectorBase, created in parser file, in other files.
    */
   extern ADDRESS address_collector;
 
 
-  class CollectorData
+  class CollectorBase
   {
     public:
-      CollectorData();
+      CollectorBase();
 
       void collect_data( const char *, ... );
       Collector::FileGrails* get_data();
