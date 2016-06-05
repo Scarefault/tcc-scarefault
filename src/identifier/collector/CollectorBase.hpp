@@ -1,10 +1,6 @@
 #ifndef COLLECTORDATA_HPP_
 #define COLLECTORDATA_HPP_
 
-#define READ std::fstream::in
-
-#define PATH_CONTROLLER "guestbook/grails-app/controllers/guestbook/"
-#define PATH_DOMAIN "guestbook/grails-app/domain/guestbook/"
 
 #include <string>
 #include <cstring>

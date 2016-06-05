@@ -17,9 +17,6 @@ namespace Collector {
       void collect_constraints( std::string );
 
       void identify_category( std::string );
-
-      std::string extract_content_file( std::string );
-      std::vector<std::string> extract_words( std::string, std::string );
   };
 }
 

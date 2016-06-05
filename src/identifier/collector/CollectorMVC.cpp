@@ -73,11 +73,11 @@ namespace Collector {
 
   void CollectorMVC::collect_proprieties( std::string domain )
   {
-    std::string content_file = extract_content_file( domain );
+    std::string content_file = Helper::extract_content_file( domain );
 
     if( !content_file.empty() )
     {
-      std::vector<std::string> content = extract_words( content_file, " ={" );
+      std::vector<std::string> content = Helper::extract_words( content_file, " ={" );
 
       for( int i = 0; i < content.size(); i++ )
       {
@@ -106,7 +106,7 @@ namespace Collector {
     std::size_t bracket_found = sub.find( "}" );
     std::string substring = sub.substr( 0, bracket_found );
 
-    std::vector<std::string> words = extract_words( substring, " ={:,(" );
+    std::vector<std::string> words = Helper::extract_words( substring, " ={:,(" );
     std::vector<Propriety> proprieties = data.proprieties;
 
     for( int i = 0; i < proprieties.size(); i++ )
@@ -128,57 +128,5 @@ namespace Collector {
           words.erase( words.begin(), words.begin()+k+1 );
       }
     }
-  }
-
-  std::string CollectorMVC::extract_content_file( std::string domain )
-  {
-    std::fstream domain_stream;
-
-    std::string domain_file( PATH_DOMAIN );
-    domain_file.append( domain );
-    domain_file.append( ".groovy" );
-
-    domain_stream.open( domain_file, READ );
-    std::string content;
-
-    if( domain_stream.is_open() )
-    {
-      std::string line;
-
-      while( std::getline( domain_stream, line ) )
-      {
-        content.append( line );
-      }
-
-      domain_stream.close();
-    } else
-    {
-      std::cout << "Unable to open "<< domain_file << "..." << std::endl;
-    }
-
-    return content;
-  }
-
-  std::vector<std::string>
-  CollectorMVC::extract_words( std::string text, std::string delimiters )
-  {
-    char * cdelimiters = Helper::convert_string_to_cstring( delimiters );
-    char * ctext = Helper::convert_string_to_cstring( text );
-
-    std::vector<std::string> words;
-    char * phrase = strtok( ctext, cdelimiters );
-
-    while( phrase != NULL )
-    {
-      std::string token( phrase );
-      words.push_back( token );
-      phrase = strtok( NULL, cdelimiters );
-    }
-
-    delete[] cdelimiters;
-    delete[] ctext;
-    delete[] phrase;
-
-    return words;
   }
 }
