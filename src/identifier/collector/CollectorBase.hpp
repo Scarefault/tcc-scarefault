@@ -46,37 +46,29 @@ namespace Collector
       static CollectorBase * get_collector( Collector::Language );
       CollectorBase();
 
-      void collect_data( const char *, ... );
+      virtual void collect_data( const char *, ... );
       Collector::FileMVC * get_data();
       Collector::CollectorScarefault collector_scarefault;
 
-    private:
+    protected:
       static const char EOL = '\0';
       static const char PACKAGE = 'P';
       static const char CLASS = 'c';
       static const char METHOD = 'm';
       static const char PARAM = 'p';
 
-
       Collector::FileMVC data;
 
-
-      void collect_class( std::string );
+      virtual void collect_class( std::string );
       void collect_methods( std::vector<std::string> );
+
+    private:
 
       std::vector<Collector::Param> collect_params( std::vector<std::string> );
 
       Collector::Param find_param( std::string );
       Collector::Param create_param( std::string * );
       void set_params_range( Collector::Method * );
-
-      void collect_package( std::string );
-      void collect_proprieties( std::string );
-      void collect_constraints( std::string );
-      void identify_category( std::string );
-
-      std::string extract_content_file( std::string );
-      std::vector<std::string> extract_words( std::string, std::string );
   };
 }
 
