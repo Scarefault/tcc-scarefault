@@ -8,7 +8,8 @@
 
 namespace Collector
 {
-  class FileGrails : public FileMVC { };
+  class FileGrails : public FileMVC
+  {};
 }
 
 #endif // FILEGRAILS_HPP_

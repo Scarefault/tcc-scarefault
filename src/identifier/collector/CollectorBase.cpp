@@ -1,4 +1,5 @@
 #include "CollectorBase.hpp"
+#include "CollectorGrails.hpp"
 
 namespace Collector
 {
@@ -12,7 +13,7 @@ namespace Collector
     switch ( language )
     {
       case GRAILS:
-        instance = new CollectorBase();
+        instance = new CollectorGrails();
         break;
     }
 
