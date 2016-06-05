@@ -2,30 +2,19 @@
 #define FILEBASE_HPP_
 
 #include <vector>
-#include <utility>
 #include <string>
+
+
+#include "Method.hpp"
+#include "Language.hpp"
 
 namespace Collector
 {
-  class Param
-  {
-    public:
-      std::string name;
-      std::string type;
-      std::pair<int, int> range;
-  };
-
-  class Method
-  {
-    public:
-      std::string name;
-      std::string return_type;
-      std::vector<Param> params;
-  };
-
   class FileBase
   {
     public:
+      static FileBase * get_data_file( Collector::Language );
+
       std::string class_name;
       std::vector<Method> methods;
 

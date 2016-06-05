@@ -5,24 +5,10 @@
 #include <string>
 
 #include "FileBase.hpp"
+#include "Propriety.hpp"
 
 namespace Collector
 {
-  class Constraint
-  {
-    public:
-      std::string name;
-      std::string value;
-  };
-
-  class Propriety
-  {
-    public:
-      std::string name;
-      std::string type;
-      std::vector<Constraint> contraints;
-  };
-
   class FileMVC : public FileBase
   {
     public:
