@@ -17,6 +17,8 @@ namespace Collector
       std::string package;
 
       std::vector<Propriety> proprieties;
+
+      void set_package( std::string );
   };
 }
 

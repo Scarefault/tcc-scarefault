@@ -3,7 +3,7 @@
 
 
 #include "TesterBase.hpp"
-#include "../../identifier/collector/FileGrails.hpp"
+#include "../../identifier/collector/FileMVC.hpp"
 #include  "../value_generator/ValueGenerator.hpp"
 
 namespace Tester
@@ -11,7 +11,7 @@ namespace Tester
   class TesterDomain : public TesterBase
   {
     public:
-      TesterDomain( Collector::FileGrails * );
+      TesterDomain( Collector::FileMVC * );
 
       void write_data();
 

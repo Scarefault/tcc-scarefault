@@ -15,7 +15,7 @@
 #include <locale>
 
 
-#include "FileGrails.hpp"
+#include "FileMVC.hpp"
 #include "CollectorScarefault.hpp"
 #include "Language.hpp"
 
@@ -47,7 +47,7 @@ namespace Collector
       CollectorBase();
 
       void collect_data( const char *, ... );
-      Collector::FileGrails * get_data();
+      Collector::FileMVC * get_data();
       Collector::CollectorScarefault collector_scarefault;
 
     private:
@@ -58,23 +58,23 @@ namespace Collector
       static const char PARAM = 'p';
 
 
-      Collector::FileGrails data;
+      Collector::FileMVC data;
 
 
-      void set_package( std::string );
-      void set_class( std::string );
+      void collect_class( std::string );
       void collect_methods( std::vector<std::string> );
 
-      void collect_proprieties( std::string );
       std::vector<Collector::Param> collect_params( std::vector<std::string> );
-      void collect_constraints( std::string );
 
-      void identify_category( std::string );
       Collector::Param find_param( std::string );
       Collector::Param create_param( std::string * );
       void set_params_range( Collector::Method * );
 
-      std::string extract_content_file( std::fstream * );
+      void collect_package( std::string );
+      void collect_proprieties( std::string );
+      void collect_constraints( std::string );
+      void identify_category( std::string );
+
       std::string extract_content_file( std::string );
       std::vector<std::string> extract_words( std::string, std::string );
   };

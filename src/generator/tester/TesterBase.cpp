@@ -4,7 +4,7 @@
 
 namespace Tester
 {
-  TesterBase * TesterBase::get_tester( Collector::FileGrails * ptr_data )
+  TesterBase * TesterBase::get_tester( Collector::FileMVC * ptr_data )
   {
     std::string category = ptr_data->layer;
 
@@ -26,7 +26,7 @@ namespace Tester
     (* test_stream ) << "}" << std::endl;
   }
 
-  void TesterBase::set_data( Collector::FileGrails * ptr )
+  void TesterBase::set_data( Collector::FileMVC * ptr )
   {
       this->data_ptr = ptr;
   }

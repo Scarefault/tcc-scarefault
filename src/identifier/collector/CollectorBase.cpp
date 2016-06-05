@@ -39,10 +39,10 @@ namespace Collector
       switch( *format )
       {
         case PACKAGE:
-          this->set_package( va_arg( arguments, char * ) );
+          this->collect_package( va_arg( arguments, char * ) );
           break;
         case CLASS:
-          this->set_class( va_arg( arguments, char * ) );
+          this->collect_class( va_arg( arguments, char * ) );
           break;
         case METHOD:
           collected_text.assign( va_arg( arguments, char * ) );
@@ -60,21 +60,21 @@ namespace Collector
     this->collect_methods( info_method );
   }
 
-  Collector::FileGrails * CollectorBase::get_data()
+  Collector::FileMVC * CollectorBase::get_data()
   {
     return &data;
   }
 
 // ------------------ PRIVATE FUNCTIONS IMPLEMENTANTION --------------------
 
-  void CollectorBase::set_package( std::string name )
+  void CollectorBase::collect_package( std::string name )
   {
-    this->data.package = name;
+    this->data.set_package( name );
   }
 
-  void CollectorBase::set_class( std::string name )
+  void CollectorBase::collect_class( std::string name )
   {
-    this->data.class_name = name;
+    this->data.set_class( name );
 
     identify_category( name );
   }

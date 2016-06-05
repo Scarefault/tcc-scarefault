@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TesterController::TesterController( Collector::FileGrails * ptr_data )
+  TesterController::TesterController( Collector::FileMVC * ptr_data )
   {
     this->set_data( ptr_data );
   }
