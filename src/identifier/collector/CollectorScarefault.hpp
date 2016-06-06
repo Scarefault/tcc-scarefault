@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 #include <cstdarg>
-#include <algorithm>
 
 #include "Param.hpp"
+#include "../../helper/Helper.hpp"
 
 namespace Collector
 {
@@ -28,8 +28,6 @@ namespace Collector
 
       void insert_param( std::string );
       void set_range( std::string );
-
-      std::string remove_spaces( std::string );
   };
 }
 

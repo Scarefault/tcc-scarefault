@@ -9,9 +9,9 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <locale>
 
 
+#include "../../helper/Helper.hpp"
 #include "../../identifier/collector/FileMVC.hpp"
 
 namespace Tester
@@ -26,14 +26,11 @@ namespace Tester
 
     protected:
       Collector::FileMVC * data_ptr;
-      std::locale locale;
 
       virtual void make_header( std::fstream * ) { /* Implement it in Subclass */ };
       virtual void test_methods( std::fstream * ) { /* Implement it in Subclass */ };
 
       void conclude_data( std:: fstream * );
-
-      std::string convert_to_lower( std::string );
   };
 }
 

@@ -84,4 +84,24 @@ namespace Helper
 
       return words;
     }
+
+  std::string remove_spaces( std::string input )
+  {
+    input.erase( std::remove( input.begin(), input.end(), ' ' ), input.end() );
+
+    return input;
+  }
+
+  std::string convert_to_lower( std::string text )
+  {
+    std::string lower_text;
+    std::locale locale;
+
+    for( int i = 0; i < text.size(); i++ )
+    {
+      lower_text += std::tolower( text[ i ], locale );
+    }
+
+    return lower_text;
+  }
 }

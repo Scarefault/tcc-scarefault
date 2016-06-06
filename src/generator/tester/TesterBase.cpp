@@ -30,16 +30,4 @@ namespace Tester
   {
       this->data_ptr = ptr;
   }
-
-  std::string TesterBase::convert_to_lower( std::string text )
-  {
-    std::string lower_text;
-
-    for( int i = 0; i < text.size(); i++ )
-    {
-      lower_text += std::tolower( text[ i ], locale );
-    }
-
-    return lower_text;
-  }
 }

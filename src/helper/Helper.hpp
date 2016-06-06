@@ -13,12 +13,19 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <algorithm>
+#include <locale>
 
 namespace Helper
 {
-    char * convert_string_to_cstring( std::string );
     bool is_type( std::string );
+
+    char * convert_string_to_cstring( std::string );
+
     std::string extract_content_file( std::string );
+    std::string remove_spaces( std::string );
+    std::string convert_to_lower( std::string );
+
     std::vector<std::string> extract_words( std::string, std::string );
 }
 
