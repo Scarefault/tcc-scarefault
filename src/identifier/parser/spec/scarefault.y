@@ -50,9 +50,14 @@ expected_scarefault:
 ;
 
 test_scarefault:
-  SCAREFAULT_TEST PAR_L word PAR_R SCAREFAULT_EXPECT word {
+  SCAREFAULT_TEST PAR_L values PAR_R SCAREFAULT_EXPECT value {
     log.message( LogSystem::INFO, "stmt: scarefault test" );
   }
+;
+
+values:
+  value
+| values COMMA value
 ;
 
 word:
