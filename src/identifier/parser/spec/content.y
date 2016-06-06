@@ -358,7 +358,7 @@ try_catch_stmt:
 expr:
   value
 | arithmetical_expr {
-  log.message( LogSystem::INFO, "stmt: arithmetical expression" );
+    log.message( LogSystem::INFO, "stmt: arithmetical expression" );
   }
 | relational_expr
 | creation_expr
@@ -367,7 +367,6 @@ expr:
 | elvis_expr
 | safe_nav_expr
 | mtd_ptr_expr
-| '(' expr ')'
 ;
 
 value:
