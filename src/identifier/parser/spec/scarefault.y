@@ -4,7 +4,7 @@ scarefault_stmt:
 | range_scarefault
 | return_scarefault
 | invalid_scarefault
-| expected_scarefault
+| test_scarefault
 ;
 
 param_scarefault:
@@ -46,6 +46,12 @@ invalid_scarefault:
 expected_scarefault:
   SCAREFAULT_EXPECTED word {
     log.message( LogSystem::INFO, "stmt: scarefault expected" );
+  }
+;
+
+test_scarefault:
+  SCAREFAULT_TEST PAR_L word PAR_R SCAREFAULT_EXPECT word {
+    log.message( LogSystem::INFO, "stmt: scarefault test" );
   }
 ;
 

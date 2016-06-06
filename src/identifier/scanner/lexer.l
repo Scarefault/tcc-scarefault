@@ -407,6 +407,16 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::SCAREFAULT_EXPECTED;
   }
 
+  "@expect" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_EXPECT;
+  }
+
+  "@test" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_TEST;
+  }
+
   //--------------------------Types--------------------------
   //
   "Integer" |
@@ -466,6 +476,29 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser:: TYPE_DATE;
   }
 
+  // -------------- Punctuation Marks -----------------------
+  "(" {
+    *d_val = matched();
+    return Parser::PAR_L;
+  }
+
+  ")" {
+    *d_val = matched();
+    return Parser::PAR_R;
+  }
+
+  "," {
+    *d_val = matched();
+    return Parser::COMMA;
+  }
+
+  //----------------------Operators-------------------------------
+  //
+  ".." {
+    *d_val = matched();
+    return Parser::RANGE_OP;
+  }
+
   //--------------------------FileGrails Values--------------------------
   //
   {DIGIT}   |
@@ -485,14 +518,7 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::WORD;
   }
 
-  //----------------------Operators-------------------------------
-  //
-  ".." {
-    *d_val = matched();
-    return Parser::RANGE_OP;
-  }
-
-  .|\n {
+  /*.|\n {
     more();
-  }
+  }*/
 }
