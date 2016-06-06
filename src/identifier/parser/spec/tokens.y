@@ -44,7 +44,10 @@
 %token STRING
 %token IDENTIFIER
 %token BOOL
+
 %token WORD
+%token BOOLEAN
+%token NUM
 
 
 /*

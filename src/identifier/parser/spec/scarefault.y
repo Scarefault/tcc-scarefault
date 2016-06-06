@@ -50,14 +50,21 @@ expected_scarefault:
 ;
 
 test_scarefault:
-  SCAREFAULT_TEST PAR_L values PAR_R SCAREFAULT_EXPECT value {
+  SCAREFAULT_TEST PAR_L values PAR_R SCAREFAULT_EXPECT val {
     log.message( LogSystem::INFO, "stmt: scarefault test" );
   }
 ;
 
 values:
-  value
-| values COMMA value
+  val
+| values COMMA val
+;
+
+val:
+  NUM
+| BOOLEAN
+| STRING
+| word
 ;
 
 word:

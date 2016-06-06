@@ -505,12 +505,12 @@ BOOLEAN {TRUE}|{FALSE}
   {INTEGER} |
   {REAL} {
     *d_val = matched();
-    return Parser::NUMBER;
+    return Parser::NUM;
   }
 
   {BOOLEAN} {
     *d_val = matched();
-    return Parser::BOOL;
+    return Parser::BOOLEAN;
   }
 
   {IDENTIFIER} {
