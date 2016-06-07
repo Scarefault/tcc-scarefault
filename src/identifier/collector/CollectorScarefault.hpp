@@ -7,7 +7,7 @@
 
 #include "Param.hpp"
 #include "../../helper/Helper.hpp"
-#include "../../generator/TestCaseBase.hpp"
+#include "../../generator/testcase/TestCaseBase.hpp"
 
 namespace Collector
 {

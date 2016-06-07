@@ -4,13 +4,16 @@
 #include <string>
 #include <vector>
 
+#include "Arg.hpp"
+
 
 namespace Tester
 {
   class TestCaseBase
   {
     public:
-      TestCase( std::string, std::string, std::vector<Tester::Arg> = nullptr );
+      TestCaseBase( std::string, std::string, std::vector<Tester::Arg> );
+      TestCaseBase( std::string, std::string );
 
 
       std::string get_bound_method();
