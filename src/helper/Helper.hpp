@@ -20,6 +20,8 @@ namespace Helper
 {
     bool is_type( std::string );
 
+    int count_char( std::string );
+
     char * convert_string_to_cstring( std::string );
 
     std::string extract_content_file( std::string );

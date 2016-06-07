@@ -8,6 +8,7 @@
 #include "Param.hpp"
 #include "../../helper/Helper.hpp"
 #include "../../generator/testcase/TestCaseBase.hpp"
+#include "../../generator/testcase/Arg.hpp"
 
 namespace Collector
 {
@@ -22,14 +23,17 @@ namespace Collector
       static const char EOL = '\0';
       static const char PARAM = 'p';
       static const char RANGE = 'r';
-      static const char TEST_CASE = 't';
+      static const char ARGUMENTS_FOR_TEST_CASE = 'a';
+      static const char EXPECTED_RESULT = 'e';
 
 
+      Tester::TestCaseBase collected_case;
       std::vector<Collector::Param> params;
       std::vector<Tester::TestCaseBase> test_cases;
 
 
-      void insert_test_case( Tester::TestCaseBase );
+      void collect_arguments( std::string );
+      void collect_expected_result( std::string );
       void insert_param( std::string );
       void set_range( std::string );
   };

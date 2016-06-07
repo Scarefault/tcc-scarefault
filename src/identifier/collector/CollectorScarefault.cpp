@@ -17,13 +17,52 @@ namespace Collector
         case RANGE:
           this->set_range( va_arg( arguments, char * ) );
           break;
-        case TEST_CASE:
-
+        case ARGUMENTS_FOR_TEST_CASE:
+          this->collect_arguments( va_arg( arguments, char * ) );
+          break;
+        case EXPECTED_RESULT:
+          this->collect_expected_result( va_arg( arguments, char * ) );
           break;
       }
 
       format++;
     }
+  }
+
+  Collector::Param CollectorScarefault::get_param( int index )
+  {
+    return this->params[ index ];
+  }
+
+  std::vector<Collector::Param> * CollectorScarefault::get_params()
+  {
+    return &params;
+  }
+
+  void CollectorScarefault::collect_arguments( std::string arguments )
+  {
+    if( !arguments.empty() )
+    {
+      std::vector<std::string> args = Helper::extract_words( arguments, " ," );
+
+      while( !args.empty() )
+      {
+        Tester::Arg arg;
+        arg.value = args.front();
+
+        this->collected_case.insert_argument( arg );
+
+        args.erase( args.begin() );
+      }
+    } else
+    {
+      // Nothing to do
+    }
+  }
+
+  void CollectorScarefault::collect_expected_result( std::string result )
+  {
+    this->collected_case.set_expected_result( result );
   }
 
   void CollectorScarefault::insert_param( std::string name )
@@ -44,15 +83,5 @@ namespace Collector
 
     std::get<0>( this->params[ last_param ].range ) = std::stoi( min );
     std::get<1>( this->params[ last_param ].range ) = std::stoi( max );
-  }
-
-  std::vector<Collector::Param> * CollectorScarefault::get_params()
-  {
-    return &params;
-  }
-
-  Collector::Param CollectorScarefault::get_param( int index )
-  {
-    return this->params[ index ];
   }
 }

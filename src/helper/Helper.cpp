@@ -104,4 +104,9 @@ namespace Helper
 
     return lower_text;
   }
+
+  int count_char( std::string text, char character )
+  {
+    return std::count( text.begin(), text.end(), character );
+  }
 }

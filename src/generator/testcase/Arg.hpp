@@ -8,8 +8,6 @@ namespace Tester {
   class Arg
   {
     public:
-      Arg( std::string, std::string );
-
       std::string bound_param;
       std::string value;
   };

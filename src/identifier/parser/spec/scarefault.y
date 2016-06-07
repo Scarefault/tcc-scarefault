@@ -52,12 +52,21 @@ expected_scarefault:
 test_scarefault:
   SCAREFAULT_TEST PAR_L values PAR_R SCAREFAULT_EXPECT val {
     log.message( LogSystem::INFO, "stmt: scarefault test" );
+
+    std::string arguments_token( $3 );
+    std::string result_token( $6 );
   }
 ;
 
 values:
   val
-| values COMMA val
+| values COMMA val {
+  std::string values_token( $1 );
+  values_token.append( "," );
+  values_token.append( $3 );
+
+  $$ = values_token;
+}
 ;
 
 val:

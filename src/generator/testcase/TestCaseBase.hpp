@@ -13,15 +13,19 @@ namespace Tester
   {
     public:
       TestCaseBase( std::string, std::string, std::vector<Tester::Arg> );
+      TestCaseBase( std::string, std::vector<Tester::Arg> );
       TestCaseBase( std::string, std::string );
+      TestCaseBase();
 
 
       std::string get_bound_method();
       std::string get_expected_result();
-
-      std::vector<Tester::Arg> get_arguments();
       Tester::Arg get_argument( int );
 
+      std::vector<Tester::Arg> * get_arguments();
+
+      void set_bound_method( std::string );
+      void set_expected_result( std::string );
       void insert_argument( Tester::Arg );
 
 
