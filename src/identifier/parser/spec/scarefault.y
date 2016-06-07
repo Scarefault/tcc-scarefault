@@ -55,6 +55,9 @@ test_scarefault:
 
     std::string arguments_token( $3 );
     std::string result_token( $6 );
+
+    collector->collector_scarefault.collect_data( "ae", arguments_token.c_str(),
+        result_token.c_str() );
   }
 ;
 

@@ -34,8 +34,12 @@ namespace Collector
 
       void collect_arguments( std::string );
       void collect_expected_result( std::string );
+      void insert_test_case();
       void insert_param( std::string );
       void set_range( std::string );
+
+      void clear_collected_case();
+      void print_collected_result(); // TODO: Temporary
   };
 }
 
