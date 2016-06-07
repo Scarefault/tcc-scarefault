@@ -17,6 +17,9 @@ namespace Collector
         case RANGE:
           this->set_range( va_arg( arguments, char * ) );
           break;
+        case TEST_CASE:
+
+          break;
       }
 
       format++;

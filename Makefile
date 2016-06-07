@@ -5,6 +5,8 @@ OBJS = src/*/*/*.cc # identifier/(parser|scanner)/*.cc
 SRC_S = src/scarefault.cpp
 TST_H = src/*/tester/*.hpp
 TST_I = src/*/tester/*.cpp
+TCS_H = src/*/testcase/*.hpp
+TCS_I = src/*/testcase/*.cpp
 GEN_H = src/*/value_generator/*.hpp
 GEN_I = src/*/value_generator/*.cpp
 CLL_H = src/*/collector/*.hpp
@@ -24,7 +26,7 @@ lex.cc:
 	cd src/identifier/scanner && $(MAKE)
 
 scarefault:
-	$(CC) $(CFLAGS) scarefault $(SRC_S) $(TST_H) $(TST_I) $(GEN_H) $(GEN_I) $(CLL_H) $(CLL_I) $(HLP_H) $(HLP_I) $(LOG_H) $(LOG_I) $(OBJS)
+	$(CC) $(CFLAGS) scarefault $(SRC_S) $(TST_H) $(TST_I) $(TCS_H) $(TCS_I) $(GEN_H) $(GEN_I) $(CLL_H) $(CLL_I) $(HLP_H) $(HLP_I) $(LOG_H) $(LOG_I) $(OBJS)
 
 clean: parser_clean scanner_clean scarefault_clean
 
