@@ -79,9 +79,9 @@ namespace Tester
       for( int j = 0; j < data_ptr->methods[i].test_cases.size(); j++ )
       {
         std::cout << "\t\t\t[ " << j+1 << " ]:" << "\n"
-                  << "\t\t\tBound Method: " << data_ptr->methods[ i ].test_cases[ j ].get_bound_method()
+                  << "\t\t\tBound Method: " << data_ptr->methods[ i ].test_cases[ j ].get_bound_method()->data()
                   << std::endl
-                  << "\t\t\tExpected Result: " << data_ptr->methods[ i ].test_cases[ j ].get_expected_result()
+                  << "\t\t\tExpected Result: " << data_ptr->methods[ i ].test_cases[ j ].get_expected_result()->data()
                   << std::endl
                   << "\t\t\tArguments: " << std::endl;
         for( int k = 0; k < data_ptr->methods[ i ].test_cases[ j ].get_arguments()->size(); k++ )

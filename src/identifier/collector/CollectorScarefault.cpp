@@ -84,7 +84,7 @@ namespace Collector
 
   void CollectorScarefault::insert_test_case()
   {
-    if( !( this->collected_case.get_expected_result().empty() &&
+    if( !( this->collected_case.get_expected_result()->empty() &&
            this->collected_case.get_arguments()->empty() ) )
     {
       this->test_cases.push_back( this->collected_case );
@@ -118,8 +118,8 @@ namespace Collector
   void CollectorScarefault::clear_collected_case()
   {
     this->collected_case.get_arguments()->clear();
-    this->collected_case.get_expected_result().clear();
-    this->collected_case.get_bound_method().clear();
+    this->collected_case.get_expected_result()->clear();
+    this->collected_case.get_bound_method()->clear();
   }
 
   void CollectorScarefault::clear_test_cases()

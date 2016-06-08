@@ -27,7 +27,7 @@ range_scarefault:
 ;
 
 range_stmt:
-  SCAREFAULT_RANGE value RANGE_OP value {
+  SCAREFAULT_RANGE val RANGE_OP val {
     log.message( LogSystem::INFO, "stmt: scarefault range" );
     std::string range( $2 );
     range.append( ".." );

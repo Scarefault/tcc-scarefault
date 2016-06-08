@@ -23,14 +23,14 @@ namespace Tester {
 
   TestCaseBase::TestCaseBase() { /* Empty Constructor */ }
 
-  std::string TestCaseBase::get_bound_method()
+  std::string * TestCaseBase::get_bound_method()
   {
-    return this->bound_method;
+    return &bound_method;
   }
 
-  std::string TestCaseBase::get_expected_result()
+  std::string * TestCaseBase::get_expected_result()
   {
-    return this->expected_result;
+    return &expected_result;
   }
 
   std::vector<Tester::Arg> * TestCaseBase::get_arguments()

@@ -18,8 +18,8 @@ namespace Tester
       TestCaseBase();
 
 
-      std::string get_bound_method();
-      std::string get_expected_result();
+      std::string * get_bound_method();
+      std::string * get_expected_result();
       Tester::Arg * get_argument( int );
 
       std::vector<Tester::Arg> * get_arguments();
