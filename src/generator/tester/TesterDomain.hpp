@@ -20,6 +20,7 @@ namespace Tester
 
       void make_header( std::fstream * );
       void test_methods( std::fstream * );
+      void print_result(); // TODO: temporary
   };
 }
 

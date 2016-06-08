@@ -29,7 +29,21 @@ namespace Collector
     }
 
     this->insert_test_case();
-    this->print_collected_result(); // TODO: Temporary
+  }
+
+  std::vector<Tester::TestCaseBase> CollectorScarefault::get_test_cases_by_copy()
+  {
+    return this->test_cases;
+  }
+
+  std::vector<Tester::TestCaseBase> * CollectorScarefault::get_test_cases()
+  {
+    return &test_cases;
+  }
+
+  Tester::TestCaseBase * CollectorScarefault::get_test_case( int index )
+  {
+    return &test_cases[ index ];
   }
 
   Collector::Param CollectorScarefault::get_param( int index )
@@ -108,25 +122,8 @@ namespace Collector
     this->collected_case.get_bound_method().clear();
   }
 
-  // TODO: Temporary
-  //
-  void CollectorScarefault::print_collected_result()
+  void CollectorScarefault::clear_test_cases()
   {
-    std::cout << "Collected Test Cases:" << "\n";
-
-    for( int i = 0; i < this->test_cases.size(); i++ )
-    {
-      std::cout << "Number [" << i << "]:" << "\n";
-      std::cout << "\tBound Method: " << this->test_cases[i].get_bound_method() << "\n";
-      std::cout << "\tExpected Result: " << this->test_cases[i].get_expected_result() << "\n";
-      std::cout << "\tArguments:" << "\n";
-      for( int j = 0; j < this->test_cases[i].get_arguments()->size(); j++ )
-      {
-        std::cout << "\tArg[" << j << "]:" << "\n";
-        std::cout << "\t\tBound Param: " << this->test_cases[i].get_argument(j).bound_param << "\n";
-        std::cout << "\t\tValue: " << this->test_cases[i].get_argument(j).value << "\n";
-      }
-      std::cout << "\n";
-    }
+    this->test_cases.clear();
   }
 }

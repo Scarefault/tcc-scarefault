@@ -19,6 +19,11 @@ namespace Collector
       std::vector<Collector::Param> * get_params();
       Collector::Param get_param( int );
 
+      void clear_test_cases();
+      std::vector<Tester::TestCaseBase> * get_test_cases();
+      std::vector<Tester::TestCaseBase> get_test_cases_by_copy();
+      Tester::TestCaseBase * get_test_case( int );
+
     private:
       static const char EOL = '\0';
       static const char PARAM = 'p';
@@ -39,7 +44,6 @@ namespace Collector
       void set_range( std::string );
 
       void clear_collected_case();
-      void print_collected_result(); // TODO: Temporary
   };
 }
 

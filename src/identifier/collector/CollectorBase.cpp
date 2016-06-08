@@ -79,11 +79,32 @@ namespace Collector
       method.params = collect_params( info );
 
       this->set_params_range( &method );
+      this->set_test_cases( &method );
       this->data.insert_method( method );
     } else
     {
       // Nothing To do
     }
+  }
+
+  void CollectorBase::set_test_cases( Collector::Method * method )
+  {
+    int qtd_test_cases = this->collector_scarefault.get_test_cases()->size();
+
+    for( int i = 0; i < qtd_test_cases; i++ )
+    {
+      this->collector_scarefault.get_test_case(i)->set_bound_method( method->name );
+
+      int qtd_args = this->collector_scarefault.get_test_case(i)->get_arguments()->size();
+
+      for( int j = 0; j < qtd_args; j++ )
+      {
+        this->collector_scarefault.get_test_case(i)->get_argument(j)->bound_param = method->params[j].name;
+      }
+    }
+
+    method->test_cases = this->collector_scarefault.get_test_cases_by_copy();
+    this->collector_scarefault.clear_test_cases();
   }
 
   void CollectorBase::set_params_range( Collector::Method * method )

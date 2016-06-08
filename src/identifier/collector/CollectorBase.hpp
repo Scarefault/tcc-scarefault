@@ -64,6 +64,7 @@ namespace Collector
       Collector::Param find_param( std::string );
       Collector::Param create_param( std::string * );
       void set_params_range( Collector::Method * );
+      void set_test_cases( Collector::Method * );
   };
 }
 

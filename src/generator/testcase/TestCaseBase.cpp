@@ -1,5 +1,5 @@
 #include "TestCaseBase.hpp"
-
+#include <iostream>
 namespace Tester {
   TestCaseBase::TestCaseBase(
       std::string method, std::string result, std::vector<Tester::Arg> args )
@@ -38,9 +38,9 @@ namespace Tester {
     return &arguments;
   }
 
-  Tester::Arg TestCaseBase::get_argument( int index )
+  Tester::Arg * TestCaseBase::get_argument( int index )
   {
-    return this->arguments[ index ];
+    return &arguments[ index ];
   }
 
   void TestCaseBase::insert_argument( Tester::Arg argument )
