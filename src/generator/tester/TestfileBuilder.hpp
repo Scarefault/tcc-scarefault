@@ -11,8 +11,6 @@ namespace Tester
   class TestfileBuilder
   {
     public:
-      TestfileBuilder( Collector::FileMVC * );
-
       Tester::TestfileProduct get_testfile();
 
       virtual void build_dependencies() = 0;
@@ -20,9 +18,9 @@ namespace Tester
       virtual void build_valid_testcase() = 0;
 
     protected:
-      Tester::TestfileProduct testfile;
+      Tester::TestfileProduct * testfile;
       Collector::FileMVC * data_ptr;
-      Generator::ValueGenerator value_generator;
+      Generator::ValueGenerator * value_generator;
   };
 }
 
