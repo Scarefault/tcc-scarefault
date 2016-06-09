@@ -12,7 +12,6 @@ namespace Tester
     public:
       TestfileGrailsBuilder();
 
-      Tester::TestfileProduct get_testfile();
       void build_dependencies();
 
     protected:
