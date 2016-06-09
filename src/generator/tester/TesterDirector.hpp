@@ -4,7 +4,6 @@
 
 #include "TestfileBuilder.hpp"
 #include "TestfileProduct.hpp"
-#include "../../identifier/collector/FileMVC.hpp"
 
 
 namespace Tester
@@ -12,13 +11,13 @@ namespace Tester
   class TesterDirector
   {
     public:
-      TesterDirector( Tester::TestfileBuilder, Collector::FileMVC * );
+      TesterDirector( Tester::TestfileBuilder * );
 
       void generate_testfile();
        Tester::TestfileProduct get_testfile();
 
     protected:
-      Tester::TestfileBuilder generator_testile;
+      Tester::TestfileBuilder * generator_testile;
   };
 }
 

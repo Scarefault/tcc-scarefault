@@ -11,7 +11,7 @@ namespace Tester
   class TestfileBuilder
   {
     public:
-      TestfileBuilder();
+      TestfileBuilder( Collector::FileMVC * );
 
       Tester::TestfileProduct get_testfile();
 
