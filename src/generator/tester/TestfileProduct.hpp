@@ -3,14 +3,26 @@
 
 
 #include <string>
+#include <vector>
 
 
 namespace Tester
 {
-  class TestfileProduct
+  class TestfileProducts
   {
     public:
       TestfileProduct();
+
+      std::string get_dependencies();
+      std::string get_test_class();
+      std::vector<std::string> * get_valid_testcases();
+      std::string * get_valid_testcase( int );
+
+      void set_dependencies( std::string );
+      void set_test_class( std::string );
+      void set_valid_testcases( std::vector<std::string> );
+      void insert_valid_testcase( std::string );
+
 
     private:
       std::string dependencies;

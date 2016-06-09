@@ -10,8 +10,6 @@ namespace Tester
   class TestfileGrailsBuilder : public TestfileBuilder
   {
     public:
-      TestfileGrailsBuilder();
-
       void build_dependencies();
 
     protected:
