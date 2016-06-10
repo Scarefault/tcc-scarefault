@@ -13,8 +13,8 @@ namespace Tester
       void build_dependencies();
 
     protected:
-      virtual void build_package() = 0;
-      virtual void build_imports() = 0;
+      virtual std::string build_package() = 0;
+      virtual std::string build_imports() = 0;
   };
 }
 

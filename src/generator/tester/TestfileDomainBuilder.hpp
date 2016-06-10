@@ -15,10 +15,12 @@ namespace Tester
     public:
       TestfileDomainBuilder( Collector::FileMVC * );
 
-      void build_package();
-      void build_imports();
       void build_test_class();
       void build_valid_testcases();
+
+    protected:
+      std::string build_package();
+      std::string build_imports();
   };
 }
 

@@ -2,7 +2,7 @@
 
 namespace Tester
 {
-  TestfileBuilder::get_testfile()
+  Tester::TestfileProduct * TestfileBuilder::get_testfile()
   {
     return this->testfile;
   }

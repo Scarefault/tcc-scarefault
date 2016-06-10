@@ -8,7 +8,7 @@
 
 namespace Tester
 {
-  class TestfileProducts
+  class TestfileProduct
   {
     public:
       TestfileProduct();

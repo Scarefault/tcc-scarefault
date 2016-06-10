@@ -11,11 +11,11 @@ namespace Tester
   class TestfileBuilder
   {
     public:
-      Tester::TestfileProduct get_testfile();
+      Tester::TestfileProduct * get_testfile();
 
       virtual void build_dependencies() = 0;
       virtual void build_test_class() = 0;
-      virtual void build_valid_testcase() = 0;
+      virtual void build_valid_testcases() = 0;
 
     protected:
       Tester::TestfileProduct * testfile;

@@ -1,4 +1,5 @@
 #include "TestfileProduct.hpp"
+#include <iostream>
 
 namespace Tester
 {
@@ -26,7 +27,9 @@ namespace Tester
 
   void TestfileProduct::set_dependencies( std::string text )
   {
+    std::cout << "OPA" << "\n";
     this->dependencies = text;
+    std::cout << "OPA OPA" << "\n";
   }
 
   void TestfileProduct::set_test_class( std::string text )

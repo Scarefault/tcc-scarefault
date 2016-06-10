@@ -14,7 +14,7 @@ namespace Tester
       TesterDirector( Tester::TestfileBuilder * );
 
       void generate_testfile();
-       Tester::TestfileProduct get_testfile();
+       Tester::TestfileProduct * get_testfile();
 
     protected:
       Tester::TestfileBuilder * generator_testile;

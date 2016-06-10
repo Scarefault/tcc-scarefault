@@ -2,9 +2,10 @@
 
 namespace Tester
 {
-  TestfileGrailsBuilder::build_dependencies()
+  void TestfileGrailsBuilder::build_dependencies()
   {
-    this->build_package();
-    this->build_imports();
+    std::stringstream stream;
+    stream << this->build_package() << this->build_imports();
+    this->testfile->set_dependencies( stream.str() );
   }
 }
