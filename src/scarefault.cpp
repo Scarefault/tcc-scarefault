@@ -27,5 +27,10 @@ int main( int argc, char **argv )
   tester.generate_testfile();
   TestfileProduct * testfile = tester.get_testfile();
   std::cout << testfile->get_dependencies()
-            << testfile->get_test_class() << "\n";
+            << testfile->get_test_class();
+
+  for( int i = 0; i < testfile->get_valid_testcases()->size(); i++ )
+  {
+    std::cout << (* testfile->get_valid_testcase( i ) ) << "\n";
+  }
 }
