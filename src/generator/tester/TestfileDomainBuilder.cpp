@@ -6,6 +6,7 @@ namespace Tester
   {
     this->data_ptr = data;
     this->value_generator = new Generator::ValueGenerator();
+    this->testfile = new Tester::TestfileProduct();
   }
 
   std::string TestfileDomainBuilder::build_package()
@@ -44,6 +45,5 @@ namespace Tester
 
   void TestfileDomainBuilder::build_valid_testcases()
   {
-    std::cout << "OI" << "\n";
   }
 }
