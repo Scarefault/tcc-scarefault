@@ -5,6 +5,7 @@
 #include "generator/tester/TesterController.hpp"
 #include "generator/tester/TesterDirector.hpp"
 #include "generator/tester/TestfileDomainBuilder.hpp"
+#include "generator/tester/TestfileControllerBuilder.hpp"
 #include "generator/tester/TestfileProduct.hpp"
 
 #include <iostream>
@@ -20,10 +21,10 @@ int main( int argc, char **argv )
   parser.parse();
 
   CollectorBase * collector_ptr = address_collector;
-  //TesterBase * tester = TesterBase::get_tester( collector_ptr->get_data() );
-  //tester->write_data();
+  // TesterBase * tester = TesterBase::get_tester( collector_ptr->get_data() );
+  // tester->write_data();
 
-  TesterDirector tester( new TestfileDomainBuilder( collector_ptr->get_data() ) );
+  TesterDirector tester( new TestfileControllerBuilder( collector_ptr->get_data() ) );
   tester.generate_testfile();
   TestfileProduct * testfile = tester.get_testfile();
   std::cout << testfile->get_dependencies()

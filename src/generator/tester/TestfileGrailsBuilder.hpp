@@ -2,6 +2,9 @@
 #define TESTFILEGRAILSBUILDER_HPP_
 
 
+#include <sstream>
+
+
 #include "TestfileBuilder.hpp"
 
 
@@ -43,7 +46,7 @@ namespace Tester
       };
 
 
-      void create_params( std::fstream * );
+      std::string create_params();
       std::string create_value( Collector::Propriety );
       std::string create_string( Collector::Propriety );
       std::string create_integer( Collector::Propriety );

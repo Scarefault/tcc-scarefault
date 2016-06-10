@@ -9,8 +9,10 @@ namespace Tester
     this->testfile->set_dependencies( stream.str() );
   }
 
-  void TesterController::create_params( std::fstream * test_stream )
+  std::string TestfileGrailsBuilder::create_params()
   {
+    std::stringstream stream;
+
     for( int i = 0; i < data_ptr->proprieties.size(); i++ )
     {
       Collector::Propriety propriety = data_ptr->proprieties[ i ];
@@ -20,18 +22,21 @@ namespace Tester
       {
         std::string value = create_value( propriety );
 
-        (* test_stream) << "  params[\""
-                        << propriety.name
-                        << "\"] = "
-                        << value
-                        << std::endl;
+        stream << "  params[\""
+               << propriety.name
+               << "\"] = "
+               << value
+               << std::endl;
       } else
       {
         // Nothing to do
       }
     }
 
-    std::string TesterController::create_value( Collector::Propriety propriety )
+    return stream.str();
+  }
+
+    std::string TestfileGrailsBuilder::create_value( Collector::Propriety propriety )
     {
       std::string value( "VALID VALUE" );
       std::vector<Collector::Constraint> constraints = propriety.contraints;
@@ -47,7 +52,7 @@ namespace Tester
         value = create_floating( propriety );
       } else if( is_boolean( propriety ) )
       {
-        value = value_generator.generate_boolean();
+        value = value_generator->generate_boolean();
       } else
       {
         // Nothing to do
@@ -56,7 +61,7 @@ namespace Tester
       return value;
     }
 
-    std::string TesterController::create_string( Collector::Propriety propriety )
+    std::string TestfileGrailsBuilder::create_string( Collector::Propriety propriety )
     {
       clear_constraints();
 
@@ -93,10 +98,10 @@ namespace Tester
         }
       }
 
-      return value_generator.generate_string( constraints );
+      return value_generator->generate_string( constraints );
     }
 
-    std::string TesterController::create_integer( Collector::Propriety propriety )
+    std::string TestfileGrailsBuilder::create_integer( Collector::Propriety propriety )
     {
       clear_constraints();
 
@@ -127,10 +132,10 @@ namespace Tester
         }
       }
 
-      return value_generator.generate_integer( constraints );
+      return value_generator->generate_integer( constraints );
     }
 
-    std::string TesterController::create_floating( Collector::Propriety propriety )
+    std::string TestfileGrailsBuilder::create_floating( Collector::Propriety propriety )
     {
       clear_constraints();
 
@@ -164,10 +169,10 @@ namespace Tester
         }
       }
 
-      return value_generator.generate_floating( constraints );
+      return value_generator->generate_floating( constraints );
     }
 
-    bool TesterController::is_string( Collector::Propriety propriety )
+    bool TestfileGrailsBuilder::is_string( Collector::Propriety propriety )
     {
       bool is_string = false;
 
@@ -182,7 +187,7 @@ namespace Tester
       return is_string;
     }
 
-    bool TesterController::is_integer( Collector::Propriety propriety )
+    bool TestfileGrailsBuilder::is_integer( Collector::Propriety propriety )
     {
       bool is_integer = false;
 
@@ -197,7 +202,7 @@ namespace Tester
       return is_integer;
     }
 
-    bool TesterController::is_floating( Collector::Propriety propriety )
+    bool TestfileGrailsBuilder::is_floating( Collector::Propriety propriety )
     {
       bool is_floating = false;
 
@@ -213,7 +218,7 @@ namespace Tester
       return is_floating;
     }
 
-    bool TesterController::is_boolean( Collector::Propriety propriety )
+    bool TestfileGrailsBuilder::is_boolean( Collector::Propriety propriety )
     {
       bool is_boolean = false;
 
@@ -228,12 +233,12 @@ namespace Tester
       return is_boolean;
     }
 
-    bool TesterController::convert_to_bool( std::string text )
+    bool TestfileGrailsBuilder::convert_to_bool( std::string text )
     {
       return ( text == "true" ) ? true : false;
     }
 
-    void TesterController::extract_size( std::string text )
+    void TestfileGrailsBuilder::extract_size( std::string text )
     {
       int range_op_position = text.find( ".." );
       std::string min_string = text.substr( 0, range_op_position );
@@ -243,7 +248,7 @@ namespace Tester
       constraints[ MAX_SIZE ] = std::stoi( max_string );
     }
 
-    void TesterController::extract_range( std::string text )
+    void TestfileGrailsBuilder::extract_range( std::string text )
     {
       int range_op_position = text.find( ".." );
       std::string min_string = text.substr( 0, range_op_position );
@@ -253,7 +258,7 @@ namespace Tester
       constraints[ MAX ] = std::stoi( max_string );
     }
 
-    void TesterController::clear_constraints()
+    void TestfileGrailsBuilder::clear_constraints()
     {
       int QTD_BOOLEAN_CONSTRAINTS = 6;
 

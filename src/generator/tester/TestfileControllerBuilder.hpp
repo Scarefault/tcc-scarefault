@@ -6,14 +6,15 @@
 
 
 #include "TestfileGrailsBuilder.hpp"
+#include "../../helper/Helper.hpp"
 
 
 namespace Tester
 {
-  class TestfileControlllerBuilder : public TestfileGrailsBuilder
+  class TestfileControllerBuilder : public TestfileGrailsBuilder
   {
     public:
-      TestfileControlllerBuilder( Collector::FileMVC * );
+      TestfileControllerBuilder( Collector::FileMVC * );
 
       void build_test_class();
       void build_valid_testcases();
@@ -23,16 +24,16 @@ namespace Tester
       std::string build_imports();
 
 
-      void build_valid_setup();
+      std::string build_valid_setup();
 
-      void build_index();
-      void build_create();
-      void build_show();
-      void build_delete();
-      void build_list();
-      void build_save();
-      void build_edit();
-      void build_update();
+      std::string build_index();
+      std::string build_create();
+      std::string build_show();
+      std::string build_delete();
+      std::string build_list();
+      std::string build_save();
+      std::string build_edit();
+      std::string build_update();
   };
 }
 
