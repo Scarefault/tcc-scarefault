@@ -78,19 +78,25 @@ namespace Collector {
     if( !content_file.empty() )
     {
       std::vector<std::string> content = Helper::extract_words( content_file, " ={" );
+      size_t found = content_file.find( "(" );
+      std::string begin = content_file.substr( 0, found );
+      std::vector<std::string> content_begin = Helper::extract_words( begin, " ={" );
 
-      for( int i = 0; i < content.size(); i++ )
+      for( int i = 0; i < content_begin.size(); i++ )
       {
         Collector::Propriety new_propriety;
 
-        if( Helper::is_type( content[ i ] ) )
+        if( Helper::is_type( content_begin[ i ] ) )
         {
-          new_propriety.name = content[ i+1 ];
-          new_propriety.type = content[ i ];
+          new_propriety.name = content_begin[ i+1 ];
+          new_propriety.type = content_begin[ i ];
 
           data.proprieties.push_back( new_propriety );
         }
+      }
 
+      for( int i = 0; i < content.size(); i++ )
+      {
         if( !content[i].compare( "constraints" ) )
         {
           collect_constraints( content_file );
