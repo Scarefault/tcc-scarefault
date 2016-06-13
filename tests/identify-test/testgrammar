@@ -134,8 +134,6 @@ class TypedVariableAssignmentExample implements Interface {
 }
 
 class UntypedVariableDeclarationAssignmentExample {
-  /* TODO: Não está identificando o operador de subtração ( '-' ) */
-
   variable = 1 + 1 * 1 / 1
   public variable = 123 * 234 + 543
   protected variable = 123 * 32 && 1234 / 432
@@ -354,9 +352,9 @@ class ObjectDeclarationExample {
 }
 
 class ObjectAssignmentExample {
-  /* TODO: Atribuição de propriety ainda não está funcionando. */
-  /* TODO: Ainda não identifica expressões dentro de parênteses, algo como
-     ( expr ) */
+  /* TODO Atribuicao de propriety ainda nao esta funcionando */
+  /* TODO Ainda nao identifica expressoes dentro de parenteses algo como
+     PAR_L expr PAR_R */
 
   def object = new Class()
 
