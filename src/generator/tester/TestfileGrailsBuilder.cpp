@@ -1,5 +1,4 @@
 #include "TestfileGrailsBuilder.hpp"
-#include <iostream>
 
 namespace Tester
 {

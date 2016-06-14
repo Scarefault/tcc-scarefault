@@ -21,7 +21,7 @@ int main( int argc, char **argv )
 
   CollectorBase * collector_ptr = address_collector;
 
-  TesterDirector tester( new TestfileControllerBuilder( collector_ptr->get_data() ) );
+  TesterDirector tester( new TestfileDomainBuilder( collector_ptr->get_data() ) );
   tester.generate_testfile();
 
   Writer writer( &tester );

@@ -1,5 +1,6 @@
 #include "TestCaseBase.hpp"
-#include <iostream>
+
+
 namespace Tester {
   TestCaseBase::TestCaseBase(
       std::string method, std::string result, std::vector<Tester::Arg> args )

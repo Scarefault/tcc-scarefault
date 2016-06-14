@@ -2,19 +2,19 @@ CC = g++
 CFLAGS = --std=c++0x -o
 OBJS = src/*/*/*.cc # identifier/(parser|scanner)/*.cc
 
-SRC_S = src/scarefault.cpp
-TST_H = src/*/tester/*.hpp src/*/writer/*.hpp
-TST_I = src/*/tester/*.cpp src/*/writer/*.cpp
-TCS_H = src/*/testcase/*.hpp
-TCS_I = src/*/testcase/*.cpp
-GEN_H = src/*/value_generator/*.hpp
-GEN_I = src/*/value_generator/*.cpp
-CLL_H = src/*/collector/*.hpp
-CLL_I = src/*/collector/*.cpp
-HLP_H = src/helper/*.hpp
-HLP_I = src/helper/*.cpp
-LOG_H = log/Log.hpp
-LOG_I = log/Log.cpp
+
+SCAREFAULT = src/scarefault.cpp
+
+GEN = src/generator/*/*.hpp src/generator/*/*.cpp
+
+HLP = src/helper/*.hpp src/helper/*.cpp
+
+CLL = src/identifier/collector/*.hpp src/identifier/collector/*.cpp
+FLE = src/identifier/file/*.hpp src/identifier/file/*.cpp
+IDT = $(CLL) $(FLE)
+
+LOG = log/*.hpp log/*.cpp
+SRC = $(GEN) $(HLP) $(IDT)
 
 
 all: parse.cc lex.cc scarefault
@@ -26,7 +26,7 @@ lex.cc:
 	cd src/identifier/scanner && $(MAKE)
 
 scarefault:
-	$(CC) $(CFLAGS) scarefault $(SRC_S) $(TST_H) $(TST_I) $(TCS_H) $(TCS_I) $(GEN_H) $(GEN_I) $(CLL_H) $(CLL_I) $(HLP_H) $(HLP_I) $(LOG_H) $(LOG_I) $(OBJS)
+	$(CC) $(CFLAGS) scarefault $(SCAREFAULT) $(LOG) $(SRC) $(OBJS)
 
 clean: parser_clean scanner_clean scarefault_clean
 

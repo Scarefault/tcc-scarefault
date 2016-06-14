@@ -5,7 +5,7 @@
 #include <vector>
 #include <cstdarg>
 
-#include "Param.hpp"
+#include "../file/Param.hpp"
 #include "../../helper/Helper.hpp"
 #include "../../generator/testcase/TestCaseBase.hpp"
 #include "../../generator/testcase/Arg.hpp"

@@ -4,7 +4,7 @@
 
 #include "TestfileProduct.hpp"
 #include "../value_generator/ValueGenerator.hpp"
-#include "../../identifier/collector/FileMVC.hpp"
+#include "../../identifier/file/FileMVC.hpp"
 
 namespace Tester
 {
