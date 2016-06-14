@@ -3,8 +3,8 @@ CFLAGS = --std=c++0x -o
 OBJS = src/*/*/*.cc # identifier/(parser|scanner)/*.cc
 
 SRC_S = src/scarefault.cpp
-TST_H = src/*/tester/*.hpp
-TST_I = src/*/tester/*.cpp
+TST_H = src/*/tester/*.hpp src/*/writer/*.hpp
+TST_I = src/*/tester/*.cpp src/*/writer/*.cpp
 TCS_H = src/*/testcase/*.hpp
 TCS_I = src/*/testcase/*.cpp
 GEN_H = src/*/value_generator/*.hpp

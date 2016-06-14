@@ -5,11 +5,12 @@
 #include "generator/tester/TestfileDomainBuilder.hpp"
 #include "generator/tester/TestfileControllerBuilder.hpp"
 #include "generator/tester/TestfileProduct.hpp"
+#include "generator/writer/Writer.hpp"
 
-#include <iostream>
 
 using namespace Collector;
 using namespace Tester;
+
 
 int main( int argc, char **argv )
 {
@@ -20,14 +21,9 @@ int main( int argc, char **argv )
 
   CollectorBase * collector_ptr = address_collector;
 
-  TesterDirector tester( new TestfileDomainBuilder( collector_ptr->get_data() ) );
+  TesterDirector tester( new TestfileControllerBuilder( collector_ptr->get_data() ) );
   tester.generate_testfile();
-  TestfileProduct * testfile = tester.get_testfile();
-  std::cout << testfile->get_dependencies()
-            << testfile->get_test_class();
 
-  for( int i = 0; i < testfile->get_valid_testcases()->size(); i++ )
-  {
-    std::cout << (* testfile->get_valid_testcase( i ) ) << "\n";
-  }
+  Writer writer( &tester );
+  writer.write_testfile();
 }
