@@ -6,15 +6,13 @@
 
 
 #include "Method.hpp"
-#include "Language.hpp"
+
 
 namespace Collector
 {
   class FileBase
   {
     public:
-      static FileBase * get_data_file( Collector::Language );
-
       std::string class_name;
       std::vector<Method> methods;
 

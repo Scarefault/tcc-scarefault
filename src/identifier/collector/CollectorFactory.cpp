@@ -1,4 +1,5 @@
 #include "CollectorFactory.hpp"
+#include "CollectorGrails.hpp"
 
 
 namespace Collector
