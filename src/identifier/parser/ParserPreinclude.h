@@ -6,7 +6,6 @@
 #include <vector>
 
 
-#include "../../generator/tester/TesterBase.hpp"
 #include "../collector/CollectorBase.hpp"
 #include "../collector/Language.hpp"
 #include "../../../log/Log.hpp"

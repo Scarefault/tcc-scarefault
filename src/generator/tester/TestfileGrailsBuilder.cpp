@@ -22,7 +22,6 @@ namespace Tester
           propriety.name.compare( "lastUpdated") )
       {
         std::string value = create_value( propriety );
-        std::cout << "propriety: " << propriety.name << "\n";
 
         stream << "  params[\""
                << propriety.name
