@@ -6,6 +6,7 @@
 #include <vector>
 
 
+#include "../collector/CollectorFactory.hpp"
 #include "../collector/CollectorBase.hpp"
 #include "../collector/Language.hpp"
 #include "../../../log/Log.hpp"

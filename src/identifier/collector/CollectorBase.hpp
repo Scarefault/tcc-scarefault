@@ -37,7 +37,6 @@ namespace Collector
   class CollectorBase
   {
     public:
-      static CollectorBase * get_collector( Collector::Language );
       CollectorBase();
 
       virtual void collect_data( const char *, ... );

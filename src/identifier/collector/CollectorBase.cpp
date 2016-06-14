@@ -6,20 +6,6 @@ namespace Collector
   ADDRESS address_collector;
 
 // ------------------ PUBLIC FUNCTIONS IMPLEMENTATION -------------------
-  CollectorBase * CollectorBase::get_collector( Collector::Language language )
-  {
-    CollectorBase * instance;
-
-    switch ( language )
-    {
-      case GRAILS:
-        instance = new CollectorGrails();
-        break;
-    }
-
-    return instance;
-  }
-
   CollectorBase::CollectorBase()
   {
     address_collector = this;
