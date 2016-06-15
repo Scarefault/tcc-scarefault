@@ -11,4 +11,9 @@ namespace Collector {
   {
     this->class_name = name;
   }
+
+  void FileBase::set_package( std::string name )
+  {
+    this->package = name;
+  }
 }

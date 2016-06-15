@@ -5,21 +5,11 @@
 #include <string>
 
 #include "FileBase.hpp"
-#include "Propriety.hpp"
 
 namespace Collector
 {
   class FileMVC : public FileBase
-  {
-    public:
-      std::string layer;
-      std::string model_base;
-      std::string package;
-
-      std::vector<Propriety> proprieties;
-
-      void set_package( std::string );
-  };
+  {};
 }
 
 #endif // FILEMVC_HPP_

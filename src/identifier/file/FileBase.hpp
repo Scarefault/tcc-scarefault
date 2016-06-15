@@ -6,6 +6,7 @@
 
 
 #include "Method.hpp"
+#include "Propriety.hpp"
 
 
 namespace Collector
@@ -15,9 +16,14 @@ namespace Collector
     public:
       std::string class_name;
       std::vector<Method> methods;
+      std::string layer;
+      std::string model_base;
+      std::string package;
+      std::vector<Propriety> proprieties;
 
       void insert_method( Collector::Method );
       void set_class( std::string );
+      void set_package( std::string );
   };
 }
 
