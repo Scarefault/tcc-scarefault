@@ -32,30 +32,33 @@ int main( int argc, char **argv )
 
     if( target.is_open() )
     {
+      srand( time( NULL ) );
+
+      std::istream& stream = target;
+
+      Parser parser( GRAILS, stream );
+      parser.parse();
+
+      CollectorBase * collector_ptr = address_collector;
+
       if( !strcmp( argv[ OPTION ], "generate" ) )
       {
-        srand( time( NULL ) );
-
-        std::istream& stream = target;
-
-        Parser parser( GRAILS, stream );
-        parser.parse();
-
-        CollectorBase * collector_ptr = address_collector;
-
         TesterDirector tester( new TestfileDomainBuilder( collector_ptr->get_data() ) );
         tester.generate_testfile();
 
         Writer writer( &tester, argv[ SOURCE_FILE_NAME ] );
         writer.write_testfile();
-        target.close();
       } else if( !strcmp( argv[ OPTION ], "create" ) )
       {
+        Writer writer( argv[ SOURCE_FILE_NAME ] );
+        writer.write_testcases();
         cout << "Selected option: " << argv[ OPTION ] << endl;
       } else
       {
         cout << "Option " << argv[ OPTION ] << " is invalid..." << endl;
       }
+
+      target.close();
     } else
     {
       cout << "Unable to open " << argv[ SOURCE_FILE_NAME ] << endl;

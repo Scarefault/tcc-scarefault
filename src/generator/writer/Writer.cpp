@@ -12,6 +12,26 @@ namespace Tester
     this->testfile_name = create_testfile_name( sourcefile );
   }
 
+  Writer::Writer( std::string sourcefile )
+  {
+    this->sourcefile_name = sourcefile;
+  }
+
+  void Writer::write_testcases()
+  {
+    std::fstream source_stream;
+
+    source_stream.open( sourcefile_name, WRITE );
+
+    if( source_stream.is_open() )
+    {
+      std::cout << "OPEN file " << sourcefile_name << "\n";
+    } else
+    {
+      std::cout << "Unable to open " << sourcefile_name << "..." << std::endl;
+    }
+  }
+
   void Writer::write_testfile()
   {
     std::fstream test_stream;

@@ -18,12 +18,15 @@ namespace Tester
   {
     public:
       Writer( Tester::TesterDirector *, std::string );
+      Writer(  std::string );
 
       void write_testfile();
+      void write_testcases();
 
     private:
       Tester::TesterDirector * tester;
       std::string testfile_name;
+      std::string sourcefile_name;
 
       std::string create_testfile_name( std::string );
   };
