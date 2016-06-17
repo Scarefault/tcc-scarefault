@@ -2,7 +2,6 @@
 #define WRITER_HPP_
 
 
-#define TESTFILE "testfile.groovy"
 #define WRITE std::fstream::out
 #define APPEND std::fstream::app
 
@@ -18,12 +17,15 @@ namespace Tester
   class Writer
   {
     public:
-      Writer( Tester::TesterDirector * );
+      Writer( Tester::TesterDirector *, std::string );
 
       void write_testfile();
 
     private:
       Tester::TesterDirector * tester;
+      std::string testfile_name;
+
+      std::string create_testfile_name( std::string );
   };
 }
 
