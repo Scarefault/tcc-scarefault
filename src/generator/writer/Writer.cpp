@@ -2,6 +2,7 @@
 
 
 #include "Writer.hpp"
+#include "../../helper/Helper.hpp"
 
 
 namespace Tester
@@ -19,12 +20,15 @@ namespace Tester
 
   void Writer::write_testcases()
   {
-    std::fstream source_stream;
-
-    source_stream.open( sourcefile_name, WRITE );
+    std::fstream source_stream( sourcefile_name, READ|WRITE );
 
     if( source_stream.is_open() )
     {
+      std::string content;
+      content = extract_content( &source_stream );
+      std::vector<std::string> docs = extract_docs( content );
+
+      source_stream.close();
       std::cout << "OPEN file " << sourcefile_name << "\n";
     } else
     {
@@ -40,6 +44,7 @@ namespace Tester
 
     if( test_stream.is_open() )
     {
+      std::cout << "OPEN" << "\n";
       test_stream << tester->get_testfile()->get_dependencies()
                   << tester->get_testfile()->get_test_class();
 
@@ -67,5 +72,29 @@ namespace Tester
     testfile.append( extension );
 
     return testfile;
+  }
+
+  std::string Writer::extract_content(std::fstream * stream )
+  {
+    std::string line;
+    std::string content;
+
+    while( std::getline( (* stream), line ) )
+    {
+      content.append( line );
+    }
+
+    return content;
+  }
+
+  std::vector<std::string> Writer::extract_docs( std::string content )
+  {
+    std::vector<std::string> docs;
+
+    size_t begin_doc = content.find( "/**" );
+    size_t end_doc = content.find( "*/" );
+    std::cout << "begin: " << begin_doc << "\n" << "end: " << end_doc << "\n";
+
+    return docs;
   }
 }

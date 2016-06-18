@@ -2,6 +2,7 @@
 #define WRITER_HPP_
 
 
+#define READ std::fstream::in
 #define WRITE std::fstream::out
 #define APPEND std::fstream::app
 
@@ -29,6 +30,8 @@ namespace Tester
       std::string sourcefile_name;
 
       std::string create_testfile_name( std::string );
+      std::string extract_content( std::fstream * );
+      std::vector<std::string> extract_docs( std::string );
   };
 }
 

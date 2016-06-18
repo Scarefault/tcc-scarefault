@@ -39,6 +39,8 @@ int main( int argc, char **argv )
       Parser parser( GRAILS, stream );
       parser.parse();
 
+      target.close();
+
       CollectorBase * collector_ptr = address_collector;
 
       if( !strcmp( argv[ OPTION ], "generate" ) )
@@ -57,8 +59,6 @@ int main( int argc, char **argv )
       {
         cout << "Option " << argv[ OPTION ] << " is invalid..." << endl;
       }
-
-      target.close();
     } else
     {
       cout << "Unable to open " << argv[ SOURCE_FILE_NAME ] << endl;
