@@ -13,8 +13,9 @@ namespace Tester
     this->testfile_name = create_testfile_name( sourcefile );
   }
 
-  Writer::Writer( std::string sourcefile )
+  Writer::Writer( Tester::TesterAnalizer * tester_analizer, std::string sourcefile )
   {
+    this->analizer = tester_analizer;
     this->sourcefile_name = sourcefile;
   }
 
@@ -24,12 +25,8 @@ namespace Tester
 
     if( source_stream.is_open() )
     {
-      std::string content;
-      content = extract_content( &source_stream );
-      std::vector<std::string> docs = extract_docs( content );
-
+      this->analizer->create_testcases( &source_stream, sourcefile_name );
       source_stream.close();
-      std::cout << "OPEN file " << sourcefile_name << "\n";
     } else
     {
       std::cout << "Unable to open " << sourcefile_name << "..." << std::endl;
@@ -44,7 +41,6 @@ namespace Tester
 
     if( test_stream.is_open() )
     {
-      std::cout << "OPEN" << "\n";
       test_stream << tester->get_testfile()->get_dependencies()
                   << tester->get_testfile()->get_test_class();
 
@@ -72,29 +68,5 @@ namespace Tester
     testfile.append( extension );
 
     return testfile;
-  }
-
-  std::string Writer::extract_content(std::fstream * stream )
-  {
-    std::string line;
-    std::string content;
-
-    while( std::getline( (* stream), line ) )
-    {
-      content.append( line );
-    }
-
-    return content;
-  }
-
-  std::vector<std::string> Writer::extract_docs( std::string content )
-  {
-    std::vector<std::string> docs;
-
-    size_t begin_doc = content.find( "/**" );
-    size_t end_doc = content.find( "*/" );
-    std::cout << "begin: " << begin_doc << "\n" << "end: " << end_doc << "\n";
-
-    return docs;
   }
 }

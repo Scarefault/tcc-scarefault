@@ -12,6 +12,7 @@
 #include "identifier/collector/CollectorBase.hpp"
 #include "identifier/collector/Language.hpp"
 #include "generator/tester/TesterDirector.hpp"
+#include "generator/tester/TesterAnalizer.hpp"
 #include "generator/tester/TestfileDomainBuilder.hpp"
 #include "generator/tester/TestfileControllerBuilder.hpp"
 #include "generator/tester/TestfileProduct.hpp"
@@ -52,7 +53,9 @@ int main( int argc, char **argv )
         writer.write_testfile();
       } else if( !strcmp( argv[ OPTION ], "create" ) )
       {
-        Writer writer( argv[ SOURCE_FILE_NAME ] );
+        TesterAnalizer analizer( collector_ptr->get_data() );
+
+        Writer writer( &analizer, argv[ SOURCE_FILE_NAME ] );
         writer.write_testcases();
         cout << "Selected option: " << argv[ OPTION ] << endl;
       } else

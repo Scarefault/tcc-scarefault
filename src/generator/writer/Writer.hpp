@@ -11,6 +11,7 @@
 
 
 #include "../tester/TesterDirector.hpp"
+#include "../tester/TesterAnalizer.hpp"
 
 
 namespace Tester
@@ -19,19 +20,18 @@ namespace Tester
   {
     public:
       Writer( Tester::TesterDirector *, std::string );
-      Writer(  std::string );
+      Writer( Tester::TesterAnalizer *, std::string );
 
       void write_testfile();
       void write_testcases();
 
     private:
       Tester::TesterDirector * tester;
+      Tester::TesterAnalizer * analizer;
       std::string testfile_name;
       std::string sourcefile_name;
 
       std::string create_testfile_name( std::string );
-      std::string extract_content( std::fstream * );
-      std::vector<std::string> extract_docs( std::string );
   };
 }
 
