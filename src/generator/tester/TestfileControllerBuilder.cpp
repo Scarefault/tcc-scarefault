@@ -16,6 +16,8 @@ namespace Tester
 
     stream << "@TestFor(" << data_ptr->class_name << ")"
            << std::endl
+           << "@Mock(" << data_ptr->model_base << ")"
+           << std::endl
            << "class " << data_ptr->class_name << "Tests {"
            << std::endl
            << std::endl;
@@ -109,7 +111,7 @@ namespace Tester
     std::string low_domain = Helper::convert_to_lower( data_ptr->model_base );
     std::stringstream stream;
 
-    stream << " void testIndex()"
+    stream << " void testIndex() {"
            << std::endl
            << "    controller.index()"
            << std::endl
@@ -146,7 +148,7 @@ namespace Tester
     std::stringstream stream;
 
     stream << "  void testShow() {" << std::endl
-           << "    controller show" << std::endl
+           << "    controller.show()" << std::endl
            << "    assert flash.message != null" << std::endl
            << "    assert response.redirectedUrl == '/" << low_domain << "/list'"
            << std::endl
@@ -303,37 +305,6 @@ namespace Tester
            << std::endl
            << "    assert " << low_domain << ".save() != null" << std::endl
            << std::endl
-           << "    // test invalid parameters in update" << std::endl
-           << "    params.id = " << low_domain << ".id" << std::endl
-           << "    //TODO: add invalid values to params object" << std::endl
-           << std::endl
-           << "    controller.update()" << std::endl
-           << std::endl
-           << "    assert view == \"/" << low_domain << "/edit\"" << std::endl
-           << "    assert model." << low_domain << "Instance != null" << std::endl
-           << std::endl
-           << "    user.clearErrors()" << std::endl
-           << std::endl
-           << "    populateValidParams(params)" << std::endl
-           << "    controller.update()" << std::endl
-           << std::endl
-           << "    assert response.redirectedUrl == \"/" << low_domain
-           << "/show/$" << low_domain << ".id\"" << std::endl
-           << "    assert flash.message != null" << std::endl
-           << std::endl
-           << "    response.reset()" << std::endl
-           << "    " << low_domain << ".clearErrors()" << std::endl
-           << std::endl
-           << "    populateValidParams(params)" << std::endl
-           << "    params.id = " << low_domain << ".id" << std::endl
-           << "    params.version = -1" << std::endl
-           << "    controller.update()" << std::endl
-           << std::endl
-           << "    assert view == \"/" << low_domain << "/edit\"" << std::endl
-           << "    assert model." << low_domain << "Instance != null" << std::endl
-           << "    assert model." << low_domain
-           << "Instance.errors.getFieldError('version')" << std::endl
-           << "    assert flash.message != null" << std::endl
            << "  }" << std::endl
            << std::endl;
 

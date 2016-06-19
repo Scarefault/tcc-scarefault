@@ -46,7 +46,7 @@ int main( int argc, char **argv )
 
       if( !strcmp( argv[ OPTION ], "generate" ) )
       {
-        TesterDirector tester( new TestfileDomainBuilder( collector_ptr->get_data() ) );
+        TesterDirector tester( new TestfileControllerBuilder( collector_ptr->get_data() ) );
         tester.generate_testfile();
 
         Writer writer( &tester, argv[ SOURCE_FILE_NAME ] );
