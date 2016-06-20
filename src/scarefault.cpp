@@ -3,9 +3,10 @@
 #include <cstring>
 
 
-#define LIMIT_OF_ARGS 3
-#define SOURCE_FILE_NAME 1
-#define OPTION 2
+#define ACCEPTABLE_QTD_ARGS 3
+#define SOURCE_FILE_NAME 2
+#define OPTION 1
+#define TYPE_TEST 3
 
 
 #include "identifier/parser/Parser.h"
@@ -26,7 +27,7 @@ using namespace std;
 
 int main( int argc, char **argv )
 {
-  if( argc == LIMIT_OF_ARGS )
+  if( argc < ACCEPTABLE_QTD_ARGS )
   {
     std::ifstream target;
     target.open( argv[ SOURCE_FILE_NAME ], std::fstream::in );
@@ -46,11 +47,21 @@ int main( int argc, char **argv )
 
       if( !strcmp( argv[ OPTION ], "generate" ) )
       {
-        TesterDirector tester( new TestfileControllerBuilder( collector_ptr->get_data() ) );
-        tester.generate_testfile();
+        if( !strcmp( argv[ TYPE_TEST ], "controller" ) )
+        {
+          TesterDirector tester( new TestfileControllerBuilder( collector_ptr->get_data() ) );
+          tester.generate_testfile();
 
-        Writer writer( &tester, argv[ SOURCE_FILE_NAME ] );
-        writer.write_testfile();
+          Writer writer( &tester, argv[ SOURCE_FILE_NAME ] );
+          writer.write_testfile();
+        } else if( !strcmp( argv[ TYPE_TEST ], "domain" ) )
+        {
+          TesterDirector tester( new TestfileDomainBuilder( collector_ptr->get_data() ) );
+          tester.generate_testfile();
+
+          Writer writer( &tester, argv[ SOURCE_FILE_NAME ] );
+          writer.write_testfile();
+        }
       } else if( !strcmp( argv[ OPTION ], "create" ) )
       {
         TesterAnalizer analizer( collector_ptr->get_data() );
