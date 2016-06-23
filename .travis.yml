@@ -16,8 +16,6 @@ install:
 
 addons:
   apt:
-    sources:
-      - 'debian-sid'
     packages:
       - flexc++
       - bisonc++
