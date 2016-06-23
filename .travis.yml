@@ -3,14 +3,6 @@ language: cpp
 compiler:
   - gcc
 
-addons:
-  apt:
-    sources:
-      - 'debian-sid'
-    packages:
-      - flexc++
-      - bisonc++
-
 before_install:
   # g++4.8.1
   - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
@@ -21,6 +13,14 @@ install:
   # g++4.8.1
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
+
+addons:
+  apt:
+    sources:
+      - 'debian-sid'
+    packages:
+      - flexc++
+      - bisonc++
 
 script:
   - $CXX --version
