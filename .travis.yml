@@ -3,17 +3,18 @@ language: cpp
 compiler:
   - gcc
 
+before_install:
+  # # g++4.8.1
+  # - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 7638D0442B90D010
+  - sudo apt-get update
+
 addons:
   apt:
     sources:
       - 'debian-sid'
     packages:
       - flexc++
-
-before_install:
-  # # g++4.8.1
-  # - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
-  - sudo apt-get update
 
 # install:
 #   # g++4.8.1
