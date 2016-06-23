@@ -1,4 +1,5 @@
 sudo: required
+distro: trusty
 
 language: cpp
 
