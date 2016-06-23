@@ -6,14 +6,8 @@ compiler:
 before_install:
   # g++4.8.1
   - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
-
   - sudo apt-get update -qq
-
-addons:
-  apt:
-    packages:
-      - flexc++
-      - bisonc++
+  - sudo apt-get install -y flexc++
 
 install:
   # g++4.8.1
