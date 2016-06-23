@@ -1,5 +1,6 @@
 #include "ValueGenerator.hpp"
 
+
 namespace Generator
 {
   std::string

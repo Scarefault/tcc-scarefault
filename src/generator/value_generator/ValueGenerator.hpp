@@ -1,6 +1,7 @@
 #ifndef VALUE_GENERATOR_HPP_
 #define VALUE_GENERATOR_HPP_
 
+
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -8,6 +9,7 @@
 #include <vector>
 #include <cmath>
 #include <ctime>
+
 
 namespace Generator
 {
