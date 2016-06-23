@@ -1,5 +1,4 @@
 sudo: required
-distro: trusty
 
 language: cpp
 
@@ -18,5 +17,5 @@ install:
   - sudo apt-get install -qq -y --force-yes flexc++ bisonc++
 
 script:
-  # - $CXX --version
+  - $CXX --version
   - g++ --version
