@@ -1,4 +1,4 @@
-CC = g++
+CC = g++-4.8
 CFLAGS = --std=c++0x -o
 OBJS = src/*/*/*.cc # identifier/(parser|scanner)/*.cc
 
