@@ -6,10 +6,9 @@ compiler:
 addons:
   apt:
     sources:
-      - trusty
+      - 'debian-sid'
     packages:
       - flexc++
-      - bisonc++
 
 before_install:
   # # g++4.8.1
