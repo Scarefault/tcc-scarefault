@@ -20,3 +20,8 @@ script:
   - $CXX --version
   - g++ --version
   - make
+
+notifications:
+  email:
+      thaianefbraga@gmail.com
+      tomaz.r.martins@gmail.com
