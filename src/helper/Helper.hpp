@@ -4,6 +4,7 @@
 
 #define READ std::fstream::in
 
+
 #define PATH_CONTROLLER "guestbook/grails-app/controllers/guestbook/"
 #define PATH_DOMAIN "guestbook/grails-app/domain/guestbook/"
 
@@ -15,6 +16,7 @@
 #include <cstring>
 #include <algorithm>
 #include <locale>
+
 
 namespace Helper
 {
