@@ -25,7 +25,7 @@ namespace Tester
 
     if( source_stream.is_open() )
     {
-      this->analizer->create_testcases( &source_stream, sourcefile_name );
+      this->analizer->insert_testcases( &source_stream, sourcefile_name );
       source_stream.close();
     } else
     {

@@ -27,7 +27,7 @@ using namespace std;
 
 int main( int argc, char **argv )
 {
-  if( argc < ACCEPTABLE_QTD_ARGS )
+  if( ACCEPTABLE_QTD_ARGS <= argc && argc < ACCEPTABLE_QTD_ARGS+2 )
   {
     std::ifstream target;
     target.open( argv[ SOURCE_FILE_NAME ], std::fstream::in );
