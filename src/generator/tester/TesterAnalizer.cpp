@@ -52,7 +52,7 @@ namespace Tester
 
   std::string TesterAnalizer::create_testcases( Collector::Method method )
   {
-    std::string testcases( "\t\tINSERT TESTCASE HERE\n\t*/" );
+    std::string testcases;
 
     int qtd_params = method.params.size();
     Matrix matrix( qtd_params );
@@ -63,6 +63,67 @@ namespace Tester
       fill_column_analysis( i, &conj_testcases, method );
       fill_columns_adjacent( i, &conj_testcases, method );
     }
+
+    for( int i = 0; i < qtd_params; i++ )
+    {
+      std::string cases;
+      cases.append( "\t\t@test(" );
+      for( int j = 0; j < conj_testcases[ i ].first.size(); j++ )
+      {
+        if( j != conj_testcases[ i ].first.size()-1 )
+        {
+          cases.append( conj_testcases[ i ].first[ j ] );
+          cases.append( ", " );
+        } else
+        {
+          cases.append( conj_testcases[ i ].first[ j ] );
+          cases.append( ") @expect EXPECTATION HERE\n" );
+        }
+      }
+      cases.append( "\t\t@test(" );
+      for( int j = 0; j < conj_testcases[ i ].second.size(); j++ )
+      {
+        if( j != conj_testcases[ i ].second.size()-1 )
+        {
+          cases.append( conj_testcases[ i ].second[ j ] );
+          cases.append( ", " );
+        } else
+        {
+          cases.append( conj_testcases[ i ].second[ j ] );
+          cases.append( ") @expect EXPECTATION HERE\n" );
+        }
+      }
+      cases.append( "\t\t@test(" );
+      for( int j = 0; j < conj_testcases[ i ].third.size(); j++ )
+      {
+        if( j != conj_testcases[ i ].third.size()-1 )
+        {
+          cases.append( conj_testcases[ i ].third[ j ] );
+          cases.append( ", " );
+        } else
+        {
+          cases.append( conj_testcases[ i ].third[ j ] );
+          cases.append( ") @expect EXPECTATION HERE\n" );
+        }
+      }
+      cases.append( "\t\t@test(" );
+      for( int j = 0; j < conj_testcases[ i ].fourth.size(); j++ )
+      {
+        if( j != conj_testcases[ i ].fourth.size()-1 )
+        {
+          cases.append( conj_testcases[ i ].fourth[ j ] );
+          cases.append( ", " );
+        } else
+        {
+          cases.append( conj_testcases[ i ].fourth[ j ] );
+          cases.append( ") @expect EXPECTATION HERE\n" );
+        }
+      }
+
+      testcases.append( cases );
+    }
+
+    testcases.append( "\n\t*/" );
 
     return testcases;
   }
@@ -94,10 +155,10 @@ namespace Tester
         int mid = ( min+max )/2;
         std::string value = std::to_string( mid );
 
-        conj->at( column ).first[ i ] = mid;
-        conj->at( column ).second[ i ] = mid;
-        conj->at( column ).third[ i ] = mid;
-        conj->at( column ).fourth[ i ] = mid;
+        conj->at( column ).first[ i ] = value;
+        conj->at( column ).second[ i ] = value;
+        conj->at( column ).third[ i ] = value;
+        conj->at( column ).fourth[ i ] = value;
       } else
       {
         continue;
