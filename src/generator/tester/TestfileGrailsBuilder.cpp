@@ -1,4 +1,5 @@
 #include "TestfileGrailsBuilder.hpp"
+#include "../../helper/Helper.hpp"
 
 
 namespace Tester
@@ -37,241 +38,200 @@ namespace Tester
     return stream.str();
   }
 
-    std::string TestfileGrailsBuilder::create_value( Collector::Propriety propriety )
+  std::string TestfileGrailsBuilder::create_value( Collector::Propriety propriety )
+  {
+    std::string value( "VALID VALUE" );
+    std::vector<Collector::Constraint> constraints = propriety.contraints;
+
+    if( is_string( propriety ) )
     {
-      std::string value( "VALID VALUE" );
-      std::vector<Collector::Constraint> constraints = propriety.contraints;
-
-      if( is_string( propriety ) )
-      {
-        value = create_string( propriety );
-      } else if( is_integer( propriety ) )
-      {
-        value = create_integer( propriety );
-      } else if( is_floating( propriety ) )
-      {
-        value = create_floating( propriety );
-      } else if( is_boolean( propriety ) )
-      {
-        value = value_generator->generate_boolean();
-      } else
-      {
-        // Nothing to do
-      }
-
-      return value;
+      value = create_string( propriety );
+    } else if( is_integer( propriety ) )
+    {
+      value = create_integer( propriety );
+    } else if( is_floating( propriety ) )
+    {
+      value = create_floating( propriety );
+    } else if( is_boolean( propriety ) )
+    {
+      value = value_generator->generate_boolean();
+    } else
+    {
+      // Nothing to do
     }
 
-    std::string TestfileGrailsBuilder::create_string( Collector::Propriety propriety )
+    return value;
+  }
+
+  std::string TestfileGrailsBuilder::create_string( Collector::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      clear_constraints();
+      Collector::Constraint constraint = propriety.contraints[ i ];
 
-      for( int i = 0; i < propriety.contraints.size(); i++ )
+      for( int type = 0; type < type_constraint.size(); type++ )
       {
-        Collector::Constraint constraint = propriety.contraints[ i ];
-
-        for( int type = 0; type < type_constraint.size(); type++ )
+        if( !constraint.name.compare( type_constraint[ type ] ) )
         {
-          if( !constraint.name.compare( type_constraint[ type ] ) )
+          switch( type )
           {
-            switch( type )
-            {
-              case BLANK:
-                constraints[ BLANK ] = convert_to_bool( constraint.value );
-                break;
-              case CREDIT_CARD:
-                constraints[ CREDIT_CARD ] = convert_to_bool( constraint.value );
-                break;
-              case EMAIL:
-                constraints[ EMAIL ] = convert_to_bool( constraint.value );
-                break;
-              case NULLABLE:
-                constraints[ NULLABLE ] = convert_to_bool( constraint.value );
-                break;
-              case SIZE:
-                extract_size( constraint.value );
-                break;
-              case URL:
-                constraints[ URL ] = convert_to_bool( constraint.value );
-                break;
-            }
+            case BLANK:
+              constraints[ BLANK ] = convert_to_bool( constraint.value );
+              break;
+            case CREDIT_CARD:
+              constraints[ CREDIT_CARD ] = convert_to_bool( constraint.value );
+              break;
+            case EMAIL:
+              constraints[ EMAIL ] = convert_to_bool( constraint.value );
+              break;
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case SIZE:
+              extract_size( constraint.value );
+              break;
+            case URL:
+              constraints[ URL ] = convert_to_bool( constraint.value );
+              break;
           }
         }
       }
-
-      return value_generator->generate_string( constraints );
     }
 
-    std::string TestfileGrailsBuilder::create_integer( Collector::Propriety propriety )
+    return value_generator->generate_string( constraints );
+  }
+
+  std::string TestfileGrailsBuilder::create_integer( Collector::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      clear_constraints();
+      Collector::Constraint constraint = propriety.contraints[ i ];
 
-      for( int i = 0; i < propriety.contraints.size(); i++ )
+      for( int type = 0; type < type_constraint.size(); type++ )
       {
-        Collector::Constraint constraint = propriety.contraints[ i ];
-
-        for( int type = 0; type < type_constraint.size(); type++ )
+        if( !constraint.name.compare( type_constraint[ type ] ) )
         {
-          if( !constraint.name.compare( type_constraint[ type ] ) )
+          switch( type )
           {
-            switch( type )
-            {
-              case NULLABLE:
-                constraints[ NULLABLE ] = convert_to_bool( constraint.value );
-                break;
-              case MAX:
-                constraints[ MAX ] = std::stoi( constraint.value );
-                break;
-              case MIN:
-                constraints[ MIN ] = std::stoi( constraint.value );
-                break;
-              case RANGE:
-                extract_range( constraint.value );
-                break;
-            }
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case MAX:
+              constraints[ MAX ] = std::stoi( constraint.value );
+              break;
+            case MIN:
+              constraints[ MIN ] = std::stoi( constraint.value );
+              break;
+            case RANGE:
+              extract_range( constraint.value );
+              break;
           }
         }
       }
-
-      return value_generator->generate_integer( constraints );
     }
 
-    std::string TestfileGrailsBuilder::create_floating( Collector::Propriety propriety )
+    return value_generator->generate_integer( constraints );
+  }
+
+  std::string TestfileGrailsBuilder::create_floating( Collector::Propriety propriety )
+  {
+    clear_constraints();
+
+    for( int i = 0; i < propriety.contraints.size(); i++ )
     {
-      clear_constraints();
+      Collector::Constraint constraint = propriety.contraints[ i ];
 
-      for( int i = 0; i < propriety.contraints.size(); i++ )
+      for( int type = 0; type < type_constraint.size(); type++ )
       {
-        Collector::Constraint constraint = propriety.contraints[ i ];
-
-        for( int type = 0; type < type_constraint.size(); type++ )
+        if( !constraint.name.compare( type_constraint[ type ] ) )
         {
-          if( !constraint.name.compare( type_constraint[ type ] ) )
+          switch( type )
           {
-            switch( type )
-            {
-              case NULLABLE:
-                constraints[ NULLABLE ] = convert_to_bool( constraint.value );
-                break;
-              case MAX:
-                constraints[ MAX ] = std::stoi( constraint.value );
-                break;
-              case MIN:
-                constraints[ MIN ] = std::stoi( constraint.value );
-                break;
-              case SCALE:
-                constraints[ SCALE ] = std::stoi( constraint.value );
-                break;
-              case RANGE:
-                extract_range( constraint.value );
-                break;
-            }
+            case NULLABLE:
+              constraints[ NULLABLE ] = convert_to_bool( constraint.value );
+              break;
+            case MAX:
+              constraints[ MAX ] = std::stoi( constraint.value );
+              break;
+            case MIN:
+              constraints[ MIN ] = std::stoi( constraint.value );
+              break;
+            case SCALE:
+              constraints[ SCALE ] = std::stoi( constraint.value );
+              break;
+            case RANGE:
+              extract_range( constraint.value );
+              break;
           }
         }
       }
-
-      return value_generator->generate_floating( constraints );
     }
 
-    bool TestfileGrailsBuilder::is_string( Collector::Propriety propriety )
+    return value_generator->generate_floating( constraints );
+  }
+
+  bool TestfileGrailsBuilder::is_string( Collector::Propriety propriety )
+  {
+    return Helper::is_string( propriety.type );
+  }
+
+  bool TestfileGrailsBuilder::is_integer( Collector::Propriety propriety )
+  {
+    return Helper::is_integer( propriety.type );
+  }
+
+  bool TestfileGrailsBuilder::is_floating( Collector::Propriety propriety )
+  {
+    return Helper::is_floating( propriety.type );
+  }
+
+  bool TestfileGrailsBuilder::is_boolean( Collector::Propriety propriety )
+  {
+    return Helper::is_boolean( propriety.type );
+  }
+
+  bool TestfileGrailsBuilder::convert_to_bool( std::string text )
+  {
+    return ( text == "true" ) ? true : false;
+  }
+
+  void TestfileGrailsBuilder::extract_size( std::string text )
+  {
+    int range_op_position = text.find( ".." );
+    std::string min_string = text.substr( 0, range_op_position );
+    std::string max_string = text.substr( range_op_position+2 );
+
+    constraints[ MIN_SIZE ] = std::stoi( min_string );
+    constraints[ MAX_SIZE ] = std::stoi( max_string );
+  }
+
+  void TestfileGrailsBuilder::extract_range( std::string text )
+  {
+    int range_op_position = text.find( ".." );
+    std::string min_string = text.substr( 0, range_op_position );
+    std::string max_string = text.substr( range_op_position+2 );
+
+    constraints[ MIN ] = std::stoi( min_string );
+    constraints[ MAX ] = std::stoi( max_string );
+  }
+
+  void TestfileGrailsBuilder::clear_constraints()
+  {
+    int QTD_BOOLEAN_CONSTRAINTS = 6;
+
+    for( int i = 0; i < QTD_BOOLEAN_CONSTRAINTS; i++ )
     {
-      bool is_string = false;
-
-      if( !propriety.type.compare( "String" ) )
-      {
-        is_string = true;
-      } else
-      {
-        // Nothing to do
-      }
-
-      return is_string;
+      constraints[ i ] = false;
     }
 
-    bool TestfileGrailsBuilder::is_integer( Collector::Propriety propriety )
-    {
-      bool is_integer = false;
-
-      if( !propriety.type.compare( "Integer" ) || !propriety.type.compare( "int" ) )
-      {
-        is_integer = true;
-      } else
-      {
-        // Nothing to do
-      }
-
-      return is_integer;
-    }
-
-    bool TestfileGrailsBuilder::is_floating( Collector::Propriety propriety )
-    {
-      bool is_floating = false;
-
-      if( !propriety.type.compare( "Double" ) || !propriety.type.compare( "double" ) ||
-          !propriety.type.compare( "Float" ) || !propriety.type.compare( "float" ) )
-      {
-        is_floating = true;
-      } else
-      {
-        // Nothing to do
-      }
-
-      return is_floating;
-    }
-
-    bool TestfileGrailsBuilder::is_boolean( Collector::Propriety propriety )
-    {
-      bool is_boolean = false;
-
-      if( !propriety.type.compare( "boolean" ) )
-      {
-        is_boolean = true;
-      } else
-      {
-        // Nothing to do
-      }
-
-      return is_boolean;
-    }
-
-    bool TestfileGrailsBuilder::convert_to_bool( std::string text )
-    {
-      return ( text == "true" ) ? true : false;
-    }
-
-    void TestfileGrailsBuilder::extract_size( std::string text )
-    {
-      int range_op_position = text.find( ".." );
-      std::string min_string = text.substr( 0, range_op_position );
-      std::string max_string = text.substr( range_op_position+2 );
-
-      constraints[ MIN_SIZE ] = std::stoi( min_string );
-      constraints[ MAX_SIZE ] = std::stoi( max_string );
-    }
-
-    void TestfileGrailsBuilder::extract_range( std::string text )
-    {
-      int range_op_position = text.find( ".." );
-      std::string min_string = text.substr( 0, range_op_position );
-      std::string max_string = text.substr( range_op_position+2 );
-
-      constraints[ MIN ] = std::stoi( min_string );
-      constraints[ MAX ] = std::stoi( max_string );
-    }
-
-    void TestfileGrailsBuilder::clear_constraints()
-    {
-      int QTD_BOOLEAN_CONSTRAINTS = 6;
-
-      for( int i = 0; i < QTD_BOOLEAN_CONSTRAINTS; i++ )
-      {
-        constraints[ i ] = false;
-      }
-
-      constraints[ MIN_SIZE ] = 1;
-      constraints[ MAX_SIZE ] = 25;
-      constraints[ MIN ] = 1;
-      constraints[ MAX ] = 999;
-      constraints[ SCALE ] = 2;
-    }
+    constraints[ MIN_SIZE ] = 1;
+    constraints[ MAX_SIZE ] = 25;
+    constraints[ MIN ] = 1;
+    constraints[ MAX ] = 999;
+    constraints[ SCALE ] = 2;
+  }
 }

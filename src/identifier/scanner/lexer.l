@@ -492,6 +492,11 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::COMMA;
   }
 
+  "\"" {
+    *d_val = matched();
+    return Parser::QUOT;
+  }
+
   //----------------------Operators-------------------------------
   //
   ".." {

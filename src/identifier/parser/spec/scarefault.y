@@ -75,8 +75,17 @@ values:
 val:
   NUM
 | BOOLEAN
-| STRING
+| str
 | word
+;
+
+str:
+  QUOT word QUOT {
+    std::string str_token( $1 );
+    str_token.append( $2 );
+    str_token.append( $3 );
+    $$ = str_token;
+  }
 ;
 
 word:
