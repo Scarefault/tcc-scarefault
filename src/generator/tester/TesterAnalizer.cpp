@@ -31,14 +31,17 @@ namespace Tester
           line.pop_back();
         }
 
-        if( line.find( data->methods[ 0 ].name ) != std::string::npos )
+        for( int i = 0; i < data->methods.size(); i++ )
         {
-          long found = new_source.tellp();
-          new_source.seekp( found-10 );
+          if( line.find( data->methods[ i ].name ) != std::string::npos )
+          {
+            long found = new_source.tellp();
+            new_source.seekp( found-10 );
 
-          std::string testcase = create_testcases( data->methods[ 0 ] );
+            std::string testcase = create_testcases( data->methods[ i ] );
 
-          new_source << testcase << std::endl;
+            new_source << testcase << std::endl;
+          }
         }
 
         new_source << line << std::endl;
