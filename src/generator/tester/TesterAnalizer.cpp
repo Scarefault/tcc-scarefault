@@ -67,7 +67,7 @@ namespace Tester
     for( int i = 0; i < qtd_params; i++ )
     {
       std::string cases;
-      cases.append( "\t\t@test(" );
+      cases.append( "\t\t@test (" );
       for( int j = 0; j < conj_testcases[ i ].first.size(); j++ )
       {
         if( j != conj_testcases[ i ].first.size()-1 )
@@ -77,10 +77,10 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].first[ j ] );
-          cases.append( ") @expect INSERT_HERE\n" );
+          cases.append( ") @expect EXPECTATION\n" );
         }
       }
-      cases.append( "\t\t@test(" );
+      cases.append( "\t\t@test (" );
       for( int j = 0; j < conj_testcases[ i ].second.size(); j++ )
       {
         if( j != conj_testcases[ i ].second.size()-1 )
@@ -90,10 +90,10 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].second[ j ] );
-          cases.append( ") @expect INSERT_HERE\n" );
+          cases.append( ") @expect EXPECTATION\n" );
         }
       }
-      cases.append( "\t\t@test(" );
+      cases.append( "\t\t@test (" );
       for( int j = 0; j < conj_testcases[ i ].third.size(); j++ )
       {
         if( j != conj_testcases[ i ].third.size()-1 )
@@ -103,10 +103,10 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].third[ j ] );
-          cases.append( ") @expect INSERT_HERE\n" );
+          cases.append( ") @expect EXPECTATION\n" );
         }
       }
-      cases.append( "\t\t@test(" );
+      cases.append( "\t\t@test (" );
       for( int j = 0; j < conj_testcases[ i ].fourth.size(); j++ )
       {
         if( j != conj_testcases[ i ].fourth.size()-1 )
@@ -116,7 +116,7 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].fourth[ j ] );
-          cases.append( ") @expect INSERT_HERE\n" );
+          cases.append( ") @expect EXPECTATION\n" );
         }
       }
 
@@ -131,11 +131,7 @@ namespace Tester
   void TesterAnalizer::fill_column_analysis( int column, std::vector<Matrix> * conj,
       Collector::Method method )
   {
-    std::vector<std::string> values;
-    values.push_back( std::to_string( method.params[ column ].range.first ) );
-    values.push_back( std::to_string( method.params[ column ].range.first+1 ) );
-    values.push_back( std::to_string( method.params[ column ].range.second-1 ) );
-    values.push_back( std::to_string( method.params[ column ].range.second ) );
+    std::vector<std::string> values = generate_args( column , method );
 
     conj->at( column ).first[ column ] = values[ 0 ];
     conj->at( column ).second[ column ] = values[ 1 ];
@@ -152,8 +148,19 @@ namespace Tester
       {
         int min = method.params[ i ].range.first;
         int max = method.params[ i ].range.second;
-        int mid = ( min+max )/2;
-        std::string value = std::to_string( mid );
+
+        std::string value;
+
+        if( !method.params[ i ].type.compare( "int" ) )
+        {
+          value = generator.generate_random_integer( min, max );
+        } else if( !method.params[ i ].type.compare( "String" ) )
+        {
+          value = generator.generate_random_string( min, max );
+        } else
+        {
+          // Nothing to do
+        }
 
         conj->at( column ).first[ i ] = value;
         conj->at( column ).second[ i ] = value;
@@ -166,22 +173,44 @@ namespace Tester
     }
   }
 
-  std::vector<std::string> TesterAnalizer::generate_values( Collector::Method method )
+  std::vector<std::string> TesterAnalizer::generate_args( int column, Collector::Method method )
   {
-    std::vector<std::string> values;
+    std::vector<std::string> args;
 
-    for( int i = 0; i < method.params.size(); i++ )
+    if( !method.params[ column ].type.compare( "int" ) )
     {
-      if( !method.params[ i ].type.compare( "int" ) )
-      {
-        values = generate_ints( method );
-      } else if( !method.params[ i ].type.compare( "String" ) )
-      {
-        values = generate_strings( method );
-      } else
-      {
-        // Nothing to do
-      }
+      args = generate_ints( column, method );
+    } else if( !method.params[ column ].type.compare( "String" ) )
+    {
+      args = generate_strings( column, method );
+    } else
+    {
+      // Nothing to do
     }
+
+    return args;
+  }
+
+  std::vector<std::string> TesterAnalizer::generate_ints( int column, Collector::Method method )
+  {
+    std::vector<std::string> ints;
+    ints.push_back( std::to_string( method.params[ column ].range.first ) );
+    ints.push_back( std::to_string( method.params[ column ].range.first+1 ) );
+    ints.push_back( std::to_string( method.params[ column ].range.second-1 ) );
+    ints.push_back( std::to_string( method.params[ column ].range.second ) );
+    return ints;
+  }
+
+  std::vector<std::string> TesterAnalizer::generate_strings( int column, Collector::Method method )
+  {
+    int min = method.params[ column ].range.first;
+    int max = method.params[ column ].range.second;
+    std::vector<std::string> strings;
+
+    strings.push_back( generator.generate_random_string( min, min+1 ) );
+    strings.push_back( generator.generate_random_string( min+1, min+2 ) );
+    strings.push_back( generator.generate_random_string( max-2, max-1 ) );
+    strings.push_back( generator.generate_random_string( max-1, max ) );
+    return strings;
   }
 }

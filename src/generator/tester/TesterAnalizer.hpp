@@ -50,9 +50,9 @@ namespace Tester
       std::string create_testcases( Collector::Method );
       void fill_column_analysis( int, std::vector<Matrix> *, Collector::Method );
       void fill_columns_adjacent( int, std::vector<Matrix> *, Collector::Method );
-      std::vector<std::string> generate_values( Collector::Method );
-      std::vector<std::string> generate_ints( Collector::Method );
-      std::vector<std::string> generate_strings( Collector::Method );
+      std::vector<std::string> generate_args( int, Collector::Method );
+      std::vector<std::string> generate_ints( int, Collector::Method );
+      std::vector<std::string> generate_strings( int, Collector::Method );
   };
 }
 
