@@ -110,4 +110,65 @@ namespace Helper
   {
     return std::count( text.begin(), text.end(), character );
   }
+
+  bool is_string( std::string type )
+  {
+    bool is_string = false;
+
+    if( !type.compare( "String" ) )
+    {
+      is_string = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_string;
+  }
+
+  bool is_integer( std::string type )
+  {
+    bool is_integer = false;
+
+    if( !type.compare( "Integer" ) || !type.compare( "int" ) )
+    {
+      is_integer = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_integer;
+  }
+
+  bool is_floating( std::string type )
+  {
+    bool is_floating = false;
+
+    if( !type.compare( "Double" ) || !type.compare( "double" ) ||
+        !type.compare( "Float" ) || !type.compare( "float" ) )
+    {
+      is_floating = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_floating;
+  }
+
+  bool is_boolean( std::string type )
+  {
+    bool is_boolean = false;
+
+    if( !type.compare( "boolean" ) )
+    {
+      is_boolean = true;
+    } else
+    {
+      // Nothing to do
+    }
+
+    return is_boolean;
+  }
 }

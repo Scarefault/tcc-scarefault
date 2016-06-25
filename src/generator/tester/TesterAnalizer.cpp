@@ -2,6 +2,7 @@
 
 
 #include "../../identifier/file/Method.hpp"
+#include "../../helper/Helper.hpp"
 #include "TesterAnalizer.hpp"
 
 
@@ -151,10 +152,10 @@ namespace Tester
 
         std::string value;
 
-        if( !method.params[ i ].type.compare( "int" ) )
+        if( Helper::is_integer( method.params[ i ].type ) )
         {
           value = generator.generate_random_integer( min, max );
-        } else if( !method.params[ i ].type.compare( "String" ) )
+        } else if( Helper::is_string( method.params[ i ].type ) )
         {
           value = generator.generate_random_string( min, max );
         } else
@@ -177,10 +178,10 @@ namespace Tester
   {
     std::vector<std::string> args;
 
-    if( !method.params[ column ].type.compare( "int" ) )
+    if( Helper::is_integer( method.params[ column ].type ) )
     {
       args = generate_ints( column, method );
-    } else if( !method.params[ column ].type.compare( "String" ) )
+    } else if( Helper::is_string( method.params[ column ].type ) )
     {
       args = generate_strings( column, method );
     } else

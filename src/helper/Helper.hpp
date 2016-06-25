@@ -26,6 +26,11 @@ namespace Helper
 
     char * convert_string_to_cstring( std::string );
 
+    bool is_string( std::string );
+    bool is_integer( std::string );
+    bool is_floating( std::string );
+    bool is_boolean( std::string );
+
     std::string extract_content_file( std::string );
     std::string remove_spaces( std::string );
     std::string convert_to_lower( std::string );
