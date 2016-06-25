@@ -77,7 +77,7 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].first[ j ] );
-          cases.append( ") @expect EXPECTATION HERE\n" );
+          cases.append( ") @expect INSERT_HERE\n" );
         }
       }
       cases.append( "\t\t@test(" );
@@ -90,7 +90,7 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].second[ j ] );
-          cases.append( ") @expect EXPECTATION HERE\n" );
+          cases.append( ") @expect INSERT_HERE\n" );
         }
       }
       cases.append( "\t\t@test(" );
@@ -103,7 +103,7 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].third[ j ] );
-          cases.append( ") @expect EXPECTATION HERE\n" );
+          cases.append( ") @expect INSERT_HERE\n" );
         }
       }
       cases.append( "\t\t@test(" );
@@ -116,7 +116,7 @@ namespace Tester
         } else
         {
           cases.append( conj_testcases[ i ].fourth[ j ] );
-          cases.append( ") @expect EXPECTATION HERE\n" );
+          cases.append( ") @expect INSERT_HERE\n" );
         }
       }
 
@@ -162,6 +162,25 @@ namespace Tester
       } else
       {
         continue;
+      }
+    }
+  }
+
+  std::vector<std::string> TesterAnalizer::generate_values( Collector::Method method )
+  {
+    std::vector<std::string> values;
+
+    for( int i = 0; i < method.params.size(); i++ )
+    {
+      if( !method.params[ i ].type.compare( "int" ) )
+      {
+        values = generate_ints( method );
+      } else if( !method.params[ i ].type.compare( "String" ) )
+      {
+        values = generate_strings( method );
+      } else
+      {
+        // Nothing to do
       }
     }
   }

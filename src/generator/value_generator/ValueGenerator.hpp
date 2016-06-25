@@ -22,6 +22,10 @@ namespace Generator
       std::string generate_floating( std::vector<int> );
       std::string generate_boolean();
 
+      std::string generate_random_string( int, int );
+      std::string generate_random_integer( int, int );
+      std::string generate_random_floating( int, int, int );
+
     private:
       // Order of elements of type_constraint, TesterController::TypeConstraint
       //   and ValueGenerator::TypeConstraint needs the same.
@@ -43,12 +47,9 @@ namespace Generator
       const std::string null = "null";
       const std::string empty_string = "";
 
-      std::string generate_random_string( int, int );
       std::string generate_random_email( int, int );
       std::string generate_random_url( int, int );
       std::string generate_random_credit_card();
-      std::string generate_random_integer( int, int );
-      std::string generate_random_floating( int, int, int );
 
       int verify_type_constraint( std::vector<int> );
   };
