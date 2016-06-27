@@ -68,7 +68,6 @@ int main( int argc, char **argv )
 
         Writer writer( &analizer, argv[ SOURCE_FILE_NAME ] );
         writer.write_testcases();
-        cout << "Selected option: " << argv[ OPTION ] << endl;
       } else
       {
         cout << "Option " << argv[ OPTION ] << " is invalid..." << endl;
