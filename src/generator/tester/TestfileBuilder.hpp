@@ -17,6 +17,7 @@ namespace Tester
       virtual void build_dependencies() = 0;
       virtual void build_test_class() = 0;
       virtual void build_valid_testcases() = 0;
+      virtual void build_setup() = 0;
 
     protected:
       Tester::TestfileProduct * testfile;

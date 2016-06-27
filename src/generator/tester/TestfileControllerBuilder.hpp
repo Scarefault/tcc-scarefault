@@ -18,6 +18,7 @@ namespace Tester
 
       void build_test_class();
       void build_valid_testcases();
+      void build_setup();
 
     protected:
       std::string build_package();

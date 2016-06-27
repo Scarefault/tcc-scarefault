@@ -202,6 +202,7 @@ namespace Tester
            << "    assert response.redirectedUrl == '/"
            << low_domain << "/list'" << std::endl
            << "  }" << std::endl
+           << "}" << std::endl
            << std::endl;
 
     return stream.str();
@@ -309,5 +310,11 @@ namespace Tester
            << std::endl;
 
     return stream.str();
+  }
+
+  void TestfileControllerBuilder::build_setup()
+  {
+    std::string setup( "\n" );
+    this->testfile->set_setup( setup );
   }
 }

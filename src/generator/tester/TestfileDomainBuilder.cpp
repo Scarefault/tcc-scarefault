@@ -3,6 +3,7 @@
 
 
 #include "TestfileDomainBuilder.hpp"
+#include "../../helper/Helper.hpp"
 
 
 namespace Tester
@@ -48,8 +49,28 @@ namespace Tester
     this->testfile->set_test_class( stream.str() );
   }
 
+  void TestfileDomainBuilder::build_setup()
+  {
+    std::stringstream stream;
+    std::string obj = Helper::convert_to_lower( data_ptr->class_name );
+
+    stream << "  def " << obj << std::endl
+           << std::endl
+           << "  protected void setUp() {" << std::endl
+           << "    super.setUp()" << std::endl
+           << "    " << obj << " = new " << data_ptr->class_name << "(name: "
+           << value_generator->generate_random_string(10, 20)
+           << ", salary: " << value_generator->generate_random_floating(100, 4000, 2)
+           << ")" << std::endl
+           << "  }" << std::endl
+           << std::endl;
+
+    this->testfile->set_setup( stream.str() );
+  }
+
   void TestfileDomainBuilder::build_valid_testcases()
   {
+    std::string obj = Helper::convert_to_lower( data_ptr->class_name );
     std::stringstream stream;
     std::vector<std::string> valid_testcases;
 
@@ -63,6 +84,7 @@ namespace Tester
                << (* data_ptr->methods[ i ].test_cases[ j ].get_expected_result() )
                << std::endl
                << "    def result = "
+               << obj << "."
                << (* data_ptr->methods[ i ].test_cases[ j ].get_bound_method() )
                << "(";
 

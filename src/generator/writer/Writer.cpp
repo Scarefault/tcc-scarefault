@@ -42,7 +42,8 @@ namespace Tester
     if( test_stream.is_open() )
     {
       test_stream << tester->get_testfile()->get_dependencies()
-                  << tester->get_testfile()->get_test_class();
+                  << tester->get_testfile()->get_test_class()
+                  << tester->get_testfile()->get_setup();
 
       for( int i = 0; i < tester->get_testfile()->get_valid_testcases()->size(); i++ )
       {

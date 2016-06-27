@@ -12,6 +12,7 @@ namespace Tester
   {
     generator_testile->build_dependencies();
     generator_testile->build_test_class();
+    generator_testile->build_setup();
     generator_testile->build_valid_testcases();
   }
 

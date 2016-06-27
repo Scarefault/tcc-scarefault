@@ -6,6 +6,16 @@ namespace Tester
 {
   TestfileProduct::TestfileProduct() { /* Empty Constructor */ }
 
+  std::string TestfileProduct::get_setup()
+  {
+    return this->setup;
+  }
+
+  void TestfileProduct::set_setup( std::string text )
+  {
+    this-> setup = text;
+  }
+
   std::string TestfileProduct::get_dependencies()
   {
     return this->dependencies;
