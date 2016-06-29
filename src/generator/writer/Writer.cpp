@@ -51,6 +51,8 @@ namespace Tester
                     << std::endl;
       }
 
+      test_stream << "}" << std::endl;
+
       test_stream.close();
     } else
     {
