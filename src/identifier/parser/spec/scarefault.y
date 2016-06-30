@@ -5,6 +5,7 @@ scarefault_stmt:
 | return_scarefault
 | invalid_scarefault
 | test_scarefault
+| use_scarefault
 ;
 
 param_scarefault:
@@ -34,6 +35,17 @@ range_stmt:
     range.append( $4 );
 
     collector->collector_scarefault.collect_data( "r", range.c_str() );
+  }
+;
+
+use_scarefault:
+  param_scarefault use_stmt
+;
+
+use_stmt:
+  SCAREFAULT_USE word {
+    log.message( LogSystem::INFO, "stmt: scarefault use" );
+    cout << "SCAREFAULT USE" << endl;
   }
 ;
 

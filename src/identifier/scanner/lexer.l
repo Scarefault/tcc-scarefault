@@ -417,6 +417,11 @@ BOOLEAN {TRUE}|{FALSE}
     return Parser::SCAREFAULT_TEST;
   }
 
+  "@use" {
+    *d_val = matched();
+    return Parser::SCAREFAULT_USE;
+  }
+
   //--------------------------Types--------------------------
   //
   "Integer" |
