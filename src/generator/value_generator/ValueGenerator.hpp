@@ -21,6 +21,7 @@ namespace Generator
       std::string generate_integer( std::vector<int> );
       std::string generate_floating( std::vector<int> );
       std::string generate_boolean();
+      std::string generate_random_value( std::string, int=10, int=20, int=2 );
 
       std::string generate_random_string( int, int );
       std::string generate_random_integer( int, int );

@@ -68,6 +68,7 @@ namespace Collector {
     {
       this->data.model_base = name;
       this->data.layer = "Domain";
+      collect_proprieties( name );
     }
   }
 

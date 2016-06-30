@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <vector>
+#include <iostream>
 
 
 #include "TestfileDomainBuilder.hpp"
@@ -53,15 +54,27 @@ namespace Tester
   {
     std::stringstream stream;
     std::string obj = Helper::convert_to_lower( data_ptr->class_name );
+    std::string values( "(" );
+    for( int i = 0; i < data_ptr->proprieties.size(); i++ )
+    {
+      std::cout << "AQUI" << "\n";
+      values.append( data_ptr->proprieties[ i ].name );
+      values.append( ": " );
+      values.append( value_generator->generate_random_value( data_ptr->proprieties[ i ].type ) );
+      if( data_ptr->proprieties.size()-1 != i )
+      {
+        values.append( ", " );
+      } else
+      {
+        values.append( ")" );
+      }
+    }
 
     stream << "  def " << obj << std::endl
            << std::endl
            << "  protected void setUp() {" << std::endl
            << "    super.setUp()" << std::endl
-           << "    " << obj << " = new " << data_ptr->class_name << "(name: "
-           << value_generator->generate_random_string(10, 20)
-           << ", salary: " << value_generator->generate_random_floating(100, 4000, 2)
-           << ")" << std::endl
+           << "    " << obj << " = new " << data_ptr->class_name << values << std::endl
            << "  }" << std::endl
            << std::endl;
 

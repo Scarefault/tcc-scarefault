@@ -1,4 +1,5 @@
 #include "ValueGenerator.hpp"
+#include "../../helper/Helper.hpp"
 
 
 namespace Generator
@@ -152,6 +153,27 @@ namespace Generator
     }
 
     return random_floating;
+  }
+
+  std::string ValueGenerator::generate_random_value( std::string type, int min, int max, int scale )
+  {
+    std::string random_value;
+
+    if( Helper::is_string( type ) )
+    {
+      random_value = generate_random_string( min, max );
+    } else if ( Helper::is_integer( type ) )
+    {
+      random_value = generate_random_integer( min, max );
+    } else if ( Helper::is_floating( type ) )
+    {
+      random_value = generate_random_floating( min, max, scale );
+    } else if( Helper::is_boolean( type ) )
+    {
+      random_value = generate_boolean();
+    }
+
+    return random_value;
   }
 
   std::string ValueGenerator::generate_random_floating( int min, int max, int scale )
