@@ -39,7 +39,6 @@ namespace Tester
             new_source.seekp( found-10 );
 
             std::string testcase = create_testcases( data->methods[ i ] );
-
             new_source << testcase << std::endl;
           }
         }
@@ -64,67 +63,77 @@ namespace Tester
 
     for( int i = 0; i < qtd_params; i++ )
     {
-      fill_column_analysis( i, &conj_testcases, method );
-      fill_columns_adjacent( i, &conj_testcases, method );
+      if( method.params[ i ].range.first != -1 &&
+          method.params[ i ].range.second != -1 )
+      {
+        fill_column_analysis( i, &conj_testcases, method );
+        fill_columns_adjacent( i, &conj_testcases, method );
+      }
     }
 
     for( int i = 0; i < qtd_params; i++ )
     {
-      std::string cases;
-      cases.append( "\t\t@test (" );
-      for( int j = 0; j < conj_testcases[ i ].first.size(); j++ )
-      {
-        if( j != conj_testcases[ i ].first.size()-1 )
+        if( method.params[ i ].range.first != -1 &&
+            method.params[ i ].range.second != -1 )
         {
-          cases.append( conj_testcases[ i ].first[ j ] );
-          cases.append( ", " );
-        } else
-        {
-          cases.append( conj_testcases[ i ].first[ j ] );
-          cases.append( ") @expect EXPECTATION\n" );
-        }
-      }
-      cases.append( "\t\t@test (" );
-      for( int j = 0; j < conj_testcases[ i ].second.size(); j++ )
-      {
-        if( j != conj_testcases[ i ].second.size()-1 )
-        {
-          cases.append( conj_testcases[ i ].second[ j ] );
-          cases.append( ", " );
-        } else
-        {
-          cases.append( conj_testcases[ i ].second[ j ] );
-          cases.append( ") @expect EXPECTATION\n" );
-        }
-      }
-      cases.append( "\t\t@test (" );
-      for( int j = 0; j < conj_testcases[ i ].third.size(); j++ )
-      {
-        if( j != conj_testcases[ i ].third.size()-1 )
-        {
-          cases.append( conj_testcases[ i ].third[ j ] );
-          cases.append( ", " );
-        } else
-        {
-          cases.append( conj_testcases[ i ].third[ j ] );
-          cases.append( ") @expect EXPECTATION\n" );
-        }
-      }
-      cases.append( "\t\t@test (" );
-      for( int j = 0; j < conj_testcases[ i ].fourth.size(); j++ )
-      {
-        if( j != conj_testcases[ i ].fourth.size()-1 )
-        {
-          cases.append( conj_testcases[ i ].fourth[ j ] );
-          cases.append( ", " );
-        } else
-        {
-          cases.append( conj_testcases[ i ].fourth[ j ] );
-          cases.append( ") @expect EXPECTATION\n" );
-        }
-      }
+          std::string cases;
 
-      testcases.append( cases );
+          cases.append( "\t\t@test (" );
+
+          for( int j = 0; j < conj_testcases[ i ].first.size(); j++ )
+          {
+            if( j != conj_testcases[ i ].first.size()-1 )
+            {
+              cases.append( conj_testcases[ i ].first[ j ] );
+              cases.append( ", " );
+            } else
+            {
+              cases.append( conj_testcases[ i ].first[ j ] );
+              cases.append( ") @expect EXPECTATION\n" );
+            }
+          }
+          cases.append( "\t\t@test (" );
+          for( int j = 0; j < conj_testcases[ i ].second.size(); j++ )
+          {
+            if( j != conj_testcases[ i ].second.size()-1 )
+            {
+              cases.append( conj_testcases[ i ].second[ j ] );
+              cases.append( ", " );
+            } else
+            {
+              cases.append( conj_testcases[ i ].second[ j ] );
+              cases.append( ") @expect EXPECTATION\n" );
+            }
+          }
+          cases.append( "\t\t@test (" );
+          for( int j = 0; j < conj_testcases[ i ].third.size(); j++ )
+          {
+            if( j != conj_testcases[ i ].third.size()-1 )
+            {
+              cases.append( conj_testcases[ i ].third[ j ] );
+              cases.append( ", " );
+            } else
+            {
+              cases.append( conj_testcases[ i ].third[ j ] );
+              cases.append( ") @expect EXPECTATION\n" );
+            }
+          }
+          cases.append( "\t\t@test (" );
+          for( int j = 0; j < conj_testcases[ i ].fourth.size(); j++ )
+          {
+            if( j != conj_testcases[ i ].fourth.size()-1 )
+            {
+              cases.append( conj_testcases[ i ].fourth[ j ] );
+              cases.append( ", " );
+            } else
+            {
+              cases.append( conj_testcases[ i ].fourth[ j ] );
+              cases.append( ") @expect EXPECTATION\n" );
+            }
+          }
+
+          testcases.append( cases );
+        }
     }
 
     testcases.append( "\n\t*/" );

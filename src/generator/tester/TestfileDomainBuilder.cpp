@@ -57,7 +57,6 @@ namespace Tester
     std::string values( "(" );
     for( int i = 0; i < data_ptr->proprieties.size(); i++ )
     {
-      std::cout << "AQUI" << "\n";
       values.append( data_ptr->proprieties[ i ].name );
       values.append( ": " );
       values.append( value_generator->generate_random_value( data_ptr->proprieties[ i ].type ) );
