@@ -44,6 +44,11 @@ namespace Tester {
     return &arguments[ index ];
   }
 
+  std::string * TestCaseBase::get_tested_propriety()
+  {
+    return &tested_propriety;
+  }
+
   void TestCaseBase::insert_argument( Tester::Arg argument )
   {
     this->arguments.push_back( argument );
@@ -57,5 +62,10 @@ namespace Tester {
   void TestCaseBase::set_expected_result( std::string result )
   {
     this->expected_result = result;
+  }
+
+  void TestCaseBase::set_tested_propriety( std::string propriety )
+  {
+    this->tested_propriety = propriety;
   }
 }

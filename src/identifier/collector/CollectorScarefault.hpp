@@ -30,6 +30,7 @@ namespace Collector
       static const char RANGE = 'r';
       static const char ARGUMENTS_FOR_TEST_CASE = 'a';
       static const char EXPECTED_RESULT = 'e';
+      static const char PROPRIETY = 'P';
 
 
       Tester::TestCaseBase collected_case;
@@ -39,6 +40,7 @@ namespace Collector
 
       void collect_arguments( std::string );
       void collect_expected_result( std::string );
+      void collect_propriety( std::string );
       void insert_test_case();
       void insert_param( std::string );
       void set_range( std::string );

@@ -23,6 +23,9 @@ namespace Collector
         case EXPECTED_RESULT:
           this->collect_expected_result( va_arg( arguments, char * ) );
           break;
+        case PROPRIETY:
+          this->collect_propriety( va_arg( arguments, char * ) );
+          break;
       }
 
       format++;
@@ -120,6 +123,11 @@ namespace Collector
     this->collected_case.get_arguments()->clear();
     this->collected_case.get_expected_result()->clear();
     this->collected_case.get_bound_method()->clear();
+  }
+
+  void CollectorScarefault::collect_propriety( std::string propriety )
+  {
+    this->collected_case.set_tested_propriety( propriety );
   }
 
   void CollectorScarefault::clear_test_cases()

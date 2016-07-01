@@ -45,7 +45,9 @@ use_scarefault:
 use_stmt:
   SCAREFAULT_USE word {
     log.message( LogSystem::INFO, "stmt: scarefault use" );
-    cout << "SCAREFAULT USE" << endl;
+    std::string propriety_token( $2 );
+
+    collector->collector_scarefault.collect_data( "P", propriety_token.c_str() );
   }
 ;
 
